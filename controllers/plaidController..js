@@ -1,11 +1,12 @@
+require('dotenv').config();
 const axios = require('axios');
 const db = require("../models");
 
 /* This should probably be globally availbale to our controller */
 var client = new plaid.Client(
-  '[PLAID_CLIENT_ID]', // these values need to be updated and stored in a .env
-  '[PLAID_SECRET]',   // these values need to be updated and stored in a .env
-  '[PLAID_PUBLIC_KEY]', // these values need to be updated and stored in a .env
+  process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
+  process.env.PLAID_SECRET,   // these values need to be updated and stored in a .env
+  process.env.PLAID_PUBLIC_KEY, // these values need to be updated and stored in a .env
   plaid.environments.sandbox
 );
 
