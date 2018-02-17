@@ -26,6 +26,13 @@ module.exports = {
           error: msg
         });
       }
+
+      /*TODO
+        Add current user email address to the req object so it can be used to add access token
+        id to the current user collection
+      */
+     
+      //add the access token and item id to the user model
       ACCESS_TOKEN = tokenResponse.access_token;
       ITEM_ID = tokenResponse.item_id;
 

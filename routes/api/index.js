@@ -1,9 +1,9 @@
 const router = require("express").Router();
-// const bookRoutes = require("./books");
 const plaidRoutes = require("./plaid");
+const authRoutes = require("./auth");
 
-// Book routes
-// router.use("/books", bookRoutes);
+// Plaid routes
 router.use("/plaid", plaidRoutes);
+router.use("/auth", authRoutes);
 
 module.exports = router;
