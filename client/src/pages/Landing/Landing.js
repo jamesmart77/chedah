@@ -13,7 +13,7 @@ class Landing extends Component {
   render() {
     return (
       <Container>
-        <h1>Things go here</h1>
+        <h1>Landing Page Goes Here</h1>
 
       </Container>
     );
