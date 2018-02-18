@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="msapplication-tap-highlight" content="no">
+        <title>Chedah</title>
+        <!-- Materialize CSS-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- App CSS-->
+        <link href="assets/css/style.css" type="text/css" rel="stylesheet">
+
+    </head>
+    <body>
+        <header>
+
+            <!-- Navigation -->
+            <nav class="navbar grey">
+
+                <!-- Main Menu (Desktop Dropdown) -->
+                <ul id="desktop-main-menu" class="dropdown-content">
+                    <li><a href="#!"><i class="large material-icons">account_balance</i>Accounts</a></li>
+                    <li><a href="#!"><i class="large material-icons">work</i>Gigs</a></li>
+                    <li><a href="#!"><i class="large material-icons">insert_chart</i>Goals</a></li>
+                </ul>
+
+                <!-- Main Menu (Mobile Hamburger) -->
+                <ul id="mobile-main-menu" class="side-nav">
+                    <li><a href="#!"><i class="large material-icons">account_balance</i>Accounts</a></li>
+                    <li><a href="#!"><i class="large material-icons">work</i>Gigs</a></li>
+                    <li><a href="#!"><i class="large material-icons">insert_chart</i>Goals</a></li>
+                </ul>
+
+                <!-- Navigation Bar -->
+                <div class="nav-wrapper">
+                    <a href="#!" class="brand-logo header-logo">chedah</a>
+
+                    <!-- Hamburger Menu Icon -->
+                    <a href="#" data-activates="mobile-main-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right topnav-menu">
+                        <li><a class="dropdown-button hide-on-med-and-down" href="#!" data-activates="desktop-main-menu">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a href="#" data-activates="user-slideout" class="waves-effect waves-block waves-light user-side-collapse"><i class="material-icons">input</i></a></li>
+                    </ul>
+
+                </div>
+            </nav>
+
+        </header>
+
+
+        <!-- Breadcrumbs? -->
+        <section id="content"></section>
+
+
+        <!-- Body  -->
+        <main>
+            <div class="container padding-2 center">
+                <div class="row"></div>
+            </div>
+        </main>
+
+
+
+        <!-- Footer -->
+        <footer class="page-footer footer-fixed grey center-on-small-only">
+            <div class="footer-copyright">
+                <div class="container">
+                    <div>
+                        &copy;
+                        <span id="copyright">
+                            <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span>
+                            <span><a class="grey-text text-lighten-4">chedah</a>. All rights reserved.</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <!-- Size Visual Cue -->
+        <div style="position:fixed;bottom:0;left:0;background-color:rgba(0,0,0,0.5);padding:10px;color:#fff;z-index: 99999999;">
+            <span class="hide-on-med-only hide-on-large-only">Mobile</span>
+            <span class="hide-on-small-only hide-on-large-only">Tablet</span>
+            <span class="hide-on-small-only hide-on-med-only">Desktop</span>
+        </div>
+
+
+        <!-- Sidebar -->
+        <aside id="right-sidebar-nav">
+            <ul id="user-slideout" class="side-nav rightside-navigation">
+                <li class="li-hover">
+                    <div class="row">
+                        <div class="col s12 border-bottom-1 mt-5">
+
+                            <!--  Tabs -->
+                            <ul class="tabs">
+                                <li class="tab col s4"><a href="#tab-actions" class="active"><span class="material-icons grey-text">create</span></a></li>
+                                <li class="tab col s4"><a href="#tab-alerts"><span class="material-icons grey-text scale-transition pulse">report_problem</span></a></li>
+                                <li class="tab col s4"><a href="#tab-settings"><span class="material-icons grey-text">settings</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Actions Tab -->
+                        <div id="tab-actions" class="col s12">
+                            <h6 class="mt-5 mb-3 ml-3">User Actions</h6>
+                        </div>
+
+                        <!-- Alerts Tab -->
+                        <div id="tab-alerts" class="col s12">
+                            <h6 class="mt-5 mb-3 ml-3">Alerts</h6>
+                        </div>
+
+                        <!-- Settings Tab -->
+                        <div id="tab-settings" class="col s12">
+                            <h6 class="mt-5 mb-3 ml-3">User Settings</h6>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </aside>
+
+        <!--  Scripts -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+        <script src="assets/vendor/js/jquery.nestable.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <!-- Custom JS -->
+        <script src="assets/js/view.js"></script>
+        <!-- Materialize Init -->
+        <script src="assets/js/init.js"></script>
+    </body>
+</html>
