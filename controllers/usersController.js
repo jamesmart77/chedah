@@ -4,7 +4,7 @@ const db = require("../models");
 module.exports = {
     createUser: (user) =>{
         db.User.create(user)
-        .then((err,res) => {if(err) throw err; res.send(200)})
+        .then((err,res) => {if(err) throw err; res.sendStatus(200)})
         .catch(err => err)
     }  
 };
