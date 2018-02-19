@@ -29,20 +29,64 @@ export default {
 
 
   //transactions
-  getTransactionsByAccount: () =>{
+  getTransactionsByAccount: account =>{
     return new Promise((resolve, reject) => {
       const data = [
         {
+          id: 1,
           date: "11/23/14", 
           vendor: "Google", 
           category: "Advertising", 
+          gig: "Uber",
           ammount: 200.00
         },
         {
+          id: 2,
           date: "11/23/14", 
           vendor: "Staples", 
           category: "Office Supplies", 
-          ammount: 19.00
+          gig: "Uber",
+          ammount: 15.00
+        },
+        {
+          id: 3,
+          date: "11/23/14", 
+          vendor: "Staples", 
+          category: "Office Supplies", 
+          gig: "Dev",
+          ammount: 12.00
+        },
+        {
+          id: 4,
+          date: "11/23/14", 
+          vendor: "Staples", 
+          category: "Office Supplies", 
+          gig: "Uber",
+          ammount: 16.00
+        },
+        {
+          id: 5,
+          date: "11/23/14", 
+          vendor: "Staples", 
+          category: "Office Supplies",
+          gig: "Dev", 
+          ammount: 119.00
+        },
+        {
+          id: 6,
+          date: "11/23/14", 
+          vendor: "Staples", 
+          category: "Office Supplies", 
+          gig: "Dev",
+          ammount: 219.00
+        },
+        {
+          id: 7,
+          date: "11/23/14", 
+          vendor: "Staples", 
+          category: "Office Supplies", 
+          gig: "Uber",
+          ammount: 29.00
         }
       ];
       resolve(data);  
