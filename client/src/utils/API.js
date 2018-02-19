@@ -22,4 +22,30 @@ export default {
   login: (credentials) => {
     return axios.post("/api/auth/login", credentials)
   }
+  ,
+
+
+
+
+
+  //transactions
+  getTransactionsByAccount: () =>{
+    return new Promise((resolve, reject) => {
+      const data = [
+        {
+          date: "11/23/14", 
+          vendor: "Google", 
+          category: "Advertising", 
+          ammount: 200.00
+        },
+        {
+          date: "11/23/14", 
+          vendor: "Staples", 
+          category: "Office Supplies", 
+          ammount: 19.00
+        }
+      ];
+      resolve(data);  
+    });
+  }
 };

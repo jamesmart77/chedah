@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Books from "./pages/Books";
+import AccountDetail from "./pages/AccountDetail";
 import Landing from "./pages/Landing";
 import Testing from "./pages/Testing";
 import Login from "./pages/Login";
@@ -21,6 +22,7 @@ const App = () =>
         <Route exact path="/books" component={Books} onEnter={requireAuth} />
         <Route exact path="/testing" component={Testing} onEnter={requireAuth} />
         <Route exact path="/books/:id" component={Detail} />
+        <Route exact path="/accounts/:id" component={AccountDetail} />
         <Route path="/callback" component={Callback} />
         <Route component={NoMatch} />
       </Switch>
