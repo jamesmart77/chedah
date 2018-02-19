@@ -60,10 +60,10 @@ const userSchema = new Schema({
   }],
   transactions: [{
     type: Schema.Types.ObjectId,
-    ref: Transaction
+    ref: "Transaction"
   }]
 });
 
-const User = mongoose.model("User", bookSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
