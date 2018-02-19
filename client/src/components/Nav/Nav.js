@@ -31,11 +31,11 @@ const Nav = () =>
           <ul class="right topnav-menu">
             <li><a class="dropdown-button hide-on-med-and-down" href="#!" data-activates="desktop-main-menu">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
             <li><a href="#" data-activates="user-slideout" class="waves-effect waves-block waves-light user-side-collapse"><i class="material-icons">input</i></a></li>
-            <li><button className="btn btn-danger log" onClick={() => logout()}>Log out </button></li>
+            <li><a href="#!" onClick={() => logout()}>Log out </a></li>
           </ul>
           :
           <ul class="right topnav-menu">
-            <li><button className="btn btn-info log" onClick={() => login()}>Log In</button></li>
+            <li><a href="#!" onClick={() => login()}>Log In</a></li>
           </ul>
         }
       </div>
