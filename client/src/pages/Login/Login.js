@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -55,9 +54,6 @@ class Login extends Component {
       <Container fluid>
         <Row>
           <Col size="md-6">
-            <Jumbotron>
-              <h1>Log In</h1>
-            </Jumbotron>
             <form>
               <Input
                 value={this.state.email}
