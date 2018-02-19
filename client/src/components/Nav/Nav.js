@@ -2,6 +2,8 @@ import React from "react";
 import { login, logout, isLoggedIn } from '../../utils/AuthService';
 import { Link } from "react-router-dom";
 
+
+// materialize navbar
 const Nav = () =>
   <nav class="navbar grey">
 
