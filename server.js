@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const cors = require('cors');
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -10,6 +12,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // Serve up static assets
 app.use(express.static("client/build"));
+
+//Cross-origin resource sharing from client to server -- needed for auth
+app.use(cors());
+
 // Add routes, both API and view
 app.use(routes);
 
