@@ -1,0 +1,9 @@
+.jumbo-text {
+    font-size: 3em;
+}
+.success {
+    color: greenyellow!important;
+}
+.fail {
+    color:red!important;
+}
