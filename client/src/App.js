@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AccountDetail from "./pages/AccountDetail";
+import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import Testing from "./pages/Testing";
 import Login from "./pages/Login";
@@ -16,6 +17,7 @@ const App = () =>
       <Nav />
       <Switch>
         <Route exact path="/" component={Landing} />
+        <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/testing" component={Testing} onEnter={requireAuth} />
         <Route exact path="/accounts/:id" component={AccountDetail} />

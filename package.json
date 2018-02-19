@@ -16,7 +16,8 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "react-materialize": "^1.1.2"
   },
   "dependencies": {
     "axios": "^0.16.2",
