@@ -5,6 +5,9 @@ const plaidController = require("../../controllers/plaidController");
 router.route("/get_access_token")
   .post(plaidController.getPrivateKey);
 
+router.route("/transactions/get")
+  .post(plaidController.getTransactions);
+
 // Matches with "/api/books/:id"
 // router
 //   .route("/:id")

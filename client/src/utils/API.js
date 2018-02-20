@@ -24,72 +24,19 @@ export default {
   }
   ,
 
-
-
-
+  // this is where the front end pokes the backend server to get the transactions and sync the accounts
+  syncAccounts: data => {
+    data.credentials = '';
+    data.startDate = '2015-01-01';
+    data.endDate = '2017-01-01';
+    return axios.post("/api/plaid/transactions/get", data)
+  },
 
   //transactions
-  getTransactionsByAccount: account =>{
-    return new Promise((resolve, reject) => {
-      const data = [
-        {
-          id: 1,
-          date: "11/23/14", 
-          vendor: "Google", 
-          category: "Advertising", 
-          gig: "Uber",
-          ammount: 200.00
-        },
-        {
-          id: 2,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
-          gig: "Uber",
-          ammount: 15.00
-        },
-        {
-          id: 3,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
-          gig: "Dev",
-          ammount: 12.00
-        },
-        {
-          id: 4,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
-          gig: "Uber",
-          ammount: 16.00
-        },
-        {
-          id: 5,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies",
-          gig: "Dev", 
-          ammount: 119.00
-        },
-        {
-          id: 6,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
-          gig: "Dev",
-          ammount: 219.00
-        },
-        {
-          id: 7,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
-          gig: "Uber",
-          ammount: 29.00
-        }
-      ];
-      resolve(data);  
-    });
+  getTransactionsByAccount: data =>{
+    data.credentials = '';
+    data.startDate = '2015-01-01';
+    data.endDate = '2017-01-01';
+    return axios.post(`/api/transactions/account/${data.accountId}`, data)
   }
 };

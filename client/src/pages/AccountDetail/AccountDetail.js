@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
+// import { Link } from "react-router-dom";
+import { Container } from "../../components/Grid";
+// import { Col, Row, Container } from "../../components/Grid";
 import Panel from "../../components/Panel";
 import MaterialButton from "../../components/MaterialButton";
 import API from "../../utils/API";
@@ -21,22 +22,32 @@ class AccountDetail extends Component {
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
-    API.getTransactionsByAccount()
+    const data = {};
+    data.accountId = this.props.match.url.split('/')[2];
+    API.getTransactionsByAccount(data)
       .then(res => {
         console.log(res);
+        this.setState({transactions: res.data});
         return res;
-      })
-      .then(res => this.setState({ transactions: res }))
-      .catch(err => console.log(err));
+      });
+      // .then(res => this.setState({ transactions: res }))
+      // .catch(err => console.log(err));
+    // API.getTransactionsByAccount()
+    //   .then(res => {
+    //     console.log(res);
+    //     return res;
+    //   })
+    //   .then(res => this.setState({ transactions: res }))
+    //   .catch(err => console.log(err));
   }
 
-  renderTr(tr){ 
-    return <tr key={tr.id}>
-      <td>{tr.date}</td>
-      <td>{tr.vendor}</td>
-      <td>{tr.category}</td>
-      <td>{tr.gig}</td>
-      <td>{tr.ammount}</td>
+  tr(props){ 
+    return <tr key={props.id}>
+      <td>{props.date}</td>
+      <td>{props.name}</td>
+      <td>{props.category}</td>
+      <td>{props.gig || "n/a"}</td>
+      <td>{props.amount}</td>
     </tr>
   };
 
@@ -77,7 +88,7 @@ class AccountDetail extends Component {
         </tr>
       </thead>
       <tbody>
-        {this.state.transactions.map(this.renderTr)}
+        {this.state.transactions.map(this.tr)}
       </tbody>
       </table>
       </Container>
