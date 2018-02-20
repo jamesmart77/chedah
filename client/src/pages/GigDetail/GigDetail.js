@@ -17,7 +17,7 @@ class GigDetail extends React.Component {
           },
           goals:  [
             { name:"Spend Less On Tolls", budget: 200, spent: 100, net: 100 },
-            { name:"Another Goal Here", budget: 200, spent: 100, net: 100 },
+            { name:"Another Goal Goes Here", budget: 425, spent: 300, net: 125 },
             
         ]
       };
@@ -29,6 +29,7 @@ class GigDetail extends React.Component {
              <div className="row">
               <div className="col s12">
             <h1>{this.state.gig.gigName}</h1>
+            </div>
             </div>
       
         <div style={{clear: 'both'}} className="row">
@@ -49,7 +50,29 @@ class GigDetail extends React.Component {
             <h4>{this.state.gig.gigName} Goals</h4>
             </div>
             </div>
-            <div style={{clear: 'both'}} className="row">
+
+              {this.state.goals.map(goal => {
+                  return (
+            // <div style={{clear: 'both'}} className="row">
+       <div className="row">
+              <div className="col s12">
+              <div className="divider"></div>
+            <h5>{goal.name}</h5>
+            </div>
+            
+        <div className="col s4">
+          <Panel color="teal" title="BUDGET" value={<span><sup>$</sup>{goal.budget}</span>}/>
+        </div>
+        <div className="col s4">
+          <Panel color="teal" title="SPENT" value={<span><sup>$</sup>{goal.spent}</span>}/>
+        </div>
+        <div className="col s4">
+          <Panel color="teal" title="NET" value={<span><sup>$</sup>{goal.net}</span>}/>
+        </div>
+      </div>
+       );
+    })}
+      
         
         
         {/* {this.state.goals.map(goal => {
@@ -68,13 +91,7 @@ class GigDetail extends React.Component {
                 })} */}
 
 
- <div style={{clear: 'both'}} className="row">
-        <div className="col s6">
-        <Panel color="teal" title="GOAL NAME" value="Budget | Spent | Net"/>
-        </div>
-        <div className="col s6">
-        <Panel color="teal" title="GOAL NAME" value="Budget | Spent | Net"/>
-        </div>
+ 
              
         
       
@@ -83,15 +100,44 @@ class GigDetail extends React.Component {
               <div className="col s12">
               <div className="divider"></div>
             <h4>{this.state.gig.gigName} Transactions</h4>
-            <p> transactions here</p>
+            
+            
+            <table className="striped">
+      <thead>
+        <tr>
+          <td>Date</td>
+          <td>Vendor</td>
+          <td>Category</td>
+          <td>Gig</td>
+          <td>Amount</td>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+        </tr>
+        <tr>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+          <td>test</td>
+        </tr>
+      </tbody>
+      </table>
+
             </div>
             </div>
 
           
          
-    </div>
-    </div>
-      </div>
+   
+
+      
             </Container>
 
         );

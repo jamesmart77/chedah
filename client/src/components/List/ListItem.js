@@ -1,6 +1,6 @@
 import React from "react";
 
 export const ListItem = props =>
-  <li className="collection-item">
+  <li className="list-group-item">
     {props.children}
   </li>;

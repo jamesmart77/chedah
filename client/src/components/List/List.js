@@ -3,10 +3,10 @@ import "./List.css";
 
 export const List = ({ children }) => {
   return (
-    <div className="collection with-header">
-      <ul className="collection-header"></ul>
+    <div className="list-overflow-container">
+      <ul className="list-group">
         {children}
-      
+      </ul>
     </div>
   );
 };
