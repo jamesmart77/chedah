@@ -1,10 +1,17 @@
-.list-overflow-container {
+/* .collection{
+  font-family: "Rubik", sans-serif;
+  font-size: 2em;
+} */
+
+
+/* .collection {
   max-height: 545px;
   border: 1px #DDDDDD solid;
   border-radius: 4px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
 
 .list-overflow-container ul {
   margin: 0;
@@ -30,4 +37,4 @@
 
 .list-overflow-container li:last-child {
   border-bottom: none;
-}
+} */
