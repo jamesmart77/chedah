@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 // materialize navbar
 const Nav = () =>
-  <nav class="navbar grey">
+  <nav class="navbar deep-orange darken-2">
 
     {/* <!-- Main Menu (Desktop Dropdown) --> */}
     <ul id="desktop-main-menu" class="dropdown-content">
