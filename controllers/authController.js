@@ -4,16 +4,15 @@ require('dotenv').config();
 var secret = {};
 secret.tokenSecret = process.env.tokenSecret;
 
+
 //authenticatin middleware
 const jwtauth = require('./jwtAuth.js');
 
 module.exports = {
   login: (req, res) => {
-    // db.User
-    //   .findById(req.params.id)
-    //   .then(dbModel => res.json(dbModel))
-    //   .catch(err => res.status(422).json(err));
+
     console.log("IN THE AUTH CONTROLLER LOGIN")
+
     const user = {
       email: req.body.email
     }
@@ -29,5 +28,9 @@ module.exports = {
     });
   },
   isLoggedIn: (req, jwtauth, res) => {
+  },
+  signUp: (req,res) => {
+    console.log("Here is the new user " + req.body)
+    res.send("USER SIGNED UP")
   }
 };

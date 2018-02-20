@@ -23,6 +23,9 @@ export default {
     return axios.post("/api/auth/login", credentials)
   }
   ,
+  signUp: (credentials) => {
+    return axios.post("/api/auth/signUp", credentials)
+  },
 
 
 
