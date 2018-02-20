@@ -1,9 +1,16 @@
 .jumbo-text {
-    font-size: 3em;
+    font-size: 4em;
+    font-family: 'Scope One', serif;
 }
 .success {
     color: greenyellow!important;
 }
 .fail {
     color:red!important;
+}
+
+sup {
+    /* color:red; */
+    top: -0.75em;
+    font-size: .5em;
 }
