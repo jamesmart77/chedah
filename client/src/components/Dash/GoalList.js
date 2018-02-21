@@ -25,16 +25,17 @@ class GoalList extends Component {
 
     render() {
         return (
-            <ul class="collapsible dashboard" data-collapsible="expandable">
+            <ul className="collapsible dashboard" data-collapsible="expandable">
                 <li>
-                    <div class="dashboard collapsible-header">
-                        <i class="material-icons">insert_chart</i>Goals
+                    <div className="dashboard collapsible-header">
+                        <i className="material-icons">insert_chart</i>Goals
                     </div>
 
-                    {this.state.goals.map(goal => (
+                    {this.state.goals.map((goal, i) => (
                         <Goal
-                            name={goal.name}
+                            key={i}
                             id={goal.id}
+                            name={goal.name}
                             total={goal.total}
                             change={goal.change}
                             gigs={goal.gigs}

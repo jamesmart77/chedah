@@ -18,18 +18,18 @@ class Account extends Component {
     };
 
     renderGigs() {
-        return (this.state.gigs.map(gig => <div class="chip">{gig}</div>));
+        return (this.state.gigs.map((gig, i) => <div key={i} className="chip">{gig}</div>));
     };
 
     renderChecking() {
         const gigs = this.renderGigs();
-        return (<div class="row collapsible-body">
-            <div class="col s8">
-                <p class="collections-title">
-                    <i class="material-icons inflex">attach_money</i> {this.state.name}</p>
+        return (<div className="row collapsible-body">
+            <div className="col s8">
+                <p className="collections-title">
+                    <i className="material-icons inflex">attach_money</i> {this.state.name}</p>
                     {gigs}
             </div>
-            <div class="col s4 account-total">
+            <div className="col s4 account-total">
                 <p>
                     <span>${this.state.total}</span>
                 </p>
@@ -39,13 +39,13 @@ class Account extends Component {
 
     renderCredit() {
         const gigs = this.renderGigs();
-        return (<div class="row collapsible-body">
-            <div class="col s8">
-                <p class="collections-title">
-                    <i class="material-icons inflex">credit_card</i> {this.state.name}</p>
+        return (<div className="row collapsible-body">
+            <div className="col s8">
+                <p className="collections-title">
+                    <i className="material-icons inflex">credit_card</i> {this.state.name}</p>
                 {gigs}
             </div>
-            <div class="col s4 account-total">
+            <div className="col s4 account-total">
                 <p>
                     <span>${this.state.total}</span>
                 </p>

@@ -1,6 +1,5 @@
 // materialize initialization module
 
-
 // document start
 (function($) {
     $(function() {
@@ -90,9 +89,5 @@
                 minLength: 1
             }
         });
-
-
-
-
     }); // end of document ready
-})(jQuery); // end of jQuery name space
+})(jQuery); // end of jQuery namepace
