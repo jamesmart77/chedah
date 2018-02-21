@@ -6,6 +6,7 @@ import Landing from "./pages/Landing";
 import Testing from "./pages/Testing";
 import Login from "./pages/Login";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 import Callback from './components/Callback';
 import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
@@ -24,6 +25,7 @@ const App = () =>
         <Route path="/callback" component={Callback} />
         {/* <Route component={NoMatch} /> */}
       </Switch>
+      <Footer />
     </div>
   </Router>;
 

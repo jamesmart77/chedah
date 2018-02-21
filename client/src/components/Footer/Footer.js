@@ -8,8 +8,8 @@ const Footer = () =>
             <div class="container">
                 <div>
                     &copy;
-                    <span id="copyright"> <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script></span>
-                    <span><a class="grey-text text-lighten-4">chedah</a>. All rights reserved.</span>
+                    <span id="copyright">2018</span>
+                    <span><a class="grey-text text-lighten-4">, chedah</a>. All rights reserved.</span>
                 </div>
             </div>
         </div>
