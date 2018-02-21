@@ -1,4 +1,5 @@
 import axios from "axios";
+import {decodeToken, getIdToken} from './AuthService';
 
 export default {
   // Gets all books
@@ -21,11 +22,30 @@ export default {
   //user login
   login: (credentials) => {
     return axios.post("/api/auth/login", credentials)
-  }
-  ,
+  },
+
+  createUserIfDoesNotExist: () => {
+    const user = decodeToken(getIdToken());
+    return axios.post("/api/users", user)
+  },
+
+  createItem: plaidObj => {
+    const data = {};
+    data.user = decodeToken(getIdToken());
+    data.plaidObj = plaidObj;
+    return axios.post('/api/users/items', data);
+  },
 
 
+  accountsSync: userId => {
+    console.log("getIdToken()");
+    console.log(decodeToken(getIdToken()));
 
+
+    // const user = {};
+    // user.user_jwt ='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImJlbkB0aGlzaXNiYW0uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vY2hlZGFoLmF1dGgwLmNvbS8iLCJzdWIiOiJmYWNlYm9va3wxMDE1NTQ1NjI1MzAxMjcxMiIsImF1ZCI6Ims0UWZvNXBaVVQ4YnhCYTBWNHZSbVJvYUQyNlkxMjRHIiwiaWF0IjoxNTE5MTc0MjA2LCJleHAiOjE1MTkyMTAyMDYsImF0X2hhc2giOiJCMUNmZjBtNHlrbDgzeEp1elpGSEdBIiwibm9uY2UiOiI0Ymx2LXlGR1hnSzJ5cWltVjBGMURvLXlBSmhxd25wZiJ9.ZuxGKI_YeNGGuvtporvkLT9Jd7f2kSekkrROSb4w2kM';
+    // return axios.post("/api/transactions/", user)
+  },
 
 
   //transactions

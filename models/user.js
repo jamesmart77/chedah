@@ -10,12 +10,18 @@ const userSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    required: true
+    required: false
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
     trim: true
+  },
+  auth_id: {
+    type: String,
+    trim: true,
+    unique: true,
+    required: "auth0 id is required"
   },
   email: {
     type: String,
@@ -28,8 +34,7 @@ const userSchema = new Schema({
   },
   items: [{
     access_token: {
-      type: String,
-      unique: true
+      type: String
     },
     item_id: {
       type: String,
@@ -39,13 +44,11 @@ const userSchema = new Schema({
       type: String
     },
     institution_id: {
-      type: String,
-      unique: true
+      type: String
     },
     accounts: [{
       id: {
-        type: String,
-        unique: true
+        type: String
       },
       name: {
         type: String
@@ -60,10 +63,10 @@ const userSchema = new Schema({
   }],
   transactions: [{
     type: Schema.Types.ObjectId,
-    ref: Transaction
+    ref: "Transaction"
   }]
 });
 
-const User = mongoose.model("User", bookSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
