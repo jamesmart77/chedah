@@ -6,12 +6,32 @@ import Gig from './Gig';
 class GigList extends Component {
 
     state = {
-        gigs: []
+        gigs: [
+            {
+                id: 1,
+                name: 'Uber',
+                income: 3100,
+                inchange: -120,
+                expenses: 400,
+                expchange: -100,
+                net: 4200,
+                netchange: 500
+            }, {
+                id: 2,
+                name: 'Programming',
+                income: 4700,
+                inchange: 1700,
+                expenses: 210,
+                expchange: -80,
+                net: 6300,
+                netchange: -220
+            }
+        ]
     };
 
     render() {
         return (
-            <div id="giglist-root" class="col s12 m6 l9">
+            <div id="giglist-root">
                 {this.state.gigs.map(gig => (
                     <Gig
                         name={gig.name}

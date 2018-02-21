@@ -10,7 +10,7 @@ class Dashboard extends Component {
   render() {
     return (
         <main class='m8'>
-            <div class='container-fluid padding-2'>
+            <div class='container-fluid padding-1'>
                 <div class='row'>
                     <div class='col s12'>
                         <h4 class='dash-title'>Dashboard</h4>
@@ -21,13 +21,13 @@ class Dashboard extends Component {
 
 
                     {/* Accounts & Goals Lists */}
-                    <div class="col s12 m6 l3">
+                    <div class="col s12 m5 l4">
                         <AccountList/>
                         <GoalList/>
                     </div>
 
                     {/* Gigs List */}
-                    <div class="col s12 m6 l9">
+                    <div class="col s12 m7 l8">
                         <GigList/>
                     </div>
                 </div>

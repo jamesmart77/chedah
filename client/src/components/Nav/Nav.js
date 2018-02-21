@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Nav = () =>
 
     <header>
-        <nav class="navbar grey">
+        <nav class="navbar deep-orange darken-2">
             {/* <!-- Main Menu (Desktop Dropdown) --> */}
             <ul id="desktop-main-menu" class="dropdown-content">
                 <li><a href="#!"><i class="large material-icons">account_balance</i>Accounts</a></li>
@@ -22,7 +22,7 @@ const Nav = () =>
             </ul>
             {/* <!-- Navigation Bar --> */}
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo header-logo"><img src="assets/img/chedah-rnd-24x24.svg"/> chedah</a>
+                <a href="/dashboard" class="brand-logo header-logo"><img class="shadow" src="assets/img/icon-24x24.svg"/> chedah</a>
                 {/* <!-- Hamburger Menu Icon --> */}
                 <a href="#" data-activates="mobile-main-menu" class="button-collapse"><i class="material-icons">menu</i></a>
                 {(isLoggedIn()) ?

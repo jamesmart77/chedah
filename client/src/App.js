@@ -6,7 +6,8 @@ import Landing from "./pages/Landing";
 import Testing from "./pages/Testing";
 import Login from "./pages/Login";
 import Nav from "./components/Nav";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
+import FooterDebug from "./components/Footer/FooterDebug";
 import Callback from './components/Callback';
 import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
@@ -28,6 +29,7 @@ const App = () =>
         {/* <Route component={NoMatch} /> */}
       </Switch>
       <Footer />
+      <FooterDebug />
     </div>
   </Router>;
 
