@@ -1,7 +1,7 @@
 /*---------------------------------
     Font Imports
 -----------------------------------*/
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Gurajada|Poller+One|Rubik|Scope+One|Slabo+13px');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Gurajada|Poller+One|Roboto+Slab:300,700|Rubik:300,400|Scope+One|Slabo+13px');
 
 /*
 font-family: 'Slabo 13px', serif;
@@ -10,6 +10,7 @@ font-family: 'Scope One', serif;
 font-family: 'Rubik', sans-serif;
 font-family: 'Abril Fatface', cursive;
 font-family: 'Poller One', cursive;
+font-family: 'Roboto Slab', serif;
 */
 /*---------------------------------
     Fix for sticky footer
@@ -395,6 +396,19 @@ a.footer-yellow {
     background-color: #666;
 }
 
+.side-tab-header {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.25rem;
+    text-transform: none;
+    /*font-weight: 700;*/
+    color: #444;
+}
+
+.alert-name {
+    font-family: 'Roboto Slab', serif;
+    font-weight: lighter;
+}
+
 .collapsible {
     box-shadow: none;
     -webkit-box-shadow: none;
@@ -527,7 +541,7 @@ a.footer-yellow {
 .goal-total {
     font-family: 'Roboto', sans-serif;
     font-size: 2rem;
-    color: #86C285;
+    color: #56BE89;
 }
 
 .dashboard .collapsible-body {
@@ -536,9 +550,12 @@ a.footer-yellow {
 
 .dashboard .chip {
     font-family: 'Rubik', sans-serif;
+    font-weight: 300;
     text-transform: lowercase;
     line-height: 1.5rem;
     height: 1.5rem;
+    background-color: #558EB0; /*#56BE89;*/
+    color: #fff;
 }
 
 .dashboard .collections-title {
@@ -564,8 +581,8 @@ a.footer-yellow {
 
 .dashboard.collapsible-header {
     font-family: 'Scope One', serif;
-    color: #171717ab;
-    background-color: #d6d6d6;
+    color: #943d07cf;
+    background-color: #f6b4a0;
 }
 
 span.balance {
@@ -573,9 +590,9 @@ span.balance {
 }
 
 .collapsible.dashboard {
-    border-top: 1px solid #bbb8b8;
-    border-right: 1px solid #bbb8b8;
-    border-left: 1px solid #bbb8b8;
+    border-top: 1px solid #b5340ba3;
+    border-right: 1px solid #b5340b63;
+    border-left: 1px solid #b5340b63;
 }
 
 .collapsible.dashboard.active {
@@ -589,15 +606,32 @@ span.balance {
 }
 
 .collapsible.dashboard span.badge {
-    background-color: #F7B23F;
+    background-color: #E68A19;
 }
 
 .collapsible.dashboard span.badge.negative {
-    background-color: #DB4437;
+    background-color: #bb031b;
+}
+
+a.gig-frequency {
+    color: #333;
+    font-size: 1rem;
 }
 
 
+.gig-frequency .material-icons {
+    vertical-align: bottom;
+}
 
+.gig-dropdown .dropdown-content li>a, .dropdown-content li>span {
+    font-size: 0.75rem;
+}
+
+
+.gig-dash-card .card-title {
+    color: #3f464a;
+    text-shadow: 1px 1px 1px #3333333b;
+}
 /*
 .side-collection {
     box-shadow: none;

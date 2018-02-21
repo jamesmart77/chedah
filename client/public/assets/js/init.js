@@ -11,7 +11,7 @@
         $('select').material_select();
 
         //Modal Dialog for profile page
-        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        // the 'href' attribute of the modal trigger must specify the modal ID that wants to be triggered
         $('.modal').modal();
 
         //Modal Dialog Date Picker
@@ -40,7 +40,7 @@
         });
 
         // dropdown menu positioning
-        $(".dropdown-button").dropdown({
+        $('.dropdown-button').dropdown({
             hover: true,
             // gutter:100,         // push menu to the left
             belowOrigin: true,
@@ -48,8 +48,17 @@
             constrainWidth: false // don't force a fixed width
         });
 
+
+        $('.gig-frequency').dropdown({
+            hover: false,
+            // gutter:100,         // push menu to the left
+            belowOrigin: true,
+            alignment: 'right',
+            constrainWidth: false // don't force a fixed width
+        });
+
         // dropdown items color
-        $(".dropdown-content>li>a").css("color", "#666");
+        $('.dropdown-content>li>a').css('color', '#666');
 
         // mobile side main menu
         $('.button-collapse').sideNav('hide');

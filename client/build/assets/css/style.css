@@ -106,6 +106,16 @@ em {
     font-style: italic;
 }
 
+/* update for React sticky footer -mf */
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    zIndex: 999999
+}
+
+
 .shadow {
     -webkit-filter: drop-shadow( 1px 1px 3px #00000029 );
     filter: drop-shadow( 1px 1px 3px #00000029 );

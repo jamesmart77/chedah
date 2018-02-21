@@ -1,75 +1,111 @@
 import React, { Component } from "react";
+import { formatCurrency, changeJSX, currencyJSX } from '../../utils/currency';
+
+
+
+function tick() {
+    const element = (
+        <div>
+            <h1>Hello, world!</h1>
+            <h2>It is {new Date().toLocaleTimeString()}.</h2>
+        </div>
+    );
+}
 
 
 // materialize gig preview
-const Gig = props => (
+class Gig extends Component {
 
-    <div className="card gig-dash-card">
-        <div className="card-content">
-            <div className="row">
-                <div className="col">
-                    <span className="card-title">{props.name}</span>
-                </div>
-                <div className="col">
-                    <a className="dropdown-button gig-frequency right" href="#!" data-activates="frequency-gig-217"><i className="material-icons right">arrow_drop_down</i></a>
-                    <ul className="dropdown-content">
-                        <li><a href="#!">this week</a></li>
-                        <li><a href="#!">this month</a></li>
-                        <li><a href="#!">this year</a></li>
-                    </ul>
-                </div>
-            </div>
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: props.id,
+            name: props.name,
+            income: props.income,
+            inchange: props.inchange,
+            expenses: props.expenses,
+            expchange: props.expchange,
+            net: props.net,
+            netchange: props.netchange,
+            frequency: 'week'
+        };
+        this.handleClick = this.handleClick.bind(this);
+    };
 
-            {/* In */}
-            <div className="row">
-                <div className="col m4">
-                    <div className="row">
-                        <div className="col">
-                            <span className="gig-dash-subtitle">In</span>
-                        </div>
-                        <div className="col">
-                            <span className="gig-dash-loss">{props.inchange}</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <span className="gig-dash-total">{props.income}</span>
-                        </div>
-                    </div>
-                </div>
+    handleClick(freq) {
+        this.setState({frequency: freq})
+    }
 
-                {/* Out */}
-                <div className="col m4">
+    render() {
+        return (
+            <div className="card gig-dash-card">
+                <div className="card-content">
                     <div className="row">
                         <div className="col">
-                            <span className="gig-dash-subtitle">Out</span>
+                            <span className="card-title">{this.state.name}</span>
                         </div>
-                        <div className="col">
-                            <span className="gig-dash-gain">{props.expchange}</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <span className="gig-dash-total">{props.expenses}</span>
-                    </div>
-                </div>
+                        <div className="col right">
+                            <a className="dropdown-button gig-frequency" href="#!" data-activates={'frequency-gig-' + this.state.id}>{'this ' + this.state.frequency}<i className="material-icons">arrow_drop_down</i></a>
 
-                {/* Net */}
-                <div className="col m4">
-                    <div className="row">
-                        <div className="col">
-                            <span className="gig-dash-subtitle">Net</span>
-                        </div>
-                        <div className="col">
-                            <span className="gig-dash-gain">{props.netchange}</span>
+                            <ul id={'frequency-gig-' + this.state.id} className="dropdown-content gig-dropdown">
+                                <li className="gig-frequency-item"><a href="#!" onClick={this.handleClick.bind(null, 'week')}>this week</a></li>
+                                <li className="gig-frequency-item"><a href="#!" onClick={this.handleClick.bind(null, 'month')}>this month</a></li>
+                                <li className="gig-frequency-item"><a href="#!" onClick={this.handleClick.bind(null, 'year')}>this year</a></li>
+                            </ul>
                         </div>
                     </div>
+
+                    {/* In */}
                     <div className="row">
-                        <span className="gig-dash-total">{props.net}</span>
+                        <div className="col m4">
+                            <div className="row">
+                                <div className="col">
+                                    <span className="gig-dash-subtitle">In</span>
+                                </div>
+                                <div className="col">
+                                    {changeJSX(this.state.inchange)}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col">
+                                    <span className="gig-dash-total">{currencyJSX(this.state.income)}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Out */}
+                        <div className="col m4">
+                            <div className="row">
+                                <div className="col">
+                                    <span className="gig-dash-subtitle">Out</span>
+                                </div>
+                                <div className="col">
+                                    {changeJSX(this.state.expchange, true)}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <span className="gig-dash-total">{currencyJSX(this.state.expenses)}</span>
+                            </div>
+                        </div>
+
+                        {/* Net */}
+                        <div className="col m4">
+                            <div className="row">
+                                <div className="col">
+                                    <span className="gig-dash-subtitle">Net</span>
+                                </div>
+                                <div className="col">
+                                    {changeJSX(this.state.netchange)}
+                                </div>
+                            </div>
+                            <div className="row">
+                                <span className="gig-dash-total">{currencyJSX(this.state.net)}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-);
+            </div>);
+        }
+};
 
 export default Gig;

@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer/Footer";
 import FooterDebug from "./components/Footer/FooterDebug";
+import Sidebar from "./components/Sidebar/Sidebar";
 import Callback from './components/Callback';
 import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
@@ -29,6 +30,7 @@ const App = () =>
         {/* <Route component={NoMatch} /> */}
       </Switch>
       <Footer />
+      <Sidebar />
       <FooterDebug />
     </div>
   </Router>;
