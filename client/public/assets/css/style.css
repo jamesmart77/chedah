@@ -106,6 +106,12 @@ em {
     font-style: italic;
 }
 
+.shadow {
+    -webkit-filter: drop-shadow( 1px 1px 3px #00000029 );
+    filter: drop-shadow( 1px 1px 3px #00000029 );
+}
+
+
 /*---------------------------------
     Material Icons
 -----------------------------------*/
@@ -305,6 +311,10 @@ textarea.materialize-textarea {
 
 .page-footer {
     padding-top: 15px;
+}
+
+a.footer-yellow {
+    color: #e4c883 !important;
 }
 
 /* Page Logo */
@@ -575,6 +585,8 @@ span.balance {
 .collapsible.dashboard span.badge.negative {
     background-color: #DB4437;
 }
+
+
 
 /*
 .side-collection {

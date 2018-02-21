@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 
 // materialize gig preview
-// props = {name: "Gig Name", income: 2100, expenses: 800, net: 1300}
 const Gig = props => (
 
     <div class="card gig-dash-card">
