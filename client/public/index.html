@@ -1,68 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="theme-color" content="#000000">
-        <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-        <title>Chedah</title>
-        <!-- Materialize CSS-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- App CSS-->
-        <link href="assets/css/style.css" type="text/css" rel="stylesheet">
 
-    </head>
-    <body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <title>Chedah</title>
+    <!-- Materialize CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- App CSS-->
+    <link href="assets/css/material-helpers.css" type="text/css" rel="stylesheet">
+    <link href="assets/css/style.css" type="text/css" rel="stylesheet">
 
-        <div id="container">
-          <button id="link-btn">Link Account</button>
-        </div>
+</head>
 
-        <div id="root"></div>
+<body>
 
+    <!--
+    <div id="container">
+        <button id="link-btn">Link Account</button>
+    </div>-->
 
-
-        <!--  Scripts -->
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-        <script src="assets/vendor/js/jquery.nestable.js"></script>
-        <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-        <!-- Custom JS -->
-        <script src="assets/js/view.js"></script>
-        <!-- Materialize Init -->
-        <script src="assets/js/init.js"></script>
+    <div id="root"></div>
 
 
-        <script>
-          (function($) {
+
+    <!--  Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="assets/vendor/js/jquery.nestable.js"></script>
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/view.js"></script>
+    <!-- Materialize Init -->
+    <script src="assets/js/init.js"></script>
+
+
+    <script>
+        (function($) {
             var handler = Plaid.create({
-              apiVersion: 'v2',
-              clientName: 'Plaid Walkthrough Demo',
-              env: 'sandbox',
-              product: ['transactions'],
-              key: '1d68b777ea259a9dedc5cfb9510428',
-              onSuccess: function(public_token) {
-                $.post('/api/plaid/get_access_token', {
-                  public_token: public_token
-                }, function(response) {
-                  console.log(response)
-                  $('#container').fadeOut('fast', function() {
-                    $('#intro').hide();
-                    $('#app, #steps').fadeIn('slow');
-                  });
-                });
-              },
+                apiVersion: 'v2',
+                clientName: 'Plaid Walkthrough Demo',
+                env: 'sandbox',
+                product: ['transactions'],
+                key: '1d68b777ea259a9dedc5cfb9510428',
+                onSuccess: function(public_token) {
+                    $.post('/api/plaid/get_access_token', {
+                        public_token: public_token
+                    }, function(response) {
+                        console.log(response)
+                        $('#container').fadeOut('fast', function() {
+                            $('#intro').hide();
+                            $('#app, #steps').fadeIn('slow');
+                        });
+                    });
+                },
             });
 
-            $('#link-btn').on('click', function(e) {
-              handler.open();
+            $(document).on('click', '#link-btn', function(e) {
+                handler.open();
             });
-          })(jQuery);
-          </script>
+        })(jQuery);
+    </script>
 
 
-    </body>
+</body>
+
 </html>
