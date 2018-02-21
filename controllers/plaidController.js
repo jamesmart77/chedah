@@ -32,6 +32,8 @@ module.exports = {
         id to the current user collection
       */
      
+      // db.User.findById()
+
       //add the access token and item id to the user model
       ACCESS_TOKEN = tokenResponse.access_token;
       ITEM_ID = tokenResponse.item_id;
@@ -58,17 +60,71 @@ module.exports = {
 
   // this is where we get transactions
   getTransactions: function (req, res) {
+    console.log("Getting Transactions");
     /* This is boilerplate from the API */
 
     // Retrieve transactions from Jan 1 until Feb 15
     // NOTE: This endpoint may return a `PRODUCT_NOT_READY` error if transactions
     // are not yet processed for the Item.
-    client.getTransactions(accessToken, '2017-01-01', '2017-02-15', {
+
+
+
+
+    // Dates will need to be read from req.body
+    // hard coding them in here for now.
+    req.body.startDate = '2015-01-01';
+    req.body.endDate = '2017-02-15';
+    const {startDate, endDate} = req.body;
+
+        // We need to get the users access token for the item they are looking for transactions for
+    // It's hardcoded in hardcoded in for now
+    let accessToken = 'access-sandbox-2d37f621-c372-42d3-8403-78af978f9b70';
+
+    client.getTransactions(accessToken, startDate, endDate, {
       count: 250,
       offset: 0,
     }, (err, result) => {
-      // Handle err
+      if(err) console.log(err);
       const transactions = result.transactions;
+      res.json(transactions);
+      // return transactions;
+    });
+
+
+  },
+
+   // this is where we get transactions
+   getTransactionsByAccount: function (req, res) {
+    console.log("Getting Transactions By Account");
+    console.log(req.body);
+    /* This is boilerplate from the API */
+
+    // Retrieve transactions from Jan 1 until Feb 15
+    // NOTE: This endpoint may return a `PRODUCT_NOT_READY` error if transactions
+    // are not yet processed for the Item.
+
+    
+
+
+    // Dates will need to be read from req.body
+    // hard coding them in here for now.
+    req.body.startDate = '2015-01-01';
+    req.body.endDate = '2017-02-15';
+    const {startDate, endDate, accountId} = req.body;
+
+    // We need to get the users access token for the item they are looking for transactions for
+    // It's hardcoded in hardcoded in for now
+    let accessToken = 'access-sandbox-2d37f621-c372-42d3-8403-78af978f9b70';
+
+    client.getTransactions(accessToken, startDate, endDate, {
+      count: 250,
+      offset: 0,
+    }, (err, result) => {
+      if(err) console.log(err);
+      const transactions = result.transactions.filter(t => t.account_id === accountId);
+
+      res.json(transactions);
+      // return transactions;
     });
 
 
