@@ -29,7 +29,7 @@ class SignUp extends Component {
         event.preventDefault();
         // Go to the SignUp method on the API utils with the
         API.signUp({
-            email: this.state.username,
+            email: this.state.email,
             password: this.state.password
         }).then(res => console.log('successful signup'))
         .catch(err => console.log(err));

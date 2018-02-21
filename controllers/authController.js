@@ -30,7 +30,8 @@ module.exports = {
   isLoggedIn: (req, jwtauth, res) => {
   },
   signUp: (req,res) => {
-    console.log("Here is the new user " + req.body)
-    res.send("USER SIGNED UP")
+    // Right now this will not even fire. 
+    console.log("WITHIN THE SIGNUP CONTROLLER")
+
   }
 };

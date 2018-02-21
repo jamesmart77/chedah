@@ -9,7 +9,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const CLIENT_ID = 'k4Qfo5pZUT8bxBa0V4vRmRoaD26Y124G';
 const CLIENT_DOMAIN = 'chedah.auth0.com';
 const REDIRECT = 'http://localhost:3000/callback';
-const SCOPE = 'YOUR_SCOPE';
+const SCOPE = 'openid email openid profile';
 const AUDIENCE = 'AUDIENCE_ATTRIBUTE';
 
 var auth = new auth0.WebAuth({
@@ -20,9 +20,9 @@ var auth = new auth0.WebAuth({
 export function login() {
   auth.authorize({
     responseType: 'token id_token',
-    scope: "openID profile email",
-    redirectUri: REDIRECT
+    redirectUri: REDIRECT, 
     // audience: AUDIENCE,
+    scope: SCOPE
   });
 }
 
@@ -98,12 +98,17 @@ export function isLoggedIn() {
 
 function getTokenExpirationDate(encodedToken) {
   const token = decode(encodedToken);
+  
   if (!token.exp) { return null; }
 
   const date = new Date(0);
   date.setUTCSeconds(token.exp);
 
   return date;
+}
+
+export function decodeToken(encodedToken){
+  return decode(encodedToken);
 }
 
 function isTokenExpired(token) {

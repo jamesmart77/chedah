@@ -7,9 +7,13 @@ import axios from "axios";
 import PlaidAccountLink from "../PlaidAccountLink"
 
 // materialize navbar
-const Nav = ()=>(
+class Nav extends React.Component {
+
+    render(){
+        return(
         <header>
-            <nav class="navbar deep-orange darken-2">
+            <Button onClick={API.createUserIfDoesNotExist}>Testing</Button>
+            <nav class="navbar grey">
                 {/* <!-- Main Menu (Desktop Dropdown) --> */}
                 <ul id="desktop-main-menu" class="dropdown-content">
                     <li><a href="#!"><i class="large material-icons">account_balance</i>Accounts</a></li>
@@ -42,6 +46,7 @@ const Nav = ()=>(
                 </div>
             </nav>
         </header>
-    )
+        )}
+}
 
 export default Nav;
