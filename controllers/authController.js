@@ -28,10 +28,5 @@ module.exports = {
     });
   },
   isLoggedIn: (req, jwtauth, res) => {
-  },
-  signUp: (req,res) => {
-    // Right now this will not even fire. 
-    console.log("WITHIN THE SIGNUP CONTROLLER")
-
   }
 };
