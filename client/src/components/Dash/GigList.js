@@ -32,10 +32,11 @@ class GigList extends Component {
     render() {
         return (
             <div id="giglist-root">
-                {this.state.gigs.map(gig => (
+                {this.state.gigs.map((gig, i) => (
                     <Gig
-                        name={gig.name}
+                        key={i}
                         id={gig.id}
+                        name={gig.name}
                         income={gig.income}
                         inchange={gig.inchange}
                         expenses={gig.expenses}

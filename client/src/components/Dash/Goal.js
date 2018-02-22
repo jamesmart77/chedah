@@ -17,23 +17,23 @@ class Goal extends Component {
     };
 
     renderGigs() {
-        return (this.state.gigs.map(gig => <div class="chip">{gig}</div>));
+        return (this.state.gigs.map((gig, i) => <div key={i} className="chip">{gig}</div>));
     };
 
     render() {
-        const className = (this.state.change >= 0) ? 'new badge' : 'new badge negative';
+        const cname = (this.state.change >= 0) ? 'new badge' : 'new badge negative';
         const totalString = (this.state.change >= 0) ? `+${this.state.change}` : `${this.state.change}`;
         const gigs = this.renderGigs();
         return (
-            <div class="row collapsible-body">
-                <div class="col s8">
-                    <p class="collections-title goal truncate">{this.state.name}</p>
+            <div className="row collapsible-body">
+                <div className="col s8">
+                    <p className="collections-title goal truncate">{this.state.name}</p>
                     {gigs}
                 </div>
 
-                <div class="col s4 valign-wrapper">
-                    <span class="goal-total">{this.state.total}%</span>
-                    <span class={className} data-badge-caption="">{totalString}</span>
+                <div className="col s4 valign-wrapper">
+                    <span className="goal-total">{this.state.total}%</span>
+                    <span className={cname} data-badge-caption="">{totalString}</span>
                 </div>
             </div>
         );

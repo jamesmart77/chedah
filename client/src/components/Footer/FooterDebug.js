@@ -1,6 +1,6 @@
 import React from "react";
 
-var footerStyle = {
+const footerStyle = {
   position: 'fixed',
   bottom: 0,
   left: 0,
@@ -15,9 +15,9 @@ var footerStyle = {
 const FooterDebug = () =>
 
     <div style={footerStyle}>
-        <span class="hide-on-med-only hide-on-large-only">Mobile (SM)</span>
-        <span class="hide-on-small-only hide-on-large-only">Tablet (M)</span>
-        <span class="hide-on-small-only hide-on-med-only">Desktop (L)</span>
+        <span className="hide-on-med-only hide-on-large-only">Mobile (SM)</span>
+        <span className="hide-on-small-only hide-on-large-only">Tablet (M)</span>
+        <span className="hide-on-small-only hide-on-med-only">Desktop (L)</span>
     </div>
 
 

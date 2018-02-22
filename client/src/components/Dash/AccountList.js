@@ -33,16 +33,17 @@ class AccountList extends Component {
     };
 
     render() {
-        return (<ul class="collapsible dashboard" data-collapsible="expandable">
+        return (<ul className="collapsible dashboard" data-collapsible="expandable">
             <li>
-                <div class="dashboard collapsible-header">
-                    <i class="material-icons">account_balance</i>Accounts
+                <div className="dashboard collapsible-header">
+                    <i className="material-icons">account_balance</i>Accounts
                 </div>
 
-                {this.state.accounts.map(account => (
+                {this.state.accounts.map((account, i) => (
                     <Account
-                        name={account.name}
+                        key={i}
                         id={account.id}
+                        name={account.name}
                         total={account.total}
                         balance={account.balance}
                         accountType={account.accountType}
