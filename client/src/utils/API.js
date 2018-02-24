@@ -23,7 +23,7 @@ export default {
   login: (credentials) => {
     return axios.post("/api/auth/login", credentials)
   },
-
+  
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
     return axios.post("/api/users", user)
@@ -37,9 +37,12 @@ export default {
   },
 
 
-  accountsSync: userId => {
-    console.log("getIdToken()");
-    console.log(decodeToken(getIdToken()));
+  accountsSync: () => {
+    console.log("Accounts syncing");
+    console.log(decodeToken(getIdToken()))
+    const user = decodeToken(getIdToken());
+    return axios.post('/api/users/transactions', user);
+
 
 
     // const user = {};

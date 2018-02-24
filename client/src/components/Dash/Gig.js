@@ -1,21 +1,56 @@
 import React, { Component } from "react";
+import { formatCurrencyValueJSX, formatChangeValueJSX } from '../../utils/currency';
+
+
+
+function tick() {
+    const element = (
+        <div>
+            <h1>Hello, world!</h1>
+            <h2>It is {new Date().toLocaleTimeString()}.</h2>
+        </div>
+    );
+}
 
 
 // materialize gig preview
-const Gig = props => (
+class Gig extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: props.id,
+            name: props.name,
+            income: props.income,
+            inchange: props.inchange,
+            expenses: props.expenses,
+            expchange: props.expchange,
+            net: props.net,
+            netchange: props.netchange,
+            frequency: 'week'
+        };
+        this.handleClick = this.handleClick.bind(this);
+    };
+
+    handleClick(freq) {
+        this.setState({frequency: freq})
+    }
+
+    render() {
+        return (
     <div className="card gig-dash-card">
         <div className="card-content">
             <div className="row">
                 <div className="col">
-                    <span className="card-title">{props.name}</span>
+                            <span className="card-title">{this.state.name}</span>
                 </div>
-                <div className="col">
-                    <a className="dropdown-button gig-frequency right" href="#!" data-activates="frequency-gig-217"><i className="material-icons right">arrow_drop_down</i></a>
-                    <ul className="dropdown-content">
-                        <li><a href="#!">this week</a></li>
-                        <li><a href="#!">this month</a></li>
-                        <li><a href="#!">this year</a></li>
+                        <div className="col right">
+                            <a className="dropdown-button gig-frequency" href="#!" data-activates={'frequency-gig-' + this.state.id}>{'this ' + this.state.frequency}<i className="material-icons">arrow_drop_down</i></a>
+
+                            <ul id={'frequency-gig-' + this.state.id} className="dropdown-content gig-dropdown">
+                                <li className="gig-frequency-item"><a href="#!" onClick={this.handleClick.bind(null, 'week')}>this week</a></li>
+                                <li className="gig-frequency-item"><a href="#!" onClick={this.handleClick.bind(null, 'month')}>this month</a></li>
+                                <li className="gig-frequency-item"><a href="#!" onClick={this.handleClick.bind(null, 'year')}>this year</a></li>
                     </ul>
                 </div>
             </div>
@@ -28,12 +63,12 @@ const Gig = props => (
                             <span className="gig-dash-subtitle">In</span>
                         </div>
                         <div className="col">
-                            <span className="gig-dash-loss">{props.inchange}</span>
+                                    {formatChangeValueJSX(this.state.inchange)}
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <span className="gig-dash-total">{props.income}</span>
+                                    <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.income)}</span>
                         </div>
                     </div>
                 </div>
@@ -45,11 +80,11 @@ const Gig = props => (
                             <span className="gig-dash-subtitle">Out</span>
                         </div>
                         <div className="col">
-                            <span className="gig-dash-gain">{props.expchange}</span>
+                                    {formatChangeValueJSX(this.state.expchange, true)}
                         </div>
                     </div>
                     <div className="row">
-                        <span className="gig-dash-total">{props.expenses}</span>
+                                <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.expenses)}</span>
                     </div>
                 </div>
 
@@ -60,16 +95,17 @@ const Gig = props => (
                             <span className="gig-dash-subtitle">Net</span>
                         </div>
                         <div className="col">
-                            <span className="gig-dash-gain">{props.netchange}</span>
+                                    {formatChangeValueJSX(this.state.netchange)}
                         </div>
                     </div>
                     <div className="row">
-                        <span className="gig-dash-total">{props.net}</span>
-                    </div>
+                                <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.net)}</span>
                 </div>
             </div>
         </div>
     </div>
-);
+            </div>);
+        }
+};
 
 export default Gig;

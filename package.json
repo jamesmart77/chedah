@@ -16,8 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0",
-    "react-materialize": "^1.1.2"
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -31,6 +30,8 @@
     "plaid": "^2.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-materialize": "^1.1.2",
+    "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-scripts": "^1.1.1"
   }
