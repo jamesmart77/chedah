@@ -17,9 +17,14 @@ class PlaidAccountLink extends React.Component {
             token: token,
             metadata: metadata
         }
-        API.createItem(plaidObj)
+
+        API.getAccessToken(plaidObj)
             .then(console.log)
-            .catch(console.log);
+            .catch((err) => console.log);
+
+        // API.createItem(plaidObj)
+        //     .then(console.log)
+        //     .catch(console.log);
 
     }
 
