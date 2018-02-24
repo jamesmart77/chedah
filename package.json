@@ -36,6 +36,8 @@
     "plaid": "^2.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-materialize": "^1.1.2",
+    "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-scripts": "^1.1.1",
     "redis": "^2.8.0"
