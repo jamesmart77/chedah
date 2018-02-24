@@ -1,47 +1,105 @@
-import React from "react";
-import { login, logout, isLoggedIn } from '../../utils/AuthService';
-import { Link } from "react-router-dom";
+import React, {Component} from "react";
+import Alert from './Alert';
+
+class Sidebar extends Component {
+
+    state = {
+        alerts: [
+            {
+                id: 1,
+                name: 'Uber Goal at 80%',
+                value: '3 days to goal deadline',
+                date: '17:00'
+            },
+            {
+                id: 2,
+                name: 'Checking balance low',
+                date: '17:00'
+            }
+        ]
+    };
+
+    render() {
+        return (<aside id="right-sidebar-nav">
+            <ul id="user-slideout" className="side-nav rightside-navigation">
+                <li className="li-hover">
+                    <div className="row">
+                        <div className="col s12 border-bottom-1 mt-5">
+
+                            {/* <!--  Tabs --> */}
+                            <ul className="tabs">
+                                <li className="tab col s4">
+                                    <a href="#tab-actions" className="active">
+                                        <span className="material-icons grey-text">account_circle</span>
+                                    </a>
+                                </li>
+                                <li className="tab col s4">
+                                    <a href="#tab-alerts">
+                                        <span className="material-icons grey-text scale-transition pulse">report_problem</span>
+                                    </a>
+                                </li>
+                                <li className="tab col s4">
+                                    <a href="#tab-settings">
+                                        <span className="material-icons grey-text">settings</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* <!-- Actions Tab --> */}
+                        <div id="tab-actions" className="col s12">
+                            <h6 className="mt-5 mb-3 ml-3 side-tab-header">Actions</h6>
+                            <div className="divider"></div>
+                        </div>
+
+                        {/* <!-- Alerts Tab --> */}
+                        <div id="tab-alerts" className="col s12">
+                            <h6 className="mt-5 mb-3 ml-3 side-tab-header">Alerts</h6>
+                            <div className="divider"></div>
+                            <div className="collection border-none">
+                                {this.state.alerts.map((alrt, i) => {
+                                        return (
+                                            <Alert
+                                                key={i}
+                                                id={alrt.id}
+                                                name={alrt.name}
+                                                value={alrt.value}
+                                                date={alrt.date}
+                                            />
+                                        )
+                                    })}
+                            </div>
+                        </div>
+
+                        {/* <!-- Settings Tab --> */}
+                        <div id="tab-settings" className="col s12">
+                            <h6 className="mt-5 mb-3 ml-3 side-tab-header">Settings</h6>
+                            <div className="divider"></div>
+
+                            <ul className="collection border-none">
+                                <li className="collection-item border-none">
+                                  <div className="m-0">
+                                    <span className="font-weight-600">Notifications</span>
+                                    <div className="switch right">
+                                      <label>
+                                        <input type="checkbox"/>
+                                        <span className="lever"></span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <p>Allow account notifications.</p>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </aside>);
+    }
+}
 
 
-// materialize navbar
-const Sidebar = () =>
-  <nav class="navbar grey">
 
-    {/* <!-- Main Menu (Desktop Dropdown) --> */}
-    <ul id="desktop-main-menu" class="dropdown-content">
-      <li><a href="#!"><i class="large material-icons">account_balance</i>Accounts</a></li>
-      <li><a href="#!"><i class="large material-icons">work</i>Gigs</a></li>
-      <li><a href="#!"><i class="large material-icons">insert_chart</i>Goals</a></li>
-    </ul>
 
-    {/* <!-- Main Menu (Mobile Hamburger) --> */}
-    <ul id="mobile-main-menu" class="side-nav">
-      <li><a href="#!"><i class="large material-icons">account_balance</i>Accounts</a></li>
-      <li><a href="#!"><i class="large material-icons">work</i>Gigs</a></li>
-      <li><a href="#!"><i class="large material-icons">insert_chart</i>Goals</a></li>
-    </ul>
-
-    {/* <!-- Navigation Bar --> */}
-    <div class="nav-wrapper">
-      <a href="#!" class="brand-logo header-logo">chedah</a>
-
-      {/* <!-- Hamburger Menu Icon --> */}
-
-      <div>
-        <a href="#" data-activates="mobile-main-menu" class="button-collapse"><i class="material-icons">menu</i></a>
-        {(isLoggedIn()) ?
-          <ul class="right topnav-menu">
-            <li><a class="dropdown-button hide-on-med-and-down" href="#!" data-activates="desktop-main-menu">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
-            <li><a href="#" data-activates="user-slideout" class="waves-effect waves-block waves-light user-side-collapse"><i class="material-icons">input</i></a></li>
-            <li><a href="#!" onClick={() => logout()}>Log out </a></li>
-          </ul>
-          :
-          <ul class="right topnav-menu">
-            <li><a href="#!" onClick={() => login()}>Log In</a></li>
-          </ul>
-        }
-      </div>
-
-    </div>
-  </nav>
 export default Sidebar;

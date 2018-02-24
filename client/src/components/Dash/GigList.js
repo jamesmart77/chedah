@@ -10,7 +10,7 @@ class GigList extends Component {
             {
                 id: 1,
                 name: 'Uber',
-                income: 3100,
+                income: 3100.21,
                 inchange: -120,
                 expenses: 400,
                 expchange: -100,
