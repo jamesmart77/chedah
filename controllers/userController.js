@@ -1,4 +1,6 @@
 const db = require("../models");
+const axios = require("axios");
+require('dotenv').config();
 
 // Defining methods for the booksController
 module.exports = {
@@ -64,7 +66,24 @@ module.exports = {
       .findOne(
         {"auth_id" : req.body.sub}
       )
-      .then((dbUser) => console.log(dbUser))
+      .then((dbUser) => {
+        console.log(dbUser)
+
+        const userObj = {
+          access_token: dbUser.items[0].access_token,
+          client_id: process.env.PLAID_CLIENT_ID,
+          secret: process.env.PLAID_SECRET,
+          start_date: "2017-01-01",
+          end_date: "2018-01-31"
+        }
+
+        axios.post("https//sandbox.plaid.com/transactions/get", userObj)
+        .then((transResonse) => console.log(transResponse))
+        .catch((err) => console.log(err));
+
+        //query plaid for trans
+        //return trans to frontend
+      })
       .catch((err) => console.log(err))
   }
 };
