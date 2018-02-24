@@ -1,7 +1,7 @@
 import React from "react";
 import { login, logout, isLoggedIn } from '../../utils/AuthService';
 import { Link } from "react-router-dom";
-import API from '../../utils/API.js';
+import API from '../../utils/API';
 import { Button } from "react-materialize";
 import axios from "axios";
 import PlaidAccountLink from "../PlaidAccountLink"
@@ -17,6 +17,7 @@ const Nav = () => (
                 <li><a href="#!"><i className="large material-icons">account_balance</i>Accounts</a></li>
                 <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
                 <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
+                <li><a href="#!" onClick={API.accountsSync()}><i className="large material-icons">reset</i>Sync Accounts</a></li>
                 <li className="divider"></li>
                 <li><PlaidAccountLink><i className="large material-icons">insert_chart</i>Link Account</PlaidAccountLink></li>
                 <li className="divider"></li>
@@ -29,6 +30,8 @@ const Nav = () => (
                 <li><a href="#!"><i className="large material-icons">account_balance</i>Accounts</a></li>
                 <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
                 <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
+                <li><div className="divider"></div></li>
+                <li><a href="#!"><i className="large material-icons">reset</i>Sync Accounts</a></li>
                 <li><div className="divider"></div></li>
                 <li><PlaidAccountLink><i className="large material-icons">insert_chart</i>Link Account</PlaidAccountLink></li>
                 <li className="divider"></li>

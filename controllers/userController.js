@@ -56,5 +56,15 @@ module.exports = {
       });
 
     // res.json({userId});
+  },
+
+  getTransactions: (req, res) => {
+
+    db.User
+      .findOne(
+        {"auth_id" : req.body.sub}
+      )
+      .then((dbUser) => console.log(dbUser))
+      .catch((err) => console.log(err))
   }
 };
