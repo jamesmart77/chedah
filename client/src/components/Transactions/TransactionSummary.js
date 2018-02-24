@@ -73,17 +73,17 @@ class TransactionSummary extends Component {
 
     render() {
         return (
-            <div className="card gig-dash-card">
-            <div className="card-content blue-grey darken-4">
+            <div className="card">
+            <div className="card-content cardHeader">
                 <div className="row">
                     <div className="col s12">
-                        <span className="card-title"><span className="teal-text">Transactions: </span> <span className="white-text">{this.state.gig.gigName}</span></span>
+                        <span className="card-title"><span className="primaryHeaderText">Transactions: </span> <span className="secondaryHeaderText">{this.state.gig.gigName}</span></span>
                     </div>
                     
                 </div>
     
              </div>
-             <div className="card-content white">
+             <div className="card-content cardBody">
                 <div className="row">
                     <div className="col s12">
                 

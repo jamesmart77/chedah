@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./GigView.css";
 
 class GigSummary extends Component {
 
@@ -17,10 +17,10 @@ class GigSummary extends Component {
         return (
 
             <ul class="collection with-header">
-            <li class="collection-header blue-grey darken-4 white-text"><h6><i className="small material-icons teal-text">track_changes</i> GIG SUMMARY</h6></li>
-          <li class="collection-item">MONEY IN:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
-          <li class="collection-item">EXPENSES:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
-          <li class="collection-item">NET:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
+            <li className="collection-header listHeader"><h6><i className="material-icons iconStyleSmall">track_changes</i> GIG SUMMARY</h6></li>
+          <li className="collection-item">MONEY IN:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
+          <li className="collection-item">EXPENSES:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
+          <li className="collection-item">NET:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
         </ul>
 
 );

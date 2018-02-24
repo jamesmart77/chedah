@@ -1,21 +1,22 @@
 import React, { Component } from "react";
+import "./GigView.css";
 
 const Goal = props => (
 
 
-<div className="card gig-dash-card">
-<div className="card-content blue-grey darken-4">
+<div className="card">
+<div className="card-content cardHeader">
 <div className="row">
-    <div className="col s10">
-        <span className="card-title"><span className="teal-text">Goal:</span> <span className="white-text">{props.name}</span></span>
+    <div className="col s11">
+        <span className="card-title"><span className="primaryHeaderText">Goal:</span> <span className="secondaryHeaderText">{props.name}</span></span>
     </div>
-    <div className="col s2">
-      <a href=""><i className="small material-icons right teal-text">add_circle</i></a>
+    <div className="col s1">
+      <a href=""><i className="material-icons iconStyleMed">settings</i></a>
       </div>
 </div>
 
 </div>
-<div className="card-content white">
+<div className="card-content cardBody">
 <div className="row">
     <div className="col m4">
         <div className="row">

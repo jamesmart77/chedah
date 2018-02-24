@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Goal from './Goal';
+import "./GigView.css";
 
 
 class GoalSummary extends Component {
