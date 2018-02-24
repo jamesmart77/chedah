@@ -15,9 +15,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-jest": "^22.4.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "concurrently": "^3.5.0",
+    "jest": "^22.4.2",
     "nodemon": "^1.11.0",
-    "react-materialize": "^1.1.2"
+    "react-materialize": "^1.1.2",
+    "react-test-renderer": "^16.2.0"
   },
   "dependencies": {
     "axios": "^0.16.2",
