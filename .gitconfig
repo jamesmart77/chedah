@@ -1,0 +1,3 @@
+[alias]
+    l = log --pretty=format:'%C(bold green)[%ad] %C(yellow)%h %C(reset)%<(70,trunc)%s %C(bold magenta)<%an> %C(red)%d ' --decorate --date=format:'%Y-%m-%d %H:%M'
+    g = log --graph --pretty=format:'%C(red)%h%C(reset) %<(70,trunc)%s %C(green)(%cr) %C(bold blue)[%an]%C(reset) -%C(yellow)%d' --decorate --all
