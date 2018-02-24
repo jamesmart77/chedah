@@ -3,6 +3,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const cors = require('cors');
+const redisClient = require("./redis/main.js")
+
+redisClient.client.on("connect", function(){
+  console.log("Redis client connected corretly")
+})
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
