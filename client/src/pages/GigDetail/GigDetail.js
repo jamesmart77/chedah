@@ -4,8 +4,10 @@ import { Col, Row, Container } from "../../components/Grid";
 import Panel from "../../components/Panel";
 import { List, ListItem } from "../../components/List";
 import { Card } from 'react-materialize';
-// import MaterialButton from "../../components/MaterialButton";
 // import API from "../../utils/API";
+import GigSummary from '../../components/GigView/GigSummary';
+import ExpenseSummary from '../../components/GigView/ExpenseSummary';
+import GoalSummary from '../../components/GigView/GoalSummary';
 
 
 class GigDetail extends React.Component {
@@ -40,90 +42,14 @@ class GigDetail extends React.Component {
               <div className="row">
                 <div className="col s12 m5 l4">
 
-                 <ul class="collection with-header">
-        <li class="collection-header blue-grey darken-4 white-text"><h6><i className="small material-icons teal-text">track_changes</i> GIG SUMMARY</h6></li>
-      <li class="collection-item">MONEY IN:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
-      <li class="collection-item">EXPENSES:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
-      <li class="collection-item">NET:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
-    </ul>
+         <GigSummary />
+         <ExpenseSummary />
 
-       <ul class="collection with-header">
-        <li class="collection-header blue-grey darken-4 white-text"><h6><i className="small material-icons teal-text">pie_chart</i> EXPENSE SUMMARY</h6></li>
-      <li class="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
-      <li class="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
-      <li class="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
-    </ul>
-
-
-                </div>
-    
-
-    
+                </div>   
  
                 <div className="col s12 m7 l8">
-                  {/* <div className="divider"></div> */}
-                 
-              
-           
-
- {this.state.goals.map(goal => {
-                    return (
-<div className="card gig-dash-card">
-        <div className="card-content blue-grey darken-4">
-            <div className="row">
-                <div className="col s10">
-                    <span className="card-title"><span className="teal-text">Goal:</span> <span className="white-text">{goal.name}</span></span>
-                </div>
-                <div className="col s2">
-                  <a href=""><i className="small material-icons right teal-text">add_circle</i></a>
-                  </div>
-            </div>
-
-         </div>
-         <div className="card-content white">
-            <div className="row">
-                <div className="col m4">
-                    <div className="row">
-                        <div className="col">
-                            <span className="gig-dash-subtitle">Budget</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            <span className="gig-dash-total">{<span><sup>$</sup>{goal.budget}</span>}</span>
-                        </div>
-                    </div>
-                </div>
-
-              
-                <div className="col m4">
-                    <div className="row">
-                        <div className="col">
-                            <span className="gig-dash-subtitle">Expenses</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <span className="gig-dash-total">{<span><sup>$</sup>{goal.spent}</span>}</span>
-                    </div>
-                </div>
-
-                {/* Net */}
-                <div className="col m4">
-                    <div className="row">
-                        <div className="col">
-                            <span className="gig-dash-subtitle">Net</span>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <span className="gig-dash-total">{<span><sup>$</sup>{goal.net}</span>}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-);
-})} 
+               
+                <GoalSummary />
 
 
    <div className="card gig-dash-card">
