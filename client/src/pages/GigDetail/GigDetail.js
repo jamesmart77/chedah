@@ -26,24 +26,29 @@ class GigDetail extends React.Component {
     render() {
         return (
             <Container fluid>
-              <div className="row">
-                  <div className="col s12">
+              <div className="row valign-wrapper">
+                  <div className="col s6">
                       <h4 className='dash-title'>{this.state.gig.gigName} Dashboard</h4>
                   </div>
+                  
+                  <div className="col s6">
+                  <h6 className="right"><a href="" className="grey-text">Add An {this.state.gig.gigName} Goal<i className="small material-icons right teal-text">add_circle</i></a></h6>
+                  </div>
+                  
               </div>
       
               <div className="row">
                 <div className="col s12 m5 l4">
 
                  <ul class="collection with-header">
-        <li class="collection-header grey lighten-2"><h6>GIG SUMMARY</h6></li>
+        <li class="collection-header blue-grey darken-4 white-text"><h6><i className="small material-icons teal-text">track_changes</i> GIG SUMMARY</h6></li>
       <li class="collection-item">MONEY IN:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
       <li class="collection-item">EXPENSES:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
       <li class="collection-item">NET:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
     </ul>
 
        <ul class="collection with-header">
-        <li class="collection-header grey lighten-2"><h6>EXPENSE SUMMARY</h6></li>
+        <li class="collection-header blue-grey darken-4 white-text"><h6><i className="small material-icons teal-text">pie_chart</i> EXPENSE SUMMARY</h6></li>
       <li class="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
       <li class="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
       <li class="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
@@ -57,14 +62,7 @@ class GigDetail extends React.Component {
  
                 <div className="col s12 m7 l8">
                   {/* <div className="divider"></div> */}
-                  <div className="row valign-wrapper grey lighten-2">
-                  <div className="col s9">
-                  <h5 className='dash-title'>{this.state.gig.gigName} Goals</h5>
-                  </div>
-                  <div className="col s3">
-                  <a href=""><i className="small material-icons right grey-text">add_circle_outline</i></a>
-                  </div>
-                  </div>
+                 
               
            
 
@@ -73,11 +71,11 @@ class GigDetail extends React.Component {
 <div className="card gig-dash-card">
         <div className="card-content blue-grey darken-4">
             <div className="row">
-                <div className="col s9">
-                    <span className="card-title white-text">{goal.name}</span>
+                <div className="col s10">
+                    <span className="card-title"><span className="teal-text">Goal:</span> <span className="white-text">{goal.name}</span></span>
                 </div>
-                <div className="col s3">
-                  <a href=""><i className="small material-icons right grey-text">add_circle_outline</i></a>
+                <div className="col s2">
+                  <a href=""><i className="small material-icons right teal-text">add_circle</i></a>
                   </div>
             </div>
 
@@ -128,14 +126,19 @@ class GigDetail extends React.Component {
 })} 
 
 
-   
-    
+   <div className="card gig-dash-card">
+        <div className="card-content blue-grey darken-4">
+            <div className="row">
+                <div className="col s12">
+                    <span className="card-title"><span className="teal-text">Transactions: </span> <span className="white-text">{this.state.gig.gigName}</span></span>
+                </div>
+                
+            </div>
 
-<div className="row valign-wrapper grey lighten-2">
-<div className="col s12">
-                    <h5 className='dash-title'>{this.state.gig.gigName} Transactions</h5>
-            </div>
-            </div>
+         </div>
+         <div className="card-content white">
+            <div className="row">
+                <div className="col s12">
             
                   <table className="striped">
                     <thead>
@@ -169,6 +172,11 @@ class GigDetail extends React.Component {
                 </div>
 
               </div>
+              </div>
+              </div>
+              </div>
+          </div> 
+           
            
             </Container>
 
