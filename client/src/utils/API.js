@@ -24,7 +24,6 @@ export default {
     return axios.post("/api/auth/login", credentials)
   },
   
-
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
     return axios.post("/api/users", user)

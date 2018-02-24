@@ -51,10 +51,10 @@ class GigDetail extends React.Component {
             </div>
             </div>
 
-              {this.state.goals.map(goal => {
+              {this.state.goals.map((goal, i) => {
                   return (
             // <div style={{clear: 'both'}} className="row">
-       <div className="row">
+       <div key={i} className="row">
               <div className="col s12">
               <div className="divider"></div>
             <h5>{goal.name}</h5>

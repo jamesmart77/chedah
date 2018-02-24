@@ -1,5 +1,7 @@
-import React, {Component} from "react";
-import {Badge, Chip} from 'react-materialize';
+import React, { Component } from 'react';
+import { Badge, Chip } from 'react-materialize';
+import { formatCurrencyValueJSX } from '../../utils/currency';
+
 
 // materialize account preview
 // TODO: need to differentiate between checking & credit
@@ -18,20 +20,21 @@ class Account extends Component {
     };
 
     renderGigs() {
-        return (this.state.gigs.map((gig, i) => <div key={i} className="chip">{gig}</div>));
+        return (this.state.gigs.map((gig, i) => <div key={i} className='chip'>{gig}</div>));
     };
 
     renderChecking() {
         const gigs = this.renderGigs();
-        return (<div className="row collapsible-body">
-            <div className="col s8">
-                <p className="collections-title">
-                    <i className="material-icons inflex">attach_money</i> {this.state.name}</p>
+        const checkingTotal = formatCurrencyValueJSX(this.state.total);
+        return (<div className='row collapsible-body'>
+            <div className='col s8'>
+                <p className='collections-title'>
+                    <i className='material-icons inflex'>attach_money</i> {this.state.name}</p>
                     {gigs}
             </div>
-            <div className="col s4 account-total">
+            <div className='col s4 account-total'>
                 <p>
-                    <span>${this.state.total}</span>
+                    <span>{checkingTotal}</span>
                 </p>
             </div>
         </div>);
@@ -39,18 +42,20 @@ class Account extends Component {
 
     renderCredit() {
         const gigs = this.renderGigs();
-        return (<div className="row collapsible-body">
-            <div className="col s8">
-                <p className="collections-title">
-                    <i className="material-icons inflex">credit_card</i> {this.state.name}</p>
+        const creditTotal = formatCurrencyValueJSX(this.state.total);
+        const creditBalance = formatCurrencyValueJSX(this.state.balance);
+        return (<div className='row collapsible-body'>
+            <div className='col s8'>
+                <p className='collections-title'>
+                    <i className='material-icons inflex'>credit_card</i> {this.state.name}</p>
                 {gigs}
             </div>
-            <div className="col s4 account-total">
+            <div className='col s4 account-total'>
                 <p>
-                    <span>${this.state.total}</span>
+                    <span>{creditTotal}</span>
                 </p>
                 <p>
-                    <span>${this.state.balance}</span>
+                    <span>{creditBalance}</span>
                 </p>
             </div>
         </div>);

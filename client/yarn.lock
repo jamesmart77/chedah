@@ -5262,11 +5262,6 @@ react-load-script@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-load-script/-/react-load-script-0.0.6.tgz#db6851236aaa25bb622677a2eb51dad4f8d2c258"
 
-react-plaid-link@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-plaid-link/-/react-plaid-link-1.0.2.tgz#7cc45e009758e6cad02082292678b12ddce56213"
-  dependencies:
-    react-load-script "0.0.6"
 react-materialize@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-1.1.2.tgz#f6a4872c224ac9c9718ff49c77786382484cc1cb"
@@ -5274,6 +5269,16 @@ react-materialize@^1.1.2:
     classnames "^2.2.5"
     react "^16.0.0"
     react-dom "^16.0.0"
+
+react-moment@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/react-moment/-/react-moment-0.7.0.tgz#9ccb5c87be683d08c253b48469167443f09c3d89"
+
+react-plaid-link@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-plaid-link/-/react-plaid-link-1.0.2.tgz#7cc45e009758e6cad02082292678b12ddce56213"
+  dependencies:
+    react-load-script "0.0.6"
 
 react-router-dom@^4.1.2:
   version "4.2.2"
