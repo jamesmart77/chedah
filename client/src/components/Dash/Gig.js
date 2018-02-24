@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { formatCurrency, changeJSX, currencyJSX } from '../../utils/currency';
+import { formatCurrencyValueJSX, formatChangeValueJSX } from '../../utils/currency';
 
 
 
@@ -63,12 +63,12 @@ class Gig extends Component {
                                     <span className="gig-dash-subtitle">In</span>
                                 </div>
                                 <div className="col">
-                                    {changeJSX(this.state.inchange)}
+                                    {formatChangeValueJSX(this.state.inchange)}
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
-                                    <span className="gig-dash-total">{currencyJSX(this.state.income)}</span>
+                                    <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.income)}</span>
                                 </div>
                             </div>
                         </div>
@@ -80,11 +80,11 @@ class Gig extends Component {
                                     <span className="gig-dash-subtitle">Out</span>
                                 </div>
                                 <div className="col">
-                                    {changeJSX(this.state.expchange, true)}
+                                    {formatChangeValueJSX(this.state.expchange, true)}
                                 </div>
                             </div>
                             <div className="row">
-                                <span className="gig-dash-total">{currencyJSX(this.state.expenses)}</span>
+                                <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.expenses)}</span>
                             </div>
                         </div>
 
@@ -95,11 +95,11 @@ class Gig extends Component {
                                     <span className="gig-dash-subtitle">Net</span>
                                 </div>
                                 <div className="col">
-                                    {changeJSX(this.state.netchange)}
+                                    {formatChangeValueJSX(this.state.netchange)}
                                 </div>
                             </div>
                             <div className="row">
-                                <span className="gig-dash-total">{currencyJSX(this.state.net)}</span>
+                                <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.net)}</span>
                             </div>
                         </div>
                     </div>

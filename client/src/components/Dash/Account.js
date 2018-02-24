@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Badge, Chip } from 'react-materialize';
-import { formatCurrency } from '../../utils/currency';
+import { formatCurrencyValueJSX } from '../../utils/currency';
 
 
 // materialize account preview
@@ -25,7 +25,7 @@ class Account extends Component {
 
     renderChecking() {
         const gigs = this.renderGigs();
-        const checkingTotal = formatCurrency(this.state.total);
+        const checkingTotal = formatCurrencyValueJSX(this.state.total);
         return (<div className='row collapsible-body'>
             <div className='col s8'>
                 <p className='collections-title'>
@@ -42,8 +42,8 @@ class Account extends Component {
 
     renderCredit() {
         const gigs = this.renderGigs();
-        const creditTotal = formatCurrency(this.state.total);
-        const creditBalance = formatCurrency(this.state.balance);
+        const creditTotal = formatCurrencyValueJSX(this.state.total);
+        const creditBalance = formatCurrencyValueJSX(this.state.balance);
         return (<div className='row collapsible-body'>
             <div className='col s8'>
                 <p className='collections-title'>
