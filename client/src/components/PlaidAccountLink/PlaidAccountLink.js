@@ -8,7 +8,7 @@ import PlaidLinkMenuItem from "./PlaidLinkMenuItem";
 
 // materialize navbar
 class PlaidAccountLink extends React.Component {
-    
+
     handleOnSuccess(token, metadata) {
         // send token to client server
         console.log(metadata);
@@ -20,7 +20,7 @@ class PlaidAccountLink extends React.Component {
         API.createItem(plaidObj)
             .then(console.log)
             .catch(console.log);
-        
+
     }
 
     render(){
@@ -36,7 +36,7 @@ class PlaidAccountLink extends React.Component {
             </PlaidLinkMenuItem>
         );
     }
-        
+
 }
 
 export default PlaidAccountLink;
