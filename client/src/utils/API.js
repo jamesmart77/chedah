@@ -1,5 +1,8 @@
 import axios from "axios";
-import {decodeToken, getIdToken} from './AuthService';
+import {
+  decodeToken,
+  getIdToken
+} from './AuthService';
 
 export default {
   // Gets all books
@@ -23,25 +26,33 @@ export default {
   login: (credentials) => {
     return axios.post("/api/auth/login", credentials)
   },
-  
+
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
     return axios.post("/api/users", user)
   },
 
-  createItem: plaidObj => {
+  // createItem: plaidObj => {
+  //   const data = {};
+  //   data.user = decodeToken(getIdToken());
+  //   data.plaidObj = plaidObj;
+  //   return axios.post('/api/users/items', data);
+  // },
+  getAccessToken: plaidObj => {
     const data = {};
     data.user = decodeToken(getIdToken());
     data.plaidObj = plaidObj;
     return axios.post('/api/users/items', data);
-  },
 
+  },
 
   accountsSync: () => {
     console.log("Accounts syncing");
     console.log(decodeToken(getIdToken()))
     const user = decodeToken(getIdToken());
-    return axios.post('/api/users/transactions', user);
+    axios.post('/api/users/transactions', user)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
 
 
 
@@ -52,67 +63,66 @@ export default {
 
 
   //transactions
-  getTransactionsByAccount: account =>{
+  getTransactionsByAccount: account => {
     return new Promise((resolve, reject) => {
-      const data = [
-        {
+      const data = [{
           id: 1,
-          date: "11/23/14", 
-          vendor: "Google", 
-          category: "Advertising", 
+          date: "11/23/14",
+          vendor: "Google",
+          category: "Advertising",
           gig: "Uber",
           ammount: 200.00
         },
         {
           id: 2,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Uber",
           ammount: 15.00
         },
         {
           id: 3,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Dev",
           ammount: 12.00
         },
         {
           id: 4,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Uber",
           ammount: 16.00
         },
         {
           id: 5,
-          date: "11/23/14", 
-          vendor: "Staples", 
+          date: "11/23/14",
+          vendor: "Staples",
           category: "Office Supplies",
-          gig: "Dev", 
+          gig: "Dev",
           ammount: 119.00
         },
         {
           id: 6,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Dev",
           ammount: 219.00
         },
         {
           id: 7,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Uber",
           ammount: 29.00
         }
       ];
-      resolve(data);  
+      resolve(data);
     });
   }
 };

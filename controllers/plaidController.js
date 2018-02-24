@@ -1,7 +1,9 @@
 require('dotenv').config();
 const axios = require('axios');
 const db = require("../models");
-var plaid = require('plaid');
+const plaid = require('plaid');
+const userController = require('./userController');
+
 
 /* This should probably be globally availbale to our controller */
 var client = new plaid.Client(
@@ -17,11 +19,12 @@ module.exports = {
   // this is where our app will get it's private access key that we persist to our db, probably need an "app model?"
   getPrivateKey: function (req, res) {
 
-    PUBLIC_TOKEN = req.body.public_token;
+    const PUBLIC_TOKEN = req.body.plaidObj.token;
     client.exchangePublicToken(PUBLIC_TOKEN, function (error, tokenResponse) {
-      if (error != null) {
+      if (error) {
         var msg = 'Could not exchange public_token!';
         console.log(msg + '\n' + error);
+
         return res.json({
           error: msg
         });
@@ -35,14 +38,21 @@ module.exports = {
       // db.User.findById()
 
       //add the access token and item id to the user model
-      ACCESS_TOKEN = tokenResponse.access_token;
-      ITEM_ID = tokenResponse.item_id;
 
-      console.log('Access Token: ' + ACCESS_TOKEN);
-      console.log('Item ID: ' + ITEM_ID);
-      res.json({
-        'error': false
-      });
+      console.log("USER INFO IN PLAID CONTROLLER")
+      console.log(req.body)
+      const item = {
+        ACCESS_TOKEN : tokenResponse.access_token,
+        ITEM_ID : tokenResponse.item_id
+      }
+
+      console.log('Access Token: ' + item.ACCESS_TOKEN);
+      console.log('Item ID: ' + item.ITEM_ID);
+
+      userController.addItemToUser({user: req.body.user, item: item});
+      // res.json({
+      //   itemInfo
+      // });
     });
   },
 
