@@ -8,20 +8,14 @@ import { Card } from 'react-materialize';
 import GigSummary from '../../components/GigView/GigSummary';
 import ExpenseSummary from '../../components/GigView/ExpenseSummary';
 import GoalSummary from '../../components/GigView/GoalSummary';
+import TransactionSummary from '../../components/Transactions/TransactionSummary';
 
 
 class GigDetail extends React.Component {
     state = {
           gig: { 
-            gigName: "Uber",  
-            moneyIn: 7200.25,
-            moneyOut: 1875.11,
-            net: 4575.22,
-          },
-          goals:  [
-            { name:"Spend Less On Tolls", budget: 200, spent: 100, net: 100 },
-            { name:"Another Goal Goes Here", budget: 425, spent: 300, net: 125 },            
-        ]
+            gigName: "Uber",     
+          },    
       };
 
 
@@ -51,55 +45,9 @@ class GigDetail extends React.Component {
                
                 <GoalSummary />
 
+              <TransactionSummary />
+   
 
-   <div className="card gig-dash-card">
-        <div className="card-content blue-grey darken-4">
-            <div className="row">
-                <div className="col s12">
-                    <span className="card-title"><span className="teal-text">Transactions: </span> <span className="white-text">{this.state.gig.gigName}</span></span>
-                </div>
-                
-            </div>
-
-         </div>
-         <div className="card-content white">
-            <div className="row">
-                <div className="col s12">
-            
-                  <table className="striped">
-                    <thead>
-                      <tr>
-                        <td>Date</td>
-                        <td>Vendor</td>
-                        <td>Category</td>
-                        <td>Gig</td>
-                        <td>Amount</td>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                      </tr>
-                      <tr>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                        <td>test</td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-            
-                </div>
-
-              </div>
-              </div>
-              </div>
               </div>
           </div> 
            
