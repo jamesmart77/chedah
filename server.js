@@ -29,7 +29,15 @@ mongoose.connect(
   }
 );
 
+
+// debugging logger
+app.all('*', (req, res, next) => {
+    console.log(`# requesting url: ${req.url}`)
+    next()
+});
+
+
 // Start the API server
 app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+    console.log(`🧀  ==> API Server now listening on PORT ${PORT}!`);
 });

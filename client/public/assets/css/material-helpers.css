@@ -509,3 +509,16 @@ p.header {
 .pb-10 {
     padding-bottom: 10% !important;
 }
+
+
+/* Border None & Shadow None */
+.border-none {
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.box-shadow-none {
+  box-shadow: none !important;
+}

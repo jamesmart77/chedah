@@ -1,38 +1,48 @@
 const db    = require('../models');
 
-
 module.exports = {
+
+    // find all gigs
+    findAll: (req, res) => {
+      console.log(`-> looking for gigs...`);
+      db.Gig
+        .find(req.query)
+        .sort({ date: -1 })
+        .then(dbgig => res.json(dbgig))
+        .catch(err => res.status(422).json(err));
+    },
 
     // add a new gig
     addGig: (req, res) => {
-        const gig = {
-            name: req.body.name,
-            description: req.body.description || null,
-            accountID: req.body.accountID || null
-        }
+      // console.log(`-> adding gig: ${req.query.name}`);
+      const gig = {
+        name: req.query.name,
+        userID: req.query.accountID || null,
+        description: req.query.description || null,
+        accountID: req.query.accountID || null
+      }
 
-        db.Gig
-            .create(gig)
-                .then(dbgig => {
-                    res.json(dbgig));
-            })
-                .catch(err => {
-                    res.status(422).json(err));
-            });
+      db.Gig
+        .create(gig)
+        .then(dbgig => {
+          res.json(dbgig);
+         })
+        .catch(err => {
+          res.status(422).json(err);
+        });
     },
 
     //  update an existing gig
     updateGig: (req, res) => {
       db.Gig
         .findOneAndUpdate({
-            _id: req.params.id
+          _id: req.query.id
         }, req.body)
-
         .then(dbgig => {
-            res.json(dbgig)
+          res.json(dbgig)
         })
         .catch(err => {
-            res.status(422).json(err)
+          res.status(422).json(err)
         });
     },
 
@@ -40,40 +50,44 @@ module.exports = {
     removeGig: (req, res) => {
       db.Gig
         .findById({
-            _id: req.params.id
+          _id: req.query.id
         })
         .then(dbgig => {
-            dbgig.remove()
+          dbgig.remove()
         })
         .then(dbgig => {
-            res.json(dbgig)
+          res.json(dbgig)
         })
         .catch(err => {
-            res.status(422).json(err)
+          res.status(422).json(err)
         });
     },
 
     findGigById: (req, res) => {
+      // console.log(`-> looking for id: ${req.query.id}`);
       db.Gig
-        .findById(req.params.id)
+        .findById({
+          _id: req.query.id
+        })
         .then(dbgig => {
-            res.json(dbgig)
+          res.json(dbgig)
         })
         .catch(err => {
-            res.status(422).json(err);
+          res.status(422).json(err);
         });
     },
 
     findGigByName: (req, res) => {
+      // console.log(`-> looking for name: ${req.query.name}`);
       db.Gig
         .findOne({
-            name:  req.body.name
+          name:  req.query.name
         })
         .then(dbgig => {
-            res.json(dbgig)
+          res.json(dbgig)
         })
         .catch(err => {
-            res.status(422).json(err);
+          res.status(422).json(err);
         });
     },
 };
