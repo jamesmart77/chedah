@@ -17,7 +17,8 @@ const Nav = () => (
                 <li><a href="#!"><i className="large material-icons">account_balance</i>Accounts</a></li>
                 <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
                 <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
-                <li><a href="#!" onClick={API.accountsSync()}><i className="large material-icons">reset</i>Sync Accounts</a></li>
+                {/* if you get a jwt-auth error, navigate to the API.accountsSync function and comment out the function body until you login */}
+                <li><a href="#!" onClick={() => API.accountsSync()}><i className="large material-icons">reset</i>Sync Accounts</a></li>
                 <li className="divider"></li>
                 <li><PlaidAccountLink><i className="large material-icons">insert_chart</i>Link Account</PlaidAccountLink></li>
                 <li className="divider"></li>
