@@ -11,7 +11,7 @@ const Goal = props => (
         <span className="card-title"><span className="primaryHeaderText">Goal:</span> <span className="secondaryHeaderText">{props.name}</span></span>
     </div>
     <div className="col s1">
-      <a href=""><i className="material-icons iconStyleMed">settings</i></a>
+      <a href="" ><i className="material-icons iconStyleMed">settings</i></a>
       </div>
 </div>
 

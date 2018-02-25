@@ -22,13 +22,13 @@ class GigDetail extends React.Component {
     render() {
         return (
             <Container fluid>
-              <div className="row valign-wrapper">
+              <div className="row">
                   <div className="col s6">
                       <h4 className='dash-title'>{this.state.gig.gigName} Dashboard</h4>
                   </div>
                   
                   <div className="col s6">
-                  <h6 className="right valign-wrapper"><a href="" className="grey-text">Add An {this.state.gig.gigName} Goal<i className="material-icons iconStyleMed">add_circle</i></a></h6>
+                  <h6 className="right"><a href="" className="grey-text">Add An {this.state.gig.gigName} Goal<i className="material-icons iconStyleMed">add_circle</i></a></h6>
                   </div>
                   
               </div>
@@ -36,8 +36,8 @@ class GigDetail extends React.Component {
               <div className="row">
                 <div className="col s12 m5 l4">
 
-         <GigSummary />
-         <ExpenseSummary />
+               <GigSummary />
+               <ExpenseSummary />
 
                 </div>   
  
@@ -45,7 +45,7 @@ class GigDetail extends React.Component {
                
                 <GoalSummary />
 
-              <TransactionSummary />
+               <TransactionSummary />
    
 
               </div>

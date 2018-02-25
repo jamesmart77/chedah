@@ -12,12 +12,17 @@ class GoalSummary extends Component {
         ]
     };
 
+    // editGoal(){
+    //     API.editGoal(goal)
+    //         .then(res =>)
+    // }
+
     render() {
         return (
             <div>
                 {this.state.goals.map((goal) => (
                     <Goal
-                       
+                        // editGoal={this.editGoal.bind(this)}
                         name={goal.name}
                         budget={goal.budget}
                         spent={goal.spent}
