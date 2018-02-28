@@ -12,6 +12,7 @@ import Callback from './components/Callback';
 import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
+import ActionButton from './components/ActionButton';
 
 
 const App = () =>
@@ -29,6 +30,7 @@ const App = () =>
       </Switch>
       <Footer />
       <Sidebar />
+      <ActionButton />
       <FooterDebug />
     </div>
   </Router>;

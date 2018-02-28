@@ -309,6 +309,21 @@ textarea.materialize-textarea {
     background-color: #b1b1b1;
 }
 
+.btn-floating {
+    border-radius: 50%;
+}
+
+.mobile-fab-tip {
+    position: fixed;
+    right: 85px;
+    padding:0px 0.5rem;
+    text-align: right;
+    background-color: #323232;
+    border-radius: 2px;
+    color: #FFF;
+    width:auto;
+} 
+
 /* Cards  */
 .card .card-title {
     font-size: 2rem;
