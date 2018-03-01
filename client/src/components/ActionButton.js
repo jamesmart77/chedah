@@ -14,20 +14,20 @@ class ActionButton extends Component {
 
     render() {
       return (
-        <div class="fixed-action-btn click-to-toggle" style={{bottom:'24px', right:'24px'}}>
-          <a class="btn-floating btn-large red"><i class="large material-icons">add</i></a>
+        <div className="fixed-action-btn click-to-toggle" style={{bottom:'24px', right:'24px'}}>
+          <a className="btn-floating btn-large red"><i className="large material-icons">add</i></a>
             <ul>
                 <li>
-                    <a href="#" class="btn-floating amber darken-1"><i class="material-icons">work</i></a>
-                    <a href="#" class="btn-floating mobile-fab-tip">Add Gig</a>
+                    <a href="#" className="btn-floating amber darken-1"><i className="material-icons">work</i></a>
+                    <a href="#" className="btn-floating mobile-fab-tip">Add Gig</a>
                 </li>
                 <li>
-                    <a href="#" class="btn-floating blue"><i class="material-icons">account_balance</i></a>
-                    <a href="#" class="btn-floating mobile-fab-tip">Add Account</a>
+                    <a href="#" className="btn-floating blue"><i className="material-icons">account_balance</i></a>
+                    <a href="#" className="btn-floating mobile-fab-tip">Add Account</a>
                 </li>
                 <li>
-                    <a href="#" class="btn-floating red modal-trigger"><i class="material-icons">supervisor_account</i></a>
-                    <a href="#" class="btn-floating mobile-fab-tip modal-trigger">Add Item</a>
+                    <a href="#" className="btn-floating red modal-trigger"><i className="material-icons">supervisor_account</i></a>
+                    <a href="#" className="btn-floating mobile-fab-tip modal-trigger">Add Item</a>
                 </li>
             </ul>
         </div>

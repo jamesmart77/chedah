@@ -13,6 +13,7 @@ import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
+import DataTablePage from "./pages/DataTablePage";
 
 
 const App = () =>
@@ -26,6 +27,7 @@ const App = () =>
         <Route exact path="/login" component={Login} />
         <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
+        <Route path="/tables" component={DataTablePage} />
         {/* <Route component={NoMatch} /> */}
       </Switch>
       <Footer />
