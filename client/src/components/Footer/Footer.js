@@ -1,13 +1,13 @@
 import React from "react";
 
-
+/*
 const footerStyle = {
   position: 'fixed',
   bottom: 0,
   left: 0,
   zIndex: 999999
 };
-
+*/
 
 
 // materialize footer

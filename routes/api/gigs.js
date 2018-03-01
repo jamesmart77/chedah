@@ -6,7 +6,7 @@ const gigController = require('../../controllers/gigController');
 router.get('/gig/:id?', gigController.findGigById)
 
 // query '/api/gigs'
-router.get('/', gigController.findAll)
+router.get('/gigs', gigController.findAll)
 
 // post to '/api/gigs'
 router.post('/', gigController.addGig)
