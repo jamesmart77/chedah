@@ -1,7 +1,7 @@
 /*---------------------------------
     Font Imports
 -----------------------------------*/
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Gurajada|Poller+One|Roboto+Slab:300,700|Rubik:300,400|Scope+One|Slabo+13px');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Gurajada|Poller+One|Roboto+Slab:300,700|Rubik:300,400|Scope+One|Slabo+13px|Roboto+Mono:400,700');
 
 /*
 font-family: 'Slabo 13px', serif;
@@ -260,6 +260,13 @@ textarea.materialize-textarea {
     transition: .2s ease-out;
 }
 
+
+.datatable input {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    font-size: 0.8rem;
+}
+
 .input-field label.active {
     top: 0.2rem;
     left: 1.5rem;
@@ -322,7 +329,7 @@ textarea.materialize-textarea {
     border-radius: 2px;
     color: #FFF;
     width:auto;
-} 
+}
 
 /* Cards  */
 .card .card-title {
@@ -564,6 +571,16 @@ a.footer-yellow {
 }
 
 .dashboard .chip {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    text-transform: lowercase;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    background-color: #558EB0; /*#56BE89;*/
+    color: #fff;
+}
+
+.datatable .chip {
     font-family: 'Rubik', sans-serif;
     font-weight: 300;
     text-transform: lowercase;

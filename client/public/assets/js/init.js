@@ -98,10 +98,8 @@
                 minLength: 1
             }
         });
-        
-        $('.fixed-action-btn').floatingActionButton({
-            toolbarEnabled: true
-        });
+
+        // $('.fixed-action-btn').floatingActionButton({ toolbarEnabled: true});
 
     }); // end of document ready
 })(jQuery); // end of jQuery namepace

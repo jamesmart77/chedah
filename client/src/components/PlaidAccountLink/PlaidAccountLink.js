@@ -30,14 +30,14 @@ class PlaidAccountLink extends React.Component {
 
     render(){
         return (
-        <PlaidLinkMenuItem
-            publicKey="1d68b777ea259a9dedc5cfb9510428"
-            product='transactions'
-            env="sandbox"
-            clientName="plaidname"
-            onSuccess={this.handleOnSuccess}
-            >
-            {this.props.children}
+            <PlaidLinkMenuItem
+                publicKey="1d68b777ea259a9dedc5cfb9510428"
+                product='transactions'
+                env="sandbox"
+                clientName="plaidname"
+                onSuccess={this.handleOnSuccess}
+                >
+                {this.props.children}
             </PlaidLinkMenuItem>
         );
     }

@@ -15,6 +15,7 @@ class TableHeader extends Component {
     };
 
     handleClick(sortBy) {
+        console.log(`clicking row: ${this.refs}`);
         this.setState({sortBy: sortBy})
     };
 
@@ -23,7 +24,7 @@ class TableHeader extends Component {
             <thead>
                 <tr>
                     {this.state.headers.map((item, idx) => (
-                        <th>{item}</th>
+                        <th key={idx}>{item}</th>
                     ))}
                 </tr>
             </thead>

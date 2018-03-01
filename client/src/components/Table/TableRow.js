@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
+import RowColumn from './RowColumn';
 
 
 class TableRow extends Component {
@@ -18,17 +19,18 @@ class TableRow extends Component {
     };
 
     handleClick(category) {
+        console.log(`vendor: ${this.state.vendor}`);
         this.setState({category: category})
     };
 
     render() {
         return(
-            <tr>
-                <td>{this.state.date}</td>
-                <td>{this.state.vendor}</td>
-                <td>{this.state.category}</td>
-                <td>{this.state.gig}</td>
-                <td>{this.state.amount}</td>
+            <tr role='row'>
+                <RowColumn value={this.state.date} role='date'/>
+                <RowColumn value={this.state.vendor} editable='true'/>
+                <RowColumn value={this.state.category} editable='true'/>
+                <RowColumn value={this.state.gig} role='gig' editable='true'/>
+                <RowColumn value={this.state.amount}/>
             </tr>
         );
     };
