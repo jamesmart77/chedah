@@ -36,6 +36,7 @@
     "mongoose-unique-validator": "^2.0.0",
     "plaid": "^2.3.0",
     "react": "^16.2.0",
+    "react-chartjs": "^1.2.0",
     "react-dom": "^16.2.0",
     "react-materialize": "^1.1.2",
     "react-moment": "^0.7.0",

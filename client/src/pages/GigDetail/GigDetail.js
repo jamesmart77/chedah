@@ -7,6 +7,7 @@ import { Card } from 'react-materialize';
 import API from "../../utils/API";
 import GigSummary from '../../components/GigView/GigSummary';
 import ExpenseSummary from '../../components/GigView/ExpenseSummary';
+import ExpenseChart from '../../components/GigView/ExpenseChart';
 import GoalSummary from '../../components/GigView/GoalSummary';
 import TransactionSummary from '../../components/Transactions/TransactionSummary';
 import ReactDataGrid from 'react-data-grid';
@@ -20,7 +21,7 @@ class GigDetail extends React.Component {
         gigSummary: {
             moneyIn: 0.00,
             expenses: 0.00,
-            net: 0.00    
+            net: 0.00
         },
         expenseSummary: [],
         transactions: [],
@@ -28,17 +29,17 @@ class GigDetail extends React.Component {
             columns: [
                 { key: 'id', name: 'ID' },
                 { key: 'date', name: 'Date' },
-                { 
-                    key: 'vendor', 
+                {
+                    key: 'vendor',
                     name: 'Vendor',
                     editable: true
                 },
-                { key: 'category', name: 'Category' }, 
-                { key: 'gig', name: 'Gig' }, 
-                { key: 'amount', name: 'Amount' } 
+                { key: 'category', name: 'Category' },
+                { key: 'gig', name: 'Gig' },
+                { key: 'amount', name: 'Amount' }
             ]
         },
-        goals: []   
+        goals: []
       };
 
       //////////////////////////////////
@@ -63,13 +64,13 @@ class GigDetail extends React.Component {
     // TRANSACTIONS
     handleGridRowsUpdated = ({ fromRow, toRow, updated }) => {
       let rows = this.state.transactions.slice();
-  
+
       for (let i = fromRow; i <= toRow; i++) {
         let rowToUpdate = rows[i];
         let updatedRow = update(rowToUpdate, {$merge: updated});
         rows[i] = updatedRow;
       }
-  
+
       // Update the db here if successful
       this.setState({ transactions: rows });
       //else re rerender
@@ -106,34 +107,34 @@ class GigDetail extends React.Component {
                   <div className="col s6">
                       <h4 className='dash-title'>{this.state.gigName} Dashboard</h4>
                   </div>
-                  
+
                   <div className="col s6">
                   <h6 className="right"><a href="" className="grey-text">Add An {this.state.gigName} Goal<i className="material-icons iconStyleMed">add_circle</i></a></h6>
                   </div>
-                  
+
               </div>
-      
+
               <div className="row">
                 <div className="col s12 m5 l4">
 
                <GigSummary gigSummary={this.state.gigSummary} addGoalToGig={this.addGoalToGig.bind(this)} />
-               <ExpenseSummary expenseSummary={this.state.expenseSummary} />
+               {/* <ExpenseSummary expenseSummary={this.state.expenseSummary} /> */}
+               <ExpenseChart/>
 
+                </div>
 
-                </div>   
- 
                 <div className="col s12 m7 l8">
-               
+
                 <GoalSummary goals={this.state.goals} editGoal={this.editGoal.bind(this)}/>
 
                 <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/>
 
-   
+
 
               </div>
-          </div> 
-           
-           
+          </div>
+
+
             </Container>
 
         );
