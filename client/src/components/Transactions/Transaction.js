@@ -1,16 +1,22 @@
+import ReactDataGrid from 'react-data-grid';
 import React, { Component } from "react";
 
-const Transaction = props => (
+const Transaction = props => {
 
-    <tr>
-    <td>{props.date}</td>
-    <td>{props.vendor}</td>
-    <td>{props.category}</td>
-    <td>{props.gig}</td>
-    <td>{props.amount}</td>
-  </tr>
+  const createRows = () => this._rows = props.data;
+  const rowGetter = i => this._rows[i];
+  createRows();
 
-);
+  return  (
+      <ReactDataGrid
+        enableCellSelect={true}
+        columns={props.columns}
+        rowGetter={rowGetter}
+        rowsCount={this._rows.length}
+        minHeight={500} 
+        onGridRowsUpdated={props.handleGridRowsUpdated}
+        />);
+  }
 
 
 export default Transaction;
