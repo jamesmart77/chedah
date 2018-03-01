@@ -29,10 +29,11 @@ class PlaidAccountLink extends React.Component {
     }
 
     render(){
+        const products = ['transactions'];
         return (
             <PlaidLinkMenuItem
                 publicKey="1d68b777ea259a9dedc5cfb9510428"
-                product='transactions'
+            product={products}
                 env="sandbox"
                 clientName="plaidname"
                 onSuccess={this.handleOnSuccess}

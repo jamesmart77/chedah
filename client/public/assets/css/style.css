@@ -265,6 +265,7 @@ textarea.materialize-textarea {
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     font-size: 0.8rem;
+    text-indent: 0.1rem;
 }
 
 .input-field label.active {
@@ -549,6 +550,9 @@ a.footer-yellow {
     color: #F7B23F;
 }
 
+.gig-dash-card a {
+    color: #464444;
+}
 
 /*----------------------------------------
     Dashboard Accounts List
@@ -565,6 +569,11 @@ a.footer-yellow {
     font-size: 2rem;
     color: #56BE89;
 }
+
+.dashboard-action-btn {
+    background-color: #009587;
+}
+
 
 .dashboard .collapsible-body {
     padding: 0.5rem 0.5rem 0.3rem 0.5rem;

@@ -37,7 +37,7 @@ const defaultTransactions = [
     {date:'2018-02-25T10:57-0500', vendor:'Amazon', category: 'Books', gig: 'Programming', amount:'-71.47'},
     {date:'2018-02-25T09:11-0500', vendor:'Autozone', category: 'Parts', gig: 'Uber', amount:'-411.47'},
 
-    {date:'2018-02-25T07:00-0500', vendor:'Payroll', category: 'Food & Drink', gig: 'Programming', amount:'4600.00'},
+    {date:'2018-02-25T07:00-0500', vendor:'Payroll', category: 'Income', gig: 'Programming', amount:'4600.00'},
 
     {date:'2018-02-24T09:02-0500', vendor:'Jumpin\' Jays', category: 'Food & Drink', gig: 'Uber', amount:'-148.71'},
     {date:'2018-02-24T17:21-0500', vendor:'Dunkin Donuts', category: 'Food', gig: 'Programming', amount:'-12.97'},
@@ -54,7 +54,7 @@ const defaultTransactions = [
     {date:'2018-01-25T10:18-0500', vendor:'Two Guys Auto', category: 'Parts', gig: 'Uber', amount:'-198.45'},
     {date:'2018-01-25T09:02-0500', vendor:'Massimo', category: 'Food & Drink', gig: 'Programming', amount:'-356.81'},
 
-    {date:'2018-01-25T07:00-0500', vendor:'Payroll', category: 'Food & Drink', gig: 'Programming', amount:'4400.00'}
+    {date:'2018-01-25T07:00-0500', vendor:'Payroll', category: 'Income', gig: 'Programming', amount:'4400.00'}
 ];
 
 
@@ -78,22 +78,25 @@ class Table extends Component {
 
   render() {
       return (
-              <table id={this.state.tableId} className='display highlight datatable' cellSpacing='0' role='grid'>
-              <TableHeader
-                  headers={this.state.headers}
-              />
+          <table
+              id={this.state.tableId}
+              className='display highlight datatable'
+              cellSpacing='0' role='grid'>
+
+              <TableHeader headers={this.state.headers}/>
+
               <tbody>
-              {this.state.transactions.map((trn, idx) => (
-                  <TableRow
-                      key={idx}
-                      date={trn.date}
-                      vendor={trn.vendor}
-                      category={trn.category}
-                      gig={trn.gig}
-                      amount={trn.amount}
-                  />
-              ))}
-          </tbody>
+                  {this.state.transactions.map((trn, idx) => (
+                      <TableRow
+                          key={idx}
+                          date={trn.date}
+                          vendor={trn.vendor}
+                          category={trn.category}
+                          gig={trn.gig}
+                          amount={trn.amount}
+                      />
+                  ))}
+              </tbody>
           </table>
       );
   }

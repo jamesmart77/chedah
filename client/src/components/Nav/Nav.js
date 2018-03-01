@@ -18,6 +18,7 @@ const Nav = () => (
                 <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
                 <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
                 {/* if you get a jwt-auth error, navigate to the API.accountsSync function and comment out the function body until you login */}
+                <li className="divider"></li>
                 <li><a href="#!" onClick={() => API.accountsSync()}><i className="large material-icons">sync</i>Sync Accounts</a></li>
                 <li className="divider"></li>
                 <PlaidAccountLink><i className="large material-icons">insert_chart</i>Link Account</PlaidAccountLink>
@@ -41,7 +42,7 @@ const Nav = () => (
 
             {/* <!-- Navigation Bar --> */}
             <div className="nav-wrapper">
-                <a href="/dashboard" className="brand-logo header-logo"><img src="assets/img/icon-24x24.svg"/> chedah</a>
+                <a href="/dashboard" className="brand-logo header-logo"><img src="/assets/img/icon-24x24.svg"/> chedah</a>
                 {/* <!-- Hamburger Menu Icon --> */}
                 <a href="#" data-activates="mobile-main-menu" className="button-collapse"><i className="material-icons">menu</i></a>
                 {(isLoggedIn()) ?

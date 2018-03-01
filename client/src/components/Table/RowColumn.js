@@ -6,32 +6,44 @@ class RowColumn extends Component {
 
     constructor(props) {
         super(props);
+
+        console.log(props.edit_callback);
         this.state = {
+            name: props.name,
             value: props.value,
             role: props.role || 'text',
             editable: props.editable || false,
             isEditing: false
         };
 
-        this.handleClick = this.handleClick.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
-        this.focusTextInput = this.focusTextInput.bind(this);
+        this.componentClicked = this.componentClicked.bind(this);
+        this.componentUpdated = this.componentUpdated.bind(this);
     };
 
-    handleClick() {
+    componentClicked() {
         if (this.state.editable) {
             this.setState({isEditing: !this.state.isEditing});
-            console.log(`editing: ${!this.state.isEditing}`);
         }
     };
 
-    handleEdit(event) {
-        console.log(event);
+    componentUpdated(e) {
+        this.setState({value: e.target.value});
+        // this.state.isEditing = false;
     };
 
-    focusTextInput() {
-        this.textInput.focus();
-    };
+    onBlur(role, e) {
+        this.setState({
+            isEditing: false
+        })
+        // call back to table here
+        this.props.edit_callback(role, e.target.value);
+    }
+
+      onKeyPress(role, e) {
+        if(e.key == 'Enter') {
+            this.onBlur(role, e);
+        }
+    }
 
     render() {
         const isEditing = this.state.isEditing;
@@ -39,22 +51,12 @@ class RowColumn extends Component {
 
         // format the date
         if (this.state.role === 'date') {
-            return(
-                <td onClick={this.handleClick} data-value={this.state.value}>
-                    <Moment format='lll'>
-                        {this.state.value}
-                    </Moment>
-                </td>
-            );
+            currentVal =  <Moment format='lll'>{this.state.value}</Moment>
         };
 
         // format the gig column
         if (this.state.role === 'gig') {
-            return(
-                <td onClick={this.handleClick}>
-                    <div className='chip'>{currentVal}</div>
-                </td>
-            );
+            currentVal = <div className='chip'>{currentVal}</div>;
         };
 
         // editable input
@@ -62,14 +64,14 @@ class RowColumn extends Component {
             return(
                 <td
                     data-value={this.state.value}
-                    onClick={this.focusTextInput}
                     >
                     <input
                         type={this.role}
                         ref={(input) => { this.textInput = input; }}
-                        onChange={this.handleEdit}
+                        onChange={this.componentUpdated}
                         defaultValue={currentVal}
-
+                        onBlur={this.onBlur.bind(this, this.state.name)}
+                        onKeyPress={this.onKeyPress.bind(this, this.state.name)}
                     />
                 </td>
             );
@@ -77,7 +79,7 @@ class RowColumn extends Component {
 
 
         return(
-            <td onClick={this.handleClick}>
+            <td role={this.role} onClick={this.componentClicked}>
                 {currentVal}
             </td>
         );

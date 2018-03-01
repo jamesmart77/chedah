@@ -8,29 +8,30 @@ class TableRow extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: props.date || '2018-02-27T12:59-0500',
-            vendor: props.vendor || 'Starbucks',
-            category: props.category || 'default',
-            gig: props.gig || null,
-            amount: props.amount || 10.00
+            date: props.date,
+            vendor: props.vendor,
+            category: props.category,
+            gig: props.gig,
+            amount: props.amount
         };
 
-        this.handleClick = this.handleClick.bind(this);
+        this.columnEdited = this.columnEdited.bind(this);
     };
 
-    handleClick(category) {
-        console.log(`vendor: ${this.state.vendor}`);
-        this.setState({category: category})
+    columnEdited(key, val) {
+        console.log(`updating: "${key}":"${val}"`);
+        this.setState({[key]: val})
+        console.log(this.state);
     };
 
     render() {
         return(
             <tr role='row'>
-                <RowColumn value={this.state.date} role='date'/>
-                <RowColumn value={this.state.vendor} editable='true'/>
-                <RowColumn value={this.state.category} editable='true'/>
-                <RowColumn value={this.state.gig} role='gig' editable='true'/>
-                <RowColumn value={this.state.amount}/>
+                <RowColumn value={this.state.date} name='date' role='date' edit_callback={this.columnEdited}/>
+                <RowColumn value={this.state.vendor} name='vendor' editable='true' edit_callback={this.columnEdited}/>
+                <RowColumn value={this.state.category} name='category' editable='true' edit_callback={this.columnEdited}/>
+                <RowColumn value={this.state.gig} name='gig' role='gig' editable='true' edit_callback={this.columnEdited}/>
+                <RowColumn value={this.state.amount} name='amount' edit_callback={this.columnEdited}/>
             </tr>
         );
     };
