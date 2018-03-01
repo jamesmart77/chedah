@@ -1,0 +1,15 @@
+[{
+  "_id": "5a9844d0be62dd795a0b8102",
+  "name": "Spend Less on Tolls",
+  "userID": null,
+  "budget": 200,
+  "spent": 100,
+  "net": 100
+}, {
+  "_id": "5a9844d0be62dd795a0b8103",
+  "name": "Spend Less on Gas",
+  "userID": null,
+  "budget": 425,
+  "spent": 300,
+  "net": 125
+}]
