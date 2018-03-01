@@ -27,5 +27,5 @@ const goalSchema = new Schema({
 // add validator plugin
 goalSchema.plugin(validator);
 
-const Goal = mongoose.model("Gig", goalSchema);
+const Goal = mongoose.model("Goal", goalSchema);
 module.exports = Goal;
