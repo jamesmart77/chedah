@@ -118,8 +118,8 @@ class GigDetail extends React.Component {
                 <div className="col s12 m5 l4">
 
                <GigSummary gigSummary={this.state.gigSummary} addGoalToGig={this.addGoalToGig.bind(this)} />
-               {/* <ExpenseSummary expenseSummary={this.state.expenseSummary} /> */}
-               <ExpenseChart/>
+               <ExpenseSummary expenseSummary={this.state.expenseSummary} />
+
 
                 </div>
 
