@@ -21,7 +21,7 @@ export function formatCurrencyValueJSX(val) {
 export function formatChangeValueJSX(val, expense=false) {
     const isNegative = (val < 0) ? true : false;
     const isLoss = (expense == true) ? (isNegative == false) ? true : false : (isNegative == true) ? true : false;
-    const valstr = numberWithCommas(val);
+    const valstr = numberWithCommas(Math.abs(val));
     const valarr = valstr.split('.');
     return (
         <span className={'gig-dash-' + (isLoss == true ? 'loss' : 'gain')}>{(val < 0) ? '-' : '+'}${valarr[0]}.{valarr[1]}</span>

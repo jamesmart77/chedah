@@ -26,39 +26,45 @@ class Account extends Component {
     renderChecking() {
         const gigs = this.renderGigs();
         const checkingTotal = formatCurrencyValueJSX(this.state.total);
-        return (<div className='row collapsible-body'>
-            <div className='col s8'>
-                <p className='collections-title'>
-                    <i className='material-icons inflex'>attach_money</i> {this.state.name}</p>
-                    {gigs}
+        const accountHref = `accounts/${this.state.id}`;
+        return (
+            <div className='row collapsible-body'>
+                <div className='col s8'>
+                    <p className='collections-title'>
+                        <i className='material-icons inflex'>attach_money</i> <a href={accountHref}>{this.state.name}</a></p>
+                        {gigs}
+                </div>
+                <div className='col s4 account-total'>
+                    <p>
+                        <span>{checkingTotal}</span>
+                    </p>
+                </div>
             </div>
-            <div className='col s4 account-total'>
-                <p>
-                    <span>{checkingTotal}</span>
-                </p>
-            </div>
-        </div>);
+        );
     };
 
     renderCredit() {
         const gigs = this.renderGigs();
         const creditTotal = formatCurrencyValueJSX(this.state.total);
         const creditBalance = formatCurrencyValueJSX(this.state.balance);
-        return (<div className='row collapsible-body'>
-            <div className='col s8'>
-                <p className='collections-title'>
-                    <i className='material-icons inflex'>credit_card</i> {this.state.name}</p>
-                {gigs}
+        const accountHref = `accounts/${this.state.id}`;
+        return (
+            <div className='row collapsible-body'>
+                <div className='col s8'>
+                    <p className='collections-title'>
+                        <i className='material-icons inflex'>credit_card</i> <a href={accountHref}>{this.state.name}</a></p>
+                    {gigs}
+                </div>
+                <div className='col s4 account-total'>
+                    <p>
+                        <span>{creditTotal}</span>
+                    </p>
+                    <p>
+                        <span>{creditBalance}</span>
+                    </p>
+                </div>
             </div>
-            <div className='col s4 account-total'>
-                <p>
-                    <span>{creditTotal}</span>
-                </p>
-                <p>
-                    <span>{creditBalance}</span>
-                </p>
-            </div>
-        </div>);
+        );
     };
 
     render() {

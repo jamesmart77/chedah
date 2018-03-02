@@ -1,0 +1,21 @@
+[{
+        "_id": "5a91b813513541155c819fa4",
+        "name": "uber",
+        "userID": null,
+        "description": "driving people around and shit",
+        "accountID": null
+    },
+    {
+        "_id": "5a91b813513541155c819fa5",
+        "name": "programming",
+        "userID": null,
+        "description": "app development",
+        "accountID": null
+    }, {
+        "_id": "5a91dd105c357a324b3e9725",
+        "name": "Horse Husbandry",
+        "userID": null,
+        "description": "Bring a mop",
+        "accountID": null
+    }
+]

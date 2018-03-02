@@ -9,49 +9,45 @@ class AccountList extends Component {
         accounts: [
             {
                 id: 1,
+                name: 'Chase Mastercard',
+                total: 58897.26,
+                balance: 32.26,
+                accountType: 'credit',
+                gigs: ['uber']
+            },
+            {
+                id: 2,
                 name: 'Checking',
-                total: 12000,
-                balance: 1200,
+                total: 14120.21,
+                balance: 0,
                 accountType: 'checking',
                 gigs: ['uber']
-            }, {
-                id: 2,
-                name: 'Citi Visa',
-                total: 8000,
-                balance: 800,
-                accountType: 'credit',
-                gigs: ['uber']
-            }, {
-                id: 3,
-                name: 'Chase Mastercard',
-                total: 12000,
-                balance: 1000,
-                accountType: 'credit',
-                gigs: ['uber', 'programming']
             }
         ]
     };
 
     render() {
-        return (<ul className="collapsible dashboard" data-collapsible="expandable">
-            <li>
-                <div className="dashboard collapsible-header">
-                    <i className="material-icons">account_balance</i>Accounts
-                </div>
+        return (
+            <ul className="collapsible dashboard" data-collapsible="expandable">
+                <li>
+                    <div className="dashboard collapsible-header">
+                        <i className="material-icons">account_balance</i>Accounts
+                    </div>
 
-                {this.state.accounts.map((account, i) => (
-                    <Account
-                        key={i}
-                        id={account.id}
-                        name={account.name}
-                        total={account.total}
-                        balance={account.balance}
-                        accountType={account.accountType}
-                        gigs={account.gigs}
-                    />
-                ))}
-            </li>
-        </ul>);
+                    {this.state.accounts.map((account, i) => (
+                        <Account
+                            key={i}
+                            id={account.id}
+                            name={account.name}
+                            total={account.total}
+                            balance={account.balance}
+                            accountType={account.accountType}
+                            gigs={account.gigs}
+                        />
+                    ))}
+                </li>
+            </ul>
+        );
     }
 }
 

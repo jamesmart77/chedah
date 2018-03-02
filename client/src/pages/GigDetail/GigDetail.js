@@ -3,146 +3,146 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../../components/Grid";
 import Panel from "../../components/Panel";
 import { List, ListItem } from "../../components/List";
-// import MaterialButton from "../../components/MaterialButton";
-// import API from "../../utils/API";
-
+import { Card } from 'react-materialize';
+import API from "../../utils/API";
+import GigSummary from '../../components/GigView/GigSummary';
+import ExpenseSummary from '../../components/GigView/ExpenseSummary';
+import GoalSummary from '../../components/GigView/GoalSummary';
+import TransactionSummary from '../../components/Transactions/TransactionSummary';
+import ReactDataGrid from 'react-data-grid';
+import update from 'immutability-helper';
 
 class GigDetail extends React.Component {
     state = {
-          gig: {
-              gigName: "Uber",
-          moneyIn: 7200.25,
-          moneyOut: 1875.11,
-          net: 4575.22,
-          },
-          goals:  [
-            { name:"Spend Less On Tolls", budget: 200, spent: 100, net: 100 },
-            { name:"Another Goal Goes Here", budget: 425, spent: 300, net: 125 },
-
-        ]
+        gigName: "",
+        gigId: this.props.match.params.id,
+        time: ['2018-02-01', '2018-02-28'],
+        gigSummary: {
+            moneyIn: 0.00,
+            expenses: 0.00,
+            net: 0.00    
+        },
+        expenseSummary: [],
+        transactions: [],
+        grid: {
+            columns: [
+                { key: 'id', name: 'ID' },
+                { key: 'date', name: 'Date' },
+                { 
+                    key: 'vendor', 
+                    name: 'Vendor',
+                    editable: true
+                },
+                { key: 'category', name: 'Category' }, 
+                { key: 'gig', name: 'Gig' }, 
+                { key: 'amount', name: 'Amount' } 
+            ]
+        },
+        goals: []   
       };
+
+      //////////////////////////////////
+
+      // need budget goal gig
+      addGoalToGig(){
+
+    }
+
+    editGoal(id){
+      alert(id);
+    }
+
+    editTransaction(){
+        // edit vendor name, category?, gig
+    }
+
+    getCurrentMonth(){
+        // show 1 month view on gig detail pg
+    }
+
+    // TRANSACTIONS
+    handleGridRowsUpdated = ({ fromRow, toRow, updated }) => {
+      let rows = this.state.transactions.slice();
+  
+      for (let i = fromRow; i <= toRow; i++) {
+        let rowToUpdate = rows[i];
+        let updatedRow = update(rowToUpdate, {$merge: updated});
+        rows[i] = updatedRow;
+      }
+  
+      // Update the db here if successful
+      this.setState({ transactions: rows });
+      //else re rerender
+    };
+
+    // Initial Load w/ gigID passed along
+    loadGig(gigId){
+        API.loadGig(gigId)
+          .then(gigInfo => {
+              this.setState(gigInfo)
+          })
+          .catch(console.log)
+
+      //   {
+      //       name: "",
+      //       transactions: [],
+      //       goals: []
+      //   }
+    }
+
+    componentDidMount(){
+        this.getCurrentMonth();
+        this.loadGig(this.state.gigId);
+    }
+
+
+
 
 
     render() {
         return (
             <Container fluid>
-             <div className="row">
-              <div className="col s12">
-            <h1>{this.state.gig.gigName}</h1>
-            </div>
-            </div>
+              <div className="row">
+                  <div className="col s6">
+                      <h4 className='dash-title'>{this.state.gigName} Dashboard</h4>
+                  </div>
+                  
+                  <div className="col s6">
+                  <h6 className="right"><a href="" className="grey-text">Add An {this.state.gigName} Goal<i className="material-icons iconStyleMed">add_circle</i></a></h6>
+                  </div>
+                  
+              </div>
+      
+              <div className="row">
+                <div className="col s12 m5 l4">
 
-        <div style={{clear: 'both'}} className="row">
-        <div className="col s4">
-        <Panel color="blue-grey darken-4" title="MONEY IN" value={<span><sup>$</sup>{this.state.gig.moneyIn}</span>}/>
-        </div>
-        <div className="col s4">
-          <Panel color="blue-grey darken-4" title="MONEY OUT" value={<span><sup>$</sup>{this.state.gig.moneyOut}</span>}/>
-        </div>
-        <div className="col s4">
-          <Panel color="blue-grey darken-4" title="NET" value={<span><sup>$</sup>{this.state.gig.net}</span>}/>
-        </div>
-      </div>
-
-    <div className="row">
-              <div className="col s12">
-              <div className="divider"></div>
-            <h4>{this.state.gig.gigName} Goals</h4>
-            </div>
-            </div>
-
-              {this.state.goals.map((goal, i) => {
-                  return (
-            // <div style={{clear: 'both'}} className="row">
-       <div key={i} className="row">
-              <div className="col s12">
-              <div className="divider"></div>
-            <h5>{goal.name}</h5>
-            </div>
-
-        <div className="col s4">
-          <Panel color="teal" title="BUDGET" value={<span><sup>$</sup>{goal.budget}</span>}/>
-        </div>
-        <div className="col s4">
-          <Panel color="teal" title="SPENT" value={<span><sup>$</sup>{goal.spent}</span>}/>
-        </div>
-        <div className="col s4">
-          <Panel color="teal" title="NET" value={<span><sup>$</sup>{goal.net}</span>}/>
-        </div>
-      </div>
-       );
-    })}
+               <GigSummary gigSummary={this.state.gigSummary} addGoalToGig={this.addGoalToGig.bind(this)} />
+               <ExpenseSummary expenseSummary={this.state.expenseSummary} />
 
 
+                </div>   
+ 
+                <div className="col s12 m7 l8">
+               
+                <GoalSummary goals={this.state.goals} editGoal={this.editGoal.bind(this)}/>
 
-        {/* {this.state.goals.map(goal => {
-                  return (
-                    <div className="col s6">
-                    <List>
-                       {goal.name}
-                    <ListItem key={goal.name}>
-                          Budget: {goal.budget}
-                    </ListItem>
-                    <ListItem>Spent: {goal.spent} </ListItem>
-                    <ListItem>Net: {goal.net}</ListItem>
-                    </List>
-                    </div>
-                  );
-                })} */}
+                <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/>
 
+   
 
-
-
-
-
-
-          <div className="row">
-              <div className="col s12">
-              <div className="divider"></div>
-            <h4>{this.state.gig.gigName} Transactions</h4>
-
-
-            <table className="striped">
-      <thead>
-        <tr>
-          <td>Date</td>
-          <td>Vendor</td>
-          <td>Category</td>
-          <td>Gig</td>
-          <td>Amount</td>
-        </tr>
-      </thead>
-      <tbody>
-      <tr>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-        </tr>
-        <tr>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-        </tr>
-      </tbody>
-      </table>
-
-            </div>
-            </div>
-
-
-
-
-
-
+              </div>
+          </div> 
+           
+           
             </Container>
 
         );
     }
 
 }
+
+
+
+
 
 export default GigDetail;

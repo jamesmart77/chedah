@@ -309,6 +309,21 @@ textarea.materialize-textarea {
     background-color: #b1b1b1;
 }
 
+.btn-floating {
+    border-radius: 50%;
+}
+
+.mobile-fab-tip {
+    position: fixed;
+    right: 85px;
+    padding:0px 0.5rem;
+    text-align: right;
+    background-color: #323232;
+    border-radius: 2px;
+    color: #FFF;
+    width:auto;
+}
+
 /* Cards  */
 .card .card-title {
     font-size: 2rem;
@@ -527,6 +542,9 @@ a.footer-yellow {
     color: #F7B23F;
 }
 
+.gig-dash-card a {
+    color: #464444;
+}
 
 /*----------------------------------------
     Dashboard Accounts List
@@ -543,6 +561,11 @@ a.footer-yellow {
     font-size: 2rem;
     color: #56BE89;
 }
+
+.dashboard-action-btn {
+    background-color: #009587;
+}
+
 
 .dashboard .collapsible-body {
     padding: 0.5rem 0.5rem 0.3rem 0.5rem;
