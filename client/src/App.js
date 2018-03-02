@@ -14,7 +14,6 @@ import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
 
-console.log(window);
 
 const App = () =>
   <Router history={history}>
@@ -32,7 +31,6 @@ const App = () =>
       <Footer />
       <Sidebar />
       <ActionButton />
-      <FooterDebug />
     </div>
   </Router>;
 

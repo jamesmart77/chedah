@@ -5,7 +5,7 @@ import ExpenseChart from './ExpenseChart';
 
 
 const ExpenseSummary = props =>
-    <ul className="gig-summary collapsible collection with-header" dataCollapsible="expandable">
+    <ul className="gig-summary collapsible collection with-header" datacollapsible="expandable">
         <li>
             {/* Header */}
             <div className="collapsible-header listHeader">
@@ -13,9 +13,12 @@ const ExpenseSummary = props =>
             </div>
 
             {/* Body */}
+			{console.log(`props: `)}
+			{console.log(props)}
             <div className='row collapsible-body'>
                 <ExpenseChart
                     expenses={props.expenseSummary}
+					gigName={props.gigName}
                 />
             </div>
         </li>

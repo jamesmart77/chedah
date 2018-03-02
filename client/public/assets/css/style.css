@@ -686,7 +686,7 @@ a.gig-frequency {
 
 .expense-summary.card .card-content,
 .expense-summary.card .card-reveal {
-    padding: 1rem;
+    padding: 0 1rem 0 1rem;
     border-radius: 0 0 2px 2px;
 }
 
@@ -694,6 +694,15 @@ a.gig-frequency {
     font-size: 1.3rem;
     font-weight: 300;
 }
+
+.material-icons {
+
+}
+
+.expense-summary.card .card-content .card-title i {
+     line-height: 1rem;
+}
+
 
 /*
 .side-collection {

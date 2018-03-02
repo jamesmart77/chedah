@@ -6,7 +6,7 @@ import {formatCurrencyValueJSX} from '../../utils/currency';
 
 const GigSummary = props =>
 
-        <ul className="gig-summary collapsible collection with-header" dataCollapsible="expandable">
+        <ul className="gig-summary collapsible collection with-header" datacollapsible="expandable">
             <li>
                 {/* Header */}
                 <div className="collapsible-header listHeader">

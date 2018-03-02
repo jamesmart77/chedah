@@ -13,6 +13,7 @@ import TransactionSummary from '../../components/Transactions/TransactionSummary
 import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
 
+
 class GigDetail extends React.Component {
     state = {
         gigName: "",
@@ -118,7 +119,7 @@ class GigDetail extends React.Component {
                 <div className="col s12 m5 l4">
 
                <GigSummary gigSummary={this.state.gigSummary} addGoalToGig={this.addGoalToGig.bind(this)} />
-               <ExpenseSummary expenseSummary={this.state.expenseSummary} />
+               <ExpenseSummary expenseSummary={this.state.expenseSummary} gigName={this.state.gigName}/>
 
 
                 </div>

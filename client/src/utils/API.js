@@ -117,7 +117,7 @@ export default {
           id: 7,
           date: "11/23/14",
           vendor: "Staples",
-          category: "Office Supplies",
+          category: "Promotion",
           gig: "Uber",
           ammount: 29.00
         }
@@ -143,79 +143,82 @@ loadGig: gigId => {
       expenseSummary: [
         {
           vendorName: "Shell",
-          sum: 7200.25
+		  category: "Gas",
+          sum: 300.25
         },
         {
           vendorName: "Jiffy Lube",
+		  category: "Repair",
           sum: 200.25
         },
         {
           vendorName: "Black Dog Car Wash",
+		  category: "Maintainance",
           sum: 100.55
         }
       ],
       transactions: [
         {
           id: 1,
-          date: "11/23/14", 
-          vendor: "Google", 
-          category: "Advertising", 
+          date: "11/23/14",
+          vendor: "Google",
+          category: "Advertising",
           gig: "Uber",
           amount: 200.00
         },
         {
           id: 2,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Uber",
           amount: 15.00
         },
         {
           id: 3,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Dev",
           amount: 12.00
         },
         {
           id: 4,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Uber",
           amount: 16.00
         },
         {
           id: 5,
-          date: "11/23/14", 
-          vendor: "Staples", 
+          date: "11/23/14",
+          vendor: "Staples",
           category: "Office Supplies",
-          gig: "Dev", 
+          gig: "Dev",
           amount: 119.00
         },
         {
           id: 6,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Office Supplies",
           gig: "Dev",
           amount: 219.00
         },
         {
           id: 7,
-          date: "11/23/14", 
-          vendor: "Staples", 
-          category: "Office Supplies", 
+          date: "11/23/14",
+          vendor: "Staples",
+          category: "Promotion",
           gig: "Uber",
           amount: 29.00
         }
       ],
       goals:  [
         { id: 1, name:"Spend Less On Tolls", budget: 200.00, spent: 100.00, net: 100.00 }, // id is goal id
-        { id: 2, name:"Spend Less on Gas", budget: 425.00, spent: 300.00, net: 125.00 }           
-    ]   
+        { id: 2, name:"Spend Less on Gas", budget: 425.00, spent: 300.00, net: 125.00 }
+    ]
   })
   // return axios.post('/api/gigs/:id', user);
 },

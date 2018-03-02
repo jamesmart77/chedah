@@ -31,7 +31,7 @@ function updateResolution() {
 }
 
 
-setInterval(updateResolution, 100);
+// setInterval(updateResolution, 100);
 
 // materialize footer visual cue
 const FooterDebug = () =>
