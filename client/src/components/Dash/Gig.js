@@ -18,12 +18,13 @@ class Gig extends Component {
             netchange: props.netchange,
             frequency: 'week'
         };
+        
         this.handleClick = this.handleClick.bind(this);
     };
 
     handleClick(freq) {
         this.setState({frequency: freq})
-    }
+    };
 
     render() {
         const gigHref = `/gigs/${this.state.id}`;
@@ -53,12 +54,12 @@ class Gig extends Component {
                                     <span className="gig-dash-subtitle">In</span>
                                 </div>
                                 <div className="col">
-                                            {formatChangeValueJSX(this.state.inchange)}
+                                    {formatChangeValueJSX(this.state.inchange)}
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col">
-                                            <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.income)}</span>
+                                    <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.income)}</span>
                                 </div>
                             </div>
                         </div>
@@ -70,11 +71,11 @@ class Gig extends Component {
                                     <span className="gig-dash-subtitle">Out</span>
                                 </div>
                                 <div className="col">
-                                            {formatChangeValueJSX(this.state.expchange, true)}
+                                    {formatChangeValueJSX(this.state.expchange, true)}
                                 </div>
                             </div>
                             <div className="row">
-                                        <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.expenses)}</span>
+                                <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.expenses)}</span>
                             </div>
                         </div>
 
@@ -94,8 +95,9 @@ class Gig extends Component {
                         </div>
                     </div>
                 </div>
-            </div>);
-        }
+            </div>
+        );
+    }
 };
 
 export default Gig;
