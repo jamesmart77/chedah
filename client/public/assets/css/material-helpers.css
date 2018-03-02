@@ -330,6 +330,10 @@ p.header {
     padding: 0 !important;
 }
 
+.p-1 {
+    padding: 1% !important;
+}
+
 /* Padding Top */
 .pt-0 {
     padding-top: 0% !important;
@@ -521,4 +525,17 @@ p.header {
 
 .box-shadow-none {
   box-shadow: none !important;
+}
+
+
+/*---------------------------------
+    Media Queries
+-----------------------------------*/
+
+
+
+@media only screen and (max-width: 992px) {
+    .center-on-medium-and-down {
+        text-align: center;
+    }
 }

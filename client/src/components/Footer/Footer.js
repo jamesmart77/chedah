@@ -13,7 +13,7 @@ const footerStyle = {
 // materialize footer
 const Footer = () =>
 
-    <footer className="page-footer footer-fixed deep-orange darken-2 center-on-small-only">
+    <footer className="page-footer footer-fixed deep-orange darken-2 center-on-medium-and-down">
         <div className="footer-copyright">
             <div className="container">
                 <div>

@@ -7,10 +7,12 @@ import { Card } from 'react-materialize';
 import API from "../../utils/API";
 import GigSummary from '../../components/GigView/GigSummary';
 import ExpenseSummary from '../../components/GigView/ExpenseSummary';
+import ExpenseChart from '../../components/GigView/ExpenseChart';
 import GoalSummary from '../../components/GigView/GoalSummary';
 import TransactionSummary from '../../components/Transactions/TransactionSummary';
 import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
+
 
 class GigDetail extends React.Component {
     state = {
@@ -102,7 +104,7 @@ class GigDetail extends React.Component {
     render() {
         return (
             <Container fluid>
-              <div className="row">
+              <div className="row p-0 m-0">
                   <div className="col s6">
                       <h4 className='dash-title'>{this.state.gigName} Dashboard</h4>
                   </div>
@@ -117,7 +119,7 @@ class GigDetail extends React.Component {
                 <div className="col s12 m5 l4">
 
                <GigSummary gigSummary={this.state.gigSummary} addGoalToGig={this.addGoalToGig.bind(this)} />
-               <ExpenseSummary expenseSummary={this.state.expenseSummary} />
+               <ExpenseSummary expenseSummary={this.state.expenseSummary} gigName={this.state.gigName}/>
 
 
                 </div>   

@@ -566,10 +566,11 @@ a.footer-yellow {
     background-color: #009587;
 }
 
-
 .dashboard .collapsible-body {
     padding: 0.5rem 0.5rem 0.3rem 0.5rem;
 }
+
+
 
 .dashboard .chip {
     font-family: 'Rubik', sans-serif;
@@ -655,6 +656,53 @@ a.gig-frequency {
     color: #3f464a;
     text-shadow: 1px 1px 1px #3333333b;
 }
+
+
+/*----------------------------------------
+    Gig Summary
+------------------------------------------*/
+
+.gig-summary .collapsible-body {
+    padding: 0;
+}
+
+.gig-summary.collection.with-header {
+    padding-left: 0;
+}
+
+.gig-summary.collection.with-header .collection-item {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.gig-summary .collapsible-header {
+    padding: 0 0.15rem 0.15rem 0;
+    vertical-align: middle;
+}
+
+.expense-summary.card {
+    -webkit-box-shadow: 0 0 0 0;
+    box-shadow: 0 0 0 0;
+}
+
+.expense-summary.card .card-content,
+.expense-summary.card .card-reveal {
+    padding: 0 1rem 0 1rem;
+    border-radius: 0 0 2px 2px;
+}
+
+.expense-summary.card .card-title {
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+.material-icons {
+
+}
+
+.expense-summary.card .card-content .card-title i {
+     line-height: 1rem;
+}
+
 
 /*
 .side-collection {

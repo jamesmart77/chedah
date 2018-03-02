@@ -127,7 +127,7 @@ export default {
           id: 7,
           date: "11/23/14",
           vendor: "Staples",
-          category: "Office Supplies",
+          category: "Promotion",
           gig: "Uber",
           ammount: 29.00
         }
@@ -153,14 +153,17 @@ loadGig: gigId => {
       expenseSummary: [
         {
           vendorName: "Shell",
-          sum: 7200.25
+		  category: "Gas",
+          sum: 300.25
         },
         {
           vendorName: "Jiffy Lube",
+		  category: "Repair",
           sum: 200.25
         },
         {
           vendorName: "Black Dog Car Wash",
+		  category: "Maintainance",
           sum: 100.55
         }
       ],
@@ -217,7 +220,7 @@ loadGig: gigId => {
           id: 7,
           date: "11/23/14", 
           vendor: "Staples", 
-          category: "Office Supplies", 
+          category: "Promotion",
           gig: "Uber",
           amount: 29.00
         }

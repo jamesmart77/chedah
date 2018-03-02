@@ -31,7 +31,6 @@ const App = () =>
       <Footer />
       <Sidebar />
       <ActionButton />
-      <FooterDebug />
     </div>
   </Router>;
 

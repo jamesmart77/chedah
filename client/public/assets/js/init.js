@@ -100,7 +100,8 @@
         });
         
         $('.fixed-action-btn').floatingActionButton({
-            toolbarEnabled: true
+            toolbarEnabled: true,
+            hoverEnabled: true
         });
 
     }); // end of document ready
