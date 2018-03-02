@@ -20,8 +20,10 @@ module.exports = {
   getPrivateKey: function (req, res) {
 
     const PUBLIC_TOKEN = req.body.plaidObj.token;
+
+    console.log("PUBLIC_TOKEN:" + PUBLIC_TOKEN)
     client.exchangePublicToken(PUBLIC_TOKEN, function (error, tokenResponse) {
-      if (error) {
+      if (error != null) {
         var msg = 'Could not exchange public_token!';
         console.log(msg + '\n' + error);
 
@@ -29,15 +31,6 @@ module.exports = {
           error: msg
         });
       }
-
-      /*TODO
-        Add current user email address to the req object so it can be used to add access token
-        id to the current user collection
-      */
-     
-      // db.User.findById()
-
-      //add the access token and item id to the user model
 
       console.log("USER INFO IN PLAID CONTROLLER")
       console.log(req.body)
@@ -49,10 +42,9 @@ module.exports = {
       console.log('Access Token: ' + item.ACCESS_TOKEN);
       console.log('Item ID: ' + item.ITEM_ID);
 
-      userController.addItemToUser({user: req.body.user, item: item});
-      // res.json({
-      //   itemInfo
-      // });
+      //pass the user, item and res to addItemToUser controller
+      userController.addItemToUser({user: req.body.user, item: item}, res);
+      
     });
   },
 

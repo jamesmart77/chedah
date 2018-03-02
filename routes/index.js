@@ -3,7 +3,7 @@ const router = require("express").Router();
 const apiRoutes = require("./api");
 const jwtAuth = require('./jwtAuth');
 
-router.all("/api", jwtAuth, (req, res, next) => {
+router.all("*", jwtAuth, (req, res, next) => {
   console.log('Successful authentication');
   next();
 })
