@@ -14,10 +14,18 @@ class Goal extends Component {
             change: props.change || 0,
             gigs: props.gigs || []
         };
+
+        this.handleClick = this.handleClick.bind(this);
     };
 
+    handleClick(e) {
+        console.log(`clicked: ${e.target.value}`);
+    }
+
     renderGigs() {
-        return (this.state.gigs.map((gig, i) => <div key={i} className="chip">{gig}</div>));
+        return (this.state.gigs.map((gig, i) =>
+            <div key={i} onClick={this.handleClick} className="chip">{gig}</div>
+        ));
     };
 
     render() {
