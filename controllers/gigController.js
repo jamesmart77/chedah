@@ -65,6 +65,29 @@ module.exports = {
 
     findGigById: (req, res) => {
       // console.log(`-> looking for id: ${req.query.id}`);
+
+      const gigDetails = req.body.gigDetails
+      const itemsAndAccessTokens = []
+
+      db.User
+      .findOne({
+        "auth_id": gigDetails.user.sub
+      })
+      .then((dbUser) => {
+        const itemsAndAccessTokens = dbUser.items.map( item => {
+          const data = {}
+          data.id = item.item_id
+          data.access_token = item.access_token
+          return data
+        });
+  
+
+        /*TODO 
+        While loop for the array until counter equals length of itemsAndAccessTokens array
+        */
+
+          
+        });
       db.Gig
         .findById({
           _id: req.query.id

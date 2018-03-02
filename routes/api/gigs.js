@@ -3,7 +3,7 @@ const gigController = require('../../controllers/gigController');
 
 
 // router.get('/gig/:name?', gigController.findGigByName)
-router.get('/gig/:id?', gigController.findGigById)
+router.get('/gig/:id', gigController.findGigById)
 
 // query '/api/gigs'
 router.get('/gigs', gigController.findAll)
