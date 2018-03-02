@@ -44,14 +44,6 @@ module.exports = {
 
   addItemToUser: (data, res) => {
 
-
-    // const userId = req.body.user.sub;
-
-    //find user by id push Item into array and store the access_token
-
-    // console.log(req.body);
-    // console.log("userID: " + userId);
-
     console.log(data.user)
 
     db.User
@@ -69,6 +61,8 @@ module.exports = {
       })
       .then(dbUser => {
         console.log(dbUser)
+        console.log("\nRESPONSE VAR")
+        console.log(res)
         res.json(dbUser)
       })
       .catch((err) => {
@@ -95,6 +89,7 @@ module.exports = {
           count: 250,
           offset: 0,
         }, function (error, transactionsResponse) {
+          //keep !=null since falsy will flag nulls
           if (error != null) {
             console.log(JSON.stringify(error));
             return res.json({error: error});

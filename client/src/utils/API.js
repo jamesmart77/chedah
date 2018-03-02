@@ -61,6 +61,16 @@ export default {
     // return axios.post("/api/transactions/", user)
   },
 
+  gigData: (gigDetails) => {
+    const user = decodeToken(getIdToken());
+    //attach decoded user info
+    gigDetails.user = user;
+
+    axios.post('/api/gigs/' + gigDetails.gigId, gigDetails)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  },
+
 
   //transactions
   getTransactionsByAccount: account => {
