@@ -8,7 +8,7 @@ import API from "../../utils/API";
 class AccountDetail extends Component {
   state = {
     account: {
-      name: "Chase",
+      name: "Chase Mastercard",
       nickName: "Credit Card",
       balance: 32.26,
       availableCredit: 58897.26,
@@ -30,7 +30,7 @@ class AccountDetail extends Component {
       .catch(err => console.log(err));
   }
 
-  renderTr(tr){ 
+  renderTr(tr){
     return <tr key={tr.id}>
       <td>{tr.date}</td>
       <td>{tr.vendor}</td>
@@ -50,8 +50,8 @@ class AccountDetail extends Component {
         </div>
         <div className="col s3"><MaterialButton type="mode_edit">Uber</MaterialButton></div>
       </div>
-      
-      
+
+
       <div style={{clear: 'both'}} className="row">
         <div className="col s3">
           <Panel title="BALANCE" value="$32.26" css="success"/>

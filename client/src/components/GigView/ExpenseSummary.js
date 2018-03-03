@@ -1,31 +1,28 @@
 import "./GigView.css";
 import React, { Component } from "react";
+import {formatCurrencyValueJSX} from '../../utils/currency';
+import ExpenseChart from './ExpenseChart';
 
 
-class ExpenseSummary extends Component {
+const ExpenseSummary = props =>
+    <ul className="gig-summary collapsible collection with-header" datacollapsible="expandable">
+        <li>
+            {/* Header */}
+            <div className="collapsible-header listHeader">
+                <h6><i className="material-icons iconStyleSmall">pie_chart</i> EXPENSE SUMMARY</h6>
+            </div>
 
-    state = {
-            gig: { 
-              gigName: "Uber",  
-              moneyIn: 7200.25,
-              moneyOut: 1875.11,
-              net: 4575.22,
-            }
+            {/* Body */}
+			{console.log(`props: `)}
+			{console.log(props)}
+            <div className='row collapsible-body'>
+                <ExpenseChart
+                    expenses={props.expenseSummary}
+					gigName={props.gigName}
+                />
+            </div>
+        </li>
+    </ul>
 
-    };
-
-    render() {
-        return (
-
-            <ul className="collection with-header">
-            <li className="collection-header listHeader"><h6><i className="material-icons iconStyleSmall">pie_chart</i> EXPENSE SUMMARY</h6></li>
-          <li className="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
-          <li className="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
-          <li className="collection-item">VENDOR:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
-        </ul>
-
-);
-    };
-}
 
 export default ExpenseSummary;

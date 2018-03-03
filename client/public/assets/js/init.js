@@ -98,5 +98,11 @@
                 minLength: 1
             }
         });
+        /*
+        $('.fixed-action-btn').floatingActionButton({
+            toolbarEnabled: true,
+            hoverEnabled: true
+        });*/
+
     }); // end of document ready
 })(jQuery); // end of jQuery namepace

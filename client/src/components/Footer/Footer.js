@@ -1,19 +1,19 @@
 import React from "react";
 
-
+/*
 const footerStyle = {
   position: 'fixed',
   bottom: 0,
   left: 0,
   zIndex: 999999
 };
-
+*/
 
 
 // materialize footer
 const Footer = () =>
 
-    <footer className="page-footer footer-fixed deep-orange darken-2 center-on-small-only">
+    <footer className="page-footer footer-fixed deep-orange darken-2 center-on-medium-and-down">
         <div className="footer-copyright">
             <div className="container">
                 <div>

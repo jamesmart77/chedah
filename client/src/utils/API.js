@@ -138,10 +138,13 @@ export default {
     });
   },
 
+<<<<<<< HEAD
   updateGig: (account, gig) =>{
     return axios.put("/")
   },
 
+=======
+>>>>>>> 291d20a46aec0ecfe9c500f1af11beda2902d13f
 ///////////////// GIG DETAIL VIEW
 
 loadGig: gigId => {

@@ -1,30 +1,27 @@
 import React, { Component } from "react";
 import "./GigView.css";
+import {formatCurrencyValueJSX} from '../../utils/currency';
 
-class GigSummary extends Component {
 
-    state = {
-            gig: { 
-              gigName: "Uber",  
-              moneyIn: 7200.25,
-              moneyOut: 1875.11,
-              net: 4575.22,
-            }
 
-    };
+const GigSummary = props =>
 
-    render() {
-        return (
+        <ul className="gig-summary collapsible collection with-header" datacollapsible="expandable">
+            <li>
+                {/* Header */}
+                <div className="collapsible-header listHeader">
+                    <h6><i className="material-icons iconStyleSmall">track_changes</i> Gig Summary</h6>
+                </div>
 
-            <ul class="collection with-header">
-            <li className="collection-header listHeader"><h6><i className="material-icons iconStyleSmall">track_changes</i> GIG SUMMARY</h6></li>
-          <li className="collection-item">MONEY IN:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyIn}</span>}</span></li>
-          <li className="collection-item">EXPENSES:<span className="right">{<span><sup>$</sup>{this.state.gig.moneyOut}</span>}</span></li>
-          <li className="collection-item">NET:<span className="right">{<span><sup>$</sup>{this.state.gig.net}</span>}</span></li>
+                {/* Body */}
+                <div className='row collapsible-body'>
+                    <ul>
+            <li className="collection-item">MONEY IN:<span className="right">{formatCurrencyValueJSX(props.gigSummary.moneyIn)}</span></li>
+            <li className="collection-item">EXPENSES:<span className="right">{formatCurrencyValueJSX(props.gigSummary.expenses)}</span></li>
+            <li className="collection-item">NET:<span className="right">{formatCurrencyValueJSX(props.gigSummary.net)}</span></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
-
-);
-    };
-}
 
 export default GigSummary;
