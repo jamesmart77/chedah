@@ -45,25 +45,11 @@ const userSchema = new Schema({
     },
     institution_id: {
       type: String
-    },
-    accounts: [{
-      id: {
-        type: String
-      },
-      name: {
-        type: String
-      },
-      type: {
-        type: String
-      },
-      subtype: {
-        type: String
-      }
-    }]
+    }
   }],
-  transactions: [{
+  gigs: [{
     type: Schema.Types.ObjectId,
-    ref: "Transaction"
+    ref: "Gig"
   }]
 });
 

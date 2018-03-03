@@ -1,5 +1,6 @@
 const db = require("../models");
 const plaid = require('plaid');
+const gigController = require('./gigController');
 require('dotenv').config();
 
 var client = new plaid.Client(
@@ -13,6 +14,7 @@ var client = new plaid.Client(
 module.exports = {
 
   createUserIfDoesNotExist: (req, res) => {
+    console.log("HITTING IT")
     const user = {
       firstName: req.body.given_name || null,
       lastName: req.body.family_name || null,
@@ -26,10 +28,30 @@ module.exports = {
         return dbModel;
       })
       .then(dbModel => {
-        res.json({
-          user: dbModel,
-          userExist: true
-        })
+        //create personal gig as default because user was just created
+        gigController.addPersonalGig({
+            "name": "Personal"
+          })
+          //assoc new gig to user model
+          .then((gigModel) => {
+            return db.User.findOneAndUpdate({
+              _id: dbModel._id
+            }, {
+              $push: {
+                gigs: gigModel._id
+              }
+            }, {
+              new: true
+            });
+          })
+          .then((dbUser) => res.json(dbUser))
+          .catch(err => {
+            console.log('error')
+            console.log(err)
+            res.status(404).json({
+              err: err
+            });
+          });
       })
       .catch(err => {
         console.log("error")
@@ -83,8 +105,8 @@ module.exports = {
         // console.log(dbUser)
 
         // Pull transactions for the Item for the last 30 days
-        const startDate = '2017-01-01';//moment().subtract(30, 'days').format('YYYY-MM-DD');
-        const endDate = '2018-02-01';//moment().format('YYYY-MM-DD');
+        const startDate = '2017-01-01'; //moment().subtract(30, 'days').format('YYYY-MM-DD');
+        const endDate = '2018-02-01'; //moment().format('YYYY-MM-DD');
         client.getTransactions(dbUser.items[0].access_token, startDate, endDate, {
           count: 250,
           offset: 0,
@@ -92,7 +114,9 @@ module.exports = {
           //keep !=null since falsy will flag nulls
           if (error != null) {
             console.log(JSON.stringify(error));
-            return res.json({error: error});
+            return res.json({
+              error: error
+            });
           }
           console.log('pulled ' + transactionsResponse.transactions.length + ' transactions');
           res.json(transactionsResponse);
