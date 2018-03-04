@@ -3,4 +3,5 @@ module.exports = {
   Gig: require("./gig"),
   Goal: require("./goal"),
   Account: require("./account"),
+  Transaction: require("./transaction")
 };
