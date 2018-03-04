@@ -14,7 +14,8 @@
     <!-- App CSS-->
     <link href="/assets/css/material-helpers.css" type="text/css" rel="stylesheet">
     <link href="/assets/css/style.css" type="text/css" rel="stylesheet">
-
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet">
+    <link href="/assets/css/account.css" type="text/css" rel="stylesheet">
 </head>
 
 <body>
@@ -38,35 +39,6 @@
     <script src="/assets/js/init.js"></script>
     <!-- Custom JS -->
     <script src="/assets/js/view.js"></script>
-
-
-
-    <!-- <script>
-        (function($) {
-            var handler = Plaid.create({
-                apiVersion: 'v2',
-                clientName: 'Plaid Walkthrough Demo',
-                env: 'sandbox',
-                product: ['transactions'],
-                key: '1d68b777ea259a9dedc5cfb9510428',
-                onSuccess: function(public_token) {
-                    $.post('/api/plaid/get_access_token', {
-                        public_token: public_token
-                    }, function(response) {
-                        console.log(response)
-                        $('#container').fadeOut('fast', function() {
-                            $('#intro').hide();
-                            $('#app, #steps').fadeIn('slow');
-                        });
-                    });
-                },
-            });
-
-            $(document).on('click', '#link-btn', function(e) {
-                handler.open();
-            });
-        })(jQuery);
-    </script> -->
 
 
 </body>

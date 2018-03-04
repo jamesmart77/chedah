@@ -3,6 +3,7 @@ import React from 'react';
 
 // format a currency value & return a comma-separated string
 export function numberWithCommas(val) {
+    val = (!val) ? 0 : val;
     var parts = val.toFixed(2).split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');

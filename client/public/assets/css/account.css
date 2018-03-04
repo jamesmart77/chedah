@@ -1,0 +1,69 @@
+.account-detail.card-panel {
+    padding: 1rem;
+}
+
+.account-header {
+    font-family: 'Roboto Slab', serif;
+    text-transform: none;
+    color: #353535;
+}
+
+.account-number {
+    font-family: 'Roboto Slab', serif;
+    /*text-transform: none;*/
+    color: #838383;
+}
+
+.account-due {
+    font-family: 'Roboto Slab', serif;
+    text-transform: none;
+    color: #ccc;
+}
+
+.account-balance,
+.account-avail,
+.account-limit,
+.account-fees {
+    font-family: 'Roboto', sans-serif;
+    /*font-family: 'Source Sans Pro', sans-serif;*/
+    font-size: 1.25rem;
+}
+
+.account-balance {
+    /*font-size: 1.5rem;*/
+    font-weight: 600;
+}
+
+table.account-balances {
+    width: auto;
+    /*font-weight: bold;*/
+    /*font-family: 'Source Sans Pro', sans-serif;*/
+}
+
+.account-balances td,
+.account-balances th {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.account-balances td.description {
+    position: relative;
+    text-align: right;
+    right: 0.5rem;
+}
+
+.account-balances td.stats {
+    text-align: left;
+}
+
+.account-balances span.badge.new {
+    font-family: 'Scope One', serif;
+    font-size: 1.25rem;
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    line-height: 2rem;
+    height: 2.2rem;
+}
