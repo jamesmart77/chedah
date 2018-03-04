@@ -21,7 +21,7 @@ class Callback extends Component {
 
       console.log("WTF Happaned")
       console.log(res.data);
-      res.data.userExist ? window.location.href = "/dashboard" : console.log(res.data)
+      window.location.href = "/dashboard"
       
     })
     .catch(console.log);

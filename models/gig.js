@@ -10,6 +10,10 @@ const gigSchema = new Schema({
         required: true,
         unique: true
     },
+    default: {
+        type: Boolean,
+        required: true
+    },
     description: {
         type: String,
         required: false
