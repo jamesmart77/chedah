@@ -47,20 +47,15 @@ const userSchema = new Schema({
     },
     institution_id: {
       type: String
-    },
-    gigID: {
-      type: Schema.Types.ObjectId,
-      ref: "Gig",
-      required: true
-    },
-    accounts: [{
-      type: Schema.Types.ObjectId,
-      ref: "Accounts"
-    }],
+    }
+  }],
+  accounts: [{
+    type: Schema.Types.ObjectId,
+    ref: "Account"
   }],
   transactions: [{
-        type: Schema.Types.ObjectId,
-        ref: "Transaction"
+    type: Schema.Types.ObjectId,
+    ref: "Transaction"
   }],
   gigs: [{
     type: Schema.Types.ObjectId,

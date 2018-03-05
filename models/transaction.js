@@ -26,6 +26,10 @@ const transactionSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },
+    gigId: {
+        type: String,
+        required: true
     }
 });
 

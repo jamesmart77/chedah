@@ -10,15 +10,7 @@ const goalSchema = new Schema({
         required: true,
         unique: true
     },
-    userID: {
-        type: String,
-        required: false
-    },
     description: {
-        type: String,
-        required: false
-    },
-    accountID: {
         type: String,
         required: false
     }

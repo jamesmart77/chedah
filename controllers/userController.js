@@ -25,14 +25,14 @@ module.exports = {
     }
     db.User
       .create(user)
-      .then(dbUser => {
+      .then(dbModel => {
         //create personal gig as default because user was just created
         gigController.createGig({
           "name": "Personal"
         })
           //assoc new gig to user model
           .then(gigModel => db.User.findOneAndUpdate({
-              _id: dbUser._id
+              _id: dbModel._id
             }, {
               $push: {
                 gigs: gigModel._id
@@ -64,42 +64,60 @@ module.exports = {
   addItemToUser: (data, res) => {
 
     console.log(data.user)
-
-    //find default gig
-    //add item to current user and include gig in item
-    db.Gig
-      .findOne({
-        "default": true
+    db.User
+      .findOneAndUpdate({
+        "auth_id": data.user.sub
+      }, {
+        $push: {
+          "items": {
+            "access_token": data.item.ACCESS_TOKEN,
+            "item_id": data.item.ITEM_ID
+          }
+        }
+      }, {
+        upsert: true
       })
-      .then((defaultGig) => {
-        db.User
-          .findOneAndUpdate({
-            "auth_id": data.user.sub
-          }, {
-            $push: {
-              "items": {
-                "access_token": data.item.ACCESS_TOKEN,
-                "item_id": data.item.ITEM_ID,
-                "gigID": defaultGig._id
-              }
-            }
-          }, {
-            upsert: true
-          })
-          .then(dbUser => {
-            res.json(dbUser);
-          })
-          .catch((err) => {
-            console.log("error adding item to user");
-            console.log(err);
-            res.json(err);
-          });
-      })
-      .catch((err) => {
-        console.log("error finding default gig");
-        console.log(err);
-        res.json(err);
-      })
+      .then(dbUser => {
+        // axios request here
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        axios.post('https://sandbox.plaid.com/accounts/get', {
+            client_id: process.env.PLAID_CLIENT_ID,
+            secret: process.env.PLAID_SECRET,
+            access_token: data.item.ACCESS_TOKEN
+        })
+        .then(res => {
+          const promises = res.data.accounts.map(account => {
+            db.Gig.findOne({
+              name: 'Personal'
+            }).then(dbGig => {
+              account.defaultGigId = dbGig._id
+              db.Account.create(account)
+              .then(dbAccount => {
+                console.log('created account')
+                return db.User.findOneAndUpdate({
+                  _id: dbUser._id
+                }, {
+                  $push: {
+                    accounts: dbAccount._id
+                    }
+                  }, {
+                    new: true
+                  })
+                })
+                .catch(console.log)
+              })
+            }).then(dbUser => {
+              res.json(dbUser)
+              console.log(res.data)
+            })
+            .catch((err) => {
+              console.log("error adding item to user");
+              console.log(err);
+              res.json(err);
+            });
+            }).catch(console.log)
+            
+        })
 
 
     // res.json({userId});
@@ -143,43 +161,51 @@ module.exports = {
               
               console.log('pulled ' + transactions.length + ' transactions');
 
-              var i = 0;
-    
-              while (i < transactions.length) {
-    
-                  //create transaction object to insert into DB
-                  let transactionObj = {
-                    amount: transactions[i].amount,
-                    category: transactions[i].category !== null ? transactions[i].category[0] : 'Other',
-                    date: transactions[i].date,
-                    transactionName: transactions[i].name,
-                    transaction_id: transactions[i].transaction_id
+              db.Account.find()
+                .then(dbAccounts => {
+                  var i = 0;
+                  while (i < transactions.length) {
+                    const accountThatMatchesTransactionId = dbAccounts.find( account => transactions[i].account_id === account.account_id);
+                    // console.log(transactions[i].account_id === dbAccounts.account_id)
+        
+                      //create transaction object to insert into DB
+                      let transactionObj = {
+                        amount: transactions[i].amount,
+                        category: transactions[i].category !== null ? transactions[i].category[0] : 'Other',
+                        date: transactions[i].date,
+                        transactionName: transactions[i].name,
+                        transaction_id: transactions[i].transaction_id,
+                        gigId: accountThatMatchesTransactionId.defaultGigId
+                      }
+        
+                      //add transaction to transaction collection
+                      //if transactionID is already in collection, transaction will not be added
+                      db.Transaction
+                        .create(transactionObj)
+                        .then((dbTrans) => {
+                          //add new transactionID to user.items.transactions array
+                          db.User
+                            .update(
+                              {"auth_id": req.body.sub, "items.item_id": dbUser.items[0].item_id},
+                              //addToSet pushes to array if item does not already exist
+                              { "$addToSet": {"items.$.transactions": dbTrans._id}}
+                            )
+                            .catch((err) => console.log(err))
+                        })
+                        .catch((err) => {
+                          // console.log("transaction insert failed");
+                          // console.log(err);
+                          // console.log("\nTransaction object");
+                          // console.log(transactionObj);
+                        })
+        
+                    //iterate through all transactions in while loop 
+                    i++
                   }
-    
-                  //add transaction to transaction collection
-                  //if transactionID is already in collection, transaction will not be added
-                  db.Transaction
-                    .create(transactionObj)
-                    .then((dbTrans) => {
-                      //add new transactionID to user.items.transactions array
-                      db.User
-                        .update(
-                          {"auth_id": req.body.sub, "items.item_id": dbUser.items[0].item_id},
-                          //addToSet pushes to array if item does not already exist
-                          { "$addToSet": {"items.$.transactions": dbTrans._id}}
-                        )
-                        .catch((err) => console.log(err))
-                    })
-                    .catch((err) => {
-                      // console.log("transaction insert failed");
-                      // console.log(err);
-                      // console.log("\nTransaction object");
-                      // console.log(transactionObj);
-                    })
-    
-                //iterate through all transactions in while loop 
-                i++
-              }
+                })
+                .catch(console.log)
+
+             
               res.json({msg: "transactions loaded successfully"});
             });
     
