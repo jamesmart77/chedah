@@ -2,9 +2,9 @@ const redis = require("redis");
 const client = redis.createClient();
 
 // This will add the ofbject that is sent in and then send its results to the console.
-const addEdit = editBody => {
+const add = (name, body)=> {
     // Adds the hash of the edit body. We can send it in as an array syntax or an argument list of (vairable, {key:value,key:value};
-    client.hmset(editBody);
+    client.hmset(name, {body});
     console.log(`Added ${editBody}`)
     // This is currently sending the object back
     client.hgetall(editBody[0], function(err, object){
@@ -22,7 +22,7 @@ const find = theUsersEdits => {
 };
 
 module.exports = {
-    addEdit: addEdit,
+    add: add,
     client: client,
     find: find
 }
