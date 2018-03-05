@@ -1,6 +1,8 @@
 const db = require("../models");
 const plaid = require('plaid');
 const gigController = require('./gigController');
+const util = require('util')
+const axios = require('axios')
 require('dotenv').config();
 
 var client = new plaid.Client(
@@ -23,28 +25,23 @@ module.exports = {
     }
     db.User
       .create(user)
-      .then(dbModel => {
-        console.log(dbModel);
-        return dbModel;
-      })
-      .then(dbModel => {
+      .then(dbUser => {
         //create personal gig as default because user was just created
-        gigController.addPersonalGig({
-            "name": "Personal"
-          })
+        gigController.createGig({
+          "name": "Personal"
+        })
           //assoc new gig to user model
-          .then((gigModel) => {
-            return db.User.findOneAndUpdate({
-              _id: dbModel._id
+          .then(gigModel => db.User.findOneAndUpdate({
+              _id: dbUser._id
             }, {
               $push: {
                 gigs: gigModel._id
               }
             }, {
               new: true
-            });
-          })
-          .then((dbUser) => res.json(dbUser))
+            })
+          )
+          .then(dbUser => res.json(dbUser))
           .catch(err => {
             console.log('error')
             console.log(err)
@@ -121,70 +118,83 @@ module.exports = {
         const startDate = '2017-01-01'; //moment().subtract(30, 'days').format('YYYY-MM-DD');
         const endDate = '2018-02-01'; //moment().format('YYYY-MM-DD');
 
-        /*TODO
-          - INCLUDE PROMISE ALL LOGIC TO LOOP THROUGH ALL LINKED ACCOUNTS IN USER PROFILE
-        */
-       
-        //exchange item.access_token to return transactions
-        client.getTransactions(dbUser.items[0].access_token, startDate, endDate, {
-          count: 250,
-          offset: 0,
-        }, (error, transactionsResponse) => {
-          //keep !=null since falsy will flag nulls
-          if (error != null) {
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        const transactionPromises = dbUser.items.map(item => axios.post('https://sandbox.plaid.com/transactions/get', {
+                                                                    client_id: process.env.PLAID_CLIENT_ID,
+                                                                    secret: process.env.PLAID_SECRET,
+                                                                    access_token: item.access_token,
+                                                                    start_date: startDate,
+                                                                    end_date: endDate,
+                                                                    options: {
+                                                                      count: 250,
+                                                                      offset: 0
+                                                                    }
+                                                                }))
+
+
+        // console.log(transactionPromises)
+
+        Promise.all(transactionPromises)
+          .then(transactionsResponseArray => {
+            const transactions = transactionsResponseArray
+              .map(transactionResponses => transactionResponses.data.transactions)
+              .reduce((acc, cv)=> acc.concat(cv))
+              .filter(transaction => !transaction.pending)
+              
+              console.log('pulled ' + transactions.length + ' transactions');
+
+              var i = 0;
+    
+              while (i < transactions.length) {
+    
+                  //create transaction object to insert into DB
+                  let transactionObj = {
+                    amount: transactions[i].amount,
+                    category: transactions[i].category !== null ? transactions[i].category[0] : 'Other',
+                    date: transactions[i].date,
+                    transactionName: transactions[i].name,
+                    transaction_id: transactions[i].transaction_id
+                  }
+    
+                  //add transaction to transaction collection
+                  //if transactionID is already in collection, transaction will not be added
+                  db.Transaction
+                    .create(transactionObj)
+                    .then((dbTrans) => {
+                      //add new transactionID to user.items.transactions array
+                      db.User
+                        .update(
+                          {"auth_id": req.body.sub, "items.item_id": dbUser.items[0].item_id},
+                          //addToSet pushes to array if item does not already exist
+                          { "$addToSet": {"items.$.transactions": dbTrans._id}}
+                        )
+                        .catch((err) => console.log(err))
+                    })
+                    .catch((err) => {
+                      // console.log("transaction insert failed");
+                      // console.log(err);
+                      // console.log("\nTransaction object");
+                      // console.log(transactionObj);
+                    })
+    
+                //iterate through all transactions in while loop 
+                i++
+              }
+              res.json({msg: "transactions loaded successfully"});
+            });
+    
+
+          })
+
+          .catch(err => {
             console.log("error in getting plaid transactions");
             console.log(error);
             res.json({
-              error: error
-            });
-          }
-          console.log('pulled ' + transactionsResponse.transactions.length + ' transactions');
+              error: err
+            })
+          })
 
-          var i = 0;
-
-          while (i < transactionsResponse.transactions.length) {
-
-            //if transaction is not pending
-            if (!transactionsResponse.transactions[i].pending) {
-
-              //create transaction object to insert into DB
-              let transactionObj = {
-                amount: transactionsResponse.transactions[i].amount,
-                category: transactionsResponse.transactions[i].category !== null ? transactionsResponse.transactions[i].category[0] : 'Other',
-                date: transactionsResponse.transactions[i].date,
-                transactionName: transactionsResponse.transactions[i].name,
-                transaction_id: transactionsResponse.transactions[i].transaction_id
-              }
-
-              //add transaction to transaction collection
-              //if transactionID is already in collection, transaction will not be added
-              db.Transaction
-                .create(transactionObj)
-                .then((dbTrans) => {
-                  //add new transactionID to user.items.transactions array
-                  db.User
-                    .update(
-                      {"auth_id": req.body.sub, "items.item_id": dbUser.items[0].item_id},
-                      //addToSet pushes to array if item does not already exist
-                      { "$addToSet": {"items.$.transactions": dbTrans._id}}
-                    )
-                    .catch((err) => console.log(err))
-                })
-                .catch((err) => {
-                  console.log("transaction insert failed");
-                  console.log(err);
-                  console.log("\nTransaction object");
-                  console.log(transactionObj);
-                })
-
-              }
-
-            //iterate through all transactions in while loop 
-            i++
-          }
-          res.json({msg: "transactions loaded successfully"});
-        });
-      })
-      .catch((err) => console.log(err))
+        
+      // .catch((err) => console.log(err))
   }
 };

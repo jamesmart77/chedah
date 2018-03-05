@@ -23,9 +23,6 @@ module.exports = {
         .create(gig)
     },
 
-    // add a new personal gig and set to default
-    createGig: gig => {return db.Gig.create(gig)},
-
     // add a new gig and set default to false
     addGig: (req, res) => {
       

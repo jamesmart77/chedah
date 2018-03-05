@@ -5,19 +5,18 @@ const validator = require('mongoose-unique-validator');
 
 // temp account schema
 const accountSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
+    account_id: String,
+    balances: {
+      available: Number,
+      current: Number,
+      limit: Number
     },
-    accountType: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: false
-    }
+    mask: String,
+    name: String,
+    official_name: String,
+    subtype: String,
+    type: String,
+    defaultGigId: "String" // looks like ObjectId("5a9ca22338684795f41262ea")
 });
 
 // add validator plugin
