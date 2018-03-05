@@ -5,10 +5,16 @@
 
     
 version: 2
+
+machine:
+  node:
+    version: 9.5.0
+
+
 jobs:
   build:
     docker:
-      - image: node:8.0
+      - image: node:9.5.0
     steps:
       - checkout
       - run:
