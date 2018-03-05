@@ -269,6 +269,9 @@ loadUserAccounts: userId => {
 
 getAccountDetails: accountId => {
     let matchedAccount = getAccountWithID(accountId);
+    let gigData = getGigWithId(matchedAccount.gigId);
+    matchedAccount.gig = gigData;
+    delete matchedAccount.gigId;
     return Promise.resolve(matchedAccount);
 },
 
@@ -278,31 +281,27 @@ loadUserData: userId => {
   return Promise.resolve({
     user: user,
     accounts: defaultAccounts,
-    gigs: [
-      {
-        "_id": "5a91b813513541155c819fa4",
-        "name": "uber",
-        "userId": userId || null,
-        "description": "driving people around and shit",
-        "accountID": null
-      }, {
-        "_id": "5a91b813513541155c819fa5",
-        "name": "programming",
-        "userId": userId || null,
-        "description": "app development",
-        "accountID": null
-      }
-    ],
+    gigs: defaultGigs,
     goals: defaultGoals,
     categories: ['Office Supplies', 'Advertising', 'Repair', 'Gas']
   })
 },
 
+// return transactions associated with the given account id
+//  - ( currently returns test data )
 loadAccountTransactions: accountId => {
     return Promise.resolve(
         defaultTransactions
     )
-}
+},
+
+// return gig data from a gigId
+getGigData: gigId => {
+    const gigData = getGigWithId(gigId)
+    return Promise.resolve(
+        gigData
+    )
+},
 
 };
 
@@ -331,7 +330,7 @@ const defaultAccounts = [
     "limit": 60000,
     "balance": 1325.81,
     "apr": 4,
-    "fees": null,
+    "fees": 84.24,
     "dueDate": 27,
     "gigId": "5a91b813513541155c819fa4"
   }, {
@@ -349,6 +348,27 @@ const defaultAccounts = [
   }
 ]
 
+const defaultGigs = [{
+        "_id": "5a91b813513541155c819fa4",
+        "name": "Uber",
+        "userID": null,
+        "description": "driving people around and shit",
+        "accountID": null
+    },
+    {
+        "_id": "5a91b813513541155c819fa5",
+        "name": "Programming",
+        "userID": null,
+        "description": "app development",
+        "accountID": null
+    }, {
+        "_id": "5a91dd105c357a324b3e9725",
+        "name": "Horse Husbandry",
+        "userID": null,
+        "description": "Bring a mop",
+        "accountID": null
+    }
+]
 
 const defaultGoals = [{
   "_id": "5a9844d0be62dd795a0b8102",
@@ -659,6 +679,18 @@ function getAccountWithID(accountID) {
     defaultAccounts.forEach(acct => {
         if (acct._id === accountID) {
             result = acct;
+        }
+    })
+    return result;
+}
+
+
+// match an accountId with an account
+function getGigWithId(gigId) {
+    let result = {};
+    defaultGigs.forEach(gig => {
+        if (gig._id === gigId) {
+            result = gig;
         }
     })
     return result;

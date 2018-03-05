@@ -12,6 +12,7 @@
     font-family: 'Roboto Slab', serif;
     /*text-transform: none;*/
     color: #838383;
+    font-size: 1.25rem;
 }
 
 .account-due {
@@ -30,8 +31,12 @@
 }
 
 .account-balance {
-    /*font-size: 1.5rem;*/
     font-weight: 600;
+}
+
+.account-balance td {
+    font-size: 1.75rem;
+    color: #606060;
 }
 
 table.account-balances {
@@ -66,4 +71,21 @@ table.account-balances {
     padding: 0.2rem 0.4rem;
     line-height: 2rem;
     height: 2.2rem;
+}
+
+
+
+/*---------------------------------
+    Media Queries
+-----------------------------------*/
+@media screen and ( max-width: 900px ){
+    .account-header {
+        font-size: 75%;
+    }
+}
+
+@media screen and ( max-width: 600px ){
+    .account-header {
+        font-size: 60%;
+    }
 }

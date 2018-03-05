@@ -20,7 +20,7 @@
     "limit": 60000,
     "balance": 1325.81,
     "apr": 4,
-    "fees": null,
+    "fees": 84.24,
     "dueDate": 27,
     "gigId": "5a91b813513541155c819fa4"
   },

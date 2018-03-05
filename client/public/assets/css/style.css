@@ -316,10 +316,21 @@ textarea.materialize-textarea {
     right: 85px;
     padding: 0px 0.5rem;
     text-align: right;
-    background-color: #323232;
-    border-radius: 2px;
+    /*background-color: #323232;*/
+    background-color: #1b1b1be8;
+    border-radius: 0.7rem;
     color: #FFF;
     width: auto;
+}
+
+.main-actions .mobile-fab-tip {
+    text-shadow: 1px solid #ccc;
+}
+
+.main-actions .btn-floating {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
 }
 
 /* Cards  */
@@ -748,20 +759,28 @@ a.side-headers {
 
 
 .datatable input {
-    background-color: #e74a1a36;
+    background-color: #2a546036;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     font-size: 1rem;
     text-indent: 0.1rem;
 }
 
+.datatable th {
+    font-weight: 700;
+}
 
 .row-expense {
-    background-color: #ff3e3e0a !important;
+    /*background-color: #ff3e3e0a !important;*/
 }
 
 .row-deposit {
-    background-color: #3eff8417 !important;
+    /*background-color: #3eff8417 !important;*/
+}
+
+
+input.editable-cell {
+
 }
 
 /*

@@ -15,7 +15,6 @@ import ActionButton from './components/ActionButton';
 import { AccountsHome, AccountDetail } from './pages/Accounts';
 
 
-
 const App = () =>
   <Router history={history}>
     <div>

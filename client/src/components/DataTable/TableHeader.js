@@ -6,6 +6,8 @@ class TableHeader extends Component {
 
     constructor(props) {
         super(props);
+
+        console.log(`-> Headers: `, props);
     };
 
     render() {
@@ -13,7 +15,7 @@ class TableHeader extends Component {
             <thead>
                 <tr>
                     {this.props.headers.map((item, idx) => (
-                        <th key={idx}>{item}</th>
+                        <th key={idx} className={item.align + '-align'}>{item.name}</th>
                     ))}
                 </tr>
             </thead>

@@ -11,33 +11,30 @@ class Dashboard extends Component {
 
         // user, accounts, gigs, goals, categories
         this.state = {
-            accounts: props.accounts || [],
-            goals: props.goals || [],
-            user: props.user || {},
-            categories: props.categories || [],
-            gigs: props.gigs || []
+            accounts: [],
+            goals: [],
+            user: {},
+            categories: [],
+            gigs: []
         }
     }
 
-    // Load user data
-    loadUserData() {
+    componentWillMount() {
         API.loadUserData()
         .then(userData => {
             this.setState(userData)
-            console.log(`-> Dashboard: `);
-            console.log(userData);
+            console.log(`-> Dashboard: `, userData);
         })
         .catch(console.log)
     }
 
     componentDidMount(){
-        this.loadUserData();
         this.getGigData();
     }
 
     // TODO: this should be calling back to a controller
     getGigData(gigId) {
-        
+
     }
 
     render() {

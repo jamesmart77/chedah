@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Col, Row, Container } from '../../components/Grid';
 import { AccountOverview } from '../../components/Accounts';
 import API from '../../utils/API';
 
@@ -7,12 +6,13 @@ import API from '../../utils/API';
 class AccountsHome extends Component {
     state = {accounts: []}
 
-    // load
-    componentDidMount() {
-      API.loadUserAccounts()
-        .then(data => { console.log(data); return data})
-        .then(data => this.setState({ accounts: data }))
-        .catch(err => console.log(err));
+    componentWillMount() {
+        API.loadUserData()
+        .then(userData => {
+            this.setState(userData)
+            console.log(`-> AccountsHome: `, userData);
+        })
+        .catch(console.log)
     }
 
     render() {
