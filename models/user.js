@@ -34,10 +34,12 @@ const userSchema = new Schema({
   },
   items: [{
     access_token: {
-      type: String
+      type: String,
+      required: true
     },
     item_id: {
       type: String,
+      required: true,
       unique: true
     },
     name: {
@@ -46,24 +48,19 @@ const userSchema = new Schema({
     institution_id: {
       type: String
     },
-    accounts: [{
-      id: {
-        type: String
-      },
-      name: {
-        type: String
-      },
-      type: {
-        type: String
-      },
-      subtype: {
-        type: String
-      }
+    gigID: {
+      type: Schema.Types.ObjectId,
+      ref: "Gig",
+      required: true
+    },
+    transactions: [{
+      type: Schema.Types.ObjectId,
+      ref: "Transaction"
     }]
   }],
-  transactions: [{
+  gigs: [{
     type: Schema.Types.ObjectId,
-    ref: "Transaction"
+    ref: "Gig"
   }]
 });
 

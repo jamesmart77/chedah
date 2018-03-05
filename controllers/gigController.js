@@ -12,14 +12,23 @@ module.exports = {
         .catch(err => res.status(422).json(err));
     },
 
-    // add a new gig
+     // add a new personal gig and set to default
+     addPersonalGig: (data) => {
+      const gig = {
+        name: data.name,
+        default: true
+      }
+
+      return db.Gig
+        .create(gig)
+    },
+
+    // add a new gig and set default to false
     addGig: (req, res) => {
-      // console.log(`-> adding gig: ${req.query.name}`);
+      
       const gig = {
         name: req.query.name,
-        userID: req.query.accountID || null,
-        description: req.query.description || null,
-        accountID: req.query.accountID || null
+        default: false
       }
 
       db.Gig
