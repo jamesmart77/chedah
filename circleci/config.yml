@@ -15,7 +15,7 @@ jobs:
   build:
     working_directory: ~/chedah
     docker:
-      - image: circleci/node:4.8.2
+      - image: circleci/node:9
       - image: mongo:3.4.4
     steps:
       - checkout
