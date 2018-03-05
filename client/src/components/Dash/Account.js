@@ -3,36 +3,33 @@ import { Badge, Chip } from 'react-materialize';
 import { formatCurrencyValueJSX } from '../../utils/currency';
 
 
-// materialize account preview
-// TODO: need to differentiate between checking & credit
+
+// materialize account previewx
 class Account extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            id: props.id,
-            name: props.name,
-            accountType: props.accountType || 'checking',
-            total: props.total,
-            balance: props.balance || 0,
-            gigs: props.gigs || []
-        };
+        console.log(`-> Account: `);
+        console.log(props);
     };
 
     renderGigs() {
-        return (this.state.gigs.map((gig, i) => <div key={i} className='chip'>{gig}</div>));
+        const gigList = (this.props.gigs) || []
+        return (gigList.map((gig, i) => <div key={i} className='chip'>{gig}</div>));
     };
 
     renderChecking() {
         const gigs = this.renderGigs();
-        const checkingTotal = formatCurrencyValueJSX(this.state.total);
-        const accountHref = `accounts/${this.state.id}`;
+        const checkingTotal = formatCurrencyValueJSX(this.props.balance);
+        const accountHref = `accounts/${this.props._id}`;
         return (
             <div className='row collapsible-body'>
                 <div className='col s8'>
                     <p className='collections-title'>
-                        <i className='material-icons inflex'>attach_money</i> <a href={accountHref}>{this.state.name}</a></p>
-                        {gigs}
+                        <i className='material-icons inflex'>attach_money</i>
+                        <a className="side-headers" href={accountHref}>{this.props.name}</a>
+                    </p>
+                    {gigs}
                 </div>
                 <div className='col s4 account-total'>
                     <p>
@@ -45,14 +42,14 @@ class Account extends Component {
 
     renderCredit() {
         const gigs = this.renderGigs();
-        const creditTotal = formatCurrencyValueJSX(this.state.total);
-        const creditBalance = formatCurrencyValueJSX(this.state.balance);
-        const accountHref = `accounts/${this.state.id}`;
+        const creditTotal = formatCurrencyValueJSX(this.props.limit);
+        const creditBalance = formatCurrencyValueJSX(this.props.balance);
+        const accountHref = `accounts/${this.props._id}`;
         return (
-            <div className='row collapsible-body'>
+            <div key={this.props._id} className='row collapsible-body'>
                 <div className='col s8'>
                     <p className='collections-title'>
-                        <i className='material-icons inflex'>credit_card</i> <a href={accountHref}>{this.state.name}</a></p>
+                        <i className='material-icons inflex'>credit_card</i> <a className="side-headers" href={accountHref}>{this.props.name}</a></p>
                     {gigs}
                 </div>
                 <div className='col s4 account-total'>
@@ -70,7 +67,7 @@ class Account extends Component {
     render() {
         let result;
 
-        if (this.state.accountType === 'checking') {
+        if (this.props.accountType === 'checking') {
             result = this.renderChecking();
         } else {
             result = this.renderCredit();

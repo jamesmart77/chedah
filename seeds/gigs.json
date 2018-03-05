@@ -1,13 +1,13 @@
 [{
         "_id": "5a91b813513541155c819fa4",
-        "name": "uber",
+        "name": "Uber",
         "userID": null,
         "description": "driving people around and shit",
         "accountID": null
     },
     {
         "_id": "5a91b813513541155c819fa5",
-        "name": "programming",
+        "name": "Programming",
         "userID": null,
         "description": "app development",
         "accountID": null
