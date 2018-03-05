@@ -5,39 +5,44 @@
 
 dependencies:
   override:
-    - npm install
+    - yarn install
     - cd client
-    - npm install
+    - yarn install
     
+
 version: 2
 jobs:
   build:
+    working_directory: ~/chedah
     docker:
-      # specify the version you desire here
-      - image: circleci/node:9.5.0
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
+      - image: circleci/node:4.8.2
+      - image: mongo:3.4.4
     steps:
       - checkout
       - run:
-          name: Update npm
+          name: update-npm
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Install npm we
+          name: install-npm-wee
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - node_modules
-        
-      # run tests!
-      - run: yarn test
+            - ./node_modules
+      - run:
+          name: test
+          command: npm test
+      - run:
+          name: code-coverage
+          command: './node_modules/.bin/nyc report --reporter=text-lcov'
+      - store_artifacts:
+          path: test-results.xml
+          prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+      - store_test_results:
+          path: test-results.xml
 
