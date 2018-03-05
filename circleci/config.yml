@@ -3,22 +3,19 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 
-dependencies:
-  override:
-    - yarn install
-    - cd client
-    - yarn install
     
-
 version: 2
 jobs:
   build:
-    working_directory: ~/chedah
     docker:
-      - image: circleci/node:9
-      - image: mongo:3.4.4
+      - image: node:8.0
     steps:
       - checkout
+      - run:
+          name: "Checking Versions"
+          command: |
+            node --version
+            npm --version
       - run:
           name: update-npm
           command: 'sudo npm install -g npm@latest'
@@ -45,4 +42,9 @@ jobs:
           prefix: coverage
       - store_test_results:
           path: test-results.xml
+    # deployment:
+    #   staging:
+    #     branch: master
+    #     heroku:
+    #       appname: foo-bar-123
 
