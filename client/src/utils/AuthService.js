@@ -35,9 +35,9 @@ export function logout() {
 }
 
 export function requireAuth(nextState, replace) {
-  if (!isLoggedIn()) {
-    replace({pathname: '/'});
-  }
+  // if (!isLoggedIn()) {
+  //   replace({pathname: '/'});
+  // }
 }
 
 export function getIdToken() {
