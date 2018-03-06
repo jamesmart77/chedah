@@ -1,6 +1,5 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
-// import AccountDetail from "./pages/AccountDetail";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -13,10 +12,28 @@ import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
 import { AccountsHome, AccountDetail } from './pages/Accounts';
+import API from "./utils/API";
 
 
-const App = () =>
-  <Router history={history}>
+class App extends React.Component {
+
+  getUser(){
+    API.getUser()
+      .then(user => {
+        console.log("we got a user")
+        console.log(user)
+      })
+      .catch(err => {
+        console.log("we got a err")
+        console.log(err)
+      })
+  }
+
+  componentDidMount() {
+    this.getUser()
+  }
+
+  render() { return <Router history={history}>
     <div>
       <Nav />
       <Switch>
@@ -34,5 +51,8 @@ const App = () =>
       <ActionButton />
     </div>
   </Router>;
+  }
 
-export default App;
+}
+
+export default App

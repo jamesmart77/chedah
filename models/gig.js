@@ -1,27 +1,37 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const validator = require('mongoose-unique-validator');
-
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const validator = require('mongoose-unique-validator')
 
 // schema for a gig object
 const gigSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  description: {
+    type: String,
+    required: false
+  },
+  goals: [{
     name: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      unique: true
     },
-    default: {
-        type: Boolean,
-        required: true
+    budget: {
+      type: Number,
+      require: false
     },
-    description: {
-        type: String,
-        required: false
-    }
-});
+    categories: [{
+      name: {
+        type: String
+      },
+    }]
+  }]
+})
 
 // add validator plugin
-gigSchema.plugin(validator);
+gigSchema.plugin(validator)
 
-const Gig = mongoose.model("Gig", gigSchema);
-module.exports = Gig;
+const Gig = mongoose.model('Gig', gigSchema)
+module.exports = Gig
