@@ -1,16 +1,21 @@
 /*---------------------------------
     Font Imports
 -----------------------------------*/
-@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Gurajada|Poller+One|Roboto+Slab:300,700|Rubik:300,400|Scope+One|Slabo+13px');
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Gurajada|Poller+One|Roboto:400,500,700,900|Roboto+Slab:300,700|Rubik:300,400|Scope+One|Slabo+13px|Source+Sans+Pro:200,300,400,600,700');
 
 /*
+font-family: 'Roboto', sans-serif;
+font-family: 'Rubik', sans-serif;
+font-family: 'Source Sans Pro', sans-serif;
+
 font-family: 'Slabo 13px', serif;
 font-family: 'Gurajada', serif;
+font-family: 'Roboto Slab', serif;
 font-family: 'Scope One', serif;
-font-family: 'Rubik', sans-serif;
+
 font-family: 'Abril Fatface', cursive;
 font-family: 'Poller One', cursive;
-font-family: 'Roboto Slab', serif;
+
 */
 /*---------------------------------
     Fix for sticky footer
@@ -55,7 +60,7 @@ h6 {
 }
 
 p {
-    font-family: "Rubik", sans-serif;
+    /*font-family: "Rubik", sans-serif;*/
 }
 
 h1 a,
@@ -113,21 +118,17 @@ footer {
     width: 100%;
     bottom: 0;
     left: 0;
-    zIndex: 999999
+    zIndex: 999999;
 }
-
 
 .shadow {
     -webkit-filter: drop-shadow( 1px 1px 3px #00000029 );
     filter: drop-shadow( 1px 1px 3px #00000029 );
 }
 
-
 /*---------------------------------
     Material Icons
 -----------------------------------*/
-
-
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -155,7 +156,6 @@ footer {
     /* Support for IE. */
     font-feature-settings: 'liga';
 }
-
 
 /* fix to align text & icons */
 .material-icons.inflex {
@@ -220,8 +220,6 @@ footer {
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 }
-
-
 
 /*---------------------------------
     Materialize Overrides
@@ -316,12 +314,23 @@ textarea.materialize-textarea {
 .mobile-fab-tip {
     position: fixed;
     right: 85px;
-    padding:0px 0.5rem;
+    padding: 0px 0.5rem;
     text-align: right;
-    background-color: #323232;
-    border-radius: 2px;
+    /*background-color: #323232;*/
+    background-color: #1b1b1be8;
+    border-radius: 0.7rem;
     color: #FFF;
-    width:auto;
+    width: auto;
+}
+
+.main-actions .mobile-fab-tip {
+    text-shadow: 1px solid #ccc;
+}
+
+.main-actions .btn-floating {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+
 }
 
 /* Cards  */
@@ -361,9 +370,16 @@ a.footer-yellow {
     text-shadow: 1px 1px 1px #3333336e;
 }
 
+/* TODO: remove? */
 .dash-title {
     font-family: 'Scope One', serif;
     color: #666;
+}
+
+h4.dash-title {
+    font-family: 'Roboto Slab', serif;
+    color: #666;
+    text-transform: none;
 }
 
 .topnav-menu {
@@ -415,6 +431,7 @@ a.footer-yellow {
     font-family: 'Roboto Slab', serif;
     font-size: 1.25rem;
     text-transform: none;
+
     /*font-weight: 700;*/
     color: #444;
 }
@@ -429,15 +446,18 @@ a.footer-yellow {
     -webkit-box-shadow: none;
 }
 
-
 .collection.striped .collection-item:nth-child(odd) {
     background-color: rgba(242, 242, 242, 0.5);
+}
+
+
+span.badge.new {
+    border-bottom: 3px solid #0a0a0a33;
 }
 
 /*----------------------------------------
     Right Slideout
 ------------------------------------------*/
-
 #right-search .input-field {
     margin-top: 0;
 }
@@ -505,21 +525,18 @@ a.footer-yellow {
     z-index: -1;
 }
 
-
 /*----------------------------------------
     Dashboard Gig Widget
 ------------------------------------------*/
-
-.gig-dash-card {}
+.gig-dash-card {
+}
 
 /* dashboard in/out/net total */
-
 .gig-dash-total {
     font-size: 2rem;
 }
 
 /* dashboard in/out/net title */
-
 .gig-dash-subtitle {
     font-size: 1.2rem;
     font-weight: lighter;
@@ -527,7 +544,8 @@ a.footer-yellow {
     color: #ccc;
 }
 
-.gig-dash-loss, .gig-dash-gain {
+.gig-dash-loss,
+.gig-dash-gain {
     position: relative;
     top: 0.25rem;
 }
@@ -549,7 +567,6 @@ a.footer-yellow {
 /*----------------------------------------
     Dashboard Accounts List
 ------------------------------------------*/
-
 .account-total {
     font-family: 'Roboto', sans-serif;
     color: #777;
@@ -570,20 +587,33 @@ a.footer-yellow {
     padding: 0.5rem 0.5rem 0.3rem 0.5rem;
 }
 
-
-
+.goal-summary .chip,
+.account-summary .chip,
 .dashboard .chip {
     font-family: 'Rubik', sans-serif;
     font-weight: 300;
     text-transform: lowercase;
     line-height: 1.5rem;
     height: 1.5rem;
-    background-color: #558EB0; /*#56BE89;*/
     color: #fff;
+    border-bottom: 0.1rem solid #0000001a;
+}
+
+.goal-summary .chip {
+    background-color: #598694;
+}
+
+.account-summary .chip {
+    background-color: #da825f;
+}
+
+.dashboard .chip {
+    background-color: #558EB0;
+
+    /*#56BE89;*/
 }
 
 .dashboard .collections-title {
-
 }
 
 .dashboard .collapsible-body:nth-child(odd) {
@@ -593,7 +623,6 @@ a.footer-yellow {
 .dashboard .collapsible-body:nth-child(even) {
     background-color: #f2f2f280;
 }
-
 
 .dashboard .collections-title {
     font-size: 1rem;
@@ -642,30 +671,35 @@ a.gig-frequency {
     font-size: 1rem;
 }
 
+a.side-headers {
+    color: #3d3d3d !important;
+}
 
 .gig-frequency .material-icons {
     vertical-align: bottom;
 }
 
-.gig-dropdown .dropdown-content li>a, .dropdown-content li>span {
+.gig-dropdown .dropdown-content li>a,
+.dropdown-content li>span {
     font-size: 0.75rem;
 }
-
 
 .gig-dash-card .card-title {
     color: #3f464a;
     text-shadow: 1px 1px 1px #3333333b;
 }
 
-
 /*----------------------------------------
     Gig Summary
 ------------------------------------------*/
-
+.account-summary .collapsible-body,
+.goal-summary .collapsible-body,
 .gig-summary .collapsible-body {
     padding: 0;
 }
 
+.account-summary.collection.with-header,
+.goal-summary.collection.with-header,
 .gig-summary.collection.with-header {
     padding-left: 0;
 }
@@ -674,6 +708,8 @@ a.gig-frequency {
     padding: 0.5rem 1rem 0.5rem 1rem;
 }
 
+.account-summary .collapsible-header,
+.goal-summary .collapsible-header,
 .gig-summary .collapsible-header {
     padding: 0 0.15rem 0.15rem 0;
     vertical-align: middle;
@@ -695,14 +731,57 @@ a.gig-frequency {
     font-weight: 300;
 }
 
-.material-icons {
-
+.collapsible-header .header-expand-state.material-icons {
+    position: absolute;
+    right: 1rem;
+    line-height: 2rem;
+    float: right;
+    color: #f5f5f5;
 }
 
 .expense-summary.card .card-content .card-title i {
-     line-height: 1rem;
+    line-height: 1rem;
 }
 
+/*----------------------------------------
+    Account Detail
+------------------------------------------*/
+
+.datatable .chip {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    text-transform: lowercase;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    background-color: #558EB0; /*#56BE89;*/
+    color: #fff;
+}
+
+
+.datatable input {
+    background-color: #2a546036;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    font-size: 1rem;
+    text-indent: 0.1rem;
+}
+
+.datatable th {
+    font-weight: 700;
+}
+
+.row-expense {
+    /*background-color: #ff3e3e0a !important;*/
+}
+
+.row-deposit {
+    /*background-color: #3eff8417 !important;*/
+}
+
+
+input.editable-cell {
+
+}
 
 /*
 .side-collection {

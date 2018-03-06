@@ -6,6 +6,7 @@ import Gig from './Gig';
 class GigList extends Component {
 
     state = {
+        // TODO: move to API
         gigs: [
             {
                 id: 1,

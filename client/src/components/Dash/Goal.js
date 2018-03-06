@@ -33,6 +33,7 @@ class Goal extends Component {
         const totalString = (this.state.change >= 0) ? `+${this.state.change}` : `${this.state.change}`;
         const gigs = this.renderGigs();
         return (
+
             <div className="row collapsible-body">
                 <div className="col s8">
                     <p className="collections-title goal truncate">{this.state.name}</p>

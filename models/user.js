@@ -50,11 +50,11 @@ const userSchema = new Schema({
     }
   }],
   accounts: [{
-    type: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
     ref: 'Account'
   }],
-  transactions: [{
-    type: Schema.Types.ObjectId,
+    transactions: [{
+      type: Schema.Types.ObjectId,
     ref: 'Transaction'
   }],
   gigs: [{
