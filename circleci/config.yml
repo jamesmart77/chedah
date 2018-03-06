@@ -13,8 +13,9 @@ machine:
 
 jobs:
   build:
-    docker:
-      - image: node:9.5.0
+    machine:
+      node:
+        version: 9.5.0
     steps:
       - checkout
       - run:
