@@ -8,8 +8,7 @@ class AccountList extends Component {
 
     constructor(props) {
         super(props);
-        console.log(`-> Accountlist: `);
-        console.log(props);
+        console.log(`-> Accountlist: `, props);
 
         this.state = {
             collapsed: false
@@ -35,7 +34,7 @@ class AccountList extends Component {
 
                     {/* Body insert_chart */}
                     {this.props.accounts.map((account, i) => (
-                        <Account {...account} />
+                        <Account key={i} {...account} />
                     ))}
                 </li>
             </ul>
