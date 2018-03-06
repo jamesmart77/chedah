@@ -30,8 +30,11 @@ export default {
   // if there is a token, get current user
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
   
-  // // add a goal to the current gig
-  // addGoalToGig: data => axios.post('/api/goals', data),
+  // add a goal to the current gig
+  createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data),
+
+  // add a goal to the current gig
+  addGoalToGig: data => axios.post('/api/goals', data),
 
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());

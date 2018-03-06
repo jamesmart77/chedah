@@ -12,19 +12,8 @@ module.exports = {
         .catch(err => res.status(422).json(err));
     },
 
-     // add a new personal gig and set to default
-     addPersonalGig: (data) => {
-      const gig = {
-        name: data.name,
-        default: true
-      }
-
-      return db.Gig
-        .create(gig)
-    },
-
-    // add a new personal gig and set to default
-    createGig: gig => {return db.Gig.create(gig)},
+    // create a new gig
+    createGig: gig => db.Gig.create(gig),
 
     // add a new gig and set default to false
     addGig: (req, res) => {
