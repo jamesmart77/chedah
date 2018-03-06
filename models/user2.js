@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const validateEmail = (email) => {
-  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
   return re.test(email)
-};
+}
 
 const userSchema = new Schema({
   firstName: {
@@ -21,7 +21,7 @@ const userSchema = new Schema({
     type: String,
     trim: true,
     unique: true,
-    required: "auth0 id is required"
+    required: 'auth0 id is required'
   },
   email: {
     type: String,
@@ -61,22 +61,22 @@ const userSchema = new Schema({
       },
       gig: {
         name: {
-            type: String,
-            unique: true
+          type: String,
+          unique: true
         },
         description: {
-            type: String,
-            required: false
+          type: String,
+          required: false
         }
-}
+      }
     }]
   }],
   transactions: [{
     type: Schema.Types.ObjectId,
-    ref: "Transaction"
+    ref: 'Transaction'
   }]
-});
+})
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema)
 
-module.exports = User;
+module.exports = User

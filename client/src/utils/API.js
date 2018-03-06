@@ -27,6 +27,12 @@ export default {
     return axios.post("/api/auth/login", credentials)
   },
 
+  // getUser: data => {
+  //   Promise.resolve(decodeToken(getIdToken()))
+  //   // console.log(user);
+  //   // axios.get('/user/:authId')
+  // },
+
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
     return axios.post("/api/users", user)

@@ -13,10 +13,21 @@ import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
+import API from "./utils/API";
 
+class App extends React.Component {
+  
+  getUser(){
+    API.getUser()
+      .then(console.log)
+      .catch(console.log)
+  }
 
-const App = () =>
-  <Router history={history}>
+  componentDidMount() {
+    this.getUser()
+  }
+
+  render() { return <Router history={history}>
     <div>
       <Nav />
       <Switch>
@@ -33,5 +44,8 @@ const App = () =>
       <ActionButton />
     </div>
   </Router>;
+  }
 
-export default App;
+}
+
+export default App

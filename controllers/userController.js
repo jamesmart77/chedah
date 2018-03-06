@@ -175,6 +175,7 @@ module.exports = {
                         date: transactions[i].date,
                         transactionName: transactions[i].name,
                         transaction_id: transactions[i].transaction_id,
+                        account_id: transactions[i].account_id,
                         gigId: accountThatMatchesTransactionId.defaultGigId
                       }
         

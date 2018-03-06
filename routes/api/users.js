@@ -4,6 +4,7 @@ const plaidControllers = require("../../controllers/plaidController");
 
 // Matches with "/api/plaid/get_access_token"
 router.route("/")
+  .get(userControllers.getUser)
   .post(userControllers.createUserIfDoesNotExist);
 
   router.route("/items")
