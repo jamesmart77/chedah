@@ -32,10 +32,10 @@ export default {
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
   
   // add a goal to the current gig
-  createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data),
+  createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, {name: data}),
 
   // add a goal to the current gig
-  addGoalToGig: data => axios.post('/api/goals', data),
+  addGoalToGig: data => axios.post(`/api/gigs/${data.gigId}`, data.goal),
 
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
@@ -153,8 +153,8 @@ loadGig: gigId => {
   const user = decodeToken(getIdToken());
   console.log(user);
   return Promise.resolve({
-      gigName: "Uber",
-      gigId: '5a91b813513541155c819fa4',
+      gigName: "Landlording",
+      gigId: '5a9efba71804d4cff93e9dd6',
       gigSummary: {
         moneyIn: 7200.25,
         expenses: 1875.11,

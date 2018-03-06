@@ -44,14 +44,18 @@ class GigDetail extends React.Component {
         categories:[],
         goals: [],
         goal: {
-            name: 'Spend Less on Speeding Tickets',
-            budget: 500.00,
-            categories: ['travel']
+            // name: 'Spend Less on Speeding Tickets',
+            // budget: 500.00,
+            // categories: ['travel']
         },
         goalName:"Spend Less On Tolls",
         goalBudget: 200.00,
         goalCategories: []
       };
+
+      constructor(props){
+          props = super(props)
+      }
 
       //////////////////////////////////
 
@@ -154,6 +158,7 @@ class GigDetail extends React.Component {
     componentDidMount(){
         this.getCurrentMonth();
         this.loadGig(this.state.gigId);
+        this.props.getUser()
     }
 
 

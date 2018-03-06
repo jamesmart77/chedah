@@ -17,16 +17,33 @@ import API from "./utils/API";
 
 class App extends React.Component {
 
+  state = {
+    user: {}
+  }
+
   getUser(){
     API.getUser()
       .then(user => {
         console.log("we got a user")
         console.log(user)
+        this.setState({user: user.data[0]})
       })
       .catch(err => {
         console.log("we got a err")
         console.log(err)
       })
+  }
+
+  GigDetailPage = (props) => <GigDetail
+        getUser={this.getUser.bind(this)}
+        user={this.state.user}
+        {...props}
+      />
+    
+  
+
+  canI(){
+    alert("can i do this?")
   }
 
   componentDidMount() {
@@ -39,7 +56,7 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/dashboard" component={Dashboard} onEnter={requireAuth} />
-        <Route exact path="/gigs/:id" component={GigDetail} onEnter={requireAuth} />
+        <Route exact path="/gigs/:id" onEnter={requireAuth} render={this.GigDetailPage}/>
         <Route exact path="/login" component={Login} />
         <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />
         <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />

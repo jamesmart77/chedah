@@ -15,6 +15,40 @@ module.exports = {
     // create a new gig
     createGig: gig => db.Gig.create(gig),
 
+    // add a goal to a gig
+    addGoalToGig: (req, res) => {
+      console.log(req.body)
+      const goal = {
+        name: req.body.goalName,
+        budget: req.body.goalBudget
+      }
+
+      const categories = ['travel', 'gas', 'tolls', 'advertising']
+
+      db.Goal.create(goal)
+        .then(dbGoal => {
+          return db.Goal.findOneAndUpdate({_id: dbGoal._id},{
+            $set: {
+              categories: categories
+            }
+          })
+        .then(dbGoal => {
+          db.Gig.findOneAndUpdate({_id: req.params.id}
+            , {
+              $push: {
+                goals: dbGoal._id
+              }
+            }, {
+              new: true
+            })
+            .then(dbGig => res.json(dbGig))
+            .catch(err => {
+              console.log(err)
+              res.json(err)})
+        })
+    })
+  },
+
     // add a new gig and set default to false
     addGig: (req, res) => {
       
