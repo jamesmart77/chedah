@@ -1,0 +1,23 @@
+
+
+dependencies:
+  override:
+    - nvm install 9 && npm install
+
+test:
+  override:
+    - nvm use 9 && npm run test-server-all
+    - nvm use 9 && npm run ci
+
+
+machine:
+  node:
+    version: 9.5.0
+
+dependencies:
+  pre:
+    - rm -rf ./node_modules
+  cache_directories:
+    - ~/.npm
+
+
