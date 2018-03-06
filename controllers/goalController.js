@@ -12,20 +12,16 @@ module.exports = {
 
     // add a new goal
     addGoal: (req, res) => {
-      // console.log(`-> adding goal: ${req.query.name}`);
-      const goal = {
-        name: req.query.name,
-        userID: req.query.accountID || null,
-        budget: req.query.budget || 0,
-        spent: req.query.spent || 0,
-        net: req.query.spent || 0,
-      }
 
-      db.Goal
-        .create(goal)
-        .then(dbgoal => {
-          res.json(dbgoal);
-         })
+      console.log(req.body)
+
+      db.Goal.findByIdAndUpdate({_id: req.body.gigId},
+        {
+          $addToSet: {
+            goals: req.body.goal
+          }
+        })
+        .then(dbModal => res.json(dbModal))
         .catch(err => {
           res.status(422).json(err);
         });

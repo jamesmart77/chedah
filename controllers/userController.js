@@ -15,6 +15,15 @@ var client = new plaid.Client(
 // Defining methods for the booksController
 module.exports = {
 
+  getUser: (req, res) => {
+    db.User.find({auth_id: req.params.authId})
+    .populate('accounts')
+    .populate('transactions')
+    .populate('gigs')
+      .then(dbUser => res.json(dbUser))
+      .catch(err => res.status(404).json({err: "didn't find it"}))
+  },
+
   createUserIfDoesNotExist: (req, res) => {
     console.log("HITTING IT")
     const user = {
@@ -187,9 +196,9 @@ module.exports = {
                           //add new transactionID to user.items.transactions array
                           db.User
                             .update(
-                              {"auth_id": req.body.sub, "items.item_id": dbUser.items[0].item_id},
+                              {"auth_id": req.body.sub},
                               //addToSet pushes to array if item does not already exist
-                              { "$addToSet": {"items.$.transactions": dbTrans._id}}
+                              { "$addToSet": {"transactions": dbTrans._id}}
                             )
                             .catch((err) => console.log(err))
                         })

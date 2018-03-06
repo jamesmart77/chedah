@@ -19,8 +19,14 @@ class App extends React.Component {
   
   getUser(){
     API.getUser()
-      .then(console.log)
-      .catch(console.log)
+      .then(user => {
+        console.log("we got a user")
+        console.log(user)
+      })
+      .catch(err => {
+        console.log("we got a err")
+        console.log(err)
+      })
   }
 
   componentDidMount() {

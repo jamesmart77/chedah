@@ -14,8 +14,19 @@ const gigSchema = new Schema({
     required: false
   },
   goals: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Goal'
+    name: {
+      type: String,
+      unique: true
+    },
+    budget: {
+      type: Number,
+      require: false
+    },
+    categories: [{
+      name: {
+        type: String
+      },
+    }]
   }]
 })
 

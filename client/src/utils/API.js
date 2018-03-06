@@ -21,17 +21,17 @@ export default {
   // saveBook: function(bookData) {
   //   return axios.post("/api/books", bookData);
   // }
-
+  
   //user login
   login: (credentials) => {
     return axios.post("/api/auth/login", credentials)
   },
-
-  // getUser: data => {
-  //   Promise.resolve(decodeToken(getIdToken()))
-  //   // console.log(user);
-  //   // axios.get('/user/:authId')
-  // },
+  
+  // get current user
+  getUser: data => axios.get(`/api/users/${decodeToken(getIdToken()).sub}`),
+  
+  // add a goal to the current gig
+  addGoalToGig: data => axios.post('/api/goals', data),
 
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
@@ -150,7 +150,7 @@ loadGig: gigId => {
   console.log(user);
   return Promise.resolve({
       gigName: "Uber",
-      gigId: '342jkjkljsdkfljs#!',
+      gigId: '5a91b813513541155c819fa4',
       gigSummary: {
         moneyIn: 7200.25,
         expenses: 1875.11,
@@ -232,19 +232,25 @@ loadGig: gigId => {
         }
       ],
       goals:  [
-        { id: 1, name:"Spend Less On Tolls", budget: 200.00, spent: 100.00, net: 100.00 }, // id is goal id
-        { id: 2, name:"Spend Less on Gas", budget: 425.00, spent: 300.00, net: 125.00 }
-    ]
+        { id: 1, name:"Spend Less On Tolls", budget: 200.00, spent: 100.00, net: 100.00, categories: ['tolls'] }, // id is goal id
+        { id: 2, name:"Spend Less on Gas", budget: 425.00, spent: 300.00, net: 125.00, categories: ['gas', 'travel']}
+    ],
+    categories: [{
+      id: '23748927489237',
+      name: 'Travel'
+    },
+    {
+      id: '23748927439237',
+      name: 'Tolls'
+    },{
+      id: '23748927289237',
+      name: 'Gas'
+    }
+  ]
   })
   // return axios.post('/api/gigs/:id', user);
 },
 
-addGoalToGig: plaidObj => {
-  // const data = {};
-  // data.user = decodeToken(getIdToken());
-  // data.plaidObj = plaidObj;
-  // return axios.post('/api/users/items', data);
-},
 
 editGoal: plaidObj => {
   // const data = {};
