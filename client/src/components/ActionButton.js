@@ -37,15 +37,23 @@ class ActionButton extends Component {
       this.setState({commands: commands})
   }
 
+
   render() {
-      const listItems = this.state.commands.map(command =>
-          <Button floating tooltip={command.title} id={command.id} icon={command.icon} className={command.color + ' modal-trigger'}/>
-      );
+      const listItems = this.state.commands.map((command, i) =>
+          <li key={i}>
+              <a href="#" id={command.id} className={"btn-floating " + command.color}><i className="material-icons">{command.icon}</i></a>
+              <a href="#" id={command.id} className="btn-floating mobile-fab-tip">{command.title}</a>
+          </li>
+      )
 
-
-    return (
-        <Button floating fab='vertical' icon='add' large style={{bottom: '24px', right: '24px'}} children={listItems}/>
-    )
+      return (
+          <div className="fixed-action-btn" style={{bottom:'24px', right:'24px'}}>
+            <a className="btn-floating btn-large dashboard-action-btn"><i className="large material-icons">add</i></a>
+              <ul className="main-actions">
+                  {listItems}
+              </ul>
+          </div>
+      )
   };
 };
 

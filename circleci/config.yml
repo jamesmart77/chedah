@@ -1,10 +1,10 @@
 
-dependencies:
-  pre:
-    - nvm install 9 && npm install
-  override:
-    - nvm install 9 && npm install
+# dependencies:
+#   pre:
+#     - nvm install 9 && npm install
+#   override:
+#     - nvm install 9 && npm install
 
-test:
-  override: 
-    - npm test
+# test:
+#   override: 
+#     - npm test

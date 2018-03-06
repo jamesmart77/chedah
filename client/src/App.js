@@ -1,22 +1,39 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AccountDetail from "./pages/AccountDetail";
+import { Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer/Footer";
-import FooterDebug from "./components/Footer/FooterDebug";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Callback from './components/Callback';
 import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
+import { AccountsHome, AccountDetail } from './pages/Accounts';
+import API from "./utils/API";
 
 
-const App = () =>
-  <Router history={history}>
+class App extends React.Component {
+
+  getUser(){
+    API.getUser()
+      .then(user => {
+        console.log("we got a user")
+        console.log(user)
+      })
+      .catch(err => {
+        console.log("we got a err")
+        console.log(err)
+      })
+  }
+
+  componentDidMount() {
+    this.getUser()
+  }
+
+  render() { return <Router history={history}>
     <div>
       <Nav />
       <Switch>
@@ -24,6 +41,7 @@ const App = () =>
         <Route exact path="/dashboard" component={Dashboard} onEnter={requireAuth} />
         <Route exact path="/gigs/:id" component={GigDetail} onEnter={requireAuth} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />
         <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
         {/* <Route component={NoMatch} /> */}
@@ -33,5 +51,8 @@ const App = () =>
       <ActionButton />
     </div>
   </Router>;
+  }
 
-export default App;
+}
+
+export default App
