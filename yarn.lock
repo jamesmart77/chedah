@@ -6419,6 +6419,10 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
+react-event-observer@^0.5.11:
+  version "0.5.11"
+  resolved "https://registry.yarnpkg.com/react-event-observer/-/react-event-observer-0.5.11.tgz#e5fa21da3d0d3d4977a04150a1d9abdb45ad4a0c"
+
 react-materialize@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/react-materialize/-/react-materialize-1.1.2.tgz#f6a4872c224ac9c9718ff49c77786382484cc1cb"

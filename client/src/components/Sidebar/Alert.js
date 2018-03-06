@@ -16,14 +16,20 @@ class Alert extends Component {
             unread: true,
             date: props.date,
             symbol: props.symbol || 'chat',
-            color: props.color || 'deep-orange accent-3'
+            color: props.color || 'deep-orange accent-3',
+            clickCount: 0
         };
         this.handleClick = this.handleClick.bind(this);
     };
 
     handleClick() {
-        this.setState({unread: false, symbol: 'check_circle', color: 'grey lighten-1'});
-        console.log(`alert read: ${!this.state.unread}`);
+        this.setState({unread: false, clickCount: this.state.clickCount + 1, symbol: 'check_circle', color: 'grey lighten-1'});
+    }
+
+    componentDidUpdate() {
+        if (this.state.clickCount > 0) {
+            console.log(`alert read: ${this.state.unread} (${this.state.id})`);
+        }
     }
 
     render() {

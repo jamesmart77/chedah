@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
+const $ = require('jquery');
 
 
 class RowColumn extends Component {
@@ -8,6 +9,8 @@ class RowColumn extends Component {
         super(props);
         console.log(`      -> Column: `, props);
         this.state = {
+            row: props.row,
+            column: props.column,
             role: props.role,
             editable: props.editable || false,
             isEditing: false,
@@ -29,6 +32,7 @@ class RowColumn extends Component {
     // click handler
     handleClick(e) {
         if (this.state.editable) {
+            console.log(`cell: `, e.target.row, e.target.column);
             this.setState({isEditing: !this.state.isEditing});
         } else {
             return;
@@ -53,7 +57,10 @@ class RowColumn extends Component {
             isEditing: false
         })
         // call back to table here
+        console.log(e.target.value);
+        console.log(e.target.row);
         this.props.columnEdited({value: e.target.value, role: this.state.role})
+
     }
 
       onKeyPress(role, e) {
@@ -82,9 +89,15 @@ class RowColumn extends Component {
         if (this.state.isEditing) {
             return(
                 <td
+                    row={this.props.row}
+                    column={this.props.column}
+                    role={this.role}
                     data-value={this.state.value}
                     >
                     <input
+                        row={this.props.row}
+                        column={this.props.column}
+                        role={this.role}
                         className='editable-cell autocomplete'
                         hidden={false}
                         type={this.role}
@@ -101,7 +114,12 @@ class RowColumn extends Component {
 
         // plain column
         return(
-            <td className={alignment} role={this.role} onClick={this.handleClick}>
+            <td
+                row={this.props.row}
+                column={this.props.column}
+                className={alignment}
+                role={this.role}
+                onClick={this.handleClick}>
                 {currentVal}
             </td>
         );
