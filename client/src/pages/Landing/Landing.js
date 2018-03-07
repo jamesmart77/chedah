@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Button } from 'react-materialize';
 
 class Landing extends Component {
 
@@ -16,6 +17,7 @@ class Landing extends Component {
         <div className="col s12">
           <h1 className="headerTitle">Chedah</h1>
           <h4 className="headerTitle">TagLine Goes Here. TagLine Goes Here</h4>
+          {/* <Button className="teal" waves='light'>Sign Up</Button> */}
           <h6 className="headerTitle">Sign Up / Sign In</h6>
         </div>
         </div>
@@ -57,7 +59,7 @@ class Landing extends Component {
             </ul>
           </div>
           <div className="col s12">
-          <h4>Pull Quote About Money </h4>
+          <h4>Pull Quote About Money</h4>
           </div>
         </div>
 
