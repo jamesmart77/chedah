@@ -100,7 +100,24 @@ module.exports = {
           }
           return gig
         })
-        console.log('user')
+
+        //hardcoding some goals from the backend
+        const goal = {}
+        goal._id = '73829y4iu32h4jkh24242334'
+        goal.name = 'Spend Less on Gas'
+        goal.budget = 200.00
+        goal.expenses = 150.00
+        goal.net = 50.00
+        goal.categories = ['Gas', 'Advertising']
+        user.gigs[0].goals.push(goal)
+        const goal2 = {}
+        goal2._id = 'JDKSLFJKLJEKLEERNKJEWHE'
+        goal2.name = 'Spend Less on Tolls'
+        goal2.budget = 1200.00
+        goal2.expenses = 1300.00
+        goal2.net = -100.00
+        goal2.categories = ['Tolls', 'Fees']
+        user.gigs[0].goals.push(goal2)
 
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
