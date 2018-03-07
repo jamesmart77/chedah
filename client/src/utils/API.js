@@ -50,7 +50,12 @@ export default {
     data.user = decodeToken(getIdToken());
     data.plaidObj = plaidObj;
     return axios.post('/api/users/items', data);
+  },
 
+  updateAccount: gigToChange => { 
+    return axios.post("/accounts/", {
+
+    })
   },
 
   accountsSync: () => {
@@ -60,9 +65,6 @@ export default {
     axios.post('/api/users/transactions', user)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-
-
-
     // const user = {};
     // user.user_jwt ='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImJlbkB0aGlzaXNiYW0uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vY2hlZGFoLmF1dGgwLmNvbS8iLCJzdWIiOiJmYWNlYm9va3wxMDE1NTQ1NjI1MzAxMjcxMiIsImF1ZCI6Ims0UWZvNXBaVVQ4YnhCYTBWNHZSbVJvYUQyNlkxMjRHIiwiaWF0IjoxNTE5MTc0MjA2LCJleHAiOjE1MTkyMTAyMDYsImF0X2hhc2giOiJCMUNmZjBtNHlrbDgzeEp1elpGSEdBIiwibm9uY2UiOiI0Ymx2LXlGR1hnSzJ5cWltVjBGMURvLXlBSmhxd25wZiJ9.ZuxGKI_YeNGGuvtporvkLT9Jd7f2kSekkrROSb4w2kM';
     // return axios.post("/api/transactions/", user)

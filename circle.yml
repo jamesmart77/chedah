@@ -1,0 +1,12 @@
+
+dependencies:
+  pre:
+    - nvm install 9 && npm install
+    - nvm use 9
+  override:
+    - nvm install 9 && npm install
+    - nvm use 9
+
+test:
+  override: 
+    - npm test
