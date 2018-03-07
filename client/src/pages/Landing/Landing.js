@@ -24,15 +24,15 @@ class Landing extends Component {
           <div className="row header2">
 
             <div className="col s12 m4">
-            <img src='https://placehold.it/250x250//cccccc' alt=''/>
+            <img className="landingImg" src='https://placehold.it/250x250//cccccc' alt=''/>
               <h6>Promo Content goes here</h6>
             </div>
             <div className="col s12 m4">
-            <img src='https://placehold.it/250x250//cccccc' alt=''/>
+            <img className="landingImg" src='https://placehold.it/250x250//cccccc' alt=''/>
             <h6>Promo Content goes here</h6>
             </div>
             <div className="col s12 m4">
-            <img src='https://placehold.it/250x250//cccccc' alt=''/>
+            <img className="landingImg" src='https://placehold.it/250x250//cccccc' alt=''/>
             <h6>Promo Content goes here</h6>
             </div>
         </div>
@@ -46,14 +46,14 @@ class Landing extends Component {
         <div className="row header2">
 
           <div className="col s12 m6">
-          <img src='https://placehold.it/450x250//cccccc' alt=''/>
+          <img className="landingImg" src='https://placehold.it/450x250//cccccc' alt=''/>
           </div>
           <div className="col s12 m6">
           <h4>Promo Content goes here</h4>
-          <ul>
-            <li>A Thing</li>
-            <li>A Thing</li>
-            <li>A Thing</li>
+          <ul className="landingList">
+            <li><h5><i className="material-icons">check_circle</i>A Thing</h5></li>
+            <li><h5><i className="material-icons">check_circle</i>Another Thing</h5></li>
+            <li><h5><i className="material-icons">check_circle</i>A New Nother Thing</h5></li>
             </ul>
           </div>
           <div className="col s12">

@@ -826,3 +826,11 @@ input.editable-cell {
     color: #fff;
     text-align: center;
 }
+
+.landingList {
+    text-align: left;
+}
+
+.landingImg {
+    padding: 25px;
+}
