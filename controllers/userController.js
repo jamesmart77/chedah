@@ -47,70 +47,71 @@ module.exports = {
       })
       
 
+      // user.gigs = user.gigs.map(gig => {
+      //   // filter for transactions associated with gig
+      //   gig.transactions = user.transactions.filter(t => t.gigId === gig._id)
 
-      user.gigs = user.gigs.map(gig => {
-        // filter for transactions associated with gig
-        gig.transactions = user.transactions.filter(t => t.gigId === gig._id)
+      //   // Sum the money coming in
+      //   gig.moneyIn = gig.transactions
+      //                   .map(t => t.amount)
+      //                   .filter(isNegative)
+      //                   .reduce(sum)
+      //                   .toFixed(2)
 
-        // Sum the money coming in
-        gig.moneyIn = gig.transactions
-                        .map(t => t.amount)
-                        .filter(isNegative)
-                        .reduce(sum)
-                        .toFixed(2)
+      //   // Sum the money going out
+      //   gig.moneyOut = gig.transactions
+      //                   .map(t => t.amount)
+      //                   .filter(isPositive)
+      //                   .reduce(sum)
+      //                   .toFixed(2)
 
-        // Sum the money going out
-        gig.moneyOut = gig.transactions
-                        .map(t => t.amount)
-                        .filter(isPositive)
-                        .reduce(sum)
-                        .toFixed(2)
-
-        // calculate net
-        gig.net = gig.moneyIn - gig.moneyOut 
-
-
-        // Spending by vendor
-        const transactionsByVendor = R.uniq(gig.transactions
-          .map(t => t.transactionName))
-          .map(vendor =>  gig.transactions.filter(t => t.transactionName === vendor))
-          .map(tArray => 
-            tArray.map(t => { return {name: t.transactionName, amount: t.amount}})
-          )
-
-          gig.vendors  = R.uniq(transactionsByVendor.map(vendorTransArray => {
-            return {name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)).toFixed(2)}
-          })).sort((a,b) => b.total - a.total)
+      //   // calculate net
+      //   gig.net = gig.moneyIn - gig.moneyOut 
 
 
-          // Spending By Category
-          const transactionsByCategory = R.uniq(gig.transactions
-            .map(t => t.category))
-            .map(category =>  gig.transactions.filter(t => t.category === category))
-            .map(tArray => 
-              tArray.map(t => { return {name: t.category, amount: t.amount}})
-            )
+      //   // Spending by vendor
+      //   const transactionsByVendor = R.uniq(gig.transactions
+      //     .map(t => t.transactionName))
+      //     .map(vendor =>  gig.transactions.filter(t => t.transactionName === vendor))
+      //     .map(tArray => 
+      //       tArray.map(t => { return {name: t.transactionName, amount: t.amount}})
+      //     )
 
-            gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
-              return {name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)).toFixed(2)}
-            })).sort((a,b) => b.total - a.total)
+      //     gig.vendors  = R.uniq(transactionsByVendor.map(vendorTransArray => {
+      //       return {name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)).toFixed(2)}
+      //     })).sort((a,b) => b.total - a.total)
+
+
+      //     // Spending By Category
+      //     const transactionsByCategory = R.uniq(gig.transactions
+      //       .map(t => t.category))
+      //       .map(category =>  gig.transactions.filter(t => t.category === category))
+      //       .map(tArray => 
+      //         tArray.map(t => { return {name: t.category, amount: t.amount}})
+      //       )
+
+      //       gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
+      //         return {name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)).toFixed(2)}
+      //       })).sort((a,b) => b.total - a.total)
           
-            console.log(gig.vendors)
-            console.log(gig.spendingByCategory)
           
-          // .map(console.log)
-          // .map(t => {return { name: t.transactionName, amount: t.amount }})
+      //     .map(console.log)
+      //     .map(t => {return { name: t.transactionName, amount: t.amount }})
         
 
-        return gig
-      })
-
-
+      //   // console.log(gig)
+      //   return gig
+      // })
       return user
     })
       .then(user => res.json(user))
       .catch(err => res.status(404).json({err: "didn't find it"}))
   },
+
+
+
+
+
 
   createUserIfDoesNotExist: (req, res) => {
     console.log("HITTING IT")
