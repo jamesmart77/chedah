@@ -14,20 +14,9 @@ const gigSchema = new Schema({
     required: false
   },
   goals: [{
-    name: {
-      type: String,
-      unique: true
-    },
-    budget: {
-      type: Number,
-      require: false
-    },
-    categories: [{
-      name: {
-        type: String
-      },
-    }]
-  }]
+    type: Schema.Types.ObjectId,
+    ref: 'Goal'
+}]
 })
 
 // add validator plugin

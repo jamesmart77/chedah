@@ -31,8 +31,11 @@ export default {
   // if there is a token, get current user
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
   
-  // // add a goal to the current gig
-  // addGoalToGig: data => axios.post('/api/goals', data),
+  // add a goal to the current gig
+  createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, {name: data}),
+
+  // add a goal to the current gig
+  addGoalToGig: data => axios.post(`/api/gigs/${data.gigId}`, data.goal),
 
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
@@ -50,7 +53,12 @@ export default {
     data.user = decodeToken(getIdToken());
     data.plaidObj = plaidObj;
     return axios.post('/api/users/items', data);
+  },
 
+  updateAccount: gigToChange => { 
+    return axios.post("/accounts/", {
+
+    })
   },
 
   accountsSync: () => {
@@ -60,9 +68,6 @@ export default {
     axios.post('/api/users/transactions', user)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-
-
-
     // const user = {};
     // user.user_jwt ='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImJlbkB0aGlzaXNiYW0uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vY2hlZGFoLmF1dGgwLmNvbS8iLCJzdWIiOiJmYWNlYm9va3wxMDE1NTQ1NjI1MzAxMjcxMiIsImF1ZCI6Ims0UWZvNXBaVVQ4YnhCYTBWNHZSbVJvYUQyNlkxMjRHIiwiaWF0IjoxNTE5MTc0MjA2LCJleHAiOjE1MTkyMTAyMDYsImF0X2hhc2giOiJCMUNmZjBtNHlrbDgzeEp1elpGSEdBIiwibm9uY2UiOiI0Ymx2LXlGR1hnSzJ5cWltVjBGMURvLXlBSmhxd25wZiJ9.ZuxGKI_YeNGGuvtporvkLT9Jd7f2kSekkrROSb4w2kM';
     // return axios.post("/api/transactions/", user)
@@ -150,8 +155,8 @@ loadGig: gigId => {
   const user = decodeToken(getIdToken());
   console.log(user);
   return Promise.resolve({
-      gigName: "Uber",
-      gigId: '5a91b813513541155c819fa4',
+      gigName: "Landlording",
+      gigId: '5a9efba71804d4cff93e9dd6',
       gigSummary: {
         moneyIn: 7200.25,
         expenses: 1875.11,

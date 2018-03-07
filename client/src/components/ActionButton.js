@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 const actions = {
     dashboard: [
         {
-            title: 'Add Account',
-            icon: 'account_balance',
+            title: 'Link Account',
+            icon: 'insert_link',
             id: 'action-add-account',
             color: 'teal darken-3',
             modal: 'add-account-modal'

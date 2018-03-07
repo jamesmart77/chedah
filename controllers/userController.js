@@ -16,10 +16,61 @@ var client = new plaid.Client(
 module.exports = {
 
   getUser: (req, res) => {
-    db.User.find({auth_id: req.params.authId})
+    console.log('getting the user')
+    db.User.findOne({auth_id: req.params.authId})
     .populate('accounts')
     .populate('transactions')
     .populate('gigs')
+    .populate({
+      path: 'gigs',
+      populate: {
+        path: 'goals',
+        model: 'Goal'
+      }
+    })
+      // .then(dbUser => {
+
+        // // const user = { ...dbUser._doc}
+        // // const user = Object.create(dbUser)
+
+        // const user = Object.assign({}, dbUser._doc);
+
+        // console.log(typeof user)
+
+        
+        // console.log('user.accounts')
+        // console.log(user.accounts)
+
+
+
+        // require('fs').writeFileSync('./test.json', JSON.stringify(user, null, 2))
+        // const accounts2 = user.accounts.map(a => {
+        //   a.note = "Ben was here"
+        //   console.log(a.account_id)
+        //   console.log(a.note)
+        //   return a
+        // })
+
+        // console.log('accounts2')
+        // console.log(accounts2)
+
+        // console.log('user.accounts')
+        // console.log(user.accounts)
+        // const accounts = user.accounts.map(account => {
+        //   console.log('is this happening?')
+        //   account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
+        //   console.log(account)
+        //   return account
+        // })
+
+        
+
+        // console.log('accounts')
+        // console.log(accounts)
+        // user.accounts = accounts
+      //   return dbUser
+      // })
+      .then(dbUser => {console.log(dbUser); return dbUser})
       .then(dbUser => res.json(dbUser))
       .catch(err => res.status(404).json({err: "didn't find it"}))
   },
@@ -131,6 +182,30 @@ module.exports = {
 
     // res.json({userId});
   },
+
+  // all gigs need to be associated with a user
+  addGigToUser: (req, res) => {
+    console.log(req.body)
+    db.Gig.create({'name': req.body.name})
+    .then(dbGig => {
+      console.log(dbGig._id)
+      return db.User
+      .findOneAndUpdate({
+        "auth_id": req.params.authId
+      }, {
+        $push: {
+          gigs: dbGig._id
+        }
+      }, {
+        new: true
+      })
+    })
+    .then(dbUser => res.json(dbUser))
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({err: err})
+    })
+},
 
   getTransactions: (req, res) => {
 
