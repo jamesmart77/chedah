@@ -10,7 +10,30 @@
       "_id": "5aa04a23245113e1ea0f2798",
       "name": "Personal",
       "__v": 0,
-      "goals": [],
+      "goals": [
+        {
+          "_id": "73829y4iu32h4jkh24242334",
+          "name": "Spend Less on Gas",
+          "budget": 200,
+          "expenses": 150,
+          "net": 50,
+          "categories": [
+            "Gas",
+            "Advertising"
+          ]
+        },
+        {
+          "_id": "JDKSLFJKLJEKLEERNKJEWHE",
+          "name": "Spend Less on Tolls",
+          "budget": 1200,
+          "expenses": 1300,
+          "net": -100,
+          "categories": [
+            "Tolls",
+            "Fees"
+          ]
+        }
+      ],
       "transactions": [
         {
           "_id": "5aa04bf6245113e1ea0f279e",
