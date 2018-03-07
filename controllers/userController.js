@@ -97,13 +97,15 @@ module.exports = {
               return { name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)).toFixed(2) }
             })).sort((a, b) => b.total - a.total)
 
-              .map(t => { return { name: t.transactionName, amount: t.amount } })
-
           }
           return gig
         })
         console.log('user')
-        return user
+
+        // We pull the items out of the user object before returning to the client, because the access tokens are in it.
+        const {items, transactions, ...userWithoutItems} = user
+        require('fs').writeFileSync('./test.json', JSON.stringify(userWithoutItems,null,2))
+        return userWithoutItems
       })
       .then(user => res.json(user))
       .catch(err => res.status(404).json({ err: "didn't find it" }))
