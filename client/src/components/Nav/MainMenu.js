@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
-import { login, logout, isLoggedIn } from '../../utils/AuthService';
+import { logout } from '../../utils/AuthService';
 import API from '../../utils/API';
 import PlaidAccountLink from '../PlaidAccountLink';
 
 
 // materialize navbar
 class MainMenu extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <div>

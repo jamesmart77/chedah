@@ -1,7 +1,5 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import PlaidLink from "react-plaid-link";
 import API from "../../utils/API";
 import PlaidLinkMenuItem from "./PlaidLinkMenuItem";

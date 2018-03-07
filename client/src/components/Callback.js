@@ -7,11 +7,6 @@ Once a user is authenticated, Auth0 will redirect back to our application and ca
 */
 
 class Callback extends Component {
-
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     setAccessToken();
     setIdToken();
