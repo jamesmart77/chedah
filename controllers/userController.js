@@ -3,7 +3,7 @@ const plaid = require('plaid');
 const gigController = require('./gigController');
 const util = require('util')
 const axios = require('axios')
-// const {not} = require('ramda')
+const R = require('ramda')
 require('dotenv').config();
 
 var client = new plaid.Client(
@@ -30,12 +30,15 @@ module.exports = {
       }
     })
     .then(dbUser => {
+
+      // This breaks the pointer in memory and copies the object
       const user = JSON.parse(JSON.stringify(dbUser, null, 2))
       
       
       const isNegative = num => num < 0 ? true : false
-      const isPositive = num => num > 0 ? true : false
+      const isPositive = R.complement(isNegative)
       const sum = (x,y) => Math.abs(x) + Math.abs(y)
+      const sortObjects = (x,y) => x.total - y.total > 0 ? x : y
 
       
       user.accounts = user.accounts.map(account => {
@@ -46,28 +49,62 @@ module.exports = {
 
 
       user.gigs = user.gigs.map(gig => {
+        // filter for transactions associated with gig
         gig.transactions = user.transactions.filter(t => t.gigId === gig._id)
-        gig.moneyIn = gig.transactions
-                        .map(t => t.amount)
-                        .filter(isPositive)
-                        .reduce(sum)
-                        .toFixed(2)
 
-        gig.moneyOut = gig.transactions
+        // Sum the money coming in
+        gig.moneyIn = gig.transactions
                         .map(t => t.amount)
                         .filter(isNegative)
                         .reduce(sum)
                         .toFixed(2)
 
-        gig.net = gig.moneyIn - gig.moneyOut
-                      
+        // Sum the money going out
+        gig.moneyOut = gig.transactions
+                        .map(t => t.amount)
+                        .filter(isPositive)
+                        .reduce(sum)
+                        .toFixed(2)
+
+        // calculate net
+        gig.net = gig.moneyIn - gig.moneyOut 
+
+
+        // Spending by vendor
+        const transactionsByVendor = R.uniq(gig.transactions
+          .map(t => t.transactionName))
+          .map(vendor =>  gig.transactions.filter(t => t.transactionName === vendor))
+          .map(tArray => 
+            tArray.map(t => { return {name: t.transactionName, amount: t.amount}})
+          )
+
+          gig.vendors  = R.uniq(transactionsByVendor.map(vendorTransArray => {
+            return {name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)).toFixed(2)}
+          })).sort((a,b) => b.total - a.total)
+
+
+          // Spending By Category
+          const transactionsByCategory = R.uniq(gig.transactions
+            .map(t => t.category))
+            .map(category =>  gig.transactions.filter(t => t.category === category))
+            .map(tArray => 
+              tArray.map(t => { return {name: t.category, amount: t.amount}})
+            )
+
+            gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
+              return {name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)).toFixed(2)}
+            })).sort((a,b) => b.total - a.total)
+          
+            console.log(gig.vendors)
+            console.log(gig.spendingByCategory)
+          
+          // .map(console.log)
+          // .map(t => {return { name: t.transactionName, amount: t.amount }})
+        
+
         return gig
       })
 
-
-
-      console.log('user.accounts')
-      console.log(JSON.stringify(user.accounts, null, 2))
 
       return user
     })
