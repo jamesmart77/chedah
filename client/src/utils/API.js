@@ -6,27 +6,6 @@ import {
 
 
 export default {
-  // Gets all books
-  // getBooks: function() {
-  //   return axios.get("/api/books");
-  // },
-  // // Gets the book with the given id
-  // getBook: function(id) {
-  //   return axios.get("/api/books/" + id);
-  // },
-  // // Deletes the book with the given id
-  // deleteBook: function(id) {
-  //   return axios.delete("/api/books/" + id);
-  // },
-  // // Saves a book to the database
-  // saveBook: function(bookData) {
-  //   return axios.post("/api/books", bookData);
-  // }
-  
-  //user login
-  login: (credentials) => {
-    return axios.post("/api/auth/login", credentials)
-  },
   
   // if there is a token, get current user
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),

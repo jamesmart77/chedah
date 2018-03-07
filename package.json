@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "repository" :{ 
-    "type" : "git",
-     "url" : "https://github.com/jamesmart77/chedah.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesmart77/chedah.git"
   },
   "scripts": {
     "server": "node server.js",
@@ -40,6 +40,7 @@
     "mongoose": "^4.11.7",
     "mongoose-unique-validator": "^2.0.0",
     "plaid": "^2.3.0",
+    "ramda": "^0.25.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-materialize": "^1.1.2",
