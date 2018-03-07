@@ -1,3 +1,4 @@
+// import { CastError } from "mongoose";
 const db = require("../models");
 const plaid = require('plaid');
 const gigController = require('./gigController');
@@ -232,5 +233,14 @@ module.exports = {
 
         
       // .catch((err) => console.log(err))
+  },
+  getCategories: (req, res) => {
+    axios.get("https://sandbox.plaid.com/api/categoreis/get").then(categories =>{
+      res.json(categories)
+    }).catch(err =>{
+      res.json(err);
+    })
+
+
   }
 };

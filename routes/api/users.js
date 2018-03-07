@@ -15,4 +15,7 @@ router.route('/:authId')
 router.route('/transactions')
   .post(userControllers.getTransactions)
 
+router.route('/categories')
+  .get(userControllers.getCategories)
+
 module.exports = router
