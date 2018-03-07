@@ -1,4 +1,7 @@
 # Create React Express App
+Master Status: [![CircleCI](https://circleci.com/gh/jamesmart77/chedah.svg?style=svg)](https://circleci.com/gh/jamesmart77/chedah)
+
+
 
 ## About This Boilerplate
 
