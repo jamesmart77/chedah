@@ -51,7 +51,7 @@ class Table extends Component {
       if (this.props.transactions.length > 0) {
           return (
               <table
-                  ref={(table) => { this.dataTable = $(table).DataTable()}}
+                  // ref={(table) => { this.dataTable = $(table).DataTable()}}
                   id={this.state.tableId}
                   className='display highlight datatable'
                   cellSpacing='0' role='grid'>
@@ -61,8 +61,8 @@ class Table extends Component {
 
                   {/* Body */}
                   <tbody>
-                      {this.props.transactions.map(t =>
-                          <TableRow rowEdited={this.rowEdited.bind(this)} key={t._id} {...t} />
+                      {this.props.transactions.map((t,i) =>
+                          <TableRow row={i} rowEdited={this.rowEdited.bind(this)} key={t._id} {...t} />
                       )}
                   </tbody>
 

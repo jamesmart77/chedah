@@ -3,12 +3,12 @@ import AccountList from '../../components/Dash/AccountList';
 import GoalList from '../../components/Dash/GoalList';
 import GigList from '../../components/Dash/GigList';
 import API from '../../utils/API';
+import { ModalAddGig, ModalAddGoal } from '../../components/Modals';
 
 
 class Dashboard extends Component {
     constructor(props) {
         super(props)
-
         // user, accounts, gigs, goals, categories
         this.state = {
             accounts: [],
@@ -46,7 +46,8 @@ class Dashboard extends Component {
                             <h4 className='dash-title'>Dashboard</h4>
                         </div>
                     </div>
-
+                        <ModalAddGig/>
+                        <ModalAddGoal/>
                     <div className='row'>
 
                         {/* Accounts & Goals Lists */}

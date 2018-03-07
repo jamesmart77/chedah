@@ -1,89 +1,121 @@
-import React, {Component} from "react";
-import { Button, Modal, Input } from "react-materialize";
-import API from "../utils/API";
+import React, { Component } from 'react';
 
+// actions for the current page
+const actions = {
+    dashboard: [
+        {
+            title: 'Link Account',
+            icon: 'insert_link',
+            id: 'action-add-account',
+            color: 'teal darken-3',
+            modal: 'add-account-modal'
+        },
+        {
+            title: 'Add Gig',
+            icon: 'work',
+            id: 'action-add-gig',
+            color: 'teal darken-4',
+            modal: 'add-gig-modal'
+        },
+        {
+            title: 'Add Goal',
+            icon: 'work',
+            id: 'action-add-goal',
+            color: 'teal darken-4',
+            modal: 'add-goal-modal'
+        }
+    ],
+    accounts: [
+        {
+            title: 'Edit Account',
+            icon: 'account_balance',
+            id: 'action-edit-account',
+            color: 'teal darken-4',
+            modal: 'edit-account-modal'
+        }, {
+            title: 'Add Gig',
+            icon: 'work',
+            id: 'action-add-gig',
+            color: 'teal darken-2',
+            modal: 'add-gig-modal'
+        }
+    ],
+    gigs: [
+        {
+            title: 'Add Goal',
+            icon: 'work',
+            id: 'action-add-goal',
+            color: 'teal darken-4',
+            modal: 'add-goal-modal'
+        }, {
+            title: 'Edit Gig',
+            icon: 'work',
+            id: 'action-edit-gig',
+            color: 'teal darken-2',
+            modal: 'edit-gig-modal'
+        }
+    ]
+}
 
 
 // materialize floating action button
 class ActionButton extends Component {
-  
-  // https://react-materialize.github.io/#/buttons
-  state =  {
-    gigName: "",
-    commands : [
-    {
-      title: 'Add Gig',
-      icon: 'work',
-      id: 'action-add-gig',
-      color: 'teal darken-4',
-      fn: this.addGig
-    }, {
-      title: 'Add Account',
-      icon: 'account_balance',
-      id: 'action-add-account',
-      color: 'teal darken-3',
-      fn: this.addAccount
-    }, {
-      title: 'Add Goal',
-      icon: 'pie_chart',
-      id: 'action-add-goal',
-      color: 'teal darken-2',
-      fn: this.addGoal
+
+    constructor(props) {
+        super(props);
+
+        let pathname = this.props.location.pathname || '/';
+        let paths = pathname.split('/').filter(item => { return (item != '')})
+
+        this.state = {
+            path: (paths.length) ? paths[0] : 'home',
+            commands: actions
+        };
+
+        this.handleClick.bind(this)
+    };
+
+    // return commands for the current page
+    getCommands() {
+        return this.state.commands[this.state.path] || []
     }
-  ]}
 
-  addGig(){
-    API.createGig(this.state.gigName)
-      .then(console.log)
-      .catch(console.log)
-  }
+    handleClick(cmd) {
+        console.log(`-> action clicked: `, cmd.target.id);
+    }
 
-  addAccount(){
-    alert('called a function kitch')
-    // API.createGig()
-  }
-  addGoal(){
-    alert('Not sure this should happen here')
-    // API.createGig()
-  }
+    render() {
+        const currentCommands = this.getCommands()
+        if (!currentCommands.length) {
+            return (
+                <div className="fixed-action-btn" style={{bottom: '24px', right: '24px'}}>
+                    <a className="btn-floating btn-large dashboard-action-btn disabled">
+                        <i className="large material-icons">add</i>
+                    </a>
+                </div>
+            )
+        }
 
-  handleChange = e => {
-    const {name, value} = e.target
-    this.setState({[name]: value})
-  }
+        const listItems = currentCommands.map((command, i) =>
+            <li key={i}>
+                <a data-target={command.modal} onClick={this.handleClick} id={command.id} className={"btn-floating modal-trigger " + command.color}>
+                    <i id={command.id} className="material-icons">{command.icon}</i>
+                </a>
+                <a data-target={command.modal} onClick={this.handleClick} id={command.id} className="btn-floating modal-trigger mobile-fab-tip">{command.title}</a>
+            </li>)
 
-  addCommands(commands) {
-      this.setState({commands: commands})
-  }
-
-
-  render() {
-      const listItems = this.state.commands.map((command, i) =>
-          <li key={i}>
-                <Modal
-                  header='Add A Gig'
-                  actions={
-                    <section>
-                      <Button waves='light' flat className="modal-action modal-close deep-orange darken-3 white-text">Cancel</Button> &nbsp;
-                      <Button waves='light' className="modal-action modal-close teal" onClick={ this.addGig.bind(this) } >Apply</Button>
-                    </section>
-                  }
-                  trigger={<a href="#" id={command.id} className={"btn-floating " + command.color } onClick={command.fn}><i className="material-icons">{command.icon}</i></a>}>
-                  <Input s={12} label="Gig Name" name="gigName" onChange = { this.handleChange } />
-                </Modal>
-              <a href="#" id={command.id} className="btn-floating mobile-fab-tip">{command.title}</a>
-          </li>
-      )
-
-      return (
-          <div className="fixed-action-btn" style={{bottom:'24px', right:'24px'}}>
-            <a className="btn-floating btn-large dashboard-action-btn"><i className="large material-icons">add</i></a>
-              <ul className="main-actions">
-                  {listItems}
-              </ul>
-          </div>
-      )
-  };
+        return (
+            <div className="fixed-action-btn" style={{bottom: '24px', right: '24px'}}>
+                <a className="btn-floating btn-large dashboard-action-btn">
+                    <i className="large material-icons">add</i>
+                </a>
+                <ul className="main-actions">
+                    {listItems}
+                </ul>
+            </div>
+        )
+    };
 };
+
 
 export default ActionButton;

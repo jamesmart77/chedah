@@ -84,7 +84,7 @@ class ExpenseChart extends Component {
 
 						  {/* Chart Component */}
 						  <Doughnut
-							  height='300'
+							  height={300}
 							  data={chartData}
 							  options={chartOptions}
 						  />
@@ -93,7 +93,9 @@ class ExpenseChart extends Component {
 
 				<div className="card-reveal">
 					<span className="card-title grey-text text-darken-4">{this.props.gigName + " Expenses"}<i className="material-icons right md-18">close</i></span>
-					{details}
+                        <ul>
+		                   {details}
+                        </ul>
 				</div>
 			</div>
 		);

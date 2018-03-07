@@ -14,9 +14,24 @@ function collapseAll() {
     $(".collapsible").collapsible({accordion: false});
 }
 
+let dt;
+function drawCallback() {
+    console.log(`table was drawn`);
+}
+
+
 
 // document load
 $(document).ready(function() {
     console.log(`> loading view controller...`);
 	expandAll();
+
+    // scrollY: 300,    // size of the table in pixels
+    // paging: false,   // don't do pagination
+    dt = $('#data-table-transactions').DataTable({
+        drawCallback: drawCallback,
+        paging: true,
+        lengthChange: false,
+        pageLength: 10
+    })
 });
