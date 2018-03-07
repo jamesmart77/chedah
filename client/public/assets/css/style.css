@@ -804,3 +804,25 @@ input.editable-cell {
 }
 
 */
+
+
+
+/*----------------------------------------
+    LANDING PAGE
+------------------------------------------*/
+
+.header {
+    background-color: #000;
+    height: 300px;
+}
+
+.header2 {
+    background-color: blue;
+    height: 350px;
+    text-align: center;
+}
+
+.headerTitle {
+    color: #fff;
+    text-align: center;
+}
