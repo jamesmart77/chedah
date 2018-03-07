@@ -5,6 +5,7 @@ const gigController = require('./gigController');
 const util = require('util')
 const axios = require('axios')
 require('dotenv').config();
+const request = require("request");
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -310,12 +311,10 @@ module.exports = {
       // .catch((err) => console.log(err))
   },
   getCategories: (req, res) => {
-    axios.get("https://sandbox.plaid.com/api/categoreis/get").then(categories =>{
-      res.json(categories)
-    }).catch(err =>{
-      res.json(err);
-    })
-
+    request.post("https://sandbox.plaid.com/categoies/get").on('response', function(response) {
+    console.log(response.statusCode) // 200
+    console.log(response.headers['content-type']) // 'image/png'
+  })
 
   }
 };

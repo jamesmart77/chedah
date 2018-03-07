@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "repository" :{ 
-    "type" : "git",
-     "url" : "https://github.com/jamesmart77/chedah.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesmart77/chedah.git"
   },
   "scripts": {
     "server": "node server.js",
@@ -45,6 +45,7 @@
     "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-scripts": "^1.1.1",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "request": "^2.83.0"
   }
 }
