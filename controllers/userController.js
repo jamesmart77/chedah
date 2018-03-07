@@ -7,6 +7,8 @@ const axios = require('axios')
 // const {not} = require('ramda')
 require('dotenv').config();
 const request = require("request");
+const CircularJSON = require('circular-json');
+
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -311,10 +313,12 @@ module.exports = {
       // .catch((err) => console.log(err))
   },
   getCategories: (req, res) => {
-    request.post("https://sandbox.plaid.com/categoies/get").on('response', function(response) {
-    console.log(response.statusCode) // 200
-    console.log(response.headers['content-type']) // 'image/png'
-  })
+    console.log("Nailed it")
+    axios.get('https://tartan.plaid.com/categories').then(results=> {
+      res.json(results.data)
+      }).catch(err => {
+        res.send(err);
+      })
 
   }
 };
