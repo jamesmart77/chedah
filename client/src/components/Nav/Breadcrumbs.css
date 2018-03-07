@@ -1,0 +1,79 @@
+/*----------------------------------------
+	Breadcrumb
+------------------------------------------*/
+
+nav.breadcrumbs  {
+    margin: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    z-index: -1;
+}
+
+.breadcrumb {
+    font-size: 1rem;
+    color: #666;
+}
+
+.breadcrumb:before {
+    content: '\E5CC';
+    font-size: 1rem;
+    color: #666;
+}
+
+.breadcrumbs-wrapper {
+    background: #f3f3f3;
+}
+
+.breadcrumbs-wrapper .container {
+    width: 100%;
+    line-height: 0.8rem;
+    line-height: 0.9;
+}
+
+.breadcrumbs-wrapper .breadcrumbs-btn {
+    top: 30px;
+}
+
+.breadcrumbs-wrapper h5.breadcrumbs-header {
+    text-transform: none;
+    font-size: 0.8rem;
+    line-height: 1.804rem;
+    margin: 1.5rem 0 0 0;
+}
+
+.breadcrumbs-wrapper .breadcrumbs {
+    padding: 0 0 0 1rem;
+    /*margin: 15px 0;*/
+    list-style: none;
+}
+
+.breadcrumbs-wrapper .breadcrumbs>li {
+    display: inline-block;
+}
+
+.breadcrumbs-wrapper .breadcrumbs>li+li:before {
+    padding: 0 5px;
+    color: #bdbdbd;
+    content: "/\00a0";
+}
+
+.breadcrumbs-wrapper .breadcrumbs .active {
+    font-weight: normal;
+    color: #9e9e9e;
+}
+
+.breadcrumbs-wrapper .breadcrumbs-title {
+    text-transform: none;
+    font-size: 0.8rem;
+    line-height: 1.804rem;
+    margin: 18px 0 0;
+}
+
+.breadcrumbs-wrapper .breadcrumbs-nav {
+    margin: 8px 0 9px;
+}
+
+
+.breadcrumb:last-child {
+    color: #666;
+}
