@@ -12,19 +12,42 @@ module.exports = {
         .catch(err => res.status(422).json(err));
     },
 
-     // add a new personal gig and set to default
-     addPersonalGig: (data) => {
-      const gig = {
-        name: data.name,
-        default: true
+    // create a new gig
+    createGig: gig => db.Gig.create(gig),
+
+    // add a goal to a gig
+    addGoalToGig: (req, res) => {
+      console.log(req.body)
+      const goal = {
+        name: req.body.goalName,
+        budget: req.body.goalBudget
       }
 
-      return db.Gig
-        .create(gig)
-    },
+      const categories = ['travel', 'gas', 'tolls', 'advertising']
 
-    // add a new personal gig and set to default
-    createGig: gig => {return db.Gig.create(gig)},
+      db.Goal.create(goal)
+        .then(dbGoal => {
+          return db.Goal.findOneAndUpdate({_id: dbGoal._id},{
+            $set: {
+              categories: categories
+            }
+          })
+        .then(dbGoal => {
+          db.Gig.findOneAndUpdate({_id: req.params.id}
+            , {
+              $push: {
+                goals: dbGoal._id
+              }
+            }, {
+              new: true
+            })
+            .then(dbGig => res.json(dbGig))
+            .catch(err => {
+              console.log(err)
+              res.json(err)})
+        })
+    })
+  },
 
     // add a new gig and set default to false
     addGig: (req, res) => {

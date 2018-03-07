@@ -6,13 +6,12 @@ const validator = require('mongoose-unique-validator')
 const goalSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
-  description: {
-    type: String,
-    required: false
-  }
+  budget: {
+    type: Number
+  },
+  categories: []
 })
 
 // add validator plugin
