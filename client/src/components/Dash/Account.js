@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-import { Badge, Chip } from 'react-materialize';
-import { formatCurrencyValueJSX } from '../../utils/currency';
+import React, {Component} from 'react';
+import {Badge, Chip} from 'react-materialize';
+import {formatCurrencyValueJSX} from '../../utils/currency';
 
 
-
-// materialize account previewx
+// materialize account preview widget
 class Account extends Component {
 
     constructor(props) {
         super(props);
-        console.log(`-> Account: `);
-        console.log(props);
+        console.log(`-> Account: `, props);
     };
 
     renderGigs() {
@@ -23,18 +21,21 @@ class Account extends Component {
         const checkingTotal = formatCurrencyValueJSX(this.props.balance);
         const accountHref = `accounts/${this.props._id}`;
         return (
-            <div className='row collapsible-body'>
-                <div className='col s8'>
-                    <p className='collections-title'>
+                <div className='row collapsible-body'>
+                <div className='row'>
+                    <div className='col s8'>
                         <i className='material-icons inflex'>attach_money</i>
-                        <a className="side-headers" href={accountHref}>{this.props.name}</a>
-                    </p>
-                    {gigs}
+                        <a className="side-headers" href={accountHref}> {this.props.name}</a>
+                    </div>
+                    <div className='col s4 account-total'>{checkingTotal}</div>
                 </div>
-                <div className='col s4 account-total'>
-                    <p>
-                        <span>{checkingTotal}</span>
-                    </p>
+
+                <div className='row pl-1'>
+
+                    <div className='col s12'>
+                        <div className='chip'>No Gig</div>
+                    </div>
+
                 </div>
             </div>
         );
@@ -46,22 +47,29 @@ class Account extends Component {
         const creditBalance = formatCurrencyValueJSX(this.props.balance);
         const accountHref = `accounts/${this.props._id}`;
         return (
-            <div key={this.props._id} className='row collapsible-body'>
-                <div className='col s8'>
-                    <p className='collections-title'>
-                        <i className='material-icons inflex'>credit_card</i> <a className="side-headers" href={accountHref}>{this.props.name}</a></p>
-                    {gigs}
+
+                <div className='row collapsible-body'>
+                <div className='row'>
+                    <div className='col s8'>
+                        <i className='material-icons inflex'>credit_card</i>
+                        <a className="side-headers" href={accountHref}> {this.props.name}</a>
+                    </div>
+                    <div className='col s4 account-total'>{creditBalance}</div>
                 </div>
-                <div className='col s4 account-total'>
-                    <p>
-                        <span>{creditTotal}</span>
-                    </p>
-                    <p>
-                        <span>{creditBalance}</span>
-                    </p>
+
+                <div className='row pl-1'>
+
+                    <div className='col s8'>
+                        <div className='chip'>No Gig</div>
+                    </div>
+                    <div className='col s4 account-total right-align'>
+                        <div>{creditTotal}</div>
+                    </div>
+
                 </div>
             </div>
-        );
+
+        )
     };
 
     render() {

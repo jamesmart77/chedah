@@ -3,5 +3,6 @@ module.exports = {
   Gig: require('./gig'),
   Goal: require('./goal'),
   Account: require('./account'),
-  Transaction: require('./transaction')
+  Transaction: require('./transaction'),
+  Category: require('./category')
 }
