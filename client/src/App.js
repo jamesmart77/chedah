@@ -26,7 +26,7 @@ class App extends React.Component {
       .then(user => {
         console.log("we got a user")
         console.log(user)
-        this.setState({user: user.data[0]})
+        this.setState({user: user.data})
       })
       .catch(err => {
         console.log("we got a err")
