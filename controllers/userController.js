@@ -3,6 +3,7 @@ const plaid = require('plaid');
 const gigController = require('./gigController');
 const util = require('util')
 const axios = require('axios')
+// const {not} = require('ramda')
 require('dotenv').config();
 
 var client = new plaid.Client(
@@ -28,50 +29,49 @@ module.exports = {
         model: 'Goal'
       }
     })
-      // .then(dbUser => {
+    .then(dbUser => {
+      const user = JSON.parse(JSON.stringify(dbUser, null, 2))
+      
+      
+      const isNegative = num => num < 0 ? true : false
+      const isPositive = num => num > 0 ? true : false
+      const sum = (x,y) => Math.abs(x) + Math.abs(y)
 
-        // // const user = { ...dbUser._doc}
-        // // const user = Object.create(dbUser)
-
-        // const user = Object.assign({}, dbUser._doc);
-
-        // console.log(typeof user)
-
-        
-        // console.log('user.accounts')
-        // console.log(user.accounts)
+      
+      user.accounts = user.accounts.map(account => {
+        account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
+        return account
+      })
+      
 
 
+      user.gigs = user.gigs.map(gig => {
+        gig.transactions = user.transactions.filter(t => t.gigId === gig._id)
+        gig.moneyIn = gig.transactions
+                        .map(t => t.amount)
+                        .filter(isPositive)
+                        .reduce(sum)
+                        .toFixed(2)
 
-        // require('fs').writeFileSync('./test.json', JSON.stringify(user, null, 2))
-        // const accounts2 = user.accounts.map(a => {
-        //   a.note = "Ben was here"
-        //   console.log(a.account_id)
-        //   console.log(a.note)
-        //   return a
-        // })
+        gig.moneyOut = gig.transactions
+                        .map(t => t.amount)
+                        .filter(isNegative)
+                        .reduce(sum)
+                        .toFixed(2)
 
-        // console.log('accounts2')
-        // console.log(accounts2)
+        gig.net = gig.moneyIn - gig.moneyOut
+                      
+        return gig
+      })
 
-        // console.log('user.accounts')
-        // console.log(user.accounts)
-        // const accounts = user.accounts.map(account => {
-        //   console.log('is this happening?')
-        //   account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
-        //   console.log(account)
-        //   return account
-        // })
 
-        
 
-        // console.log('accounts')
-        // console.log(accounts)
-        // user.accounts = accounts
-      //   return dbUser
-      // })
-      .then(dbUser => {console.log(dbUser); return dbUser})
-      .then(dbUser => res.json(dbUser))
+      console.log('user.accounts')
+      console.log(JSON.stringify(user.accounts, null, 2))
+
+      return user
+    })
+      .then(user => res.json(user))
       .catch(err => res.status(404).json({err: "didn't find it"}))
   },
 
