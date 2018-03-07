@@ -17,8 +17,8 @@ class Breadcrumbs extends Component {
             <nav className="breadcrumbs">
                 <div className="nav-wrapper breadcrumbs-wrapper">
                     <div className="breadcrumbs col s12">
-                        <a href="#!" class="breadcrumb">Home</a>
-                        <a href="#!" class="breadcrumb">Accounts</a>
+                        <a href="#!" className="breadcrumb">Home</a>
+                        <a href="#!" className="breadcrumb">Accounts</a>
                     </div>
                 </div>
             </nav>

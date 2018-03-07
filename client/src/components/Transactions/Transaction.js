@@ -1,5 +1,5 @@
 import ReactDataGrid from 'react-data-grid';
-import React, { Component } from "react";
+import React from "react";
 
 const Transaction = props => {
 

@@ -35,7 +35,7 @@ class App extends React.Component {
     API.getUser()
       .then(user => {
         console.log("we got a user")
-        let userData = user.data[0];
+        let userData = user.data;
         this.setState({user: userData})
       })
       .catch(err => {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Moment from 'react-moment';
+// import Moment from 'react-moment';        // not currently using
 
 //const dateToFormat = '1976-04-19T12:59-0500';
 //<Moment>{dateToFormat}</Moment>

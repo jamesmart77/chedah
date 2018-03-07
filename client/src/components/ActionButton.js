@@ -65,7 +65,7 @@ class ActionButton extends Component {
         super(props);
 
         let pathname = this.props.location.pathname || '/';
-        let paths = pathname.split('/').filter(item => { return (item != '')})
+        let paths = pathname.split('/').filter(item => { return (item !== '')})
 
         this.state = {
             path: (paths.length) ? paths[0] : 'home',

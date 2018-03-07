@@ -1,5 +1,5 @@
 import "./GigView.css";
-import React, { Component } from "react";
+import React from "react";
 import {formatCurrencyValueJSX} from '../../utils/currency';
 import ExpenseChart from './ExpenseChart';
 

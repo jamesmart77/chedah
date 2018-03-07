@@ -1,19 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 // import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
-import Panel from "../../components/Panel";
-import { List, ListItem } from "../../components/List";
-import { Card } from 'react-materialize';
+import { Row, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import GigSummary from '../../components/GigView/GigSummary';
 import ExpenseSummary from '../../components/GigView/ExpenseSummary';
-import ExpenseChart from '../../components/GigView/ExpenseChart';
+// import ExpenseChart from '../../components/GigView/ExpenseChart';
 import GoalSummary from '../../components/GigView/GoalSummary';
 import TransactionSummary from '../../components/Transactions/TransactionSummary';
-import ReactDataGrid from 'react-data-grid';
+// import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
 import {Modal, Button, Input} from 'react-materialize';
-import { ModalAddGoal } from '../../components/Modals';
+// import { ModalAddGoal } from '../../components/Modals';
 
 
 class GigDetail extends React.Component {

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Badge, Chip} from 'react-materialize';
+// import {Badge, Chip} from 'react-materialize';
 import Account from './Account';
 
 
