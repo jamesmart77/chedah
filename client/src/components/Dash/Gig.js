@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { formatCurrencyValueJSX, formatChangeValueJSX } from '../../utils/currency';
+import { ModalAddGoal } from '../Modals';
 
 
 // materialize gig preview
@@ -82,10 +83,10 @@ class Gig extends Component {
                   </div>
                 </div>
               </div>
+              <div>
+                  <ModalAddGoal id={this.state.id}/>
+              </div>
             </div>
-
-
-
 
         );
     }

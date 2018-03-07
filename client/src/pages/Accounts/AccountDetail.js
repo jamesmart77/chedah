@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {Col, Row, Container} from '../../components/Grid';
 import {Account, GigMenu} from '../../components/Accounts';
 import Moment from 'react-moment';
 import API from '../../utils/API';
 import {Table} from '../../components/DataTable';
-import {formatCurrencyValueJSX} from '../../utils/currency';
+import { formatCurrencyValueJSX } from '../../utils/currency';
 import axios from 'axios';
+
 
 // calculates the next due date of a credit card
 function nextDueDate(day) {
@@ -222,9 +223,7 @@ class AccountDetail extends Component {
 
                 <br/>
                 <br/>
-
-                <div className="row account-transations">
-
+                <div className="row account-transations ml-1 mr-1">
                     <Table transactionsUpdated={this.transactionsUpdated.bind(this)} {...this.state}/>
                 </div>
             </div>

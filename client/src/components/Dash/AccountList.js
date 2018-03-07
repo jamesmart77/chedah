@@ -8,11 +8,12 @@ class AccountList extends Component {
 
     constructor(props) {
         super(props);
-        console.log(`-> Accountlist: `, props);
 
         this.state = {
             collapsed: false
         }
+
+        console.log(`-> AccountList: `, props);
     }
 
     handleClick() {
@@ -20,8 +21,6 @@ class AccountList extends Component {
     }
 
     render() {
-        console.log(`  -> account list rendering: `);
-        console.log(this.props);
         const arrowName = (this.state.collapsed === false) ? 'arrow_drop_down' : 'arrow_drop_up';
         return (
             <ul className="account-summary collapsible collection with-header" datacollapsible="expandable">

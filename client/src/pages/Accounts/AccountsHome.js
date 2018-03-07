@@ -28,7 +28,7 @@ class AccountsHome extends Component {
                     <div className='row'>
                         <div className='col s12'>
                             {this.state.accounts.map(acc =>
-                                <AccountOverview {...acc}/>
+                                <AccountOverview key={acc._id} {...acc}/>
                             )}
                         </div>
 
