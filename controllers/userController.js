@@ -4,12 +4,8 @@ const plaid = require('plaid');
 const gigController = require('./gigController');
 const util = require('util')
 const axios = require('axios')
-<<<<<<< HEAD
-// const {not} = require('ramda')
-=======
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
->>>>>>> 2e69ae28203cc3a0157c5bf4cd2ba0505e6fac3d
 require('dotenv').config();
 const request = require("request");
 const CircularJSON = require('circular-json');
@@ -386,8 +382,5 @@ module.exports = {
           error: err
         })
       })
-
-
-    // .catch((err) => console.log(err))
   }
 };
