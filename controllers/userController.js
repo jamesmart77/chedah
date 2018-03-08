@@ -107,15 +107,17 @@ module.exports = {
         goal.name = 'Spend Less on Gas'
         goal.budget = 200.00
         goal.expenses = 150.00
-        goal.net = 50.00
+        goal.percent = goal.expenses / goal.budget
+        goal.net = goal.budget - goal.expenses
         goal.categories = ['Gas', 'Advertising']
         user.gigs[0].goals.push(goal)
         const goal2 = {}
         goal2._id = 'JDKSLFJKLJEKLEERNKJEWHE'
         goal2.name = 'Spend Less on Tolls'
-        goal2.budget = 1200.00
-        goal2.expenses = 1300.00
-        goal2.net = -100.00
+        goal2.budget = 200.00
+        goal2.expenses = 150.00
+        goal2.percent = goal.expenses / goal.budget
+        goal2.net = goal.budget - goal.expenses
         goal2.categories = ['Tolls', 'Fees']
         user.gigs[0].goals.push(goal2)
 

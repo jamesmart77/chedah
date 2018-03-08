@@ -16,6 +16,7 @@
           "name": "Spend Less on Gas",
           "budget": 200,
           "expenses": 150,
+          "percent": 0.75,
           "net": 50,
           "categories": [
             "Gas",
@@ -25,9 +26,10 @@
         {
           "_id": "JDKSLFJKLJEKLEERNKJEWHE",
           "name": "Spend Less on Tolls",
-          "budget": 1200,
-          "expenses": 1300,
-          "net": -100,
+          "budget": 200,
+          "expenses": 150,
+          "percent": 0.75,
+          "net": 50,
           "categories": [
             "Tolls",
             "Fees"
