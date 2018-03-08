@@ -18,33 +18,12 @@ class GigDetail extends React.Component {
     constructor(props) {
         super(props);
 
+
         this.state = {
-            gigName: "",
             gigId: this.props.match.params.id,
             time: ['2018-02-01', '2018-02-28'],
-            gigSummary: {
-                moneyIn: 0.00,
-                expenses: 0.00,
-                net: 0.00
-            },
-            expenseSummary: [],
-            transactions: [],
-            grid: {
-                columns: [
-                    { key: 'id', name: 'ID' },
-                    { key: 'date', name: 'Date' },
-                    {
-                        key: 'vendor',
-                        name: 'Vendor',
-                        editable: true
-                    },
-                    { key: 'category', name: 'Category' },
-                    { key: 'gig', name: 'Gig' },
-                    { key: 'amount', name: 'Amount' }
-                ]
-            },
-            categories:[],
-            goals: [],
+            gig: {},                    
+           // update a goal
             goal: {
             // name: 'Spend Less on Speeding Tickets',
             // budget: 500.00,
@@ -141,24 +120,22 @@ class GigDetail extends React.Component {
     };
 
     // Initial Load w/ gigID passed along
-    loadGig(gigId){
-        API.loadGig(gigId)
-          .then(gigInfo => {
-              this.setState(gigInfo)
-          })
-          .catch(console.log)
+    // loadGig(gigId){
+    //     API.getUser()
+    //       .then(user => {
+    //         console.log("gig detail user ---------------------");
+    //             console.log(user);
+    //       })
+    //       .catch(console.log)
 
-      //   {
-      //       name: "",
-      //       transactions: [],
-      //       goals: []
-      //   }
-    }
+    // }
 
-    componentDidMount(){
-        this.getCurrentMonth();
-        this.loadGig(this.state.gigId);
-        this.props.getUser()
+
+    // upon page load, this function pulls in the gig from props into this page's state 
+    componentWillReceiveProps(newProps){
+        this.setState({
+            gig: newProps.user.gigs.find(gig => gig._id === this.state.gigId)
+        })
     }
 
 
@@ -174,7 +151,7 @@ class GigDetail extends React.Component {
                   </div>
 
                   <div className="col s6">
-                  <Modal
+                  {/* <Modal
                       id='add-goal-modal'
                       header='Add A Goal'
                       actions={
@@ -189,7 +166,7 @@ class GigDetail extends React.Component {
                      <Row>
                          {this.state.categories.map(cat => <Input key={cat.id} name={'goalCategories-' + cat.name } type='checkbox' value={cat.id} ref="check_me" label={cat.name} className='filled-in' onChange={this.handleCategory}/> )}
                     </Row>
-                </Modal>
+                </Modal> */}
 
  {/* goalUpdate: {
             name:"Spend Less On Tolls",
@@ -205,17 +182,17 @@ class GigDetail extends React.Component {
               <div className="row">
                 <div className="col s12 m5 l4">
 
-               <GigSummary gigSummary={this.state.gigSummary} addGoalToGig={this.addGoalToGig.bind(this)} />
-               <ExpenseSummary expenseSummary={this.state.expenseSummary} gigName={this.state.gigName}/>
+               <GigSummary gigSummary={this.state.gig} addGoalToGig={this.addGoalToGig.bind(this)} />
+               {/* <ExpenseSummary expenseSummary={this.state.expenseSummary} gigName={this.state.gigName}/> */}
 
 
                 </div>
 
                 <div className="col s12 m7 l8">
 
-                <GoalSummary goals={this.state.goals} editGoal={this.editGoal.bind(this)}/>
+                {/* <GoalSummary goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)}/> */}
 
-                <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/>
+                {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
 
 
                 {/* <ModalAddGoal gigId={'5a91b813513541155c819fa4'}/> */}
@@ -225,7 +202,6 @@ class GigDetail extends React.Component {
 
 
             </Container>
-
         );
     }
 
