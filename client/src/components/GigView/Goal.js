@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./GigView.css";
 import {formatCurrencyValueJSX} from '../../utils/currency';
 import {Modal, Button, Row, Input} from 'react-materialize';
@@ -21,7 +21,7 @@ const Goal = props => (
               <Button waves='light' className="modal-action modal-close teal" onClick={()=>props.editGoal(props.id)} >Apply</Button>
             </section>
           }
-         trigger={<a href="#" onClick={ () => props.editGoal(props.id)}><i className="material-icons iconStyleMed">settings</i></a>}>
+         trigger={<a href="#!" onClick={ () => props.editGoal(props.id)}><i className="material-icons iconStyleMed">settings</i></a>}>
          <Input s={12} label="Goal Name" defaultValue={props.name} name="goalName" />
          <Input s={12} label="Budget" defaultValue={props.budget} name="budget" />
          <p>Select Expense Categories To Track:</p>

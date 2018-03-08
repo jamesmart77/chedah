@@ -45,10 +45,6 @@ const chartOptions = {
 
 class ExpenseChart extends Component {
 
-	constructor(props) {
-        super(props);
-    };
-
 	getExpensesTotal() {
 		return this.props.expenses.reduce((total, item) => {
 			total += item.sum;

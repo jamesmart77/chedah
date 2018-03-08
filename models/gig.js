@@ -6,8 +6,7 @@ const validator = require('mongoose-unique-validator')
 const gigSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   description: {
     type: String,

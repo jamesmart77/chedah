@@ -12,7 +12,7 @@ import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
 import { AccountsHome, AccountDetail } from './pages/Accounts';
-import { ModalAddAccount, ModalAddGig, ModalAddGoal } from './components/Modals';
+import { ModalEditAccount, ModalAddGig, ModalAddGoal } from './components/Modals';
 import API from "./utils/API";
 
 
@@ -35,7 +35,7 @@ class App extends React.Component {
     API.getUser()
       .then(user => {
         console.log("we got a user")
-        let userData = user.data[0];
+        let userData = user.data;
         this.setState({user: userData})
       })
       .catch(err => {
@@ -56,13 +56,13 @@ class App extends React.Component {
   render() { return <Router history={history}>
     <div>
       <Nav />
-      <Breadcrumbs/>
+      <Breadcrumbs location={history.location}/>
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {}}/>} onEnter={requireAuth}/>
-        <Route exact path="/gigs/:id" component={this.GigDetailPage} onEnter={requireAuth} />
+        <Route exact path="/gigs/:id" component={this.GigDetailPage} user={this.state.user || {}} onEnter={requireAuth} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />
+        <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />c
         <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
         {/* <Route component={NoMatch} /> */}
@@ -71,7 +71,7 @@ class App extends React.Component {
       <Sidebar />
       <ActionButton location={history.location}/>
       {/* Modals */}
-      <ModalAddAccount/>
+      <ModalEditAccount/>
       <ModalAddGoal/>
       <ModalAddGig />
     </div>

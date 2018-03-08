@@ -4,13 +4,6 @@ import React, { Component } from 'react';
 const actions = {
     dashboard: [
         {
-            title: 'Link Account',
-            icon: 'insert_link',
-            id: 'action-add-account',
-            color: 'teal darken-3',
-            modal: 'add-account-modal'
-        },
-        {
             title: 'Add Gig',
             icon: 'work',
             id: 'action-add-gig',
@@ -65,7 +58,7 @@ class ActionButton extends Component {
         super(props);
 
         let pathname = this.props.location.pathname || '/';
-        let paths = pathname.split('/').filter(item => { return (item != '')})
+        let paths = pathname.split('/').filter(item => { return (item !== '')})
 
         this.state = {
             path: (paths.length) ? paths[0] : 'home',
