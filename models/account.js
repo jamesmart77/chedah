@@ -12,6 +12,8 @@ const accountSchema = new Schema({
   },
   mask: String,
   name: String,
+  apr: Number,
+  dueDate: Number,       // only need the numeric day
   official_name: String,
   subtype: String,
   type: String,

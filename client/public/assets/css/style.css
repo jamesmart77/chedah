@@ -8,10 +8,11 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Rubik', sans-serif;
 font-family: 'Source Sans Pro', sans-serif;
 
+font-family: 'Scope One', serif;     // old font (no weights)
+font-family: 'Roboto Slab', serif;   // new font (weights)
 font-family: 'Slabo 13px', serif;
 font-family: 'Gurajada', serif;
-font-family: 'Roboto Slab', serif;
-font-family: 'Scope One', serif;
+
 
 font-family: 'Abril Fatface', cursive;
 font-family: 'Poller One', cursive;
@@ -39,10 +40,9 @@ a {
 }
 
 html {
-    line-height: 1.5;
-
+    line-height: 1.8;
     /*font-family: "Roboto", sans-serif !important;*/
-    font-family: 'Scope One', serif;
+    font-family: 'Roboto Slab', serif;
     font-weight: normal;
     color: rgba(0, 0, 0, 0.87);
 }
@@ -697,7 +697,7 @@ a.side-headers {
 .account-summary .collapsible-body,
 .goal-summary .collapsible-body,
 .gig-summary .collapsible-body {
-    padding: 0;
+    padding: 2px 4px 2px 4px;
 }
 
 .account-summary.collection.with-header,
@@ -840,6 +840,9 @@ input.editable-cell {
     Modal Fixes
 ------------------------------------------*/
 
+.modal .modal-content {
+    /*height: 80%;*/
+}
 
 
 .modal .select-wrapper input.select-dropdown {
@@ -874,6 +877,13 @@ input.editable-cell {
     text-align: left;
     text-transform: none;
 }
+
+.modal .modal-footer {
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+}
+
 /*
 .modal .gig-dropdown .dropdown-content li>a,
 .modal .dropdown-content li>span {

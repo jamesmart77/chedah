@@ -3,26 +3,40 @@
 ------------------------------------------*/
 
 nav.breadcrumbs  {
-    margin: 0;
+    /*margin: 0;*/
+
+    /*z-index: -1;*/
+    height: 2.5rem;
+    line-height: 2.5rem;
+    background-color: #ababab3d;
     box-shadow: none;
     -webkit-box-shadow: none;
-    z-index: -1;
 }
 
+/* shifts text to the left */
+.breadcrumbs-wrapper .breadcrumbs {
+    padding: 0 0 0 1rem;
+    list-style: none;
+}
+
+/* breadcrumb link */
 .breadcrumb {
     font-size: 1rem;
     color: #666;
 }
 
+/* divider */
 .breadcrumb:before {
     content: '\E5CC';
     font-size: 1rem;
     color: #666;
 }
 
-.breadcrumbs-wrapper {
-    background: #f3f3f3;
+.breadcrumb:last-child {
+    color: #666;
 }
+
+/*
 
 .breadcrumbs-wrapper .container {
     width: 100%;
@@ -41,11 +55,7 @@ nav.breadcrumbs  {
     margin: 1.5rem 0 0 0;
 }
 
-.breadcrumbs-wrapper .breadcrumbs {
-    padding: 0 0 0 1rem;
-    /*margin: 15px 0;*/
-    list-style: none;
-}
+
 
 .breadcrumbs-wrapper .breadcrumbs>li {
     display: inline-block;
@@ -71,9 +81,4 @@ nav.breadcrumbs  {
 
 .breadcrumbs-wrapper .breadcrumbs-nav {
     margin: 8px 0 9px;
-}
-
-
-.breadcrumb:last-child {
-    color: #666;
-}
+}*/

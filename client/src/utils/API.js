@@ -6,10 +6,10 @@ import {
 
 
 export default {
-  
+
   // if there is a token, get current user
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
-  
+
   // add a goal to the current gig
   createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, {name: data}),
 
@@ -34,7 +34,7 @@ export default {
     return axios.post('/api/users/items', data);
   },
 
-  updateAccount: gigToChange => { 
+  updateAccount: gigToChange => {
     return axios.post("/accounts/", {
 
     })
@@ -283,6 +283,15 @@ loadUserData: userId => {
   })
 },
 
+
+// return user categories
+loadUserCategories: userId => {
+    return Promise.resolve(
+        defaultCategories
+    )
+},
+
+
 // return transactions associated with the given account id
 //  - ( currently returns test data )
 loadAccountTransactions: accountId => {
@@ -298,6 +307,8 @@ getGigData: gigId => {
         gigData
     )
 },
+
+
 
 };
 
@@ -668,6 +679,21 @@ const defaultTransactions = [
   }
 ]
 
+const defaultCategories = [
+    {
+        id: '9DF0A0DD19B2',
+        name: 'Travel'
+    }, {
+        id: 'DCCBD8F37DA3',
+        name: 'Tolls'
+    }, {
+        id: 'D2AA8A93CA76',
+        name: 'Gas'
+    }, {
+        id: 'C86EE76D90B4',
+        name: 'Gas'
+    }
+]
 
 // match an accountId with an account
 function getAccountWithID(accountID) {

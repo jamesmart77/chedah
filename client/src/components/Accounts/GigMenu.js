@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-// Account detail page
+// Account detail gig menuv
 class GigMenu extends Component {
 
     state = {

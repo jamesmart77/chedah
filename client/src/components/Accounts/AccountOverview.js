@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import CreditCardAPR from './APR'
 
 // account preview component
 class AccountOverview extends Component {
@@ -13,6 +13,7 @@ class AccountOverview extends Component {
                             <span className="card-title">
                                 <i className='material-icons inflex'>{icon}</i>
                                 <a href={'/accounts/' + this.props._id}>{this.props.name}</a>
+
                             </span>
                         </div>
                     </div>
