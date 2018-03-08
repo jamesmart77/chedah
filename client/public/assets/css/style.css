@@ -114,7 +114,7 @@ em {
 
 /* update for React sticky footer -mf */
 footer {
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     bottom: 0;
     left: 0;
