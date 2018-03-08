@@ -15,8 +15,6 @@ router.route('/:authId')
 router.route('/transactions')
   .post(userControllers.getTransactions)
 
-router.route('/categories/all')
-  .get(userControllers.getCategories)
 
 router.route('/:authId/gigs')
   .post(userControllers.addGigToUser)
