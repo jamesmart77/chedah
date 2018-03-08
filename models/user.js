@@ -39,8 +39,7 @@ const userSchema = new Schema({
     },
     item_id: {
       type: String,
-      required: true,
-      unique: true
+      required: true
     },
     name: {
       type: String
@@ -53,7 +52,11 @@ const userSchema = new Schema({
       type: Schema.Types.ObjectId,
     ref: 'Account'
   }],
-    transactions: [{
+  categories: [{
+    type: Schema.Types.ObjectId,
+  ref: 'Category'
+  }],
+  transactions: [{
       type: Schema.Types.ObjectId,
     ref: 'Transaction'
   }],
