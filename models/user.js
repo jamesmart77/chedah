@@ -39,8 +39,7 @@ const userSchema = new Schema({
     },
     item_id: {
       type: String,
-      required: true,
-      unique: true
+      required: true
     },
     name: {
       type: String

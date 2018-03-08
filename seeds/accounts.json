@@ -7,7 +7,6 @@
     "limit": null,
     "balance": 14120.21,
     "apr": null,
-    "fees": null,
     "dueDate": null,
     "gigId": "5a91b813513541155c819fa4"
   },
@@ -20,7 +19,6 @@
     "limit": 60000,
     "balance": 1325.81,
     "apr": 4,
-    "fees": 84.24,
     "dueDate": 27,
     "gigId": "5a91b813513541155c819fa4"
   },
@@ -33,7 +31,6 @@
     "limit": 20000,
     "balance": 270,
     "apr": 5,
-    "fees": null,
     "dueDate": 14,
     "gigId": "5a9b2447aab76d7dc5360297z"
   }
