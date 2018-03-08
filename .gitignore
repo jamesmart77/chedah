@@ -2,3 +2,4 @@
 .env
 client/build
 .DS_STORE
+test.json
