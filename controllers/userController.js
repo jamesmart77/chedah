@@ -8,6 +8,8 @@ const axios = require('axios')
 require('dotenv').config();
 const request = require("request");
 const CircularJSON = require('circular-json');
+const _ = require("underscore");
+
 
 
 var client = new plaid.Client(
@@ -313,9 +315,27 @@ module.exports = {
       // .catch((err) => console.log(err))
   },
   getCategories: (req, res) => {
+    // Use the build in getCategories method from the client
     client.getCategories((err, results) => {
+      // Each categoy comes down like this
+      // "categories": [{
+      //     "group": "place",
+      //     "hierarchy": [
+      //       "Recreation",
+      //       "Arts & Entertainment",
+      //       "Circuses and Carnivals"
+      //     ],
+      //     "category_id": "17001013"
+      //   },
+      // The categories will come down in the results.categories;
       const categories = results.categories;
-      res.json(categories)
+      // Go through each of those and then make an array of just the hierarchies or Plaids caregoy 
+      const justCats = categories.map (cat => {
+        return cat.hierarchy;
+      })
+      // Join all of those together and then send them
+      res.json(justCats.join());
+      
 
     })
   } 

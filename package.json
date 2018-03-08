@@ -49,6 +49,7 @@
     "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-scripts": "^1.1.1",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "underscore": "^1.8.3"
   }
 }
