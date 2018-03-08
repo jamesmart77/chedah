@@ -6,11 +6,11 @@ const cors = require('cors');
 const redisClient = require("./redis/main.js")
 
 //Yo Justin, can you figure out what add on is needed to get redis running in heroku??
-if (process.env.NODE_ENV !== 'production') {
-  redisClient.client.on("connect", function () {
-    console.log("Redis client connected corretly")
-  })
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   redisClient.client.on("connect", function () {
+//     console.log("Redis client connected corretly")
+//   })
+// }
 
 
 const app = express();
