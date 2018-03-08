@@ -815,7 +815,7 @@ input.editable-cell {
 
 .header {
     background-color: #263238;
-    height: 400px;
+    height: 450px;
     /* background: url(../img/headerbkg1.png);  */
     background-repeat: no-repeat; 
     background-size: cover;
@@ -847,6 +847,15 @@ input.editable-cell {
     /* height: 350px; */
     text-align: center;
     margin: 10px 0px 10px 0;
+    padding: 80px 0px 80px 0px;
+}
+
+.header1 {
+    /* background-color: blue; */
+    /* height: 350px; */
+    text-align: center;
+    margin: 10px 0px 10px 0;
+    /* padding: 50px 0px 50px 0px; */
 }
 
 .headerTitle {
@@ -856,25 +865,26 @@ input.editable-cell {
     opacity: .8;
 }
 
+
 .landingList {
     text-align: left;
 }
 .row .landingImg1 {
     /* margin: 25px 0 0 0; */
     background-color: #009688;
-    padding: 25px 10px 25px 10px;
+    padding: 50px 25px 50px 25px;
 }
 
 .row .landingImg2 {
     /* margin: 25px 0 0 0; */
     background-color: #263238;
-    padding: 25px 10px 25px 10px;
+    padding: 50px 25px 50px 25px;
 }
 
 .row .landingImg3 {
     /* margin: 25px 0 0 0; */
     background-color: #e64a19;
-    padding: 25px 10px 25px 10px;
+    padding: 50px 25px 50px 25px;
 }
 
 .productTitle {
@@ -919,6 +929,18 @@ input.editable-cell {
      opacity: .5;
     /* padding: 100px 0 0 0; */
 }
+
+.landingListTitle {
+    font-family: 'Roboto Slab', serif; 
+    /* font-weight: 400; */
+    text-transform: uppercase;
+    font-size: 2rem;
+    line-height: 110%;
+    color: #263238;
+    text-align: left;
+    padding-bottom: 15px;
+}
+
 /*----------------------------------------
     Modal Fixes
 ------------------------------------------*/
