@@ -190,8 +190,9 @@ class GigDetail extends React.Component {
 
                 <div className="col s12 m7 l8">
 
-                {/* <GoalSummary goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)}/> */}
-
+                {/* if theres a goal, show the GoalSummary component */}
+                {this.state.gig.goals && <GoalSummary goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)}/>}
+                
                 {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
 
 
