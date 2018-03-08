@@ -816,7 +816,7 @@ input.editable-cell {
 .header {
     background-color: #263238;
     height: 450px;
-    /* background: url(../img/headerbkg1.png);  */
+    /* background: url(../img/headerbkg.png);  */
     background-repeat: no-repeat; 
     background-size: cover;
     width: 100%;
@@ -827,7 +827,7 @@ input.editable-cell {
 .pullquoteblock {
     background-color: #263238;
     height: 250px;
-    /* background: url(../img/headerbkg1.png);  */
+    /* background: url(../img/headerbkg.png);  */
     background-repeat: no-repeat; 
     background-size: cover;
     width: 100%;
@@ -924,7 +924,7 @@ input.editable-cell {
     font-size: 2.28rem;
     line-height: 110%;
     color: white;
-    letter-spacing: 2px;
+    letter-spacing: 5px;
     text-align: center;
      opacity: .5;
     /* padding: 100px 0 0 0; */
