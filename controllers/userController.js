@@ -121,6 +121,9 @@ module.exports = {
         goal2.categories = ['Tolls', 'Fees']
         user.gigs[0].goals.push(goal2)
 
+        user.categories = []
+        const category
+
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
         require('fs').writeFileSync('./test.json', JSON.stringify(userWithoutItems,null,2))
@@ -161,6 +164,13 @@ module.exports = {
               new: true
             })
           )
+          .then(dbUser => {
+            axios.post('https://sandbox.plaid.com/categories/get')
+            .then(response => {
+              response.data.
+              return dbUser
+            })
+          })
           .then(dbUser => res.json(dbUser))
           .catch(err => {
             console.log('error')
