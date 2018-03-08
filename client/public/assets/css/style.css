@@ -814,27 +814,110 @@ input.editable-cell {
 ------------------------------------------*/
 
 .header {
-    background-color: #000;
-    height: 300px;
+    background-color: #263238;
+    height: 400px;
+    /* background: url(../img/headerbkg1.png);  */
+    background-repeat: no-repeat; 
+    background-size: cover;
+    width: 100%;
+    /* opacity: .8; */
+    /* height:450px; */
 }
 
+.pullquoteblock {
+    background-color: #263238;
+    height: 250px;
+    /* background: url(../img/headerbkg1.png);  */
+    background-repeat: no-repeat; 
+    background-size: cover;
+    width: 100%;
+    /* opacity: .8; */
+    /* height:450px; */
+}
+
+
+    .vignette {
+        -webkit-box-shadow: inset 0px 0px 185px rgba(0,0,0,0.4);
+        -moz-box-shadow:    inset 0px 0px 185px rgba(0,0,0,0.4);
+        box-shadow:         inset 0px 0px 185px rgba(0,0,0,0.4);
+  }
+
 .header2 {
-    background-color: blue;
-    height: 350px;
+    /* background-color: blue; */
+    /* height: 350px; */
     text-align: center;
+    margin: 10px 0px 10px 0;
 }
 
 .headerTitle {
     color: #fff;
     text-align: center;
+    letter-spacing: 3px;
+    opacity: .8;
 }
 
 .landingList {
     text-align: left;
 }
+.row .landingImg1 {
+    /* margin: 25px 0 0 0; */
+    background-color: #009688;
+    padding: 25px 10px 25px 10px;
+}
 
-.landingImg {
-    padding: 25px 0 0 0;
+.row .landingImg2 {
+    /* margin: 25px 0 0 0; */
+    background-color: #263238;
+    padding: 25px 10px 25px 10px;
+}
+
+.row .landingImg3 {
+    /* margin: 25px 0 0 0; */
+    background-color: #e64a19;
+    padding: 25px 10px 25px 10px;
+}
+
+.productTitle {
+    font-family: 'Roboto Slab', serif; 
+    /* font-weight: 400; */
+    text-transform: uppercase;
+    font-size: 2rem;
+    line-height: 110%;
+    color: white;
+    text-align: center;
+}
+
+.productText {
+    font-family: 'Rubik', sans-serif; 
+    /* text-transform: uppercase; */
+    font-size: 1rem;
+    line-height: 110%;
+    color: white;
+    text-align: center;
+}
+
+.titleHead {
+    font-family: 'Roboto Slab', serif; 
+    /* font-weight: 400; */
+    text-transform: uppercase;
+    font-size: 3.28rem;
+    line-height: 110%;
+    color: white;
+    text-align: center;
+    padding: 125px 0 0 0;
+}
+
+.pullquote {
+    font-family: 'Roboto Slab', serif; 
+    /* font-weight: 400; */
+    text-transform: uppercase;
+    font-size: 2.28rem;
+    line-height: 110%;
+    color: white;
+    letter-spacing: 2px;
+    text-align: center;
+     opacity: .5;
+    /* padding: 100px 0 0 0; */
 }
 /*----------------------------------------
     Modal Fixes
