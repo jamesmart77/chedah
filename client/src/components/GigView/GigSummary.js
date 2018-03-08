@@ -16,9 +16,9 @@ const GigSummary = props =>
                 {/* Body */}
                 <div className='row collapsible-body'>
                     <ul>
-            <li className="collection-item">MONEY IN:<span className="right">{formatCurrencyValueJSX(props.gigSummary.moneyIn)}</span></li>
-            <li className="collection-item">EXPENSES:<span className="right">{formatCurrencyValueJSX(props.gigSummary.expenses)}</span></li>
-            <li className="collection-item">NET:<span className="right">{formatCurrencyValueJSX(props.gigSummary.net)}</span></li>
+            <li className="collection-item">MONEY IN:<span className="right">{props.gigSummary.moneyIn}</span></li>
+            <li className="collection-item">EXPENSES:<span className="right">{props.gigSummary.moneyOut}</span></li>
+            <li className="collection-item">NET:<span className="right">{props.gigSummary.net}</span></li>
                     </ul>
                 </div>
             </li>
