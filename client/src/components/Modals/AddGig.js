@@ -34,7 +34,7 @@ class ModalAddGig extends Component {
                      <div className="row">
                        <div className="input-field col s6">
                          <select>
-                           <option value disabled selected>none</option>
+                           <option value disabled defaultValue="None">None</option>
                            <option value={1}>Checking</option>
                            <option value={2}>Citi Mastercard</option>
                            <option value={3}>Chase Visa</option>

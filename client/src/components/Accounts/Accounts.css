@@ -1,0 +1,241 @@
+/*.card {overflow: hidden;}*/
+
+#card-apr .card-content {
+  text-align: center;
+}
+
+#card-apr .card-stats-title {
+  font-size: 1rem;
+}
+
+#card-apr .card-stats-title i {
+  font-size: 1.2rem;
+  top: 4px;
+  position: relative;
+}
+
+#card-apr .card-stats-compare {
+  font-size: 1.0rem;
+}
+
+#card-apr .card-stats-compare i {
+  position: relative;
+  top: 5px;
+}
+
+#card-apr .card-stats-number {
+  font-size: 1.8rem;
+  line-height: 2.0rem;
+  margin: 0.2rem 0 0.2rem 0;
+  font-weight: 500;
+}
+
+#card-apr .card .card-content {
+  padding: 10px 14px;
+}
+
+#card-apr .card .card-action {
+  padding: 10px 14px;
+}
+
+/* alert card */
+#card-alert .card-content {
+  padding: 10px 20px;
+}
+
+#card-alert i {
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+}
+
+#card-alert .alert-circle {
+  display: inline-block;
+  width: 40px;
+  white-space: nowrap;
+  border-radius: 1000px;
+  vertical-align: bottom;
+  position: relative;
+  top: -5px;
+  left: -2px;
+}
+
+#card-alert .single-alert {
+  line-height: 42px;
+}
+
+#card-alert button {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 20px;
+  color: #fff;
+}
+
+#card-alert .card .card-content {
+  padding: 20px 40px 20px 20px;
+}
+
+#card-alert .card-action i {
+  top: 0;
+  margin: 0;
+}
+
+/* work card */
+#work-collections .collection-header {
+  font-size: 1.14rem;
+  font-weight: 500;
+}
+
+#work-collections p.collections-title {
+  font-size: 1.0rem;
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+
+#work-collections p.collections-content {
+  font-size: 0.9rem;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+}
+
+#work-collections .collection-item.avatar {
+  height: auto;
+  padding-top: 22px;
+}
+
+/* flight card */
+#flight-card .flight-card-title {
+  margin: 0;
+  font-weight: 300;
+  color: #fff;
+}
+
+#flight-card .flight-card-date {
+  font-size: 1.0rem;
+  margin: 0;
+  color: #fff;
+}
+
+#flight-card .flight-state {
+  padding-bottom: 15px;
+}
+
+#flight-card .flight-state-two {
+  border-left: 1px dashed #bdbdbd;
+}
+
+#flight-card .flight-icon {
+  font-size: 2.2rem;
+  display: block;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+}
+
+
+#flight-card .card-content {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+#flight-card .flight-state-wrapper {
+  margin: 0 0 100px 0 !important;
+}
+
+#flight-card .card-header .card-title {
+  padding: 20px;
+}
+
+/* task card */
+#task-card label {
+  display: block;
+  color: rgba(0, 0, 0, 0.87);
+  height: auto;
+}
+
+#task-card .task-card-title {
+  margin: 0;
+  color: #fff;
+  font-weight: 300;
+}
+
+#task-card .task-card-date {
+  font-size: 1.0rem;
+  margin: 0;
+  color: #fff;
+}
+
+#task-card .collection-header {
+  padding: 20px;
+}
+
+#task-card .task-add {
+  position: absolute;
+  right: 10px;
+  top: 76px;
+}
+
+#task-card .task-cat {
+  padding: 2px 4px;
+  color: #fff;
+  margin-left: 37px;
+  font-weight: 300;
+  font-size: 0.8rem;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background-clip: padding-box;
+}
+
+.task-cat {
+  padding: 2px 4px;
+  color: #fff;
+  font-weight: 300;
+  font-size: 0.8rem;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background-clip: padding-box;
+}
+
+.collection .collection-item.avatar i.circle {
+  font-size: 28px;
+}
+
+/* profile card */
+#profile-card .card-image {
+  height: 150px;
+}
+
+#profile-card .card-profile-image {
+  width: 70px;
+  position: absolute;
+  top: 110px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+#profile-card .btn-move-up {
+  position: relative;
+  top: -40px;
+  right: -18px;
+  margin-right: 10px !important;
+}
+
+#profile-card .card-content p {
+  font-size: 1.2rem;
+  margin: 10px 0 12px;
+}
+
+.card-move-up .move-up {
+  padding: 20px;
+}
+
+.black-overlay {
+  background-color: rgba(0, 0, 0, 0.42) !important;
+}
