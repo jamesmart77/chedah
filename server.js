@@ -12,8 +12,7 @@ module.exports.redisClient = redisClient;
 if (process.env.NODE_ENV == 'production') {
 redisClient.on("connect", function () {
     console.log("Redis client connected corretly in the production environment")
-})
-}else{
+})}else{
   redisClient.on("connect", function() {
     console.log("Redis client connected corretly in the LOCAL env");
   });
