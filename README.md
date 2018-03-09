@@ -1,10 +1,27 @@
-# Chedah
-Master Status: [![CircleCI](https://circleci.com/gh/jamesmart77/chedah.svg?style=svg)](https://circleci.com/gh/jamesmart77/chedah)
+<h1>Chedah</h1>
 
+<p>Chedah aims to focus on the "Gig Economy" by allowing users to link their business accounts to a user-friendly dashboard. Users can track everything from their monthly expesnes to their own persoanl business goals. Chedah takes the burden of tracking expenses, so that users can focus on what really matters, making CHEDAH</p>
 
-## Starting the app locally
+<h2>Technologies Used</h2>
+    <h3>Authentication</h3>
+    <ul>
+        <li>Plaid API: https://plaid.com/docs/api/</li>
+        <li>Auth0: https://auth0.com/</li>
+    </ul>
+    <h3>Databases</h3>
+    <ul>
+        <li>Redis: https://redis.io/</li>
+        <li>MongoDb: https://www.mongodb.com/</li>
+    </ul>
+        <h3>Continuous Integration and Testing</h3>
+        <ul>
+             <li>Jest: https://facebook.github.io/jest/</li>
+             <li>CircleCI: https://circleci.com/</li>
+        </ul>
+     
+<h1>Starting the app locally<h1>
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+<p>Start by installing front and backend dependencies. While in this directory, run the following commands:<p>
 
 ```
 yarn install
@@ -35,19 +52,3 @@ That's it, your app should be running on <http://localhost:3000>. The Express se
     ```
     seed
     ```
-
-## Deployment (Heroku)
-
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
-
-1. Build the React app for production by running the following command:
-
-```
-yarn build
-```
-
-2. Add and commit all changes to git
-
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!
