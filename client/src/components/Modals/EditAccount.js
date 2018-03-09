@@ -7,13 +7,13 @@ class ModalEditAccount extends Component {
 
     constructor(props) {
         super(props);
-        console.log(`Edit Account: `, props);
+        // console.log(`Edit Account: `, props);
     }
 
     componentWillMount() {
         API.getGigData(this.props.accountId).then(accountData => {
             this.setState(accountData)
-            console.log(`-> ModalAddAccount: `, accountData);
+            // console.log(`-> ModalAddAccount: `, accountData);
         }).catch(console.log)
     }
 

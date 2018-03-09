@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import AccountList from '../../components/Dash/AccountList';
 import GoalList from '../../components/Dash/GoalList';
 import GigList from '../../components/Dash/GigList';
-import API from '../../utils/API';
-import { ModalAddGig, ModalAddGoal } from '../../components/Modals';
 
 
 class Dashboard extends Component {
@@ -21,8 +19,6 @@ class Dashboard extends Component {
     }
 
     render() {
-
-        console.log(`Dashboard rendering: `, this.state.user);
         return (
             <main className='m8'>
                 <div className='container-fluid padding-1'>

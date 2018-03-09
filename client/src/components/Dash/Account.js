@@ -12,12 +12,10 @@ class Account extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        console.log(`Account getting props: `, nextProps);
         this.setState({...nextProps})
     }
 
     componentWillMount() {
-        console.log(`Account getting props: `, this.props);
         this.setState({...this.props})
     }
 
@@ -81,7 +79,6 @@ class Account extends Component {
 
     render() {
         let result;
-        console.log(`Account rendering: `, this.props);
         if ((this.props.subtype === 'checking') || (this.props.subtype === 'savings')) {
             result = this.renderChecking();
         } else {

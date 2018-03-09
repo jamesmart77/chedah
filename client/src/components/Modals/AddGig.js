@@ -4,11 +4,8 @@ import API from '../../utils/API';
 import { Input } from 'react-materialize'
 
 
-console.log(API.addGig);
 // add gig modal
 class ModalAddGig extends Component {
-
-
 
     constructor(props) {
         super(props);
@@ -21,34 +18,34 @@ class ModalAddGig extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    getAccountList() {
-        const accountList = this.props.user.accounts.map(acct =>
-            <option key={acct._id}>{acct.name}</option>
-        )
+    getAccountList(accounts) {
+        let accountList = [<option key={0} disabled>None</option>]
+        accounts.forEach(acct =>{
+            accountList.push(<option key={acct._id}>{acct.name}</option>)
+        });
+        return accountList
     }
 
     handleChange(event) {
         event.preventDefault();
         this.setState({[event.target.name]: event.target.value});
-
     }
 
     componentDidUpdate() {
-        console.log(this.state);
+        // console.log(this.state);
     }
 
     handleSubmit() {
         console.log(`adding gig: `, this.state);
         API.addGig(this.state)
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     }
 
     render() {
+        // build a list of accounts
         const accounts = this.props.user.accounts || []
-        let accountList = accounts.map(acct =>
-            <option key={acct.account_id}>{acct.name}</option>
-        )
-        accountList.unshift(<option key={0} disabled>None</option>)
-
+        const accountItems = this.getAccountList(accounts)
         return (
                  <div id="add-gig-modal" className="modal" data-modal style={{width: '60%', height: '40%'}}>
                    <div className="modal-content">
@@ -64,8 +61,8 @@ class ModalAddGig extends Component {
                      {/* Accounts */}
                      <div className="row">
                        <div className="input-field col s6">
-                         <Input s={12} type='select' id="input-gig-account" label="Associate with Account" defaultValue="None" onBlur={this.onChange}>
-                           {accountList}
+                         <Input s={12} type='select' id="input-gig-account" label="Associate with Account" defaultValue="None">
+                           {accountItems}
                          </Input>
                        </div>
                      </div>

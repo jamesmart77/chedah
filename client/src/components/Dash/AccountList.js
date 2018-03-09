@@ -18,12 +18,10 @@ class AccountList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(`AccountList: willReceiveProps: `, nextProps);
         this.setState({user: nextProps})
     }
 
     componentWillMount() {
-        console.log(`AccountList: willMount: `, this.props.user);
         this.setState({user: this.props.user})
     }
 
