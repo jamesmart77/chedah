@@ -4,18 +4,30 @@ import API from '../../utils/API';
 
 
 class AccountsHome extends Component {
-    state = {accounts: []}
+
+    state = {
+        user: {
+            accounts: []
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(`AccountsHome will receive: `, nextProps);
+        this.setState({user: nextProps.user})
+    }
 
     componentWillMount() {
-        API.loadUserData()
-        .then(userData => {
-            this.setState(userData)
-            console.log(`-> AccountsHome: `, userData);
-        })
-        .catch(console.log)
+        console.log(`AccountsHome will mount: `, this.props.user);
+        this.setState({user: this.props.user})
     }
 
     render() {
+        console.log(`AccountsHome: `, this.state);
+        const accounts = this.state.user.accounts;
+        if (!accounts) {
+            return (<div></div>)
+        }
+        console.log(`Accounts Home: `, accounts);
         return (
             <main className='m8'>
                 <div className='container-fluid padding-1'>
@@ -27,8 +39,8 @@ class AccountsHome extends Component {
 
                     <div className='row'>
                         <div className='col s12'>
-                            {this.state.accounts.map(acc =>
-                                <AccountOverview key={acc._id} {...acc}/>
+                            {accounts.map(acc =>
+                                <AccountOverview key={acc._id} account={acc}/>
                             )}
                         </div>
 

@@ -16,7 +16,7 @@ export default {
   // add a goal to the current gig
   addGig: data => {
     data.userId = decodeToken(getIdToken()).sub
-    axios.post(`/api/gigs`, data)
+    return axios.post(`/api/gigs`, data)
   },
 
   // add a goal to the current gig

@@ -9,8 +9,8 @@ router.post('/:id', gigController.addGoalToGig)
 // query '/api/gigs'
 router.get('/gigs', gigController.findAll)
 
-// post to '/api/gigs' 
-router.post('/', gigController.addGig)
+// post to '/api/gigs'
+router.post('/gigs', gigController.addGig)
 
 // router.route('/:id').get(gigController.findGigById).put(gigController.updateGig).delete(gigController.removeGig)
 

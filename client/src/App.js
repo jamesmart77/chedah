@@ -52,14 +52,14 @@ class App extends React.Component {
 
   render() { return <Router history={history}>
     <div>
-      <Nav />
+      <Nav user={this.state.user} />
       <Breadcrumbs location={history.location}/>
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user}/>} onEnter={requireAuth}/>
         <Route exact path="/gigs/:id" component={this.GigDetailPage} user={this.state.user || {}} onEnter={requireAuth} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />c
+        <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user}/>} onEnter={requireAuth} />c
         <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
         {/* <Route component={NoMatch} /> */}

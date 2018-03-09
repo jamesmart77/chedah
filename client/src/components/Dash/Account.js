@@ -21,16 +21,16 @@ class Account extends Component {
 
     renderChecking() {
         // const gigs = this.renderGigs();
-        const checkingTotal = formatCurrencyValueJSX(this.props.balance);
+        const checkingBalance = formatCurrencyValueJSX(this.props.balances.current);
         const accountHref = `accounts/${this.props._id}`;
         return (
             <div className='row collapsible-body'>
                 <div className='row'>
-                <div className='col s8'>
+                <div className='col s8 tooltipped' dataposition="top" datadelay="50" datatooltip={this.props.official_name}>
                         <i className='material-icons inflex'>attach_money</i>
                         <a className="side-headers" href={accountHref}> {this.props.name}</a>
                     </div>
-                    <div className='col s4 account-total'>{checkingTotal}</div>
+                    <div className='col s4 account-total'>{checkingBalance}</div>
                 </div>
 
                 <div className='row pl-1'>
@@ -79,10 +79,10 @@ class Account extends Component {
 
     render() {
         let result;
-        if ((this.props.subtype === 'checking') || (this.props.subtype === 'savings')) {
-            result = this.renderChecking();
-        } else {
+        if (this.props.type === 'credit') {
             result = this.renderCredit();
+        } else {
+            result = this.renderChecking();
         }
 
         return (result);
