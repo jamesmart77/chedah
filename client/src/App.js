@@ -18,18 +18,16 @@ import API from "./utils/API";
 
 class App extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
+    state = {
         user: {}
     }
 
-    this.GigDetailPage = (props) => <GigDetail
+    GigDetailPage = (props) => <GigDetail
           getUser={this.getUser.bind(this)}
           user={this.state.user}
           {...props}
         />
-  }
+
 
   getUser(){
     API.getUser()
@@ -43,7 +41,6 @@ class App extends React.Component {
         console.log(err)
       })
   }
-
 
   canI(){
     alert("can i do this?")
@@ -59,7 +56,7 @@ class App extends React.Component {
       <Breadcrumbs location={history.location}/>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {}}/>} onEnter={requireAuth}/>
+        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user}/>} onEnter={requireAuth}/>
         <Route exact path="/gigs/:id" component={this.GigDetailPage} user={this.state.user || {}} onEnter={requireAuth} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />c
@@ -71,9 +68,9 @@ class App extends React.Component {
       <Sidebar />
       <ActionButton location={history.location}/>
       {/* Modals */}
-      <ModalEditAccount/>
-      <ModalAddGoal/>
-      <ModalAddGig />
+      <ModalEditAccount user={this.state.user}/>
+      <ModalAddGoal user={this.state.user}/>
+      <ModalAddGig user={this.state.user}/>
     </div>
   </Router>;
   }

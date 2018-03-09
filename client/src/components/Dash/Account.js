@@ -6,18 +6,23 @@ import { formatCurrencyValueJSX } from '../../utils/currency';
 
 class Account extends Component {
 
-    constructor(props) {
-        super(props);
-        console.log(`-> Account: `, props);
-    };
-
     renderGigs() {
         const gigList = (this.props.gigs) || []
         return (gigList.map((gig, i) => <div key={i} className='chip'>{gig}</div>));
     };
 
+    componentWillReceiveProps(nextProps) {
+        console.log(`Account getting props: `, nextProps);
+        this.setState({...nextProps})
+    }
+
+    componentWillMount() {
+        console.log(`Account getting props: `, this.props);
+        this.setState({...this.props})
+    }
+
     renderChecking() {
-        const gigs = this.renderGigs();
+        // const gigs = this.renderGigs();
         const checkingTotal = formatCurrencyValueJSX(this.props.balance);
         const accountHref = `accounts/${this.props._id}`;
         return (
@@ -34,7 +39,7 @@ class Account extends Component {
 
                     <div className='col s12'>
                         <div className='chip'>No Gig</div>
-                </div>
+                    </div>
 
                 </div>
             </div>
@@ -42,9 +47,11 @@ class Account extends Component {
     };
 
     renderCredit() {
-        const gigs = this.renderGigs();
-        const creditTotal = formatCurrencyValueJSX(this.props.limit);
-        const creditBalance = formatCurrencyValueJSX(this.props.balance);
+        // available, current, limit
+        console.log(`credit: `, this.props.balances);
+        // const gigs = this.renderGigs();
+        const creditTotal = formatCurrencyValueJSX(this.props.balances.limit);
+        const creditBalance = formatCurrencyValueJSX(this.props.balances.current);
         const accountHref = `accounts/${this.props._id}`;
         return (
 
@@ -74,8 +81,8 @@ class Account extends Component {
 
     render() {
         let result;
-
-        if (this.props.accountType === 'checking') {
+        console.log(`Account rendering: `, this.props);
+        if ((this.props.subtype === 'checking') || (this.props.subtype === 'savings')) {
             result = this.renderChecking();
         } else {
             result = this.renderCredit();
