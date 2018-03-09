@@ -182,6 +182,8 @@ class GigDetail extends React.Component {
 
                <GigSummary gigSummary={this.state.gig} addGoalToGig={this.addGoalToGig.bind(this)} />
 
+               {this.state.gig.spendingByCategory  && <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/>}
+
                {/* {this.state.gig.spendingByCategory  ? <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/> : <h1>WTF IS GOIN ON</h1>} */}
 
 

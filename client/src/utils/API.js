@@ -7,11 +7,25 @@ import {
 
 export default {
 
+  // #############################################
+  // USERS
+  // #############################################
+
   // if there is a token, get current user
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
 
+  createUserIfDoesNotExist: () => {
+    const user = decodeToken(getIdToken());
+    return axios.post("/api/users", user)
+  },
+
+  // #############################################
+  // Gigs
+  // #############################################
+
   // add a goal to the current gig
   createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, {name: data}),
+
 
   // add a goal to the current gig
   addGig: data => {
@@ -22,10 +36,33 @@ export default {
   // add a goal to the current gig
   addGoalToGig: data => axios.post(`/api/goals`, data),
 
-  createUserIfDoesNotExist: () => {
-    const user = decodeToken(getIdToken());
-    return axios.post("/api/users", user)
+  // #############################################
+  // Accounts
+  // #############################################
+
+  getAccounts: () => axios.post('/api/accounts/', {userId: decodeToken(getIdToken()).sub}),
+
+  // data.accountId needs to be passed in
+  getAccount: data => {
+    data.userId = decodeToken(getIdToken()).sub
+    axios.post(`/api/accounts/${data.accountId}`, data)
   },
+
+  // data.accountId
+  udpateAccount: data => {
+    data.userId = decodeToken(getIdToken()).sub
+    return axios.put(`/api/accounts/${data.accountId}`, data)
+  },
+
+  // data.accountId
+  deleteAccount: data => {
+    data.userId = decodeToken(getIdToken()).sub
+    return axios.delete(`/api/accounts/${data.accountId}`, data)
+  },
+
+
+
+
 
   // createItem: plaidObj => {
   //   const data = {};
@@ -44,13 +81,6 @@ export default {
     return axios.post("/accounts/", {
 
     })
-  },
-
-  accountData: (accountId) => {
-    console.log(`looking for account: `, accountId);
-    axios.get('/api/accounts/' + accountId)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
   },
 
   accountsSync: () => {

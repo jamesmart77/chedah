@@ -1,10 +1,12 @@
 const router = require("express").Router();
-const accountController = require("../../controllers/accountController");
-/*
-router.route("/:id")
-    .post(accountController.addAccountAndGig);
-*/
+const accountsController = require("../../controllers/accountController")
 
-router.get('/accounts/:id?', accountController.findAccountById)
+router.route("/")
+    .post(accountsController.findAll)
+
+router.route("/:id")
+    .post(accountsController.findById)
+    .put(accountsController.update)
+    .delete(accountsController.delete)
 
 module.exports = router;

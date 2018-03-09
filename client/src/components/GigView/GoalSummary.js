@@ -11,7 +11,7 @@ const GoalSummary = props=> <div>
             id={goal.id}
             name={goal.name}
             budget={goal.budget}
-            spent={goal.spent}
+            spent={goal.expenses}
             net={goal.net}  
         />
     ))}
