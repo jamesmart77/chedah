@@ -42,12 +42,13 @@ class App extends React.Component {
       })
   }
 
-  canI(){
-    alert("can i do this?")
-  }
-
   componentWillMount() {
     this.getUser()
+
+    console.log('get accounts')
+    API.getAccounts()
+      .then(console.log)
+      .catch(console.log)
   }
 
   render() { return <Router history={history}>
