@@ -56,14 +56,15 @@ class ExpenseChart extends Component {
 
     // create the detail table (other side of the chart card)
 	renderDetail() {
-		{console.log(`CHART props: `)}
-			{console.log(this.props)}
+		{console.log(`CHART props EXPENSES: `)}
+			{console.log(this.props.expenses)}
 		let listItems =
 			this.props.expenses.map((item, i) =>
 				<li key={i} className="collection-item">{item.name}
 		  			<span className="right">{item.total}</span>
-				</li>
+				</li>	
 			)
+	
 
 		// push the total to the bottom of the stack
 		listItems.push(<li key={this.props.expenses.length} className="collection-item"><b>Total:</b><span className="right"><b>{this.props.total}</b></span></li>)
@@ -97,7 +98,8 @@ class ExpenseChart extends Component {
 				<div className="card-reveal">
 					<span className="card-title grey-text text-darken-4">{this.props.gigName + " Expenses"}<i className="material-icons right md-18">close</i></span>
                         <ul>
-		                   {/* {details} */}
+													{/* This is the back of the card - list of expenses */}
+		                   {details}
                         </ul>
 				</div>
 			</div>
