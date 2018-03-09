@@ -1,5 +1,6 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 import Alert from './Alert';
+
 
 class Sidebar extends Component {
 
@@ -10,8 +11,7 @@ class Sidebar extends Component {
                 name: 'Uber Goal at 80%',
                 value: '3 days to goal deadline',
                 date: '17:00'
-            },
-            {
+            }, {
                 id: 2,
                 name: 'Checking balance low',
                 date: '17:00'
@@ -57,17 +57,11 @@ class Sidebar extends Component {
                             <h6 className="mt-5 mb-3 ml-3 side-tab-header">Alerts</h6>
                             <div className="divider"></div>
                             <div className="collection border-none">
-                                {this.state.alerts.map((alrt, i) => {
-                                        return (
-                                            <Alert
-                                                key={i}
-                                                id={alrt.id}
-                                                name={alrt.name}
-                                                value={alrt.value}
-                                                date={alrt.date}
-                                            />
-                                        )
-                                    })}
+                                {
+                                    this.state.alerts.map(alrt => {
+                                        return (<Alert key={alrt.id} id={alrt.id} name={alrt.name} value={alrt.value} date={alrt.date}/>)
+                                    })
+                                }
                             </div>
                         </div>
 
@@ -78,16 +72,16 @@ class Sidebar extends Component {
 
                             <ul className="collection border-none">
                                 <li className="collection-item border-none">
-                                  <div className="m-0">
-                                    <span className="font-weight-600">Notifications</span>
-                                    <div className="switch right">
-                                      <label>
-                                        <input type="checkbox"/>
-                                        <span className="lever"></span>
-                                      </label>
+                                    <div className="m-0">
+                                        <span className="font-weight-600">Notifications</span>
+                                        <div className="switch right">
+                                            <label>
+                                                <input type="checkbox"/>
+                                                <span className="lever"></span>
+                                            </label>
+                                        </div>
                                     </div>
-                                  </div>
-                                  <p>Allow account notifications.</p>
+                                    <p>Allow account notifications.</p>
                                 </li>
                             </ul>
 
@@ -98,8 +92,5 @@ class Sidebar extends Component {
         </aside>);
     }
 }
-
-
-
 
 export default Sidebar;

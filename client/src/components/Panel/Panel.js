@@ -2,10 +2,10 @@ import React from "react";
 import "./Panel.css";
 // This is created by Ben, don't delete
 const Panel = (props) =>
-  <div className={"card " + props.color}>
-    <div className="card-content white-text">
+  <div className={"card"}>
+    <div className="card-content">
       <p className="center">{props.title}</p>
-      <p className={"center jumbo-text " + props.css}>{props.value}</p>
+      <p className={"center" + props.css}>{props.value}</p>
     </div>
   </div>
 

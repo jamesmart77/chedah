@@ -1,0 +1,37 @@
+[{
+    "_id": "5a9b16b841480c455fec8d0a",
+    "userId": null,
+    "name": "Checking",
+    "accountNum": "4117*****",
+    "accountType": "checking",
+    "limit": null,
+    "balance": 14120.21,
+    "apr": null,
+    "dueDate": null,
+    "gigId": "5a91b813513541155c819fa4"
+  },
+  {
+    "_id": "5a9b15a041480c455fec8c6b",
+    "userId": null,
+    "name": "Chase MasterCard",
+    "accountNum": "624831******001",
+    "accountType": "credit",
+    "limit": 60000,
+    "balance": 1325.81,
+    "apr": 4,
+    "dueDate": 27,
+    "gigId": "5a91b813513541155c819fa4"
+  },
+  {
+    "_id": "5a9b2497169fc87df959e4cb",
+    "userId": null,
+    "name": "Citi Visa",
+    "accountNum": "224831*****007",
+    "accountType": "credit",
+    "limit": 20000,
+    "balance": 270,
+    "apr": 5,
+    "dueDate": 14,
+    "gigId": "5a9b2447aab76d7dc5360297z"
+  }
+]

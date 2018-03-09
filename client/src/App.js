@@ -1,38 +1,83 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AccountDetail from "./pages/AccountDetail";
+import { Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
-import Testing from "./pages/Testing";
 import Login from "./pages/Login";
-import Nav from "./components/Nav";
+import { Nav, Breadcrumbs } from "./components/Nav";
 import Footer from "./components/Footer/Footer";
-import FooterDebug from "./components/Footer/FooterDebug";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Callback from './components/Callback';
 import { requireAuth } from './utils/AuthService';
 import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
+import ActionButton from './components/ActionButton';
+import { AccountsHome, AccountDetail } from './pages/Accounts';
+import { ModalEditAccount, ModalAddGig, ModalAddGoal } from './components/Modals';
+import API from "./utils/API";
 
 
-const App = () =>
-  <Router history={history}>
+class App extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+        user: {}
+    }
+
+    this.GigDetailPage = (props) => <GigDetail
+          getUser={this.getUser.bind(this)}
+          user={this.state.user}
+          {...props}
+        />
+  }
+
+  getUser(){
+    API.getUser()
+      .then(user => {
+        console.log("we got a user")
+        let userData = user.data;
+        this.setState({user: userData})
+      })
+      .catch(err => {
+        console.log("we got a err")
+        console.log(err)
+      })
+  }
+
+
+  canI(){
+    alert("can i do this?")
+  }
+
+  componentWillMount() {
+    this.getUser()
+  }
+
+  render() { return <Router history={history}>
     <div>
       <Nav />
+      <Breadcrumbs location={history.location}/>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/gig" component={GigDetail} />
+        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {}}/>} onEnter={requireAuth}/>
+        <Route exact path="/gigs/:id" component={this.GigDetailPage} user={this.state.user || {}} onEnter={requireAuth} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/testing" component={Testing} onEnter={requireAuth} />
-        <Route exact path="/accounts/:id" component={AccountDetail} />
+        <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />c
+        <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
         {/* <Route component={NoMatch} /> */}
       </Switch>
       <Footer />
       <Sidebar />
-      <FooterDebug />
+      <ActionButton location={history.location}/>
+      {/* Modals */}
+      <ModalEditAccount/>
+      <ModalAddGoal/>
+      <ModalAddGig />
     </div>
   </Router>;
+  }
 
-export default App;
+}
+
+export default App

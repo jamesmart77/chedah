@@ -1,0 +1,41 @@
+/* List Styles */
+
+.listHeader {
+    background-color: #263238 !important;
+    color: #ffffff;
+}
+
+.collapsible-header i {
+    margin-right: 0;
+}
+
+/* Icons */
+.iconStyleSmall {
+    color: #009688;
+    font-size: 1rem !important;
+}
+
+.iconStyleMed {
+    color: #009688;
+    font-size: 2rem;
+    text-align: right;
+}
+
+/* GIG VIEW > GOAL Cards */
+.cardHeader {
+    padding: 12px 0 0 0 !important;
+    background-color: #263238 !important;
+}
+
+.cardBody {
+    /* padding: 12px 0 0 0 !important; */
+    background-color: #ffffff !important;
+}
+
+.card-title .primaryHeaderText {
+    color: #009688;
+}
+
+.card-title .secondaryHeaderText {
+    color: #ffffff;
+}

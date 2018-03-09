@@ -1,18 +1,21 @@
-const router = require("express").Router();
-const userControllers = require("../../controllers/userController");
+const router = require('express').Router()
+const userControllers = require('../../controllers/userController')
+const plaidControllers = require('../../controllers/plaidController')
 
 // Matches with "/api/plaid/get_access_token"
-router.route("/")
-  .post(userControllers.createUserIfDoesNotExist);
+router.route('/')
+  .post(userControllers.createUserIfDoesNotExist)
 
-  router.route("/items")
-  .post(userControllers.addItemToUser);
+router.route('/items')
+  .post(plaidControllers.getPrivateKey)
 
-// Matches with "/api/books/:id"
-// router
-//   .route("/:id")
-//   .get(booksController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
+router.route('/:authId')
+  .get(userControllers.getUser)
 
-module.exports = router;
+router.route('/transactions')
+  .post(userControllers.getTransactions)
+
+router.route('/:authId/gigs')
+  .post(userControllers.addGigToUser)
+
+module.exports = router

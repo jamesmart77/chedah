@@ -42,12 +42,18 @@
         // dropdown menu positioning
         $('.dropdown-button').dropdown({
             hover: true,
-            // gutter:100,         // push menu to the left
             belowOrigin: true,
             alignment: 'right',
             constrainWidth: false // don't force a fixed width
         });
 
+        // gigmenu
+        $('.acct-gig-menu-trigger').dropdown({
+            hover: false,
+            belowOrigin: true,
+            alignment: 'left',
+            constrainWidth: false
+        });
 
         $('.gig-frequency').dropdown({
             hover: false,
@@ -98,5 +104,6 @@
                 minLength: 1
             }
         });
+
     }); // end of document ready
 })(jQuery); // end of jQuery namepace

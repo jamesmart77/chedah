@@ -1,57 +1,43 @@
 import React, {Component} from "react";
-import {Badge, Chip} from 'react-materialize';
+// import {Badge, Chip} from 'react-materialize';
 import Account from './Account';
+
 
 // materialize account list
 class AccountList extends Component {
 
-    state = {
-        accounts: [
-            {
-                id: 1,
-                name: 'Checking',
-                total: 12000,
-                balance: 1200,
-                accountType: 'checking',
-                gigs: ['uber']
-            }, {
-                id: 2,
-                name: 'Citi Visa',
-                total: 8000,
-                balance: 800,
-                accountType: 'credit',
-                gigs: ['uber']
-            }, {
-                id: 3,
-                name: 'Chase Mastercard',
-                total: 12000,
-                balance: 1000,
-                accountType: 'credit',
-                gigs: ['uber', 'programming']
-            }
-        ]
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            collapsed: false
+        }
+
+        console.log(`-> AccountList: `, props);
+    }
+
+    handleClick() {
+        this.setState({collapsed: !this.state.collapsed})
+    }
 
     render() {
-        return (<ul className="collapsible dashboard" data-collapsible="expandable">
-            <li>
-                <div className="dashboard collapsible-header">
-                    <i className="material-icons">account_balance</i>Accounts
-                </div>
+        const arrowName = (this.state.collapsed === false) ? 'arrow_drop_down' : 'arrow_drop_up';
+        return (
+            <ul className="account-summary collapsible collection with-header" datacollapsible="expandable">
+                <li>
+                    {/* Header */}
+                    <div className="collapsible-header listHeader" onClick={this.handleClick.bind(this)}>
+                        <h6><i className="material-icons iconStyleSmall">account_balance</i> Accounts</h6>
+                        <i className="header-expand-state material-icons">{arrowName}</i>
+                    </div>
 
-                {this.state.accounts.map((account, i) => (
-                    <Account
-                        key={i}
-                        id={account.id}
-                        name={account.name}
-                        total={account.total}
-                        balance={account.balance}
-                        accountType={account.accountType}
-                        gigs={account.gigs}
-                    />
-                ))}
-            </li>
-        </ul>);
+                    {/* Body insert_chart */}
+                    {this.props.accounts.map((account, i) => (
+                        <Account key={i} {...account} />
+                    ))}
+                </li>
+            </ul>
+        );
     }
 }
 

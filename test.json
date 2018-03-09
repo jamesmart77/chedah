@@ -1,0 +1,44 @@
+{
+  "_id": "5aa09f0e98e06de957efaa13",
+  "firstName": "Benjamin",
+  "lastName": "Baumann",
+  "auth_id": "facebook|10155456253012712",
+  "email": "ben@thisisbam.com",
+  "__v": 0,
+  "gigs": [
+    {
+      "_id": "5aa09f0e98e06de957efaa14",
+      "name": "Personal",
+      "__v": 0,
+      "goals": [
+        {
+          "_id": "73829y4iu32h4jkh24242334",
+          "name": "Spend Less on Gas",
+          "budget": 200,
+          "expenses": 150,
+          "percent": 0.75,
+          "net": 50,
+          "categories": [
+            "Gas",
+            "Advertising"
+          ]
+        },
+        {
+          "_id": "JDKSLFJKLJEKLEERNKJEWHE",
+          "name": "Spend Less on Tolls",
+          "budget": 200,
+          "expenses": 150,
+          "percent": 0.75,
+          "net": 50,
+          "categories": [
+            "Tolls",
+            "Fees"
+          ]
+        }
+      ],
+      "transactions": []
+    }
+  ],
+  "categories": [],
+  "accounts": []
+}

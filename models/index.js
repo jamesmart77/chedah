@@ -1,5 +1,9 @@
 module.exports = {
-  Book: require("./book"),
-  Transaction: require("./transaction"),
-  User: require("./user")
-};
+  User: require('./user'),
+  Gig: require('./gig'),
+  Goal: require('./goal'),
+  Account: require('./account'),
+  Transaction: require('./transaction'),
+  Category: require('./category'),
+  PlaidCategory: require('./plaidCategories')
+}

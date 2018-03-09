@@ -7,11 +7,6 @@ Once a user is authenticated, Auth0 will redirect back to our application and ca
 */
 
 class Callback extends Component {
-
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     setAccessToken();
     setIdToken();
@@ -21,7 +16,7 @@ class Callback extends Component {
 
       console.log("WTF Happaned")
       console.log(res.data);
-      res.data.userExist ? window.location.href = "/gig" : console.log(res.data)
+      window.location.href = "/dashboard"
       
     })
     .catch(console.log);

@@ -1,7 +1,5 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import PlaidLink from "react-plaid-link";
 import API from "../../utils/API";
 import PlaidLinkMenuItem from "./PlaidLinkMenuItem";
@@ -17,17 +15,23 @@ class PlaidAccountLink extends React.Component {
             token: token,
             metadata: metadata
         }
-        API.createItem(plaidObj)
+
+        API.getAccessToken(plaidObj)
             .then(console.log)
-            .catch(console.log);
+            .catch((err) => console.log);
+
+        // API.createItem(plaidObj)
+        //     .then(console.log)
+        //     .catch(console.log);
 
     }
 
     render(){
+        const products = ['transactions'];
         return (
         <PlaidLinkMenuItem
             publicKey="1d68b777ea259a9dedc5cfb9510428"
-            product='transactions'
+            product={products}
             env="sandbox"
             clientName="plaidname"
             onSuccess={this.handleOnSuccess}

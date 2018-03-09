@@ -3,6 +3,15 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const cors = require('cors');
+const redisClient = require("./redis/main.js")
+
+//Yo Justin, can you figure out what add on is needed to get redis running in heroku??
+// if (process.env.NODE_ENV !== 'production') {
+//   redisClient.client.on("connect", function () {
+//     console.log("Redis client connected corretly")
+//   })
+// }
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,7 +38,15 @@ mongoose.connect(
   }
 );
 
+
+// debugging logger
+app.all('*', (req, res, next) => {
+  console.log(`# requesting url: ${req.url}`)
+  next()
+});
+
+
 // Start the API server
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+app.listen(PORT, function () {
+  console.log(`🧀  ==> API Server now listening on PORT ${PORT}!`);
 });
