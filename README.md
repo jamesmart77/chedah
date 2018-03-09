@@ -1,6 +1,11 @@
 <h1>Chedah</h1>
-Master Status: [![CircleCI](https://circleci.com/gh/jamesmart77/chedah.svg?style=svg)](https://circleci.com/gh/jamesmart77/chedah)
 
+Master Branch: [![CircleCI](https://circleci.com/gh/jamesmart77/chedah.svg?style=svg)](https://circleci.com/gh/jamesmart77/chedah)
+
+<p>Is the fear of having to overlook your expenses and budgets preventing you from starting a side hustle? Does the word budgeting make you uncomfortable? If there was a way you could just overlook your finances vs. spending time on tracking them, would you go out and start a side gig? </p>
+<h2>Lucky for you, there is Chedah!</h2>
+
+![Alt Text](https://media.giphy.com/media/5fBH6zoAQg9dHK2ttsc/giphy.gif)
 
 
 
@@ -22,11 +27,18 @@ Master Status: [![CircleCI](https://circleci.com/gh/jamesmart77/chedah.svg?style
              <li>Jest: https://facebook.github.io/jest/</li>
              <li>CircleCI: https://circleci.com/</li>
         </ul>
+<<<<<<< HEAD
 
 <h1>Starting the app locally<h1>
 
 <p>Start by installing front and backend dependencies. While in this directory, run the following commands:<p>
 
+=======
+     
+<h1>Starting the app locally</h1>
+
+<p>Start by installing front and backend dependencies. While in this directory, run the following commands:<p>
+>>>>>>> 5b4dd491ee059371e0179f1bfb58fc7b811f0002
 
 ```
 yarn install
