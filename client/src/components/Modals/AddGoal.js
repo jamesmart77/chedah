@@ -24,15 +24,13 @@ class ModalAddGoal extends Component {
 
     constructor(props) {
         super(props);
-        console.log(`Add Goal: `, props);
-
         this.handleClick = this.handleClick.bind(this);
     }
 
     componentWillMount() {
         API.getGigData(this.props.gigId).then(gigData => {
             this.setState(gigData)
-            console.log(`-> ModalAddGoal: `, gigData);
+            // console.log(`-> ModalAddGoal: `, gigData);
         }).catch(console.log)
     }
 
