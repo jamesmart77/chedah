@@ -4,13 +4,11 @@ import { Row, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import GigSummary from '../../components/GigView/GigSummary';
 import ExpenseSummary from '../../components/GigView/ExpenseSummary';
-// import ExpenseChart from '../../components/GigView/ExpenseChart';
 import GoalSummary from '../../components/GigView/GoalSummary';
 import TransactionSummary from '../../components/Transactions/TransactionSummary';
 // import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
 import {Modal, Button, Input} from 'react-materialize';
-// import { ModalAddGoal } from '../../components/Modals';
 
 
 class GigDetail extends React.Component {
@@ -22,7 +20,7 @@ class GigDetail extends React.Component {
         this.state = {
             gigId: this.props.match.params.id,
             time: ['2018-02-01', '2018-02-28'],
-            gig: {},                    
+            gig: {},
            // update a goal
             goal: {
             // name: 'Spend Less on Speeding Tickets',
@@ -131,7 +129,7 @@ class GigDetail extends React.Component {
     // }
 
 
-    // upon page load, this function pulls in the gig from props into this page's state 
+    // upon page load, this function pulls in the gig from props into this page's state
     componentWillReceiveProps(newProps){
         this.setState({
             gig: newProps.user.gigs.find(gig => gig._id === this.state.gigId)
@@ -186,6 +184,8 @@ class GigDetail extends React.Component {
                              
                {this.state.gig.spendingByCategory  && <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/>}
 
+               {/* {this.state.gig.spendingByCategory  ? <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/> : <h1>WTF IS GOIN ON</h1>} */}
+
 
                 </div>
 
@@ -193,7 +193,7 @@ class GigDetail extends React.Component {
 
                 {/* if theres a goal, show the GoalSummary component */}
                 {this.state.gig.goals && <GoalSummary goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)}/>}
-                
+
                 {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
 
 

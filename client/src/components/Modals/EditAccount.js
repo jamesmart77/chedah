@@ -7,13 +7,13 @@ class ModalEditAccount extends Component {
 
     constructor(props) {
         super(props);
-        console.log(`Edit Account: `, props);
+        // console.log(`Edit Account: `, props);
     }
 
     componentWillMount() {
         API.getGigData(this.props.accountId).then(accountData => {
             this.setState(accountData)
-            console.log(`-> ModalAddAccount: `, accountData);
+            // console.log(`-> ModalAddAccount: `, accountData);
         }).catch(console.log)
     }
 
@@ -32,7 +32,7 @@ class ModalEditAccount extends Component {
                          <div className="col s6">
                              <div className="input-field">
                                <select>
-                                 <option value="" disabled selected>Account type</option>
+                                 <option value="" disabled>Account type</option>
                                  <option value="1">Checking</option>
                                  <option value="2">Credit Card</option>
                                </select>
