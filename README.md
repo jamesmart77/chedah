@@ -19,7 +19,7 @@
              <li>CircleCI: https://circleci.com/</li>
         </ul>
      
-<h1>Starting the app locally<h1>
+<h1>Starting the app locally</h1>
 
 <p>Start by installing front and backend dependencies. While in this directory, run the following commands:<p>
 
