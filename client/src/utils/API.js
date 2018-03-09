@@ -20,7 +20,7 @@ export default {
   },
 
   // add a goal to the current gig
-  addGoalToGig: data => axios.post(`/api/gigs/${data.gigId}`, data.goal),
+  addGoalToGig: data => axios.post(`/api/goals`, data),
 
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());

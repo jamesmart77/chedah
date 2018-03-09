@@ -12,16 +12,27 @@ module.exports = {
 
     // add a new goal
     addGoal: (req, res) => {
+      const goal = {}
+      goal.name = req.body.name
+      goal.budget = req.body.budget
+      goal.description = req.body.description
+      const categories = req.body.categories
 
-      console.log(req.body)
+      db.Goal.create(goal)
+        .then(dbGoal => {
+          dbGoal.categories.push(categories)
+          dbGoal.save();
 
-      db.Goal.findByIdAndUpdate({_id: req.body.gigId},
-        {
-          $addToSet: {
-            goals: req.body.goal
-          }
+          db.Gig
+          .findOneAndUpdate({_id: req.body.gigId}, 
+            {$push : {
+              goals: dbGoal._id
+            }}
+          )
+          .then(dbGoal => res.json(dbGoal))
+          .catch(err => res.status(422).json(err));
         })
-        .then(dbModal => res.json(dbModal))
+
         .catch(err => {
           res.status(422).json(err);
         });
