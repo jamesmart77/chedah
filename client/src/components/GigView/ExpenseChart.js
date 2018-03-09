@@ -43,34 +43,33 @@ const chartOptions = {
 }
 
 
-class ExpenseChart extends Component {
 
-	getExpensesTotal() {
-		return this.props.expenses.reduce((total, item) => {
-			total += item.sum;
-			return total;
-		}, 0);
-	}
+class ExpenseChart extends Component {
+	
 
     // create the detail table (other side of the chart card)
 	renderDetail() {
+	
 		let listItems =
 			this.props.expenses.map((item, i) =>
-				<li key={i} className="collection-item">{item.category}
-		  			<span className="right">{formatCurrencyValueJSX(item.sum)}</span>
-				</li>
+				<li key={i} className="collection-item">{item.name}
+		  			<span className="right">{item.total}</span>
+				</li>	
 			)
+	
 
 		// push the total to the bottom of the stack
-		listItems.push(<li key={this.props.expenses.length} className="collection-item"><b>Total:</b><span className="right"><b>{formatCurrencyValueJSX(this.getExpensesTotal())}</b></span></li>)
+		listItems.push(<li key={this.props.expenses.length} className="collection-item"><b>Total:</b><span className="right"><b>{this.props.total}</b></span></li>)
 		return listItems;
 	};
 
+
     // render the component
 	render() {
-		chartOptions.title.text = this.props.gigName + ' Expenses: $' + this.getExpensesTotal()
-		chartData.labels = this.props.expenses.map(e => e.category)
-		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => e.sum), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00']}]
+	
+		chartOptions.title.text = this.props.gigName + ' Expenses: $' + this.props.total
+		chartData.labels = this.props.expenses.map(e => e.name)
+		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => e.total), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00', '#F5AA9D', '#FA1B5E']}]
 		const details = this.renderDetail();
 		return (
 			<div className='expense-summary card'>
@@ -90,6 +89,7 @@ class ExpenseChart extends Component {
 				<div className="card-reveal">
 					<span className="card-title grey-text text-darken-4">{this.props.gigName + " Expenses"}<i className="material-icons right md-18">close</i></span>
                         <ul>
+													{/* This is the back of the card - list of expenses */}
 		                   {details}
                         </ul>
 				</div>

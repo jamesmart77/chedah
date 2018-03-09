@@ -53,20 +53,30 @@ module.exports = {
     addGig: (req, res) => {
       
       const gig = {
-        name: req.query.name,
+        name: req.body.name,
+        description: req.body.description,
         default: false
       }
 
       db.Gig
         .create(gig)
-        .then(dbgig => {
-          res.json(dbgig);
+        .then(dbGig => {
+          db.User.findOneAndUpdate({'auth_id': req.body.userId},
+          {$push : {
+            gigs: dbGig._id
+          }}
+          )
+          .then(dbUser => {
+            res.json(dbUser);
+          })
+          .catch(err => {
+            res.status(422).json(err);
+          });
          })
         .catch(err => {
           res.status(422).json(err);
         });
     },
-
     //  update an existing gig
     updateGig: (req, res) => {
       db.Gig

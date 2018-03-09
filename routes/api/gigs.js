@@ -9,7 +9,7 @@ router.post('/:id', gigController.addGoalToGig)
 // query '/api/gigs'
 router.get('/gigs', gigController.findAll)
 
-// post to '/api/gigs' // I think we can deprecate this -bb
+// post to '/api/gigs' 
 router.post('/', gigController.addGig)
 
 // router.route('/:id').get(gigController.findGigById).put(gigController.updateGig).delete(gigController.removeGig)

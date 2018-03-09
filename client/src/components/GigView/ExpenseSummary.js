@@ -15,10 +15,11 @@ const ExpenseSummary = props =>
             {/* Body */}
 			{console.log(`props: `)}
 			{console.log(props)}
-            <div className='row collapsible-body'>
+            <div className='row'>
                 <ExpenseChart
-                    expenses={props.expenseSummary}
-					gigName={props.gigName}
+                    expenses={props.expenses}
+                    gigName={props.gigName}
+                    total={props.total}
                 />
             </div>
         </li>
