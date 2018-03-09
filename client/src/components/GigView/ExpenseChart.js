@@ -47,17 +47,9 @@ const chartOptions = {
 class ExpenseChart extends Component {
 	
 
-	// getExpensesTotal() {
-	// 	return this.props.expenses.reduce((total, item) => {
-	// 		total += item.sum;
-	// 		return total;
-	// 	}, 0);
-	// }
-
     // create the detail table (other side of the chart card)
 	renderDetail() {
-		{console.log(`CHART props EXPENSES: `)}
-			{console.log(this.props.expenses)}
+	
 		let listItems =
 			this.props.expenses.map((item, i) =>
 				<li key={i} className="collection-item">{item.name}
@@ -74,8 +66,7 @@ class ExpenseChart extends Component {
 
     // render the component
 	render() {
-		{console.log("this.props.gigName")}
-		{console.log(this.props.gigName)}
+	
 		chartOptions.title.text = this.props.gigName + ' Expenses: $' + this.props.total
 		chartData.labels = this.props.expenses.map(e => e.name)
 		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => e.total), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00', '#F5AA9D', '#FA1B5E']}]
@@ -106,69 +97,6 @@ class ExpenseChart extends Component {
 		);
 	};
 };
-
-
-
-
-
-
-
-
-
-// class ExpenseChart extends Component {
-
-// 	getExpensesTotal() {
-// 		return this.props.expenses.reduce((total, item) => {
-// 			total += item.sum;
-// 			return total;
-// 		}, 0);
-// 	}
-
-//     // create the detail table (other side of the chart card)
-// 	renderDetail() {
-// 		let listItems =
-// 			this.props.expenses.map((item, i) =>
-// 				<li key={i} className="collection-item">{item.category}
-// 		  			<span className="right">{formatCurrencyValueJSX(item.sum)}</span>
-// 				</li>
-// 			)
-
-// 		// push the total to the bottom of the stack
-// 		listItems.push(<li key={this.props.expenses.length} className="collection-item"><b>Total:</b><span className="right"><b>{formatCurrencyValueJSX(this.getExpensesTotal())}</b></span></li>)
-// 		return listItems;
-// 	};
-
-//     // render the component
-// 	render() {
-// 		chartOptions.title.text = this.props.gigName + ' Expenses: $' + this.getExpensesTotal()
-// 		chartData.labels = this.props.expenses.map(e => e.category)
-// 		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => e.sum), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00']}]
-// 		const details = this.renderDetail();
-// 		return (
-// 			<div className='expense-summary card'>
-// 				<div className="card-content">
-// 					<span className="card-title activator grey-text text-darken-4">
-// 						<i className="material-icons right md-18">more_vert</i>
-
-// 						  {/* Chart Component */}
-// 						  <Doughnut
-// 							  height={300}
-// 							  data={chartData}
-// 							  options={chartOptions}
-// 						  />
-// 					</span>
-// 				</div>
-
-// 				<div className="card-reveal">
-// 					<span className="card-title grey-text text-darken-4">{this.props.gigName + " Expenses"}<i className="material-icons right md-18">close</i></span>
-//                         <ul>
-// 		                   {details}
-//                         </ul>
-// 				</div>
-// 			</div>
-// 		);
-// 	};
-// };
 
 
 export default ExpenseChart;
