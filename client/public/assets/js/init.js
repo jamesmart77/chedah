@@ -80,11 +80,11 @@
         $('.chips').material_chip();
         $('.chips-initial').material_chip({
             data: [{
-                tag: 'Apple',
+                tag: 'uber',
             }, {
-                tag: 'Microsoft',
+                tag: 'programming',
             }, {
-                tag: 'Google',
+                tag: 'landlording',
             }],
         });
 
@@ -96,14 +96,16 @@
         $('.chips-autocomplete').material_chip({
             autocompleteOptions: {
                 data: {
-                    'Apple': null,
-                    'Microsoft': null,
-                    'Google': null
+                    'uber': null,
+                    'programming': null,
+                    'landlording': null
                 },
                 limit: Infinity,
                 minLength: 1
             }
         });
+
+        $('.collapsible').collapsible();
 
     }); // end of document ready
 })(jQuery); // end of jQuery namepace

@@ -51,7 +51,7 @@ module.exports = {
 
     // add a new gig and set default to false
     addGig: (req, res) => {
-      
+
       const gig = {
         name: req.body.name,
         description: req.body.description,
@@ -60,10 +60,10 @@ module.exports = {
 
       db.Gig
         .create(gig)
-        .then(dbgig => {
+        .then(dbGig => {
           db.User.findOneAndUpdate({'auth_id': req.body.userId},
           {$push : {
-            gigs: dbGid._id
+            gigs: dbGig._id
           }}
           )
           .then(dbUser => {

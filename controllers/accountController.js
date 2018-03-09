@@ -1,102 +1,47 @@
-const db    = require('../models');
+const db = require('../models')
 
 module.exports = {
 
-    // find all gigs
-    findAll: (req, res) => {
-      console.log(`-> looking for gigs...`);
-      db.Gig
-        .find(req.query)
-        .sort({ date: -1 })
-        .then(dbgig => res.json(dbgig))
-        .catch(err => res.status(422).json(err));
-    },
+  // find all accounts
+  findAll: (req, res) => {
+    console.log(`-> looking for accounts...`)
+    db.User.findOne({ auth_id: req.body.userId }).lean()
+      .populate('accounts')
+      .then(dbUser => {
+        const {accounts} = dbUser
+        console.log(accounts)
+        res.status(200).json(accounts)
+      })
+      .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
+  },
 
-     // add a new personal gig and set to default
-     addPersonalGig: (data) => {
-      const gig = {
-        name: data.name,
-        default: true
-      }
+  findById: (req, res) => {
+    console.log(`-> looking for a account...`)
+    db.User.findOne({ auth_id: req.body.userId }).lean()
+      .populate('accounts')
+      .then(dbUser => {
+        const {accounts} = dbUser
+        const account = accounts.find(account => account.account_id === req.params.id)
+        console.log(account)
+        res.json(account)
+      })
+      .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
+  },
 
-      return db.Gig
-        .create(gig)
-    },
+  update: (req, res) => {
+    console.log(`-> updating an account...`)
+    const udpates = {}
+    db.Account.findOneAndUpdate({_id: req.params.id}, updates)
+      .then(dbAccount => res.json(dbAccount))
+      .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
+  },
 
-    // add a new gig and set default to false
-    addGig: (req, res) => {
-      
-      const gig = {
-        name: req.query.name,
-        default: false
-      }
+  delete: (req, res) => {
+    console.log(`-> deleting an account...`)
+    db.Account.findOneAndRemove({account_id: req.params.id})
+      .then(dbAccount => res.json(dbAccount))
+      .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
+  }
 
-      db.Gig
-        .create(gig)
-        .then(dbgig => {
-          res.json(dbgig);
-         })
-        .catch(err => {
-          res.status(422).json(err);
-        });
-    },
 
-    //  update an existing gig
-    updateGig: (req, res) => {
-      db.Gig
-        .findOneAndUpdate({
-          _id: req.query.id
-        }, req.body)
-        .then(dbgig => {
-          res.json(dbgig)
-        })
-        .catch(err => {
-          res.status(422).json(err)
-        });
-    },
-
-    // remove a gig
-    removeGig: (req, res) => {
-      db.Gig
-        .findById({
-          _id: req.query.id
-        })
-        .then(dbgig => {
-          dbgig.remove()
-        })
-        .then(dbgig => {
-          res.json(dbgig)
-        })
-        .catch(err => {
-          res.status(422).json(err)
-        });
-    },
-
-    findGigById: (req, res) => {
-      // console.log(`-> looking for id: ${req.query.id}`);
-      db.Gig
-        .findById({
-          _id: req.query.id
-        })
-        .then(dbgig => {
-          res.json(dbgig)
-        })
-        .catch(err => {
-          res.status(422).json(err);
-        });
-    },
-
-    findGigByName: (req, res) => {
-      // console.log(`-> looking for name: ${req.query.name}`);
-      db.Gig
-        .findOne({
-          name:  req.query.name
-        })
-        .then(dbgig => {
-          res.json(dbgig)
-        })
-        .catch(err => {
-          res.status(422).json(err);
-        });
-    },
-};
+}

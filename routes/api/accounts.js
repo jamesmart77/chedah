@@ -1,8 +1,10 @@
 const router = require("express").Router();
-const accountsController = require("../../controllers/accountsController");
-
+const accountController = require("../../controllers/accountController");
+/*
 router.route("/:id")
-    .post(accountsController.addAccountAndGig);
+    .post(accountController.addAccountAndGig);
+*/
 
+router.get('/accounts/:id?', accountController.findAccountById)
 
 module.exports = router;

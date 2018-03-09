@@ -10,7 +10,7 @@ router.post('/:id', gigController.addGoalToGig)
 router.get('/gigs', gigController.findAll)
 
 // post to '/api/gigs'
-router.post('/gigs', gigController.addGig)
+router.post('/', gigController.addGig)
 
 // router.route('/:id').get(gigController.findGigById).put(gigController.updateGig).delete(gigController.removeGig)
 

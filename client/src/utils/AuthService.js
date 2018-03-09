@@ -19,7 +19,7 @@ var auth = new auth0.WebAuth({
 export function login() {
   auth.authorize({
     responseType: 'token id_token',
-    redirectUri: REDIRECT, 
+    redirectUri: REDIRECT,
     // audience: AUDIENCE,
     scope: SCOPE
   });
@@ -81,7 +81,7 @@ export function isLoggedIn() {
 
 function getTokenExpirationDate(encodedToken) {
   const token = decode(encodedToken);
-  
+
   if (!token.exp) { return null; }
 
   const date = new Date(0);

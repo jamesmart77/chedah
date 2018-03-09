@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Accounts.css';
 
-// Account detail page
+// credit card APR card
 class CreditCardAPR extends Component {
 
     constructor(props) {

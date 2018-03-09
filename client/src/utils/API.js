@@ -46,6 +46,13 @@ export default {
     })
   },
 
+  accountData: (accountId) => {
+    console.log(`looking for account: `, accountId);
+    axios.get('/api/accounts/' + accountId)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  },
+
   accountsSync: () => {
     console.log("Accounts syncing");
     console.log(decodeToken(getIdToken()))

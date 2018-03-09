@@ -60,7 +60,7 @@ class App extends React.Component {
         <Route exact path="/gigs/:id" component={this.GigDetailPage} user={this.state.user || {}} onEnter={requireAuth} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user}/>} onEnter={requireAuth} />c
-        <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
+        <Route exact path="/accounts/:id" component={() => <AccountDetail user={this.state.user}/>} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
         {/* <Route component={NoMatch} /> */}
       </Switch>
