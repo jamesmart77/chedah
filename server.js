@@ -8,18 +8,7 @@ const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
 
-
-
-
 module.exports.redisClient = redisClient;
-if (process.env.NODE_ENV == 'production') {
-redisClient.on("connect", function () {
-    console.log("Redis client connected corretly in the production environment")
-})}else{
-  redisClient.on("connect", function() {
-    console.log("Redis client connected corretly in the LOCAL env");
-  });
-}
 
 const app = express();
 module.exports.app= app;
