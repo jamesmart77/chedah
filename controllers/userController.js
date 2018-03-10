@@ -61,14 +61,12 @@ module.exports = {
               .map(t => t.amount)
               .filter(isNegative)
               .reduce(sum)
-              .toFixed(2)
 
             // Sum the money going out
             gig.moneyOut = gig.transactions
               .map(t => t.amount)
               .filter(isPositive)
               .reduce(sum)
-              .toFixed(2)
 
             // calculate net
             console.log(`money out: `, typeof gig.moneyOut);
