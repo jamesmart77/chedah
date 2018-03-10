@@ -8,7 +8,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
 const request = require("request");
-const CircularJSON = require('circular-json');
 
 
 
