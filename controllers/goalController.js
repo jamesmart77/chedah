@@ -12,6 +12,7 @@ module.exports = {
 
     // add a new goal
     addGoal: (req, res) => {
+      console.log("Creating a goal and adding it to a gig")
       const goal = {}
       goal.name = req.body.name
       goal.budget = req.body.budget
@@ -22,7 +23,10 @@ module.exports = {
         .then(dbGoal => {
           dbGoal.categories.push(categories)
           dbGoal.save();
-
+          console.log('dbGoal._id')
+          console.log(dbGoal._id)
+          console.log('gigId')
+          console.log(req.body.gigId)
           db.Gig
           .findOneAndUpdate({_id: req.body.gigId}, 
             {$push : {
