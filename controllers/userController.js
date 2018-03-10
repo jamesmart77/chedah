@@ -84,7 +84,7 @@ module.exports = {
               )
 
             gig.vendors = R.uniq(transactionsByVendor.map(vendorTransArray => {
-              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)).toFixed(2) }
+              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
 
 
@@ -97,7 +97,7 @@ module.exports = {
               )
 
             gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
-              return { name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)).toFixed(2) }
+              return { name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
 
           }
