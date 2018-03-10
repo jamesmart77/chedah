@@ -366,8 +366,6 @@ module.exports = {
                 }
               })
               .catch(console.log)
-
-
             res.json({ msg: "transactions loaded successfully" });
           });
 
