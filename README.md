@@ -24,7 +24,7 @@ Chedah aims to focus on the "Gig Economy" by allowing users to link their busine
 - Redis: https://redis.io/
 - MongoDb: https://www.mongodb.com/
 
-<<<<<<< HEAD
+
 <h2>Technologies Used</h2>
     <h3>Authentication</h3>
     <ul>

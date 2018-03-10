@@ -7,8 +7,10 @@ const redis = require("redis")
 const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
-module.exports.redisClient = redisClient;
 
+
+
+module.exports.redisClient = redisClient;
 if (process.env.NODE_ENV == 'production') {
 redisClient.on("connect", function () {
     console.log("Redis client connected corretly in the production environment")
@@ -19,6 +21,7 @@ redisClient.on("connect", function () {
 }
 
 const app = express();
+module.exports.app= app;
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
