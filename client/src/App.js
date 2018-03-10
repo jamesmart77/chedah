@@ -61,7 +61,7 @@ class App extends React.Component {
         isLoggedIn() ?
         <div>
         <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
-        <Route exact path="/gigs/:id" component={this.GigDetailPage} />}/>
+        <Route exact path="/gigs/:id" component={this.GigDetailPage} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
         <Route exact path="/accounts/:id" component={AccountDetail} />
