@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "_id": "5a9f38c18771218fe408e4cc",
   "firstName": null,
   "lastName": null,
@@ -8,6 +9,17 @@
   "gigs": [
     {
       "_id": "5a9f38c18771218fe408e4cd",
+=======
+  "_id": "5aa09f0e98e06de957efaa13",
+  "firstName": "Benjamin",
+  "lastName": "Baumann",
+  "auth_id": "facebook|10155456253012712",
+  "email": "ben@thisisbam.com",
+  "__v": 0,
+  "gigs": [
+    {
+      "_id": "5aa09f0e98e06de957efaa14",
+>>>>>>> 3e5272b21f7ac465032f6f9aa405acc2fab9927c
       "name": "Personal",
       "__v": 0,
       "goals": [
@@ -16,6 +28,7 @@
           "name": "Spend Less on Gas",
           "budget": 200,
           "expenses": 150,
+          "percent": 0.75,
           "net": 50,
           "categories": [
             "Gas",
@@ -25,15 +38,17 @@
         {
           "_id": "JDKSLFJKLJEKLEERNKJEWHE",
           "name": "Spend Less on Tolls",
-          "budget": 1200,
-          "expenses": 1300,
-          "net": -100,
+          "budget": 200,
+          "expenses": 150,
+          "percent": 0.75,
+          "net": 50,
           "categories": [
             "Tolls",
             "Fees"
           ]
         }
       ],
+<<<<<<< HEAD
       "transactions": [
         {
           "_id": "5aa0cb23d3ecaa2f4b47e6df",
@@ -4239,4 +4254,11 @@
       ]
     }
   ]
+=======
+      "transactions": []
+    }
+  ],
+  "categories": [],
+  "accounts": []
+>>>>>>> 3e5272b21f7ac465032f6f9aa405acc2fab9927c
 }

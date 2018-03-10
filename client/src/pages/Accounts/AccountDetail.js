@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import {Account, GigMenu} from '../../components/Accounts';
 import Moment from 'react-moment';
 import API from '../../utils/API';
-import {Table} from '../../components/DataTable';
+import { Table } from '../../components/DataTable';
 import { formatCurrencyValueJSX } from '../../utils/currency';
 import axios from 'axios';
 
@@ -47,6 +47,8 @@ class AccountDetail extends Component {
             headers: defaultHeaders,
             gigName: null
         };
+
+        console.log(`AccountDetail: `, props);
     }
 
     //

@@ -3,6 +3,7 @@ const plaid = require('plaid');
 const gigController = require('./gigController');
 const util = require('util')
 const axios = require('axios')
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
 
@@ -22,6 +23,7 @@ module.exports = {
       .populate('accounts')
       .populate('transactions')
       .populate('gigs')
+      .populate('categories')
       .populate({
         path: 'gigs',
         populate: {
@@ -107,31 +109,44 @@ module.exports = {
         goal.name = 'Spend Less on Gas'
         goal.budget = 200.00
         goal.expenses = 150.00
-        goal.net = 50.00
+        goal.percent = goal.expenses / goal.budget
+        goal.net = goal.budget - goal.expenses
         goal.categories = ['Gas', 'Advertising']
         user.gigs[0].goals.push(goal)
         const goal2 = {}
         goal2._id = 'JDKSLFJKLJEKLEERNKJEWHE'
         goal2.name = 'Spend Less on Tolls'
-        goal2.budget = 1200.00
-        goal2.expenses = 1300.00
-        goal2.net = -100.00
+        goal2.budget = 200.00
+        goal2.expenses = 150.00
+        goal2.percent = goal.expenses / goal.budget
+        goal2.net = goal.budget - goal.expenses
         goal2.categories = ['Tolls', 'Fees']
         user.gigs[0].goals.push(goal2)
 
+        user.categories = []
+
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
-        require('fs').writeFileSync('./test.json', JSON.stringify(userWithoutItems,null,2))
-        return userWithoutItems
+       
+        db.PlaidCategory
+        .find({})
+        .then(dbPlaidCat => {
+          
+          // console.log(dbPlaidCat)
+          // userWithoutItems.categories.concat(dbPlaidCat)
+        
+          dbPlaidCat.map(plaidCat => {
+            userWithoutItems.categories.push({name: plaidCat.name});
+          })
+          console.log(userWithoutItems)
+  
+          res.json(userWithoutItems);
+        })
+        .catch(err => console.log(err))
+
       })
-      .then(user => res.json(user))
       .catch(err => res.status(404).json({ err: "didn't find it" }))
   },
-
-
-
-
-
 
   createUserIfDoesNotExist: (req, res) => {
     console.log("HITTING IT")
@@ -197,7 +212,6 @@ module.exports = {
         })
       .then(dbUser => {
         // axios request here
-        axios.defaults.headers.post['Content-Type'] = 'application/json';
         axios.post('https://sandbox.plaid.com/accounts/get', {
           client_id: process.env.PLAID_CLIENT_ID,
           secret: process.env.PLAID_SECRET,

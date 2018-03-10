@@ -4,5 +4,6 @@ module.exports = {
   Goal: require('./goal'),
   Account: require('./account'),
   Transaction: require('./transaction'),
-  Category: require('./category')
+  Category: require('./category'),
+  PlaidCategory: require('./plaidCategories')
 }

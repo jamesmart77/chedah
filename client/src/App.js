@@ -7,7 +7,7 @@ import { Nav, Breadcrumbs } from "./components/Nav";
 import Footer from "./components/Footer/Footer";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Callback from './components/Callback';
-import { requireAuth } from './utils/AuthService';
+import { requireAuth, isLoggedIn } from './utils/AuthService';
 import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
@@ -18,18 +18,9 @@ import API from "./utils/API";
 
 class App extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
+    state = {
         user: {}
     }
-
-    this.GigDetailPage = (props) => <GigDetail
-          getUser={this.getUser.bind(this)}
-          user={this.state.user}
-          {...props}
-        />
-  }
 
   getUser(){
     API.getUser()
@@ -44,36 +35,39 @@ class App extends React.Component {
       })
   }
 
-
-  canI(){
-    alert("can i do this?")
-  }
-
   componentWillMount() {
     this.getUser()
   }
 
   render() { return <Router history={history}>
     <div>
-      <Nav />
+      <Nav user={this.state.user} />
       <Breadcrumbs location={history.location}/>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {}}/>} onEnter={requireAuth}/>
-        <Route exact path="/gigs/:id" component={this.GigDetailPage} user={this.state.user || {}} onEnter={requireAuth} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/accounts" component={AccountsHome} onEnter={requireAuth} />c
-        <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
+        {'console.log(isLoggedIn())'}
+        {console.log(isLoggedIn())}
+        { 
+        isLoggedIn() ?
+        <div>
+        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
+        <Route exact path="/gigs/:id" component={() => <GigDetail user={this.state.user || {} } />}/>
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
+        <Route exact path="/accounts/:id" component={AccountDetail} />
+        </div>
+        : null
+        }
         {/* <Route component={NoMatch} /> */}
       </Switch>
       <Footer />
       <Sidebar />
       <ActionButton location={history.location}/>
       {/* Modals */}
-      <ModalEditAccount/>
-      <ModalAddGoal/>
-      <ModalAddGig />
+      <ModalEditAccount user={this.state.user}/>
+      <ModalAddGoal user={this.state.user}/>
+      <ModalAddGig user={this.state.user}/>
     </div>
   </Router>;
   }
