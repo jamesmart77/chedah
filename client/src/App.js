@@ -1,4 +1,5 @@
 import React from "react";
+import { Toast } from 'react-materialize'
 import { Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
@@ -27,7 +28,7 @@ class App extends React.Component {
       .then(user => {
         console.log("we got a user")
         let userData = user.data;
-        this.setState({user: userData})
+        this.setState({user: userData});
       })
       .catch(err => {
         console.log("we got a err")
@@ -37,10 +38,11 @@ class App extends React.Component {
 
 
   GigDetailPage = (props) => <GigDetail
-  getUser={this.getUser.bind(this)}
-  user={this.state.user || {}}
-  location={history.location}
-  {...props}/>
+      getUser={this.getUser.bind(this)}
+      user={this.state.user || {}}
+      location={history.location}
+      {...props}
+    />
 
 
   componentWillMount() {
@@ -55,20 +57,19 @@ class App extends React.Component {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route path="/callback" component={Callback} />
-        {'console.log(isLoggedIn())'}
-        {console.log(isLoggedIn())}
-        {
-        isLoggedIn() ?
-        <div>
-        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
-        <Route exact path="/gigs/:id" component={this.GigDetailPage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
-        <Route exact path="/accounts/:id" component={AccountDetail} />
-        </div>
-        : null
-        }
-        {/* <Route component={NoMatch} /> */}
+        {(() => {
+          if (isLoggedIn()) {
+              return (
+                  <Switch>
+                      <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
+                      <Route exact path="/gigs/:id" component={this.GigDetailPage} />
+                      <Route exact path="/login" component={Login} />
+                      <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
+                      <Route exact path="/accounts/:id" component={AccountDetail} />
+                  </Switch>
+              )
+          }
+        })()}
       </Switch>
       <Footer />
       <Sidebar />
