@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "../../components/Grid";
+import { login, isLoggedIn } from '../../utils/AuthService';
+import { Button } from 'react-materialize';
 
 class Landing extends Component {
 
@@ -10,10 +12,15 @@ class Landing extends Component {
         <div className="row header vignette">
         <div className="col s12">
           <div className="titleHead">simple money management <br/> for the gig economy</div>
-          <h6 className="headerTitle">track your
-freelance gig, your side hustle, all your entreprenuerial endeavors</h6>
-          {/* <Button className="teal" waves='light'>Sign Up</Button> */}
-          <h6 className="headerTitle">Sign Up / Sign In</h6>
+          {/* <h6 className="headerTitle">track your
+freelance gig, your side hustle, all your entreprenuerial endeavors</h6> */}
+          <div className='center-align'>
+          <Button className="teal signUpButton" waves='light' href="#!" onClick={() => login()}>Sign Up Now</Button>
+          <br/>
+          {/* <a className="headerTitle" href="#!" onClick={() => login()}>Log In</a> */}
+                
+          {/* <h6 className="headerTitle">Sign Up / Sign In</h6> */}
+          </div>
         </div>
         </div>
        
@@ -46,17 +53,17 @@ freelance gig, your side hustle, all your entreprenuerial endeavors</h6>
 
         <div className="row header2">
 
-          <div className="col s12 m5">
+          <div className="col s12 l6">
           <img src='../../assets/img/product4.png' alt=''/>
           </div>
-          <div className="col s12 m7">
+          <div className="col s12 l6">
           <div className="landingListTitle">Your Finances. Personalized.</div>
           <ul className="landingList">
-            <li><h6><i className="material-icons tiny teal-text">check_circle</i> Simple expense and payment tracking for every project you're working on.</h6></li>
-            <li><h6><i className="material-icons tiny teal-text">check_circle</i> Capture all the information you need to reveal your most profitable projects.</h6></li>
+            <li><h6><i className="material-icons tiny teal-text">check_circle</i> Simple expense and payment tracking for all your projects</h6></li>
+            <li><h6><i className="material-icons tiny teal-text">check_circle</i> Capture all the data you need to reveal your most profitable gigs.</h6></li>
             <li><h6><i className="material-icons tiny teal-text">check_circle</i> Streamline your workflow with one dashboard to rule them all.</h6></li>
             <li><h6><i className="material-icons tiny teal-text">check_circle</i> Create goals and easily monitor results. </h6></li>
-            <li><h6><i className="material-icons tiny teal-text">check_circle</i> Take control of your finances - no complicated accounting software needed. </h6></li>
+            <li><h6><i className="material-icons tiny teal-text">check_circle</i> Take control - no complicated accounting software needed. </h6></li>
          
             </ul>
           </div>

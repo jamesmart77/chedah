@@ -846,6 +846,7 @@ input.editable-cell {
     /* background-color: blue; */
     /* height: 350px; */
     text-align: center;
+    /* background-color: #d0d0d0; */
     margin: 10px 0px 10px 0;
     padding: 80px 0px 80px 0px;
 }
@@ -865,9 +866,15 @@ input.editable-cell {
     opacity: .8;
 }
 
+.signUpButton {
+    text-align: center;
+    margin: 50px;
+    text-transform: uppercase;
+},
+
 
 .landingList {
-    text-align: left;
+    /* text-align: left; */
 }
 .row .landingImg1 {
     /* margin: 25px 0 0 0; */
@@ -937,7 +944,8 @@ input.editable-cell {
     font-size: 2rem;
     line-height: 110%;
     color: #263238;
-    text-align: left;
+    opacity: .5;
+    /* text-align: left; */
     padding-bottom: 15px;
 }
 
