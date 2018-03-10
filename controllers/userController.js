@@ -9,7 +9,6 @@ const R = require('ramda')
 require('dotenv').config();
 const request = require("request");
 const CircularJSON = require('circular-json');
-const _ = require("underscore");
 
 
 
