@@ -1,25 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import { formatCurrencyValueJSX, formatChangeValueJSX } from '../../utils/currency';
-import { ModalAddGoal } from '../Modals';
+// import { ModalAddGoal } from '../Modals';
 
 
 // materialize gig preview
-class Gig extends Component {
+/*
+
+    goals : []
+    moneyIn : 6554.860000000001
+    moneyOut : 41902.88000000005
+    name : "Personal"
+    net :-35348.02000000005
+    spendingByCategory : []
+
+*/
+class Gig extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            id: props.id,
-            name: props.name,
-            income: props.income,
-            inchange: props.inchange,
-            expenses: props.expenses,
-            expchange: props.expchange,
-            net: props.net,
-            netchange: props.netchange,
-            frequency: 'week'
-        };
-
+        console.log(`gig props: `, props);
         this.handleClick = this.handleClick.bind(this);
     };
 
@@ -28,16 +27,16 @@ class Gig extends Component {
     };
 
     render() {
-        const gigHref = `/gigs/${this.state.id}`;
+        const gigHref = `/gigs/${this.props._id}`;
         return (
-            <div className="card">
+            <div datavalue={this.props._id} className="card">
               <div className="card-content cardHeader">
                 <div className="row">
                   <div className="col s11">
                     <span className="card-title">
                       <a className="side-headers" href={gigHref}>
                         <span className="primaryHeaderText">Gig:  </span>
-                        <span className="secondaryHeaderText">{this.state.name}</span>
+                        <span className="secondaryHeaderText">{this.props.name}</span>
                       </a>
                     </span>
                   </div>
@@ -54,7 +53,7 @@ class Gig extends Component {
                     </div>
                     <div className="row">
                       <div className="col">
-                        <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.income)}</span>
+                        <span className="gig-dash-total">{formatCurrencyValueJSX(this.props.moneyIn)}</span>
                       </div>
                     </div>
                   </div>
@@ -66,7 +65,7 @@ class Gig extends Component {
                       </div>
                     </div>
                     <div className="row">
-                      <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.expenses)}</span>
+                      <span className="gig-dash-total">{formatCurrencyValueJSX(this.props.moneyOut)}</span>
                     </div>
                   </div>
 
@@ -78,13 +77,13 @@ class Gig extends Component {
                       </div>
                     </div>
                     <div className="row">
-                      <span className="gig-dash-total">{formatCurrencyValueJSX(this.state.net)}</span>
+                      <span className="gig-dash-total">{formatCurrencyValueJSX(this.props.net)}</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div>
-                  <ModalAddGoal id={this.state.id}/>
+                  {/* <ModalAddGoal id={this.props._id}/> */}
               </div>
             </div>
 

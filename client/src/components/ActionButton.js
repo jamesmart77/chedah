@@ -5,7 +5,7 @@ const actions = {
     dashboard: [
         {
             title: 'Add Gig',
-            icon: 'work',
+            icon: 'account_circle',
             id: 'action-add-gig',
             color: 'teal darken-4',
             modal: 'add-gig-modal'
@@ -27,7 +27,7 @@ const actions = {
             modal: 'edit-account-modal'
         }, {
             title: 'Add Gig',
-            icon: 'work',
+            icon: 'account_circle',
             id: 'action-add-gig',
             color: 'teal darken-2',
             modal: 'add-gig-modal'
@@ -36,13 +36,13 @@ const actions = {
     gigs: [
         {
             title: 'Add Goal',
-            icon: 'work',
+            icon: 'icon-gig-icon',
             id: 'action-add-goal',
             color: 'teal darken-4',
             modal: 'add-goal-modal'
         }, {
             title: 'Edit Gig',
-            icon: 'work',
+            icon: 'account_circle',
             id: 'action-edit-gig',
             color: 'teal darken-2',
             modal: 'edit-gig-modal'

@@ -337,7 +337,7 @@ textarea.materialize-textarea {
 
 /* Cards  */
 .card .card-title {
-    font-size: 2rem;
+    font-size: 1.25rem;
     font-weight: 300;
 }
 
@@ -817,7 +817,7 @@ input.editable-cell {
     background-color: #263238;
     height: 450px;
     /* background: url(../img/headerbkg.png);  */
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
     /* opacity: .8; */
@@ -828,7 +828,7 @@ input.editable-cell {
     background-color: #263238;
     height: 250px;
     /* background: url(../img/headerbkg.png);  */
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
     /* opacity: .8; */
@@ -879,7 +879,7 @@ img.productIMG {
     height: auto;
 }
 
-/* 
+/*
 .landingList {
     text-align: left;
 } */
@@ -903,7 +903,7 @@ img.productIMG {
 }
 
 .productTitle {
-    font-family: 'Roboto Slab', serif; 
+    font-family: 'Roboto Slab', serif;
     /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 2rem;
@@ -913,7 +913,7 @@ img.productIMG {
 }
 
 .productText {
-    font-family: 'Rubik', sans-serif; 
+    font-family: 'Rubik', sans-serif;
     /* text-transform: uppercase; */
     font-size: 1rem;
     line-height: 110%;
@@ -922,7 +922,7 @@ img.productIMG {
 }
 
 .titleHead {
-    font-family: 'Roboto Slab', serif; 
+    font-family: 'Roboto Slab', serif;
     /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 3.28rem;
@@ -933,7 +933,7 @@ img.productIMG {
 }
 
 .pullquote {
-    font-family: 'Roboto Slab', serif; 
+    font-family: 'Roboto Slab', serif;
     /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 2.28rem;
@@ -946,7 +946,7 @@ img.productIMG {
 }
 
 .landingListTitle {
-    font-family: 'Roboto Slab', serif; 
+    font-family: 'Roboto Slab', serif;
     /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 2rem;
@@ -1016,6 +1016,14 @@ img.productIMG {
     bottom: 1rem;
     right: 2rem;
 }
+
+
+.modal-title {
+    background-color: ##3c5678 !important;
+    color: ##fff !important;
+    padding-bottom: 2rem;
+}
+
 
 /*
 .modal .gig-dropdown .dropdown-content li>a,

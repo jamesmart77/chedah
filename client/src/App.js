@@ -1,4 +1,5 @@
 import React from "react";
+import { Toast } from 'react-materialize'
 import { Router, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Landing from "./pages/Landing";
@@ -27,7 +28,7 @@ class App extends React.Component {
       .then(user => {
         console.log("we got a user")
         let userData = user.data;
-        this.setState({user: userData})
+        this.setState({user: userData});
       })
       .catch(err => {
         console.log("we got a err")
@@ -37,10 +38,11 @@ class App extends React.Component {
 
 
   GigDetailPage = (props) => <GigDetail
-  getUser={this.getUser.bind(this)}
-  user={this.state.user || {}}
-  location={history.location}
-  {...props}/>
+      getUser={this.getUser.bind(this)}
+      user={this.state.user || {}}
+      location={history.location}
+      {...props}
+    />
 
 
   componentWillMount() {

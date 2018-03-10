@@ -2,11 +2,8 @@
 
 @font-face {
   font-family: "chedah";
-  src:url("fonts/chedah.eot");
-  src:url("fonts/chedah.eot?#iefix") format("embedded-opentype"),
-    url("fonts/chedah.woff") format("woff"),
+  src:url("fonts/chedah.woff") format("woff"),
     url("fonts/chedah.ttf") format("truetype"),
-    url("fonts/chedah.svg#chedah") format("svg");
   font-weight: normal;
   font-style: normal;
 

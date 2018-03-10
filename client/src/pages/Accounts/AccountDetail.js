@@ -121,39 +121,41 @@ class AccountDetail extends Component {
 
     renderCreditTable() {
         const avail = (this.state.balances.limit - this.state.balances.current);
-        return (<table className="account-balances">
-            <tbody>
-                <tr className="account-balance">
-                    <td className="description">Balance:</td>
-                    <td>{formatCurrencyValueJSX(this.state.balances.current)}</td>
-                    <td className="stats">
-                        <span className="new badge" data-badge-caption="% APR">{this.state.apr}</span>
-                    </td>
-                </tr>
+        return (
+            <table className="account-balances">
+                <tbody>
+                    <tr className="account-balance">
+                        <td className="description">Balance:</td>
+                        <td>{formatCurrencyValueJSX(this.state.balances.current)}</td>
+                        <td className="stats">
+                            <span className="new badge" data-badge-caption="% APR">{this.state.apr}</span>
+                        </td>
+                    </tr>
 
-                <tr className="account-avail">
-                    <td className="description">Available:</td>
-                    <td>{formatCurrencyValueJSX(avail)}</td>
-                    <td></td>
-                </tr>
+                    <tr className="account-avail">
+                        <td className="description">Available:</td>
+                        <td>{formatCurrencyValueJSX(avail)}</td>
+                        <td></td>
+                    </tr>
 
-                <tr className="account-limit">
-                    <td className="description">Limit:</td>
-                    <td>{formatCurrencyValueJSX(this.state.balances.limit)}</td>
-                    <td></td>
-                </tr>
+                    <tr className="account-limit">
+                        <td className="description">Limit:</td>
+                        <td>{formatCurrencyValueJSX(this.state.balances.limit)}</td>
+                        <td></td>
+                    </tr>
 
-                {
-                    this.state.fees != null
-                        ? <tr className="account-fees">
-                                <td className="description">Fees:</td>
-                                <td>{formatCurrencyValueJSX(this.state.fees)}</td>
-                                <td></td>
-                            </tr>
-                        : <tr></tr>
-                }
-            </tbody>
-        </table>)
+                    {
+                        this.state.fees != null
+                            ? <tr className="account-fees">
+                                    <td className="description">Fees:</td>
+                                    <td>{formatCurrencyValueJSX(this.state.fees)}</td>
+                                    <td></td>
+                                </tr>
+                            : <tr></tr>
+                    }
+                </tbody>
+            </table>
+        )
     }
 
     renderCheckingTable() {
@@ -190,6 +192,7 @@ class AccountDetail extends Component {
     }
 
     render() {
+        /*
         let accountDetails;
         let dueDate;
         if (this.state.accountType === 'credit') {
@@ -199,34 +202,63 @@ class AccountDetail extends Component {
             </h6>
         } else {
             accountDetails = this.renderCheckingTable()
-        }
-        return (<div className="container fluid">
-            <div className="card-panel account-detail">
-                <div className="row valign-wrapper s12">
-                    <div className="col l7">
-                        <h5>
-                            <i className="material-icons">credit_card</i>
-                            <span className="account-header">
-                                {this.state.official_name}</span>
-                        </h5>
-                        <h5 className="account-number">
-                            {this.state.mask}</h5>
-                        {dueDate}
-                        {this.renderGigDropdown()}
-                    </div>
+        }*/
 
-                    <div className="col l5">
-                        {accountDetails}
-                    </div>
-                </div>
+        const currentBalance = this.state.balances ? this.state.balances.current : 0
+        const currentLimit = this.state.balances ? this.state.balances.limit : 0
+        return (
+            <div class="row">
+                <div class="col s12">
+                    <div className="card account-detail">
+                   <div className="card-header">
+                     <div className="row valign-wrapper">
+                       <div className="col s12 m6 left-align text-left">
+                         <span className="card-title white-text left-align"><i className="material-icons">credit_card</i> {this.state.name} - <span className="account-num">{this.state.mask}****</span></span>
+                       </div>
+                       <div className="col s12 m6 right-align">
+                         <span className="account-avail white-text"> Available Balance: <span className="account-balance"><sup>$</sup>{currentBalance}</span></span>
+                       </div>
+                     </div>
+                     <div className="row valign-wrapper pl-2">
+                       <div className="col s12 m6">
+                         <span className="card-subtitle white-text"> Due on: <span className="account-num">March 27, 2018</span></span>
+                       </div>
+                       <div className="col s12 m6 right-align">
+                         <span className="card-subtitle white-text"> Limit: <span className="account-limit"><sup>$</sup>{currentLimit}</span></span>
+                       </div>
+                     </div>
+                     <div className="row valign-wrapper pl-2">
+                       <div className="col s12 m6">
+                         <div className="chips chips-autocomplete" />
+                       </div>
+                       <div className="col s12 m6 right-align">
+                         <span className="card-subtitle white-text"> Fees: <span className="account-fees"><sup>$</sup>212.87</span></span>
+                       </div>
+                     </div>
+                   </div>
+                   <div className="card-content">
+                     <div className="row">
+                       <div className="col s12 right-align">
+                         <span className="new badge" data-badge-caption="% APR">4</span>
+                         <div className="switch">
+                           <label>
+                             monthly
+                             <input type="checkbox" />
+                             <span className="lever" />
+                             yearly
+                           </label>
+                         </div>
+                       </div>
+                     </div>
+                     <div className="row">
+                       <div className="col s12">
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+</div></div>
 
-                <br/>
-                <br/>
-                <div className="row account-transations ml-1 mr-1">
-                    <Table transactionsUpdated={this.transactionsUpdated.bind(this)} {...this.state}/>
-                </div>
-            </div>
-        </div>);
+             );
     }
 }
 

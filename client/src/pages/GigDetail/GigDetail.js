@@ -181,9 +181,9 @@ class GigDetail extends React.Component {
               <div className="row">
                 <div className="col s12 m5 l4">
 
-               {/* <GigSummary gigSummary={this.state.gig} addGoalToGig={this.addGoalToGig.bind(this)} /> */}
-                             
-               {/* {this.state.gig.spendingByCategory  && <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/>} */}
+               <GigSummary gigSummary={this.state.gig} addGoalToGig={this.addGoalToGig.bind(this)} />
+
+               {this.state.gig.spendingByCategory  && <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/>}
 
                {/* {this.state.gig.spendingByCategory  && <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/>} */}
 
@@ -195,7 +195,7 @@ class GigDetail extends React.Component {
                 <div className="col s12 m7 l8">
 
                 {/* if theres a goal, show the GoalSummary component */}
-                {/* {this.state.gig.goals && <GoalSummary goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)}/>} */}
+                {this.state.gig.goals && <GoalSummary goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)}/>}
 
                 {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
 
