@@ -856,6 +856,8 @@ input.editable-cell {
     /* height: 350px; */
     text-align: center;
     margin: 10px 0px 10px 0;
+    display:flex;
+    flex-wrap: wrap;
     /* padding: 50px 0px 50px 0px; */
 }
 
@@ -870,12 +872,17 @@ input.editable-cell {
     text-align: center;
     margin: 50px;
     text-transform: uppercase;
-},
-
-
-.landingList {
-    /* text-align: left; */
 }
+
+img.productIMG {
+    width: 100%;
+    height: auto;
+}
+
+/* 
+.landingList {
+    text-align: left;
+} */
 .row .landingImg1 {
     /* margin: 25px 0 0 0; */
     background-color: #009688;
