@@ -5,27 +5,23 @@ import API from '../../utils/API';
 
 class AccountsHome extends Component {
 
-    state = {
-        user: {
-            accounts: []
-        }
+    constructor(props) {
+        super(props)
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(`AccountsHome will receive: `, nextProps);
         this.setState({user: nextProps.user})
     }
 
-    componentWillMount() {
-        console.log(`AccountsHome will mount: `, this.props.user);
-        this.setState({user: this.props.user})
-    }
-
     render() {
-        console.log(`AccountsHome: `, this.state);
-        const accounts = this.state.user.accounts;
-        if (!accounts) {
-            return (<div></div>)
+        const accounts = this.props.user.accounts || []
+        const hasAccounts = (accounts.length > 0)
+
+        if (!hasAccounts) {
+            return (<div className='row pl-2'>
+                        <h6>Please link an account</h6>
+                    </div>
+            )
         }
         console.log(`Accounts Home: `, accounts);
         return (
@@ -40,7 +36,7 @@ class AccountsHome extends Component {
                     <div className='row'>
                         <div className='col s12'>
                             {accounts.map(acc =>
-                                <AccountOverview key={acc._id} account={acc}/>
+                                <AccountOverview key={acc._id} account={acc} user={this.props.user}/>
                             )}
                         </div>
 

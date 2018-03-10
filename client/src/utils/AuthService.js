@@ -19,7 +19,7 @@ var auth = new auth0.WebAuth({
 export function login() {
   auth.authorize({
     responseType: 'token id_token',
-    redirectUri: REDIRECT, 
+    redirectUri: REDIRECT,
     // audience: AUDIENCE,
     scope: SCOPE
   });
@@ -41,6 +41,7 @@ export function requireAuth(nextState, replace) {
 }
 
 export function getIdToken() {
+    // error here
   return localStorage.getItem(ID_TOKEN_KEY);
 }
 
@@ -80,8 +81,9 @@ export function isLoggedIn() {
 }
 
 function getTokenExpirationDate(encodedToken) {
+    console.log(`getting expiration`);
   const token = decode(encodedToken);
-  
+
   if (!token.exp) { return null; }
 
   const date = new Date(0);

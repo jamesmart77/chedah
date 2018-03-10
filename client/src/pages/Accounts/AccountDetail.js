@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 // import {Account, GigMenu} from '../../components/Accounts';
 import Moment from 'react-moment';
 import API from '../../utils/API';
-import { Table } from '../../components/DataTable';
-import { formatCurrencyValueJSX } from '../../utils/currency';
+import {Table} from '../../components/DataTable';
+import {formatCurrencyValueJSX} from '../../utils/currency';
 import axios from 'axios';
 
 
@@ -37,11 +37,59 @@ const defaultHeaders = [
     }
 ]
 
+class AccountDetail extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            account_id: this.props.match.params.id
+        }
+    }
+
+    componentDidMount() {
+        API.getAccount({accountId: this.state.account_id})
+        .then(acct => {
+            console.log(`account data: `, acct);
+        })
+        .catch(err => {
+            console.log(`Error: `, err);
+        })
+    }
+
+    render() {
+        console.log(`AccountDetail: `, this.props);
+
+        return (<div className="container fluid">
+            <div className="card-panel account-detail">
+                <div className="row valign-wrapper s12">
+                    <div className="col l7">
+                        <h4>
+                            <i className="material-icons">credit_card</i>
+                            <span className="account-header">
+                                {this.state.name}</span>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>);
+    }
+}
+
 // Account detail page
+//  account_id:"wZJ3ag1rRos6QKpVdnPMIrL4v6EBNnCkkKl5n8"
+//  balances:{available: 100, current: 110, limit: null}
+//  defaultGigId:"5aa20e3b83461770c7dff9fb"
+//  mask:"0000"
+//  name:"Plaid Checking"
+//  official_name:"Plaid Gold Standard 0% Interest Checking"
+//  subtype:"checking"
+//  transactions:[]
+/*
 class AccountDetail extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            blan
             accountId: this.props.match.params.id,
             transactions: [],
             headers: defaultHeaders,
@@ -72,27 +120,12 @@ class AccountDetail extends Component {
     }
 
     componentWillMount() {
-        API.loadUserData().then(userData => {
-            this.setState({user: userData})
-            console.log(`-> AccountDetail: `, userData);
-        }).catch(console.log)
+
     }
 
     // load account details from the id, then get transactions
     componentDidMount() {
-        // query account data from the url params
-        API.getAccountDetails(this.state.accountId).then(accdata => {
-            this.setState({
-                ...accdata
-            })
-            return API.loadAccountTransactions()
-        }).then(transdata => {
-            // add transactions to table
-            this.addTransactions(transdata)
-            console.log(`-> AccountDetail: `, this.state);
-        }).catch(err => {
-            console.log(err)
-        });
+
     }
 
     // add transactions to table
@@ -231,5 +264,5 @@ class AccountDetail extends Component {
         </div>);
     }
 }
-
+*/
 export default AccountDetail;
