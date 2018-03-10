@@ -18,7 +18,8 @@ class GigDetail extends React.Component {
 
 
         this.state = {
-            gigId: this.props.match.params.id,
+            gigId: this.props.location.pathname.split("/")[2],
+            // gigId: this.props.match ? this.props.match.params.id : this.props.location.pathname.split("/")[2],
             time: ['2018-02-01', '2018-02-28'],
             gig: {},
            // update a goal
