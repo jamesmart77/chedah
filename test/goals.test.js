@@ -1,12 +1,12 @@
 process.env.NODE_ENV = "test";
 
-let mongoose = require("mongoose");
-let Goal = require("../models/goal");
+const mongoose = require("mongoose");
+const Goal = require("../models/goal");
 //Require the dev-dependencies
-let chai = require("chai");
-let chaiHttp = require("chai-http");
-let server = require("../server");
-let should = chai.should();
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const server = require("../server");
+const should = chai.should();
 chai.use(chaiHttp);
 
 describe("Goal", () => {
