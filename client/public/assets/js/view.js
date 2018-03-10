@@ -2,6 +2,7 @@
 function expandAll() {
     $(".collapsible-header").addClass("active");
     $(".collapsible").collapsible({accordion: false});
+    console.log(`expanding`);
 }
 
 
@@ -24,7 +25,9 @@ function drawCallback() {
 // document load
 $(document).ready(function() {
     console.log(`> loading view controller...`);
-	expandAll();
+
+    // expand collections
+    setTimeout(expandAll, 1000);
 
     // scrollY: 300,    // size of the table in pixels
     // paging: false,   // don't do pagination

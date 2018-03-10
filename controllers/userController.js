@@ -20,7 +20,7 @@ var client = new plaid.Client(
   plaid.environments.sandbox
 );
 
-// Defining methods for the booksController
+// Defining methods for the USER controller
 module.exports = {
 
   getUser: (req, res) => {
@@ -75,9 +75,7 @@ module.exports = {
               .reduce(sum)
 
             // calculate net
-            console.log(`money out: `, typeof gig.moneyOut);
             gig.net = gig.moneyIn - gig.moneyOut
-
 
             // Spending by vendor
             const transactionsByVendor = R.uniq(gig.transactions

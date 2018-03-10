@@ -7,7 +7,7 @@ secret.tokenSecret = process.env.tokenSecret;
 //authenticatin middleware
 const jwtauth = require('./jwtAuth.js');
 
-// Defining methods for the booksController
+// Defining methods for the AUTH Controller
 module.exports = {
   login: (req, res) => {
     // db.User

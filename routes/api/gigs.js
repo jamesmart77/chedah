@@ -1,5 +1,8 @@
 const router = require('express').Router()
-const gigController = require('../../controllers/gigController');
+const gigController = require('../../controllers/gigController')
+
+// post to '/api/gigs' 
+router.post('/account', gigController.addGigToAccount)
 
 // router.get('/gig/:name?', gigController.findGigByName)
 router.get('/:id', gigController.findGigById)
@@ -11,6 +14,7 @@ router.get('/', gigController.findAll)
 
 // post to '/api/gigs' 
 router.post('/', gigController.addGig)
+
 
 // router.route('/:id').get(gigController.findGigById).put(gigController.updateGig).delete(gigController.removeGig)
 

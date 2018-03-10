@@ -21,7 +21,10 @@ class ModalEditAccount extends Component {
         return (
                  <div id="edit-account-modal" className="modal" data-modal style={{width: '60%', height: '60%'}}>
                    <div className="modal-content">
-                     <h4>Edit Account</h4>
+                       
+                       <div className="modal-title">
+                           <h4>Edit Account</h4>
+                       </div>
 
                      <div className="row">
                          <div className="col input-field s6">

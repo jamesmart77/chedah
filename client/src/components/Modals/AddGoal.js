@@ -59,7 +59,9 @@ class ModalAddGoal extends Component {
         return (
             <div id="add-goal-modal" className="modal" data-modal="data-modal" style={{minHeight: '60%'}}>
             <div className="modal-content">
-                <h4>Add a Goal</h4>
+                <div className="modal-title">
+                    <h4>Add a Goal</h4>
+                </div>
                 <div className="col input-field s12">
                     <input type="text" name="goalName" id="input_1" defaultValue={this.props.goalName}/>
                     <label className="active" htmlFor="input_1">Goal Name</label>
