@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const validator = require('mongoose-unique-validator');
+
 
 // schema for a category object
 const plaidCategorySchema = new Schema({
@@ -11,8 +11,7 @@ const plaidCategorySchema = new Schema({
     }
 })
 
-// add validator plugin
-plaidCategorySchema.plugin(validator);
+
 
 const plaidCategory = mongoose.model('plaidCategory', plaidCategorySchema);
 module.exports = plaidCategory;

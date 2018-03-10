@@ -15,6 +15,7 @@ router.route('/:authId')
 router.route('/transactions')
   .post(userControllers.getTransactions)
 
+
 router.route('/:authId/gigs')
   .post(userControllers.addGigToUser)
 

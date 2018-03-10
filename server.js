@@ -3,18 +3,26 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const cors = require('cors');
-const redisClient = require("./redis/main.js");
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
-//Yo Justin, can you figure out what add on is needed to get redis running in heroku??
-// if (process.env.NODE_ENV !== 'production') {
-//   redisClient.client.on("connect", function () {
-//     console.log("Redis client connected corretly")
-//   })
-// }
+const redis = require("redis")
+const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
+  no_ready_check: true
+});
 
+
+
+
+module.exports.redisClient = redisClient;
+if (process.env.NODE_ENV == 'production') {
+redisClient.on("connect", function () {
+    console.log("Redis client connected corretly in the production environment")
+})}else{
+  redisClient.on("connect", function() {
+    console.log("Redis client connected corretly in the LOCAL env");
+  });
+}
 
 const app = express();
+module.exports.app= app;
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests

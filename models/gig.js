@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const validator = require('mongoose-unique-validator')
+
 
 // schema for a gig object
 const gigSchema = new Schema({
@@ -16,10 +16,9 @@ const gigSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Goal'
   }]
-})
+});
 
-// add validator plugin
-gigSchema.plugin(validator)
+
 
 const Gig = mongoose.model('Gig', gigSchema)
 module.exports = Gig
