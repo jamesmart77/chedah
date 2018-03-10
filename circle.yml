@@ -6,7 +6,6 @@ dependencies:
   override:
     - nvm install 9 && npm install
     - nvm use 9
-    - npm install --save-dev babel-preset-env
 
 test:
   override: 
