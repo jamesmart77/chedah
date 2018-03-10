@@ -6,13 +6,13 @@ import "./GigView.css";
 const GoalSummary = props=> <div>
     {props.goals.map((goal) => (
         <Goal
-            key={goal.id}
+            key={goal._id}
             editGoal={props.editGoal}
             id={goal.id}
             name={goal.name}
             budget={goal.budget}
             spent={goal.expenses}
-            net={goal.net}  
+            net={goal.net}
         />
     ))}
 </div>

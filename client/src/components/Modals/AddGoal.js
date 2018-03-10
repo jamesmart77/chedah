@@ -57,7 +57,7 @@ class ModalAddGoal extends React.Component {
         )
 
         return (
-            <div id="add-goal-modal" className="modal" data-modal="data-modal" style={{minHeight: '60%'}}>
+            <div id="add-goal-modal" className="modal" data-modal="data-modal" style={{height: '70%'}}>
             <div className="modal-content">
                 <div className="modal-title">
                     <h4>Add a Goal</h4>

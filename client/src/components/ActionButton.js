@@ -7,7 +7,7 @@ const actions = {
             title: 'Add Gig',
             icon: 'account_circle',
             id: 'action-add-gig',
-            color: 'teal darken-1',
+            color: 'teal lighten-1',
             modal: 'add-gig-modal'
         },
         {
@@ -30,7 +30,7 @@ const actions = {
             title: 'Edit Account',
             icon: 'account_balance',
             id: 'action-edit-account',
-            color: 'teal darken-1',
+            color: 'teal lighten-1',
             modal: 'edit-account-modal'
         }, {
             title: 'Add Gig',
@@ -52,7 +52,7 @@ const actions = {
             title: 'Add Goal',
             icon: 'work',
             id: 'action-add-goal',
-            color: 'teal darken-1',
+            color: 'teal lighten-1',
             modal: 'add-goal-modal'
         }, {
             title: 'Edit Gig',
