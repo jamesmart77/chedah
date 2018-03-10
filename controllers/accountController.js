@@ -21,8 +21,7 @@ module.exports = {
       .populate('accounts')
       .then(dbUser => {
         const {accounts} = dbUser
-        const account = accounts.find(account => account.account_id === req.params.id)
-        console.log(account)
+        const account = accounts.find(account => account._id.toString() === req.params.id)
         res.json(account)
       })
       .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))

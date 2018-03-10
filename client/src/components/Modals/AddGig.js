@@ -35,6 +35,14 @@ class ModalAddGig extends Component {
         // console.log(this.state);
     }
 
+    componentDidMount() {
+        console.log(`modal mounted`);
+    }
+
+    componentWillUnmount() {
+        console.log(`modal dismounting`);
+    }
+
     handleSubmit() {
         console.log(`adding gig: `, this.state);
         API.addGig(this.state)
@@ -47,7 +55,7 @@ class ModalAddGig extends Component {
         const accounts = this.props.user.accounts || []
         const accountItems = this.getAccountList(accounts)
         return (
-                 <div id="add-gig-modal" className="modal" data-modal style={{width: '60%', height: '40%'}}>
+                 <div id="add-gig-modal" className="modal" data-modal style={{width: '60%', height: '60%'}}>
                    <div className="modal-content">
                      <h4>Add a Gig</h4>
                      <div className="col input-field s12">

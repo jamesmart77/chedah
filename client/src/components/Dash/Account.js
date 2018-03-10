@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-// import { Badge, Chip } from 'react-materialize';
+import React from 'react';
 import { formatCurrencyValueJSX } from '../../utils/currency';
+
+
 // materialize account preview widget
-
-
-class Account extends Component {
+class Account extends React.Component {
 
     renderGigs() {
         const gigList = (this.props.gigs) || []
@@ -13,10 +12,6 @@ class Account extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({...nextProps})
-    }
-
-    componentWillMount() {
-        this.setState({...this.props})
     }
 
     renderChecking() {
@@ -64,12 +59,13 @@ class Account extends Component {
 
                 <div className='row pl-1'>
 
-                <div className='col s8'>
+                    <div className='col s8'>
                         <div className='chip'>No Gig</div>
                     </div>
+
                     <div className='col s4 account-total right-align'>
                         <div>{creditTotal}</div>
-                </div>
+                    </div>
 
                 </div>
             </div>

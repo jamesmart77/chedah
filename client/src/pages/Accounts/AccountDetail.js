@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 // import {Account, GigMenu} from '../../components/Accounts';
 import Moment from 'react-moment';
 import API from '../../utils/API';
-import { Table } from '../../components/DataTable';
-import { formatCurrencyValueJSX } from '../../utils/currency';
+import {Table} from '../../components/DataTable';
+import {formatCurrencyValueJSX} from '../../utils/currency';
 import axios from 'axios';
 
 
@@ -38,17 +38,37 @@ const defaultHeaders = [
 ]
 
 // Account detail page
+//  account_id:"wZJ3ag1rRos6QKpVdnPMIrL4v6EBNnCkkKl5n8"
+//  balances:{available: 100, current: 110, limit: null}
+//  defaultGigId:"5aa20e3b83461770c7dff9fb"
+//  mask:"0000"
+//  name:"Plaid Checking"
+//  official_name:"Plaid Gold Standard 0% Interest Checking"
+//  subtype:"checking"
+//  transactions:[]
+
 class AccountDetail extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            accountId: this.props.match.params.id,
-            transactions: [],
-            headers: defaultHeaders,
-            gigName: null
-        };
+            account_id: this.props.match.params.id,
+            transactions: []
+        }
 
-        console.log(`AccountDetail: `, props);
+        console.log(`Account props: `, props);
+    }
+
+
+    componentDidMount() {
+        console.log(`querying account: `, this.state.account_id);
+        API.getAccount({accountId: this.state.account_id})
+        .then(acct => {
+            console.log(`account data: `, acct.data);
+            this.setState(acct.data)
+        })
+        .catch(err => {
+            console.log(`Error: `, err);
+        })
     }
 
     //
@@ -67,30 +87,6 @@ class AccountDetail extends Component {
         axios.post('/accounts', itemId).then((gigData) => {
             console.log(gigData)
         }).catch((err) => {
-            console.log(err)
-        });
-    }
-
-    componentWillMount() {
-        API.loadUserData().then(userData => {
-            this.setState({user: userData})
-            console.log(`-> AccountDetail: `, userData);
-        }).catch(console.log)
-    }
-
-    // load account details from the id, then get transactions
-    componentDidMount() {
-        // query account data from the url params
-        API.getAccountDetails(this.state.accountId).then(accdata => {
-            this.setState({
-                ...accdata
-            })
-            return API.loadAccountTransactions()
-        }).then(transdata => {
-            // add transactions to table
-            this.addTransactions(transdata)
-            console.log(`-> AccountDetail: `, this.state);
-        }).catch(err => {
             console.log(err)
         });
     }
@@ -124,12 +120,12 @@ class AccountDetail extends Component {
     }
 
     renderCreditTable() {
-        const avail = (this.state.limit - this.state.balance);
+        const avail = (this.state.balances.limit - this.state.balances.current);
         return (<table className="account-balances">
             <tbody>
                 <tr className="account-balance">
                     <td className="description">Balance:</td>
-                    <td>{formatCurrencyValueJSX(this.state.balance)}</td>
+                    <td>{formatCurrencyValueJSX(this.state.balances.current)}</td>
                     <td className="stats">
                         <span className="new badge" data-badge-caption="% APR">{this.state.apr}</span>
                     </td>
@@ -143,7 +139,7 @@ class AccountDetail extends Component {
 
                 <tr className="account-limit">
                     <td className="description">Limit:</td>
-                    <td>{formatCurrencyValueJSX(this.state.limit)}</td>
+                    <td>{formatCurrencyValueJSX(this.state.balances.limit)}</td>
                     <td></td>
                 </tr>
 
@@ -161,11 +157,13 @@ class AccountDetail extends Component {
     }
 
     renderCheckingTable() {
+
+        const currentBalance = this.state.balances ? this.state.balances.current : 0
         return (<table className="account-balances">
             <tbody>
                 <tr className="account-balance">
                     <td className="description">Balance:</td>
-                    <td>{formatCurrencyValueJSX(this.state.balance)}</td>
+                    <td>{formatCurrencyValueJSX(currentBalance)}</td>
                 </tr>
             </tbody>
         </table>)
@@ -206,13 +204,13 @@ class AccountDetail extends Component {
             <div className="card-panel account-detail">
                 <div className="row valign-wrapper s12">
                     <div className="col l7">
-                        <h4>
+                        <h5>
                             <i className="material-icons">credit_card</i>
                             <span className="account-header">
-                                {this.state.name}</span>
-                        </h4>
+                                {this.state.official_name}</span>
+                        </h5>
                         <h5 className="account-number">
-                            {this.state.accountNum}</h5>
+                            {this.state.mask}</h5>
                         {dueDate}
                         {this.renderGigDropdown()}
                     </div>
@@ -231,5 +229,6 @@ class AccountDetail extends Component {
         </div>);
     }
 }
+
 
 export default AccountDetail;

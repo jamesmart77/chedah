@@ -1,0 +1,11 @@
+.chip {
+    padding: 0 1rem;
+}
+
+.chip .close {
+    cursor: pointer;
+    float: right;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding-left: 0.5rem;
+}

@@ -1,41 +1,34 @@
 import React, { Component } from "react";
-// import { Badge, Chip } from 'react-materialize';
 import Goal from './Goal';
+
 
 // materialize goal list
 class GoalList extends Component {
 
-    state = {
-        collapsed: false,
-        goals: [
-            {
-                id: 1,
-                name: 'Spend Less On Tolls',
-                total: 80,
-                change: 17,
-                gigs: ['uber']
-            }, {
-                id: 2,
-                name: 'Spend Less on Gas',
-                total: 20,
-                change: -14,
-                gigs: ['uber']
-            },
-            {
-                id: 3,
-                name: 'Save for Programming Books',
-                total: 20,
-                change: -14,
-                gigs: ['programming']
-            }
-        ]
-    };
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            collapsed: false
+          }
+    }
+
 
     handleClick() {
         this.setState({collapsed: !this.state.collapsed})
     }
 
     render() {
+        var goals = []
+        const gigs = this.props.user.gigs || []
+        gigs.forEach(gig => {
+            gig.goals.forEach(goal => {
+                let goalData = goal
+                goalData.gigId = gig._id
+                goals.push(goalData)
+            })
+        })
+
         const arrowName = (this.state.collapsed === false) ? 'arrow_drop_down' : 'arrow_drop_up';
         return (
 
@@ -48,14 +41,10 @@ class GoalList extends Component {
                     </div>
 
                     {/* Body insert_chart */}
-                    {this.state.goals.map((goal, i) => (
+                    {goals.map(goal => (
                         <Goal
-                            key={i}
-                            id={goal.id}
-                            name={goal.name}
-                            total={goal.total}
-                            change={goal.change}
-                            gigs={goal.gigs}
+                            key={goal._id}
+                            {...goal}
                         />
                     ))}
                 </li>

@@ -4,16 +4,8 @@ import CreditCardAPR from './APR'
 // account preview component
 class AccountOverview extends Component {
 
-    state = {
-        account: {}
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({...nextProps})
-    }
-
-    componentWillMount() {
-        this.setState({...this.props})
+    constructor(props) {
+        super(props)
     }
 
     render() {

@@ -7,7 +7,7 @@ import { Nav, Breadcrumbs } from "./components/Nav";
 import Footer from "./components/Footer/Footer";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Callback from './components/Callback';
-import { requireAuth } from './utils/AuthService';
+import { requireAuth, isLoggedIn } from './utils/AuthService';
 import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
@@ -22,13 +22,6 @@ class App extends React.Component {
         user: {}
     }
 
-    GigDetailPage = (props) => <GigDetail
-          getUser={this.getUser.bind(this)}
-          user={this.state.user}
-          {...props}
-        />
-
-
   getUser(){
     API.getUser()
       .then(user => {
@@ -42,32 +35,45 @@ class App extends React.Component {
       })
   }
 
+
+  GigDetailPage = (props) => <GigDetail
+  getUser={this.getUser.bind(this)}
+  user={this.state.user || {}}
+  location={history.location}
+  {...props}/>
+
+
   componentWillMount() {
     this.getUser()
-
-    console.log('get accounts')
-    API.getAccounts()
-      .then(console.log)
-      .catch(console.log)
   }
 
   render() { return <Router history={history}>
     <div>
       <Nav user={this.state.user} />
-      <Breadcrumbs location={history.location}/>
+      {/* <Breadcrumbs location={history.location}/> */}
+      {history.location.pathname !== '/' && <Breadcrumbs location={history.location}/> }
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user}/>} onEnter={requireAuth}/>
-        <Route exact path="/gigs/:id" component={this.GigDetailPage} user={this.state.user || {}} onEnter={requireAuth} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user}/>} onEnter={requireAuth} />c
-        <Route exact path="/accounts/:id" component={AccountDetail} onEnter={requireAuth}  />
         <Route path="/callback" component={Callback} />
+        {'console.log(isLoggedIn())'}
+        {console.log(isLoggedIn())}
+        {
+        isLoggedIn() ?
+        <div>
+        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
+        <Route exact path="/gigs/:id" component={this.GigDetailPage} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
+        <Route exact path="/accounts/:id" component={AccountDetail} />
+        </div>
+        : null
+        }
         {/* <Route component={NoMatch} /> */}
       </Switch>
       <Footer />
       <Sidebar />
-      <ActionButton location={history.location}/>
+      {/* <ActionButton location={history.location}/> */}
+      {history.location.pathname !== '/' && <ActionButton location={history.location}/> }
       {/* Modals */}
       <ModalEditAccount user={this.state.user}/>
       <ModalAddGoal user={this.state.user}/>

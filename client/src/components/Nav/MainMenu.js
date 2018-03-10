@@ -6,7 +6,16 @@ import PlaidAccountLink from '../PlaidAccountLink';
 
 // materialize navbar
 class MainMenu extends Component {
+
+    constructor(props) {
+        super(props)
+        console.log(`menu: `, props);
+    }
+
     render() {
+        const accounts = this.props.user.accounts || [];
+        const hasAccounts = (accounts.length > 0)
+        const accountsClassName = hasAccounts ? '' : 'disabled'
         return (
             <div>
                 {/* <!-- Main Menu (Desktop Dropdown) --> */}
@@ -26,7 +35,7 @@ class MainMenu extends Component {
 
                 {/* <!-- Main Menu (Mobile Hamburger) --> */}
                 <ul id="mobile-main-menu" className="side-nav">
-                    <li><a href="/accounts"><i className="large material-icons">account_balance</i>Accounts</a></li>
+                    <li><a disabled href="/accounts"><i className="large material-icons">account_balance</i>Accounts</a></li>
                     <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
                     <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
                     <li><div className="divider"></div></li>
