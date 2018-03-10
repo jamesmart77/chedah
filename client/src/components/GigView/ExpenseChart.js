@@ -45,29 +45,31 @@ const chartOptions = {
 
 
 class ExpenseChart extends Component {
-	
+
 
     // create the detail table (other side of the chart card)
 	renderDetail() {
-	
+
 		let listItems =
 			this.props.expenses.map((item, i) =>
 				<li key={i} className="collection-item">{item.name}
-		  			<span className="right">{item.total}</span>
-				</li>	
+		  			<span className="right">{formatCurrencyValueJSX(item.total)}</span>
+				</li>
 			)
-	
+
 
 		// push the total to the bottom of the stack
-		listItems.push(<li key={this.props.expenses.length} className="collection-item"><b>Total:</b><span className="right"><b>{this.props.total}</b></span></li>)
+		listItems.push(<li key={this.props.expenses.length} className="collection-item"><b>Total:</b><span className="right"><b>{formatCurrencyValueJSX(this.props.total)}</b></span></li>)
 		return listItems;
 	};
 
 
     // render the component
 	render() {
-	
-		chartOptions.title.text = this.props.gigName + ' Expenses: $' + this.props.total
+
+        const expenseTotal = formatCurrencyValueJSX(this.props.total)
+        console.log(`total -> `, this.props.total);
+		chartOptions.title.text = this.props.gigName + ' Expenses: ' + expenseTotal
 		chartData.labels = this.props.expenses.map(e => e.name)
 		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => e.total), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00', '#F5AA9D', '#FA1B5E']}]
 		const details = this.renderDetail();
