@@ -375,5 +375,20 @@ module.exports = {
           error: err
         })
       })
+  },
+
+  getCategories: (req, res) => {
+    console.log('lets get those user categories shall we')
+    db.User.findOne({ auth_id: req.params.authId }).lean()
+      .populate('categories')
+      .then(user => {
+        const {categories} = user
+        db.PlaidCategory.find().lean()
+          .then(plaidCategories => {
+            const allCategories = [...categories, ...plaidCategories]
+            console.log(allCategories)
+            res.json(allCategories)
+          })
+      })
   }
 };

@@ -80,9 +80,20 @@ export default {
     return axios.delete(`/api/accounts/${data.accountId}`, data)
   },
 
-  
 
-  
+  // #############################################
+  // Categories
+  // #############################################
+  // data.userId
+  // data.name
+  createCategory: data => {
+    data.userId = decodeToken(getIdToken()).sub
+    return axios.post('/api/categories', data)
+  },
+
+  // get user categories
+  // data.userId = 
+  getUserCategories: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/categories`, data),
 
   // createItem: plaidObj => {
   //   const data = {};
