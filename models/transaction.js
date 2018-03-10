@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const validator = require('mongoose-unique-validator')
+
 
 // schema for a transaction object
 const transactionSchema = new Schema({
@@ -35,8 +35,7 @@ const transactionSchema = new Schema({
   }
 })
 
-// add validator plugin
-transactionSchema.plugin(validator)
+
 
 const Transaction = mongoose.model('Transaction', transactionSchema)
 module.exports = Transaction
