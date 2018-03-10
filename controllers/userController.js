@@ -104,26 +104,6 @@ module.exports = {
           return gig
         })
 
-        //hardcoding some goals from the backend
-        const goal = {}
-        goal._id = '73829y4iu32h4jkh24242334'
-        goal.name = 'Spend Less on Gas'
-        goal.budget = 200.00
-        goal.expenses = 150.00
-        goal.percent = goal.expenses / goal.budget
-        goal.net = goal.budget - goal.expenses
-        goal.categories = ['Gas', 'Advertising']
-        user.gigs[0].goals.push(goal)
-        const goal2 = {}
-        goal2._id = 'JDKSLFJKLJEKLEERNKJEWHE'
-        goal2.name = 'Spend Less on Pot'
-        goal2.budget = 140.00
-        goal2.expenses = 260.00
-        goal2.percent = goal2.expenses / goal2.budget
-        goal2.net = goal2.budget - goal2.expenses
-        goal2.categories = ['Tolls', 'Fees']
-        user.gigs[0].goals.push(goal2)
-
         user.categories = []
 
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
@@ -390,5 +370,26 @@ module.exports = {
             res.json(allCategories)
           })
       })
+  },
+
+  getAccounts: (req, res) => {
+    console.log('lets get those user accounts shall we')
+    db.User.findOne({ auth_id: req.params.authId }).lean()
+      .populate('accounts')
+      .then(user => {
+            const {accounts} = user
+            res.json(accounts)
+      }).catch(err => res.status(404).json({msg: "Did not get accounts, sorry atari!", err: err}))
+  },
+
+  getGigs: (req, res) => {
+    console.log('lets get those user gigs shall we')
+    db.User.findOne({ auth_id: req.params.authId }).lean()
+      .populate('gigs')
+      .then(user => {
+            const {gigs} = user
+            res.json(gigs)
+      }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
   }
-};
+  
+}

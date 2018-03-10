@@ -18,7 +18,13 @@ router.route('/transactions')
 router.route('/:authId/categories')
   .post(userControllers.getCategories)
 
+router.route('/:authId/accounts')
+  .post(userControllers.getAccounts)
+
 router.route('/:authId/gigs')
   .post(userControllers.addGigToUser)
+
+router.route('/:authId/gigs/get')
+  .post(userControllers.getGigs)
 
 module.exports = router
