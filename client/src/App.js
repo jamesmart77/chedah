@@ -19,7 +19,11 @@ import API from "./utils/API";
 class App extends React.Component {
 
     state = {
-        user: {}
+        user: {},
+        data: {
+            currentAccount: null,
+            currentGig: null
+        }
     }
 
   getUser(){
@@ -35,6 +39,11 @@ class App extends React.Component {
       })
   }
 
+  updateStateData(data) {
+      console.log(`App: setting state: `, data);
+      this.setState({data: data})
+  }
+
   componentWillMount() {
     this.getUser()
   }
@@ -48,13 +57,13 @@ class App extends React.Component {
         <Route path="/callback" component={Callback} />
         {'console.log(isLoggedIn())'}
         {console.log(isLoggedIn())}
-        { 
+        {
         isLoggedIn() ?
         <div>
-        <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
+        <Route exact path="/dashboard" component={() => <Dashboard data={this.state.data} user={this.state.user || {} }/>}/>
         <Route exact path="/gigs/:id" component={() => <GigDetail user={this.state.user || {} } />}/>
         <Route exact path="/login" component={Login} />
-        <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
+        <Route exact path="/accounts" component={() => <AccountsHome  data={this.state.data} user={this.state.user || {} }/>} />
         <Route exact path="/accounts/:id" component={AccountDetail} />
         </div>
         : null

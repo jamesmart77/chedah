@@ -15,7 +15,7 @@ const gigSchema = new Schema({
   goals: [{
     type: Schema.Types.ObjectId,
     ref: 'Goal'
-}]
+  }]
 })
 
 // add validator plugin

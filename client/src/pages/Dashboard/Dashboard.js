@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import AccountList from '../../components/Dash/AccountList';
 import GoalList from '../../components/Dash/GoalList';
 import GigList from '../../components/Dash/GigList';
 
 
-
-
-class Dashboard extends Component {
+class Dashboard extends React.Component {
 
     constructor(props) {
         super(props)
-
-        this.state = {
-            user: {}
-          }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({user: nextProps.user})
+        // this.setState({user: nextProps.user})
+    }
+
+    updateStateData(data) {
+        this.props.updateStateData(data)
     }
 
     render() {
@@ -33,8 +31,8 @@ class Dashboard extends Component {
 
                         {/* Accounts & Goals Lists */}
                         <div className='col s12 m5 l4'>
-                            <AccountList user={this.props.user}/>
-                            <GoalList/>
+                            <AccountList updateStateData={this.updateStateData} user={this.props.user}/>
+                            <GoalList user={this.props.user}/>
                         </div>
 
                         {/* Gigs List */}

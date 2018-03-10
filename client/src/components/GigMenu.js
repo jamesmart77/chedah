@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import API from '../../utils/API';
 
 /*
@@ -17,7 +17,7 @@ import API from '../../utils/API';
 */
 
 
-class GigMenu extends Component {
+class GigMenu extends React.Component {
 
     render() {
         return (

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { formatCurrencyValueJSX } from '../../utils/currency';
 
 
 // materialize account preview widget
-class Account extends Component {
+class Account extends React.Component {
 
     renderGigs() {
         const gigList = (this.props.gigs) || []

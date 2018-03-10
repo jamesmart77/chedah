@@ -48,3 +48,5 @@ class AccountsHome extends Component {
 }
 
 export default AccountsHome;
+
+// () => <AccountDetail onSelectLanguage={this.handleLanguage}
