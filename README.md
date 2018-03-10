@@ -25,6 +25,30 @@ Chedah aims to focus on the "Gig Economy" by allowing users to link their busine
 - MongoDb: https://www.mongodb.com/
 
 
+<h2>Technologies Used</h2>
+    <h3>Authentication</h3>
+    <ul>
+        <li>Plaid API: https://plaid.com/docs/api/</li>
+        <li>Auth0: https://auth0.com/</li>
+    </ul>
+    <h3>Databases</h3>
+    <ul>
+        <li>Redis: https://redis.io/</li>
+        <li>MongoDb: https://www.mongodb.com/</li>
+    </ul>
+        <h3>Continuous Integration and Testing</h3>
+        <ul>
+             <li>Jest: https://facebook.github.io/jest/</li>
+             <li>CircleCI: https://circleci.com/</li>
+        </ul>
+
+
+
+<h1>Starting the app locally</h1>
+
+<p>Start by installing front and backend dependencies. While in this directory, run the following commands:<p>
+
+
 ### Continuous Integration and Testing
 
 - Jest: https://facebook.github.io/jest/
@@ -40,6 +64,7 @@ cd client
 yarn install
 cd ..
 ```
+
 
 After both installations complete, run the following command in your terminal:
 

@@ -1,3 +1,4 @@
+// import { CastError } from "mongoose";
 const db = require("../models");
 const plaid = require('plaid');
 const gigController = require('./gigController');
@@ -6,6 +7,11 @@ const axios = require('axios')
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
+const request = require("request");
+const CircularJSON = require('circular-json');
+const _ = require("underscore");
+
+
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -373,8 +379,5 @@ module.exports = {
           error: err
         })
       })
-
-
-    // .catch((err) => console.log(err))
   }
 };
