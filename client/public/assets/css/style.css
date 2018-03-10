@@ -1017,6 +1017,14 @@ img.productIMG {
     right: 2rem;
 }
 
+
+.modal-title {
+    background-color: ##3c5678 !important;
+    color: ##fff !important;
+    padding-bottom: 2rem;
+}
+
+
 /*
 .modal .gig-dropdown .dropdown-content li>a,
 .modal .dropdown-content li>span {

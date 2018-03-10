@@ -57,7 +57,9 @@ class ModalAddGig extends Component {
         return (
                  <div id="add-gig-modal" className="modal" data-modal style={{width: '60%', height: '60%'}}>
                    <div className="modal-content">
-                     <h4>Add a Gig</h4>
+                       <div className="modal-title">
+                           <h4>Add a Gig</h4>
+                       </div>
                      <div className="col input-field s12">
                        <input value={this.state.name} onChange={this.handleChange} type="text" name="name" id="input-gig-name" />
                        <label className="active" htmlFor="input-gig-name">Gig Name</label>

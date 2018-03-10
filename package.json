@@ -12,7 +12,7 @@
     "client": "node scripts/start-client.js",
     "start": "concurrently \"NODE_ENV=production nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
-    "seed": "node scripts/seedDB.js",
+    "seed": "seed",
     "test": "jest",
     "installDeps": "yarn && cd client && yarn"
   },
