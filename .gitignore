@@ -1,4 +1,9 @@
 **/node_modules
 .env
 client/build
+<<<<<<< HEAD
+.DS_STORE
+test.json
+=======
 .DS_Store
+>>>>>>> 3e5272b21f7ac465032f6f9aa405acc2fab9927c

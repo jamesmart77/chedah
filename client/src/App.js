@@ -42,7 +42,8 @@ class App extends React.Component {
   render() { return <Router history={history}>
     <div>
       <Nav user={this.state.user} />
-      <Breadcrumbs location={history.location}/>
+      {/* <Breadcrumbs location={history.location}/> */}
+      {history.location.pathname !== '/' && <Breadcrumbs location={history.location}/> }
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route path="/callback" component={Callback} />
@@ -63,7 +64,8 @@ class App extends React.Component {
       </Switch>
       <Footer />
       <Sidebar />
-      <ActionButton location={history.location}/>
+      {/* <ActionButton location={history.location}/> */}
+      {history.location.pathname !== '/' && <ActionButton location={history.location}/> }
       {/* Modals */}
       <ModalEditAccount user={this.state.user}/>
       <ModalAddGoal user={this.state.user}/>
