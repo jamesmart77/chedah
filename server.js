@@ -8,9 +8,6 @@ const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
 
-
-
-
 module.exports.redisClient = redisClient;
 
 const app = express();
