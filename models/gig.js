@@ -16,7 +16,7 @@ const gigSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Goal'
   }]
-})
+});
 
 // add validator plugin
 gigSchema.plugin(validator)

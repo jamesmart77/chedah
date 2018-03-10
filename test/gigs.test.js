@@ -23,7 +23,7 @@ describe("Gigs", () => {
   * Test the /GET route
   */
   describe("/ Gigs", () => {
-    it("it should GET all the books", done => {
+    it("it should GET all the gigs", done => {
       chai
         .request(server.app)
         .get("/api/gigs")
@@ -34,5 +34,23 @@ describe("Gigs", () => {
           done();
         });
     });
+
+    // All of the post logic
+    it("Should allow the creation of a gig", done => {
+      let gig = {
+        name: "programming",
+        description: "I want to be a programmer",
+        goals: []
+      }
+      chai.request(server.app)
+      .post("/api/gigs")
+      .send(gig)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.a("object");
+        done();
+
+      })
+    })
   });
 });
