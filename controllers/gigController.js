@@ -135,4 +135,16 @@ module.exports = {
           res.status(422).json(err);
         });
     },
+
+    addGigToAccount: (req, res) => {
+      console.log('add gig to account')
+      db.Gig.create({name: req.body.name})
+        .then(dbGig => {
+          db.Account.findByIdAndUpdate({_id: req.body.accountId},
+            {defaultGigId: dbGig._id}
+          ).then(dbAccount => {
+            res.json(dbAccount)
+          }).catch(err => res.status(500).json({msg: "Did not create a gig and add it to an account", err: err}))
+        }).catch(err => res.status(500).json({msg: "Did not create a gig and add it to an account", err: err}))
+    }
 };
