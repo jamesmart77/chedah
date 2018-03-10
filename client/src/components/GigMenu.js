@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import API from '../../utils/API';
 
 /*
@@ -17,11 +17,15 @@ import API from '../../utils/API';
 */
 
 
-class GigMenu extends Component {
+class GigMenu extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         return (
-            <a data-activates={this.props.id} className="button-collapse"><i className="material-icons">{this.props.name}</i></a>
+            <a data-activates={`menu-gig-` + this.props.id} className="button-collapse"><i className="material-icons">{this.props.name}</i></a>
             <select>
             </select>
         );

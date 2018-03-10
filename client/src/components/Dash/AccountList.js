@@ -21,21 +21,18 @@ class AccountList extends Component {
         this.setState({user: nextProps})
     }
 
-    componentWillMount() {
-        this.setState({user: this.props.user})
-    }
-
     renderListItems() {
-        const accounts = this.state.user.accounts || []
+        const accounts = this.props.user.accounts || []
         const hasAccounts = (accounts.length > 0)
         let results = [
             <div key={0} className="row pl-2 valign-wrapper">
             <span><i className="material-icons inflex">warning</i> Please Link an Account</span>
             </div>
         ]
+
         if (hasAccounts) {
             results = accounts.map(acct =>
-                <Account key={acct._id} {...acct} />
+                <Account key={acct._id} {...acct}/>
             )
         }
         return results

@@ -39,11 +39,9 @@ class Breadcrumbs extends Component {
     }
 
     render() {
-        
         const pathItems = this.state.paths.map((path, i) =>
             <a key={i} href={path.url} className="breadcrumb">{path.name}</a>
         )
-        
 
         return (
             <nav className="breadcrumbs">

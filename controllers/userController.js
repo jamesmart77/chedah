@@ -71,6 +71,7 @@ module.exports = {
               .toFixed(2)
 
             // calculate net
+            console.log(`money out: `, typeof gig.moneyOut);
             gig.net = gig.moneyIn - gig.moneyOut
 
 
@@ -115,11 +116,11 @@ module.exports = {
         user.gigs[0].goals.push(goal)
         const goal2 = {}
         goal2._id = 'JDKSLFJKLJEKLEERNKJEWHE'
-        goal2.name = 'Spend Less on Tolls'
-        goal2.budget = 200.00
-        goal2.expenses = 150.00
-        goal2.percent = goal.expenses / goal.budget
-        goal2.net = goal.budget - goal.expenses
+        goal2.name = 'Spend Less on Pot'
+        goal2.budget = 140.00
+        goal2.expenses = 260.00
+        goal2.percent = goal2.expenses / goal2.budget
+        goal2.net = goal2.budget - goal2.expenses
         goal2.categories = ['Tolls', 'Fees']
         user.gigs[0].goals.push(goal2)
 
@@ -127,19 +128,19 @@ module.exports = {
 
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
-       
+
         db.PlaidCategory
         .find({})
         .then(dbPlaidCat => {
-          
+
           // console.log(dbPlaidCat)
           // userWithoutItems.categories.concat(dbPlaidCat)
-        
+
           dbPlaidCat.map(plaidCat => {
             userWithoutItems.categories.push({name: plaidCat.name});
           })
           console.log(userWithoutItems)
-  
+
           res.json(userWithoutItems);
         })
         .catch(err => console.log(err))
@@ -356,7 +357,7 @@ module.exports = {
                       // console.log(transactionObj);
                     })
 
-                  //iterate through all transactions in while loop 
+                  //iterate through all transactions in while loop
                   i++
                 }
               })

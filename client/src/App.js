@@ -49,7 +49,7 @@ class App extends React.Component {
         <Route path="/callback" component={Callback} />
         {'console.log(isLoggedIn())'}
         {console.log(isLoggedIn())}
-        { 
+        {
         isLoggedIn() ?
         <div>
         <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>

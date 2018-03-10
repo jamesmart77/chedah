@@ -19,7 +19,7 @@ class ModalEditAccount extends Component {
 
     render() {
         return (
-                 <div id="edit-account-modal" className="modal" data-modal style={{width: '60%'}}>
+                 <div id="edit-account-modal" className="modal" data-modal style={{width: '60%', height: '60%'}}>
                    <div className="modal-content">
                      <h4>Edit Account</h4>
 
