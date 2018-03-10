@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const gigController = require('../../controllers/gigController')
+const gigController = require('../../controllers/gigController');
 
 // router.get('/gig/:name?', gigController.findGigByName)
 router.get('/:id', gigController.findGigById)
