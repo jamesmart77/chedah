@@ -8,7 +8,7 @@ import GoalSummary from '../../components/GigView/GoalSummary';
 import TransactionSummary from '../../components/Transactions/TransactionSummary';
 // import ReactDataGrid from 'react-data-grid';
 import update from 'immutability-helper';
-import {Modal, Button, Input} from 'react-materialize';
+import { Modal, Button, Input } from 'react-materialize';
 
 
 class GigDetail extends React.Component {
@@ -35,7 +35,7 @@ class GigDetail extends React.Component {
 
     }
 
-          //////////////////////////////////
+      //////////////////////////////////
 
     // need budget goal gig
     handleChange = e => {

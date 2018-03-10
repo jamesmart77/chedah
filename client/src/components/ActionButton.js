@@ -7,15 +7,22 @@ const actions = {
             title: 'Add Gig',
             icon: 'account_circle',
             id: 'action-add-gig',
-            color: 'teal darken-4',
+            color: 'teal lighten-1',
             modal: 'add-gig-modal'
         },
         {
-            title: 'Add Goal',
+            title: 'Add Goal',   // TODO: needs gig menu
             icon: 'work',
             id: 'action-add-goal',
-            color: 'teal darken-4',
+            color: 'teal darken-3',
             modal: 'add-goal-modal'
+        },
+        {
+            title: 'Add Category',
+            icon: 'insert_comment',
+            id: 'action-add-category',
+            color: 'teal darken-4',
+            modal: 'add-category-modal'
         }
     ],
     accounts: [
@@ -23,29 +30,43 @@ const actions = {
             title: 'Edit Account',
             icon: 'account_balance',
             id: 'action-edit-account',
-            color: 'teal darken-4',
+            color: 'teal lighten-1',
             modal: 'edit-account-modal'
         }, {
             title: 'Add Gig',
             icon: 'account_circle',
             id: 'action-add-gig',
-            color: 'teal darken-2',
+            color: 'teal darken-3',
             modal: 'add-gig-modal'
+        },
+        {
+            title: 'Add Category',
+            icon: 'insert_comment',
+            id: 'action-add-category',
+            color: 'teal darken-4',
+            modal: 'add-category-modal'
         }
     ],
     gigs: [
         {
             title: 'Add Goal',
-            icon: 'icon-gig-icon',
+            icon: 'work',
             id: 'action-add-goal',
-            color: 'teal darken-4',
+            color: 'teal lighten-1',
             modal: 'add-goal-modal'
         }, {
             title: 'Edit Gig',
             icon: 'account_circle',
             id: 'action-edit-gig',
-            color: 'teal darken-2',
+            color: 'teal darken-3',
             modal: 'edit-gig-modal'
+        },
+        {
+            title: 'Add Category',
+            icon: 'insert_comment',
+            id: 'action-add-category',
+            color: 'teal darken-4',
+            modal: 'add-category-modal'
         }
     ]
 }

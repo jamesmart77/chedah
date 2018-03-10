@@ -5,8 +5,8 @@ import './Breadcrumbs.css';
 const pathNames = {
     dashboard: { name: 'Home', url: '/dashboard' },
     accounts: { name: 'Accounts', url: '/accounts' },
-    gigs: { name: 'Gigs', url: '/gigs' },
-    goals: { name: 'Goals', url: '/goals' }
+    gigs: { name: 'Gigs', url: '#' },
+    goals: { name: 'Goals', url: '#' }
 }
 
 
@@ -26,6 +26,7 @@ class Breadcrumbs extends Component {
         let paths = currentPath.split('/').filter(item => { return (item != '')})
         let nextPathState = [pathNames.dashboard]
         paths.forEach( p => {
+            console.log(`  -> path: `, p);
             if (!(p === 'dashboard') && (Object.keys(pathNames).includes(p))) {
                 nextPathState.push(pathNames[p])
             }

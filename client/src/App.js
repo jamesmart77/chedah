@@ -13,7 +13,7 @@ import history from './utils/history';
 import GigDetail from "./pages/GigDetail";
 import ActionButton from './components/ActionButton';
 import { AccountsHome, AccountDetail } from './pages/Accounts';
-import { ModalEditAccount, ModalAddGig, ModalAddGoal } from './components/Modals';
+import { ModalEditAccount, ModalAddCategory, ModalAddGig, ModalAddGoal } from './components/Modals';
 import API from "./utils/API";
 
 
@@ -79,6 +79,7 @@ class App extends React.Component {
       <ModalEditAccount user={this.state.user}/>
       <ModalAddGoal user={this.state.user}/>
       <ModalAddGig user={this.state.user}/>
+      <ModalAddCategory user={this.state.user}/>
     </div>
   </Router>;
   }
