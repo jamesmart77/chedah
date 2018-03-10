@@ -2,7 +2,7 @@ import React from 'react';
 
 
 // format a currency value & return a comma-separated string
-export function numberWithCommas(val) {
+function numberWithCommas(val) {
     val = (!val) ? 0 : val;
     var parts = val.toFixed(2).split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -11,7 +11,10 @@ export function numberWithCommas(val) {
 
 // format a currency string in JSX for UI
 export function formatCurrencyValueJSX(val) {
-    const valstr = numberWithCommas(val);
+    // -35,348.02
+    const absVal = Math.abs(val);
+    const valstr = numberWithCommas(absVal);
+    console.log(`number: `, valstr);
     const valarr = valstr.split('.');
     return (
         <span>{(val < 0) ? '-' : ''}<sup>$</sup>{valarr[0]}.{valarr[1]}</span>
