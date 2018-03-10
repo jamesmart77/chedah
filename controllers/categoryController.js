@@ -18,7 +18,6 @@ module.exports = {
     addCategory: (req, res) => {
       const Category = {
         name: req.query.name,
-        description: req.query.desc || null,
         default: false
       }
 
