@@ -4,18 +4,20 @@ import GoalList from '../../components/Dash/GoalList';
 import GigList from '../../components/Dash/GigList';
 
 
+
+
 class Dashboard extends Component {
 
-    state = {
-        user: {}
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            user: {}
+          }
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({user: nextProps.user})
-    }
-
-    componentWillMount() {
-        this.setState({user: this.props.user})
     }
 
     render() {
@@ -31,13 +33,13 @@ class Dashboard extends Component {
 
                         {/* Accounts & Goals Lists */}
                         <div className='col s12 m5 l4'>
-                            <AccountList user={this.state.user}/>
+                            <AccountList user={this.props.user}/>
                             <GoalList/>
                         </div>
 
                         {/* Gigs List */}
                         <div className='col s12 m7 l8'>
-                            <GigList {...this.state.user}/>
+                            <GigList {...this.props.user}/>
                         </div>
                     </div>
                 </div>

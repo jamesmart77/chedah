@@ -51,7 +51,7 @@ module.exports = {
 
     // add a new gig and set default to false
     addGig: (req, res) => {
-      
+
       const gig = {
         name: req.body.name,
         description: req.body.description,
