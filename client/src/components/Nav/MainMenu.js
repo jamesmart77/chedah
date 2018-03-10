@@ -39,7 +39,7 @@ class MainMenu extends Component {
                     <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
                     <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
                     <li><div className="divider"></div></li>
-                    <li><a href="#!"><i className="large material-icons">sync</i>Sync Accounts</a></li>
+                    <li><a href="#!" onClick={() => API.accountsSync()}><i className="large material-icons">sync</i>Sync Accounts</a></li>
                     <li><div className="divider"></div></li>
                     <PlaidAccountLink><i className="large material-icons">insert_link</i>Link Account</PlaidAccountLink>
                     <li className="divider"></li>

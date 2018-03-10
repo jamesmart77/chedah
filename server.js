@@ -10,6 +10,7 @@ const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
 
 
 
+
 module.exports.redisClient = redisClient;
 if (process.env.NODE_ENV == 'production') {
 redisClient.on("connect", function () {
