@@ -36,7 +36,6 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
-    "circular-json": "^0.5.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",
     "express": "^4.15.4",
@@ -54,7 +53,6 @@
     "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-scripts": "^1.1.1",
-    "redis": "^2.8.0",
-    "underscore": "^1.8.3"
+    "redis": "^2.8.0"
   }
 }
