@@ -32,8 +32,6 @@
 
         // initialize text fields
         Materialize.updateTextFields();
-        $('select').material_select();
-
 
         $('.slider').slider({
             full_width: true

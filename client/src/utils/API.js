@@ -44,8 +44,11 @@ export default {
 
   // data.accountId needs to be passed in
   getAccount: data => {
+
     data.userId = decodeToken(getIdToken()).sub
-    axios.post(`/api/accounts/${data.accountId}`, data)
+    console.log(`user id: `, data.userId);
+    console.log(`account data: `, data);
+    return axios.post(`/api/accounts/${data.accountId}`, data)
   },
 
   // data.accountId

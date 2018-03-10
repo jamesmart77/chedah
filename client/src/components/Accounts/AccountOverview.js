@@ -4,29 +4,20 @@ import CreditCardAPR from './APR'
 // account preview component
 class AccountOverview extends Component {
 
-    state = {
-        account: {}
-    }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({...nextProps})
-    }
-
-    componentWillMount() {
-        this.setState({...this.props})
+    constructor(props) {
+        super(props)
     }
 
     render() {
-        console.log(`AccountOverview: `, this.state);
-        const icon = (this.state.type === 'credit') ? 'credit_card' : 'attach_money'
+        const icon = (this.props.account.type === 'credit') ? 'credit_card' : 'attach_money'
         return (
-            <div key={this.state._id} className="card account-view-card">
+            <div key={this.props.account._id} className="card account-view-card">
                 <div className="card-content">
                     <div className="row">
                         <div className="col">
                             <span className="card-title">
                                 <i className='material-icons inflex'>{icon}</i>
-                                <a href={'/accounts/' + this.state._id}>{this.state.name}</a>
+                                <a href={'/accounts/' + this.props.account._id}>{this.props.account.name}</a>
 
                             </span>
                         </div>

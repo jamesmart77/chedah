@@ -41,6 +41,7 @@ export function requireAuth(nextState, replace) {
 }
 
 export function getIdToken() {
+    // error here
   return localStorage.getItem(ID_TOKEN_KEY);
 }
 
@@ -80,6 +81,7 @@ export function isLoggedIn() {
 }
 
 function getTokenExpirationDate(encodedToken) {
+    console.log(`getting expiration`);
   const token = decode(encodedToken);
 
   if (!token.exp) { return null; }

@@ -4,7 +4,7 @@ module.exports = {
 
   // find all accounts
   findAll: (req, res) => {
-    console.log(`-> looking for accounts...`)
+    console.log(`-> looking for accounts for userId: `, req.body.userId)
     db.User.findOne({ auth_id: req.body.userId }).lean()
       .populate('accounts')
       .then(dbUser => {
@@ -12,7 +12,10 @@ module.exports = {
         console.log(accounts)
         res.status(200).json(accounts)
       })
-      .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
+      .catch(err => {
+          console.log(err);
+          res.status(404).json({err: err, msg: 'never gonna get it'})
+      })
   },
 
   findById: (req, res) => {

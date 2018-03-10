@@ -7,10 +7,6 @@ class AccountsHome extends Component {
 
     constructor(props) {
         super(props)
-
-        this.state = {
-            user: {}
-          }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -18,9 +14,14 @@ class AccountsHome extends Component {
     }
 
     render() {
-        const accounts = this.props.user.accounts;
-        if (!accounts) {
-            return (<div></div>)
+        const accounts = this.props.user.accounts || []
+        const hasAccounts = (accounts.length > 0)
+
+        if (!hasAccounts) {
+            return (<div className='row pl-2'>
+                        <h6>Please link an account</h6>
+                    </div>
+            )
         }
         console.log(`Accounts Home: `, accounts);
         return (
@@ -35,7 +36,7 @@ class AccountsHome extends Component {
                     <div className='row'>
                         <div className='col s12'>
                             {accounts.map(acc =>
-                                <AccountOverview key={acc._id} {...acc}/>
+                                <AccountOverview key={acc._id} account={acc} user={this.props.user}/>
                             )}
                         </div>
 

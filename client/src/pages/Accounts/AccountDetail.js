@@ -43,9 +43,17 @@ class AccountDetail extends Component {
 
         this.state = {
             account_id: this.props.match.params.id
-          }
+        }
+    }
 
-          console.log(`AccountDetail props: `, props);
+    componentDidMount() {
+        API.getAccount({accountId: this.state.account_id})
+        .then(acct => {
+            console.log(`account data: `, acct);
+        })
+        .catch(err => {
+            console.log(`Error: `, err);
+        })
     }
 
     render() {
