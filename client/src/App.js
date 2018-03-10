@@ -35,6 +35,14 @@ class App extends React.Component {
       })
   }
 
+
+  GigDetailPage = (props) => <GigDetail
+  getUser={this.getUser.bind(this)}
+  user={this.state.user || {}} 
+  location={history.location}
+  {...props}/>
+  
+
   componentWillMount() {
     this.getUser()
   }
@@ -53,7 +61,7 @@ class App extends React.Component {
         isLoggedIn() ?
         <div>
         <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
-        <Route exact path="/gigs/:id" component={() => <GigDetail user={this.state.user || {} } />}/>
+        <Route exact path="/gigs/:id" component={this.GigDetailPage} />}/>
         <Route exact path="/login" component={Login} />
         <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
         <Route exact path="/accounts/:id" component={AccountDetail} />
