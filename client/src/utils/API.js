@@ -26,6 +26,11 @@ export default {
   // add a goal to the current gig
   createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, {name: data}),
   
+  // add a gig to an account 
+  // This Creates a new gig & attaches it's gig id to the account as 'defaultGigId'
+  // data.name
+  // data.accountId
+  addGigToAccount: data => axios.post(`/api/gigs/account`, data),
 
 
   // add a goal to the current gig
@@ -35,6 +40,11 @@ export default {
   },
 
   // add a goal to the current gig
+  // data.gigId
+  // data.name // this is the goal name
+  // data.description
+  // data.budget
+  // data.categories []  // array of ids
   addGoalToGig: data => axios.post(`/api/goals`, data),
   
   // #############################################
@@ -50,6 +60,12 @@ export default {
     console.log(`user id: `, data.userId);
     console.log(`account data: `, data);
     return axios.post(`/api/accounts/${data.accountId}`, data)
+  },
+
+  // data.accountId
+  // data.defaultGigId
+  updateDefaultGigOnAccount: data => {
+    return axios.put(`/api/accounts/${data.accountId}`, data)
   },
 
   // data.accountId
@@ -81,11 +97,11 @@ export default {
     return axios.post('/api/users/items', data);
   },
 
-  updateAccount: gigToChange => {
-    return axios.post("/accounts/", {
+  // updateAccount: gigToChange => {
+  //   return axios.post("/accounts/", {
 
-    })
-  },
+  //   })
+  // },
 
   accountsSync: () => {
     console.log("Accounts syncing");
