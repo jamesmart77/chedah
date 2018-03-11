@@ -7,24 +7,40 @@ module.exports = {
     console.log(`-> looking for accounts...`)
     db.User.findOne({ auth_id: req.body.userId }).lean()
       .populate('accounts')
-      .then(dbUser => {
-        const {accounts} = dbUser
-        console.log(accounts)
-        res.status(200).json(accounts)
-      })
+      .then({accounts} = dbUser => res.status(200).json(accounts))
       .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
   },
 
   findById: (req, res) => {
     console.log(`-> looking for a account...`)
-    db.User.findOne({ auth_id: req.body.userId }).lean()
-      .populate('accounts')
-      .then(dbUser => {
-        const {accounts} = dbUser
-        const account = accounts.find(account => account._id.toString() === req.params.id)
-        res.json(account)
-      })
-      .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
+
+    const account = db.Account.findOne({ account_id: req.params.id }).lean()
+
+    const aggregateAccountCategories = db.Transaction.aggregate([
+      { $match: { account_id: req.params.id } },
+      { $group: { _id: "$category", total: { $sum: "$amount" } } },
+      { $sort: {total: -1} }
+    ])
+    
+    const aggregateAccountVendors = db.Transaction.aggregate([
+      { $match: { account_id: req.params.id } },
+      { $group: { _id: "$transactionName", total: { $sum: "$amount" } } },
+      { $sort: {total: -1} }
+    ])
+
+    const transactions =  db.Transaction.find({account_id: req.params.id}).lean()
+
+    Promise.all([account, aggregateAccountCategories, aggregateAccountVendors, transactions])
+    .then(data => {
+      const [account, spendingByCategory, spendingByVendor, transactions] = data
+      const response = {}
+      response.summary = account
+      response.spendingByCategory = spendingByCategory
+      response.spendingByVendor = spendingByVendor
+      response.transactions = transactions
+      res.json(response)
+    })
+    .catch( err => res.status(404).json({ err: err, msg: 'Not able to find an account by id' }) )
   },
 
   update: (req, res) => {

@@ -2,12 +2,13 @@ const router = require('express').Router();
 const categoryController = require('../../controllers/categoryController');
 
 // query '/api/categories'
-router.get('/', categoryController.findAll)
-
-// router.get('/category/:name?', categoryController.findGoalByName)
-router.get('/category/:id?', categoryController.findCategoryById)
+// router.get('/', categoryController.findAll)
 
 // post to '/api/categories'
-router.post('/', categoryController.addCategory)
+router.post('/', categoryController.create)
+
+// router.get('/category/:name?', categoryController.findGoalByName)
+// router.get('/:id', categoryController.findCategoryById)
+
 
 module.exports = router

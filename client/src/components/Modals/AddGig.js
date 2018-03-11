@@ -11,7 +11,8 @@ class ModalAddGig extends React.Component {
         super(props);
         this.state = {
             name: '',
-            description: ''
+            description: '',
+            account_id: '',
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -21,7 +22,7 @@ class ModalAddGig extends React.Component {
     getAccountList(accounts) {
         let accountList = [<option key={0} disabled>None</option>]
         accounts.forEach(acct =>{
-            accountList.push(<option key={acct._id}>{acct.name}</option>)
+            accountList.push(<option value={acct._id} key={acct._id}>{acct.name}</option>)
         });
         return accountList
     }
@@ -45,7 +46,7 @@ class ModalAddGig extends React.Component {
 
     handleSubmit() {
         console.log(`adding gig: `, this.state);
-        API.addGig(this.state)
+        API.createGig(this.state)
         .then(data => console.log(data))
         .catch(err => console.log(err));
     }
@@ -71,7 +72,7 @@ class ModalAddGig extends React.Component {
                      {/* Accounts */}
                      <div className="row">
                        <div className="input-field col s6">
-                         <Input s={12} type='select' id="input-gig-account" label="Associate with Account" defaultValue="None">
+                         <Input s={12} type='select' id="input-gig-account" label="Associate with Account" defaultValue="None" onChange={this.handleChange} name="account_id">
                            {accountItems}
                          </Input>
                        </div>

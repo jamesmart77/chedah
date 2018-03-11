@@ -15,9 +15,42 @@ const defaultCategories = [
     }, {
         id: 'C86EE76D90B4',
         name: 'Gas'
+    },{
+        id: '9DF0A0DD19B2',
+        name: 'Travel'
+    }, {
+        id: 'DCCBD8F37DA3',
+        name: 'Tolls'
+    }, {
+        id: 'D2AA8A93CA76',
+        name: 'Gas'
+    }, {
+        id: 'C86EE76D90B4',
+        name: 'Gas'
+    }, {
+        id: '9DF0A0DD19B2',
+        name: 'Travel'
+    }, {
+        id: 'DCCBD8F37DA3',
+        name: 'Tolls'
+    }, {
+        id: 'D2AA8A93CA76',
+        name: 'Gas'
+    }, {
+        id: 'C86EE76D90B4',
+        name: 'Gas'
+    },
+    {
+        id: '9DF0A0DD19B2',
+        name: 'Travel'
+    }, {
+        id: 'DCCBD8F37DA3',
+        name: 'Tolls'
+    }, {
+        id: 'D2AA8A93CA76',
+        name: 'Gas'
     }
 ]
-
 
 // add goal modal
 class ModalAddGoal extends React.Component {
