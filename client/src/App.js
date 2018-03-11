@@ -44,9 +44,9 @@ class App extends React.Component {
       {...props}
     />
 
-
-  componentWillMount() {
-    this.getUser()
+    componentWillMount() {
+      
+      this.getUser()
   }
 
   render() { return <Router history={history}>
@@ -68,6 +68,8 @@ class App extends React.Component {
                       <Route exact path="/accounts/:id" component={AccountDetail} />
                   </Switch>
               )
+          } else {
+            // window.location.href = "/"
           }
         })()}
       </Switch>

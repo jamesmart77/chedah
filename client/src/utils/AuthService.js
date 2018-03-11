@@ -8,8 +8,8 @@ const ACCESS_TOKEN_KEY = 'access_token';
 const CLIENT_ID = 'k4Qfo5pZUT8bxBa0V4vRmRoaD26Y124G';
 const CLIENT_DOMAIN = 'chedah.auth0.com';
 const REDIRECT = 'http://localhost:3000/callback';
-const SCOPE = 'openid email openid profile';
-// const AUDIENCE = 'AUDIENCE_ATTRIBUTE';      // react is complaining on this not being used, commenting out for now, might deprecate
+const SCOPE = 'openid email openid profile allAPI';
+const AUDIENCE = 'https://chedah.herokuapp.com'; // react is complaining on this not being used, commenting out for now, might deprecate
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -20,7 +20,7 @@ export function login() {
   auth.authorize({
     responseType: 'token id_token',
     redirectUri: REDIRECT,
-    // audience: AUDIENCE,
+    audience: AUDIENCE,
     scope: SCOPE
   });
 }
@@ -34,14 +34,8 @@ export function logout() {
   window.location.href = "/"
 }
 
-export function requireAuth(nextState, replace) {
-  if (!isLoggedIn()) {
-    replace({pathname: '/'});
-  }
-}
-
 export function getIdToken() {
-    // error here
+  // error here
   return localStorage.getItem(ID_TOKEN_KEY);
 }
 
@@ -75,16 +69,25 @@ export function setIdToken() {
   localStorage.setItem(ID_TOKEN_KEY, idToken);
 }
 
+export function isIdAndAccessSet(){
+  const idToken = getIdToken();
+  const accessToken = getAccessToken();
+
+  //!! will force returning true or false, not null
+  return !!idToken && !!accessToken
+}
 export function isLoggedIn() {
   const idToken = getIdToken();
   return !!idToken && !isTokenExpired(idToken);
 }
 
 function getTokenExpirationDate(encodedToken) {
-    console.log(`getting expiration`);
+  console.log(`getting expiration`);
   const token = decode(encodedToken);
 
-  if (!token.exp) { return null; }
+  if (!token.exp) {
+    return null;
+  }
 
   const date = new Date(0);
   date.setUTCSeconds(token.exp);
@@ -92,7 +95,7 @@ function getTokenExpirationDate(encodedToken) {
   return date;
 }
 
-export function decodeToken(encodedToken){
+export function decodeToken(encodedToken) {
   return decode(encodedToken);
 }
 

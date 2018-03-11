@@ -1,9 +1,12 @@
 import axios from "axios";
 import {
   decodeToken,
-  getIdToken
+  getIdToken,
+  getAccessToken
 } from './AuthService';
 
+axios.defaults.headers.common['Authorization'] = `Bearer ${getAccessToken()}`;
+axios.defaults.headers.post['Authorization'] = `Bearer ${getAccessToken()}`;
 
 export default {
 
@@ -12,6 +15,7 @@ export default {
   // #############################################
 
   // if there is a token, get current user
+
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
   
   // get user categories
@@ -27,9 +31,19 @@ export default {
   
   getUserGigs: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/gigs`, data),
 
+
+  /*
+    TODO -----
+    This is where the sign in authentication is failing. When the createUserIfDoesNotExist function is called
+    to reach out to api/users there is a server error
+        'jwt malformed'
+    
+  */
   createUserIfDoesNotExist: () => {
-    const user = decodeToken(getIdToken());
-    return axios.post("/api/users", user)
+      const user = decodeToken(getIdToken());
+      const access_Token = getAccessToken()
+      
+      return axios.post("/api/users", user)
   },
 
   // #############################################
