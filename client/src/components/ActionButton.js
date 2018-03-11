@@ -10,13 +10,6 @@ const actions = {
             color: 'teal lighten-1',
             modal: 'add-gig-modal'
         },
-        // {
-        //     title: 'Add Goal',   // TODO: needs gig menu
-        //     icon: 'work',
-        //     id: 'action-add-goal',
-        //     color: 'teal darken-3',
-        //     modal: 'add-goal-modal'
-        // },
         {
             title: 'Add Category',
             icon: 'insert_comment',

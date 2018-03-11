@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 
 // account detail component
-class Account extends Component {
+class Account extends React.Component {
     render() {
         const icon = (this.props.accountType === 'credit') ? 'credit_card' : 'attach_money'
         return (
