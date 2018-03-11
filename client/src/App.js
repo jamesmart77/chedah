@@ -27,7 +27,7 @@ class App extends React.Component {
     API.getUser()
       .then(user => this.setState({user: user.data}))
       .catch(err => {
-        console.log("we got a err")
+        console.log('error getting the user in the app.js file')
         console.log(err)
       })
   }
@@ -76,7 +76,7 @@ class App extends React.Component {
       {history.location.pathname !== '/' && <ActionButton location={history.location}/> }
       {/* Modals */}
       <ModalEditAccount user={this.state.user}/>
-      <ModalAddGoal user={this.state.user}/>
+      {/* <ModalAddGoal user={this.state.user}/> */}
       <ModalAddGig user={this.state.user}/>
       <ModalAddCategory user={this.state.user}/>
     </div>

@@ -36,31 +36,41 @@ module.exports = {
         }
       })
       .then(user => {
-        
 
-        user.accounts = user.accounts.map(account => {
-          account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
-          account.defaultGigName = user.gigs.find(gig => gig._id.toString() === account.defaultGigId.toString()).name
+        if(user.accounts){
+          user.accounts = user.accounts.map(account => {
+            account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
+            account.defaultGigName = user.gigs.find(gig => gig._id.toString() === account.defaultGigId.toString()).name
+            return account
+          })
+        }
 
-          return account
-        })
+        console.log('testing 1')
+        // console.log(user)
 
-        
+
 
 
         console.log('map over gigs')
         user.gigs = user.gigs.map(gig => {
           // filter for transactions associated with gig
           gig.transactions = user.transactions.filter(t => t.gigId === gig._id.toString())
-
+          
           // if the gig has transactions...
           if (gig.transactions.length) {
             // // Sum the money coming in
-            gig.moneyIn = gig.transactions
-              .map(t => t.amount)
-              .filter(isNegative)
-              .reduce(sum)
+            console.log(`${gig.name} has ${gig.transactions.length} transactions`)
 
+            gig.moneyInCache = gig.transactions
+            .map(t => t.amount)
+            .filter(isNegative)
+
+            gig.moneyIn = gig.moneyInCache.length > 0 ? gig.moneyInCache.reduce(sum) : 0.0
+            
+
+            console.log(gig)
+
+            
             // Sum the money going out
             gig.moneyOut = gig.transactions
               .map(t => t.amount)
@@ -96,13 +106,19 @@ module.exports = {
             })).sort((a, b) => b.total - a.total)
 
           }
+          console.log(gig.name)
+          console.log(gig.moneyIn)
           return gig
         })
+
 
         user.categories = []
 
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
+
+        console.log('user')
+        console.log(user)
 
         db.PlaidCategory
         .find({})
@@ -114,14 +130,13 @@ module.exports = {
           dbPlaidCat.map(plaidCat => {
             userWithoutItems.categories.push({name: plaidCat.name});
           })
-          // console.log(userWithoutItems)
+          console.log(userWithoutItems)
 
           res.json(userWithoutItems);
-        })
-        .catch(err => console.log(err))
-
-      })
-      .catch(err => res.status(404).json({ err: "didn't find it" }))
+        }).catch(err => {console.log(err) ; return err})
+        .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
+        .catch(err => {console.log(err) ; return err})
+      }).catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
   },
 
   createUserIfDoesNotExist: (req, res) => {
@@ -171,7 +186,7 @@ module.exports = {
   },
 
   addItemToUser: (data, res) => {
-    // console.log(data.user)
+    console.log('adding items and accounts to the user')
     db.User
       .findOneAndUpdate({ "auth_id": data.user.sub }, 
       { $push: { "items": 
@@ -198,6 +213,12 @@ module.exports = {
       return [ accounts, personalGigResponse, dbUser ]
     })
     .then( ( [accounts, personalGig, dbUser] = data ) => {
+      console.log('dbUser')
+      console.log(dbUser)
+      console.log('accounts')
+      console.log(accounts)
+      console.log('personalGig')
+      console.log(personalGig)
       // whenever we save an account, we initialize the personal Gig as the default gig
       // we are going to create 1 to n accounts here, they are not dependent, so let's do it in parellel
       const createAccountPromises = accounts
@@ -217,6 +238,7 @@ module.exports = {
         })
       })
       .then( dbusers => res.status(201).json( { msg: 'sucessfully added accounts to user', user: user } ) )
+      .catch( err => { console.log(err); return err} )
       .catch( err => res.status(500).json( { msg: 'Could not sucessfully add accouts to user', err: err } ) )
       
   },
@@ -224,7 +246,6 @@ module.exports = {
   // all gigs need to be associated with a user
   addGigToUser: (req, res) => {
     console.log("add a gig to current user")
-    console.log(req.body)
     db.Gig.create(req.body)
       .then(dbGig => {
         db.User.findOneAndUpdate({ "auth_id": req.params.authId }, 
@@ -236,8 +257,6 @@ module.exports = {
       .then(dbGig => {
         // We allow users to create gigs regardless if they associate them with an account
         if(req.body.account_id){
-          console.log('we got an account id whats the problem')
-          console.log(dbGig)
           db.Account.findOneAndUpdate({ "_id": req.body.account_id }, 
           { defaultGigId: dbGig._id })
           .then(dbAccount => dbAccount)
