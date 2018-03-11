@@ -5,9 +5,6 @@ import {
   getAccessToken
 } from './AuthService';
 
-// axios.defaults.headers.common['Authorization'] = `Bearer ${getAccessToken()}`;
-// axios.defaults.headers.post['Authorization'] = `Bearer ${getAccessToken()}`;
-
 export default {
 
   // #############################################
@@ -19,10 +16,7 @@ export default {
 
   createUserIfDoesNotExist: () => {
       const user = decodeToken(getIdToken());
-
-      // const access = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJrSkZSa1EwUmpZMk4wVTVPREpHTVRCRE4wWkJNRFk1UVRRMU1EUXhNa0k1UWpFNE16aEdRUSJ9.eyJpc3MiOiJodHRwczovL2NoZWRhaC5hdXRoMC5jb20vIiwic3ViIjoiZmFjZWJvb2t8MTAxNTYxMzEzNzkzNjMwODgiLCJhdWQiOlsiaHR0cHM6Ly9jaGVkYWguaGVyb2t1YXBwLmNvbSIsImh0dHBzOi8vY2hlZGFoLmF1dGgwLmNvbS91c2VyaW5mbyJdLCJpYXQiOjE1MjA4MDE2MjcsImV4cCI6MTUyMDgwODgyNywiYXpwIjoiazRRZm81cFpVVDhieEJhMFY0dlJtUm9hRDI2WTEyNEciLCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIn0.i4PElViVU4xdSAYZz07EWPXFdjMZBVGRiE61XfsjlkWef-y8oiNaHzlGTsSSS8M1J1DxbDWljSs4cv4-yhYs5Jr4SIls98SlrULbGn9ywKPgPdkpr06ulylj9z2ggZ_34HHZToMGn_U1siBvzaFrv6h6ZMG9xMmaXo-IYjB_b4HbPtq6abp-KbyG0nSoJjRo5xhnx6_cm-gABcH5qgv8oRTCcBnDknApFTR300PxpnM0Jfxs7XXk5oBTnWR21uHC57y3vCjNOR37DluJX4FXIBNppUrP_UewmWVwFeIw0GfrtrkzVFi3vO9JYXUQgFy1zrlmplqBAQCLWWtG7sKTVg'
       return axios.post("/api/users", user, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
-      
   },
 
   // #############################################
@@ -94,10 +88,7 @@ export default {
   },
 
   accountsSync: () => {
-    console.log("Accounts syncing");
     const user = decodeToken(getIdToken());
-    console.log("USER");
-    console.log(user)
     axios.post('/api/users/transactions', user, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
