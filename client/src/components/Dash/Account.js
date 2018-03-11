@@ -8,16 +8,20 @@ class Account extends React.Component {
     renderGigs() {
         const gigList = (this.props.gigs) || []
         return (gigList.map((gig, i) => <div key={i} className='chip'>{gig}</div>));
+        // console.log('this.props.user.gigs')
+        // console.log(this.props.user.gigs)
     };
 
     componentWillReceiveProps(nextProps) {
         this.setState({...nextProps})
+       
     }
 
     renderChecking() {
         // const gigs = this.renderGigs();
         const checkingBalance = formatCurrencyValueJSX(this.props.balances.current);
         const accountHref = `accounts/${this.props._id}`;
+        console.log(`gig name: `, this.props.defaultGigId);
         return (
             <div className='row collapsible-body'>
                 <div className='row'>
@@ -31,7 +35,9 @@ class Account extends React.Component {
                 <div className='row pl-1'>
 
                     <div className='col s12'>
-                        <div className='chip'>No Gig</div>
+                        <div className='chip'>no gig</div>
+                        
+                        
                     </div>
 
                 </div>
