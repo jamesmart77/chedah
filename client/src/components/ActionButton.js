@@ -11,13 +11,6 @@ const actions = {
             modal: 'add-gig-modal'
         },
         {
-            title: 'Add Goal',   // TODO: needs gig menu
-            icon: 'work',
-            id: 'action-add-goal',
-            color: 'teal darken-3',
-            modal: 'add-goal-modal'
-        },
-        {
             title: 'Add Category',
             icon: 'insert_comment',
             id: 'action-add-category',

@@ -21,8 +21,6 @@ class MainMenu extends Component {
                 {/* <!-- Main Menu (Desktop Dropdown) --> */}
                 <ul id="desktop-main-menu" className="dropdown-content">
                     <li><a href="/accounts"><i className="large material-icons">account_balance</i>Accounts</a></li>
-                    <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
-                    <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
                     {/* if you get a jwt-auth error, navigate to the API.accountsSync function and comment out the function body until you login */}
                     <li className="divider"></li>
                     <li><a href="#!" onClick={() => API.accountsSync()}><i className="large material-icons">sync</i>Sync Accounts</a></li>
@@ -36,8 +34,6 @@ class MainMenu extends Component {
                 {/* <!-- Main Menu (Mobile Hamburger) --> */}
                 <ul id="mobile-main-menu" className="side-nav">
                     <li><a disabled href="/accounts"><i className="large material-icons">account_balance</i>Accounts</a></li>
-                    <li><a href="#!"><i className="large material-icons">work</i>Gigs</a></li>
-                    <li><a href="#!"><i className="large material-icons">insert_chart</i>Goals</a></li>
                     <li><div className="divider"></div></li>
                     <li><a href="#!" onClick={() => API.accountsSync()}><i className="large material-icons">sync</i>Sync Accounts</a></li>
                     <li><div className="divider"></div></li>

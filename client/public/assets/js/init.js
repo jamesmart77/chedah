@@ -61,6 +61,14 @@
             constrainWidth: false // don't force a fixed width
         });
 
+        $('.account-actions').dropdown({
+            hover: false,
+            // gutter:100,         // push menu to the left
+            belowOrigin: true,
+            alignment: 'right',
+            constrainWidth: false // don't force a fixed width
+        });
+
         // dropdown items color
         $('.dropdown-content>li>a').css('color', '#666');
 
