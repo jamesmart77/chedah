@@ -17,16 +17,19 @@ class Account extends React.Component {
        
     }
 
-    renderChecking() {
+    renderType(accountType) {
         // const gigs = this.renderGigs();
         const checkingBalance = formatCurrencyValueJSX(this.props.balances.current);
         const accountHref = `accounts/${this.props._id}`;
         console.log(`gig name: `, this.props.defaultGigId);
         return (
-            <div className='row collapsible-body'>
+            // This is buggy, fix it then add it back after
+            // <div className='row collapsible-body'>
+            <div className='row'>
+            
                 <div className='row'>
                 <div className='col s8 tooltipped' dataposition="top" datadelay="50" datatooltip={this.props.official_name}>
-                        <i className='material-icons inflex'>attach_money</i>
+                        <i className='material-icons inflex'>{accountType}</i>
                         <a className="side-headers" href={accountHref}> {this.props.name}</a>
                     </div>
                     <div className='col s4 account-total'>{checkingBalance}</div>
@@ -35,7 +38,7 @@ class Account extends React.Component {
                 <div className='row pl-1'>
 
                     <div className='col s12'>
-                        <div className='chip'>no gig</div>
+                        <div className='chip'>{this.props.defaultGigName}</div>
                         
                         
                     </div>
@@ -43,51 +46,15 @@ class Account extends React.Component {
                 </div>
             </div>
         );
-    };
+    }
 
-    renderCredit() {
-        // available, current, limit
-        console.log(`credit: `, this.props.balances);
-        // const gigs = this.renderGigs();
-        const creditTotal = formatCurrencyValueJSX(this.props.balances.limit);
-        const creditBalance = formatCurrencyValueJSX(this.props.balances.current);
-        const accountHref = `accounts/${this.props._id}`;
-        return (
-
-                <div className='row collapsible-body'>
-                <div className='row'>
-                    <div className='col s8'>
-                        <i className='material-icons inflex'>credit_card</i>
-                        <a className="side-headers" href={accountHref}> {this.props.name}</a>
-                    </div>
-                    <div className='col s4 account-total'>{creditBalance}</div>
-                </div>
-
-                <div className='row pl-1'>
-
-                    <div className='col s8'>
-                        <div className='chip'>No Gig</div>
-                    </div>
-
-                    <div className='col s4 account-total right-align'>
-                        <div>{creditTotal}</div>
-                    </div>
-
-                </div>
-            </div>
-
-        )
-    };
 
     render() {
-        let result;
-        if (this.props.type === 'credit') {
-            result = this.renderCredit();
-        } else {
-            result = this.renderChecking();
-        }
+        return (<div>
+            { this.props.type === 'credit' && this.renderType('credit_card') }
+            { this.props.type !== 'credit' &&  this.renderType('attach_money') }
+        </div>)
 
-        return (result);
     }
 }
 

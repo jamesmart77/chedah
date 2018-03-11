@@ -25,11 +25,7 @@ class App extends React.Component {
 
   getUser(){
     API.getUser()
-      .then(user => {
-        console.log("we got a user")
-        let userData = user.data;
-        this.setState({user: userData});
-      })
+      .then(user => this.setState({user: user.data}))
       .catch(err => {
         console.log("we got a err")
         console.log(err)
@@ -51,6 +47,7 @@ class App extends React.Component {
 
   render() { return <Router history={history}>
     <div>
+      { this.state.error && <h1 className='error'>{ this.state.error }</h1> }
       <Nav user={this.state.user} />
       {/* <Breadcrumbs location={history.location}/> */}
       {history.location.pathname !== '/' && <Breadcrumbs location={history.location}/> }

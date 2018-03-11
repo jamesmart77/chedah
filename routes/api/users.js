@@ -18,6 +18,9 @@ router.route('/transactions')
 router.route('/:authId/categories')
   .post(userControllers.getCategories)
 
+router.route('/:authId/categories/create')
+  .post(userControllers.createCategory)
+
 router.route('/:authId/accounts')
   .post(userControllers.getAccounts)
 
