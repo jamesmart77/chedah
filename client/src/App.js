@@ -46,7 +46,7 @@ class App extends React.Component {
 
     componentWillMount() {
       
-      this.getUser()
+      // this.getUser()
   }
 
   render() { return <Router history={history}>
@@ -68,8 +68,6 @@ class App extends React.Component {
                       <Route exact path="/accounts/:id" component={AccountDetail} />
                   </Switch>
               )
-          } else {
-            // window.location.href = "/"
           }
         })()}
       </Switch>
