@@ -335,7 +335,12 @@ textarea.materialize-textarea {
 
 }
 
-/* Cards  */
+
+/*---------------------------------
+    Cards
+-----------------------------------*/
+
+
 .card .card-title {
     font-size: 1.25rem;
     font-weight: 300;
@@ -406,6 +411,11 @@ h4.dash-title {
     background-clip: padding-box;
 }
 
+
+/*---------------------------------
+    Tabs
+-----------------------------------*/
+
 /* default tab settings */
 .tabs .tab {
     font-family: 'Scope One', serif;
@@ -460,6 +470,7 @@ span.badge.new {
 /*----------------------------------------
     Right Slideout
 ------------------------------------------*/
+
 #right-search .input-field {
     margin-top: 0;
 }
@@ -530,6 +541,7 @@ span.badge.new {
 /*----------------------------------------
     Dashboard Gig Widget
 ------------------------------------------*/
+
 .gig-dash-card {
 }
 
@@ -668,18 +680,32 @@ span.balance {
     background-color: #bb031b;
 }
 
-a.gig-frequency {
+a.gig-frequency,
+a.account-actions {
     color: #333;
     font-size: 1rem;
+}
+
+.gig-frequency .material-icons,
+.account-actions .material-icons {
+    vertical-align: bottom;
 }
 
 a.side-headers {
     color: #3d3d3d !important;
 }
 
-.gig-frequency .material-icons {
-    vertical-align: bottom;
+a.side-headers:hover {
+    font-weight: 300;
+    color: #6a1e07 !important;
+    text-shadow: 1px 1px 2px #44444499;
 }
+
+.account-view-card a:active, a:hover {
+    text-decoration: none;
+}
+
+
 
 .gig-dropdown .dropdown-content li>a,
 .dropdown-content li>span {
@@ -691,9 +717,34 @@ a.side-headers {
     text-shadow: 1px 1px 1px #3333333b;
 }
 
+/*---------------------------------
+    Main Menu
+-----------------------------------*/
+.dropdown-content .title {
+
+}
+
+.dropdown-content ul li:hover {
+   background-color: red;
+}
+
+.dropdown-content li.submenu>a:before,
+.dropdown-content li.submenu>span:before {
+    content: "• ";
+}
+
+.dropdown-content li.submenu>a,
+.dropdown-content li.submenu>span {
+    background-color: #f1f1f1;
+    color: #121325;
+    font-size: 0.9rem;
+    padding: 1rem 3rem;
+}
+
 /*----------------------------------------
     Gig Summary
 ------------------------------------------*/
+
 .account-summary .collapsible-body,
 .goal-summary .collapsible-body,
 .gig-summary .collapsible-body {
@@ -980,11 +1031,16 @@ img.productIMG {
 
 .modal .select-wrapper input.select-dropdown {
     background-color: transparent;
-    border: none;
+    border: 1px solid #66666621;
     border-radius: 4px;
     height: 2rem;
     padding: 4px 4px 4px 4px;
     text-indent: 1rem;
+    bottom: -0.6rem;  /* not sure about this */
+}
+
+.select-wrapper span.caret {
+    bottom: -0.6rem;  /* not sure about this either */
 }
 
 .modal .dropdown-content {

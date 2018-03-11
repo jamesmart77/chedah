@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-class HeaderMenu extends Component {
+class HeaderMenu extends React.Component {
 
-    state = {
-        id: this.props.id || 'dropdown-menu',
-        key: this.props.key || '1',
-        items: []
+    constructor(props) {
+        super(props)
+
+
+        this.state = {
+            id: props.id || 'dropdown-menu',
+            key: props.key || '1',
+            items: props.items || []
+        }
     }
-
 
     handleClick(item) {
         console.log(`-> item clicked: `, item);
@@ -17,12 +21,12 @@ class HeaderMenu extends Component {
     render() {
         const trigger = (this.state.id + '-' + this.state.key);
         const listItems = this.state.items.map((item, i) =>
-            <li><a href="#!" onClick={this.handleClick.bind(this, item)}>{item}</a></li>
+            <li key={i}><a href="#!" onClick={this.handleClick.bind(this, item)}>{item}</a></li>
         )
 
         return (
             <div className="col right">
-                <a className="dropdown-button gig-frequency" href="#!" data-activates={trigger}><i className="material-icons">arrow_drop_down</i></a>
+                <a className="dropdown-button account-actions" href="#!" data-activates={trigger}><i className="material-icons">arrow_drop_down</i></a>
                     <ul id={trigger} className="dropdown-content">
                         {listItems}
                     </ul>

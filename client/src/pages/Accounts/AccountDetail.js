@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 // import {Account, GigMenu} from '../../components/Accounts';
 import Moment from 'react-moment';
 import API from '../../utils/API';
-import {Table} from '../../components/DataTable';
+import { Table } from '../../components/DataTable';
 import {formatCurrencyValueJSX} from '../../utils/currency';
 import axios from 'axios';
 
@@ -63,8 +63,9 @@ class AccountDetail extends Component {
         console.log(`querying account: `, this.state.account_id);
         API.getAccount({accountId: this.state.account_id})
         .then(acct => {
-            console.log(`account data: `, acct.data);
+            console.log(`-> account data: `, acct.data);
             this.setState(acct.data)
+
         })
         .catch(err => {
             console.log(`Error: `, err);
@@ -203,17 +204,17 @@ class AccountDetail extends Component {
         } else {
             accountDetails = this.renderCheckingTable()
         }*/
-
+        const iconName = (this.state.type == 'credit') ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
         const currentBalance = this.state.balances ? this.state.balances.current : 0
         const currentLimit = this.state.balances ? this.state.balances.limit : 0
         return (
-            <div class="row">
-                <div class="col s12">
+            <div className="row">
+                <div className="col s12">
                     <div className="card account-detail">
                    <div className="card-header">
                      <div className="row valign-wrapper">
                        <div className="col s12 m6 left-align text-left">
-                         <span className="card-title white-text left-align"><i className="material-icons">credit_card</i> {this.state.name} - <span className="account-num">{this.state.mask}****</span></span>
+                         <span style={{verticalAlign: 'middle'}} className="card-title white-text left-align"><span  className={iconName}></span>  {this.state.name} - <span className="account-num">{this.state.mask}****</span></span>
                        </div>
                        <div className="col s12 m6 right-align">
                          <span className="account-avail white-text"> Available Balance: <span className="account-balance"><sup>$</sup>{currentBalance}</span></span>
@@ -252,13 +253,16 @@ class AccountDetail extends Component {
                      </div>
                      <div className="row">
                        <div className="col s12">
+
+                           <Table transactionsUpdated={this.transactionsUpdated.bind(this)} {...this.state}/>
                        </div>
                      </div>
                    </div>
                  </div>
-</div></div>
+             </div>
+         </div>
 
-             );
+       );
     }
 }
 
