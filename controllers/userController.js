@@ -223,26 +223,29 @@ module.exports = {
 
   // all gigs need to be associated with a user
   addGigToUser: (req, res) => {
+    console.log("add a gig to current user")
     console.log(req.body)
-    db.Gig.create({ 'name': req.body.name })
+    db.Gig.create(req.body)
       .then(dbGig => {
-        console.log(dbGig._id)
-        return db.User
-          .findOneAndUpdate({
-            "auth_id": req.params.authId
-          }, {
-              $push: {
-                gigs: dbGig._id
-              }
-            }, {
-              new: true
-            })
+        db.User.findOneAndUpdate({ "auth_id": req.params.authId }, 
+        { $push: { gigs: dbGig._id } }, 
+          { new: true })
+        .then(dbUser => dbGig)
+        return dbGig
       })
-      .then(dbUser => res.json(dbUser))
-      .catch(err => {
-        console.log(err)
-        res.status(500).json({ err: err })
-      })
+      .then(dbGig => {
+        // We allow users to create gigs regardless if they associate them with an account
+        if(req.body.account_id){
+          console.log('we got an account id whats the problem')
+          console.log(dbGig)
+          db.Account.findOneAndUpdate({ "_id": req.body.account_id }, 
+          { defaultGigId: dbGig._id })
+          .then(dbAccount => dbAccount)
+        }
+        return dbGig
+        })   
+        .then(dbGig => res.json({msg: "Created a gig great job homey"}))
+        .catch(err => res.status(500).json({ msg: "We were unable to create a gig", err: err } ) )
   },
 
   getTransactions: (req, res) => {

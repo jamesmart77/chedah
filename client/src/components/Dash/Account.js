@@ -19,7 +19,7 @@ class Account extends React.Component {
 
   renderType (accountType) {
     // const gigs = this.renderGigs()
-    const checkingBalance = formatCurrencyValueJSX(this.props.balances.current)
+    const balance = formatCurrencyValueJSX(this.props.balances.current)
     const accountHref = `accounts/${this.props._id}`
     console.log(`gig name: `, this.props.defaultGigId)
     return (
@@ -27,26 +27,25 @@ class Account extends React.Component {
       // <div className='row collapsible-body'>
       <div className='row'>
         <div className='row'>
-          <div
-            className='col s8 tooltipped'
-            dataposition='top'
-            datadelay='50'
-            datatooltip={this.props.official_name}>
+          <div className='col s8'>
             <i className='material-icons inflex'>{accountType}</i>
             <a className='side-headers' href={accountHref}>
               {this.props.name}
             </a>
           </div>
           <div className='col s4 account-total'>
-            {checkingBalance}
+            {balance}
           </div>
         </div>
         <div className='row pl-1'>
-          <div className='col s12'>
+          <div className='col s8'>
             <div className='chip'>
               {this.props.defaultGigName}
             </div>
           </div>
+          {accountType === 'credit_card' && (<div className='col s4 account-total right-align'>
+                                               {formatCurrencyValueJSX(this.props.balances.limit)}
+                                             </div>)}
         </div>
       </div>
     )
