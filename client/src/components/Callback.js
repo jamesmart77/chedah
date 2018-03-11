@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { setIdToken, setAccessToken } from '../utils/AuthService';
+import { setIdToken, setAccessToken, isIdAndAccessSet } from '../utils/AuthService';
 import API from '../utils/API';
 
 /*
@@ -7,19 +7,27 @@ Once a user is authenticated, Auth0 will redirect back to our application and ca
 */
 
 class Callback extends Component {
+  
+  // componentWillMount(){
+  //   setAccessToken();
+  //   setIdToken();
+  // }
+
+  constructor() {
+    super()
+  }
+  
   componentDidMount() {
     setAccessToken();
     setIdToken();
 
     API.createUserIfDoesNotExist()
-    .then(res => {
-
-      console.log("WTF Happaned")
-      console.log(res.data);
-      window.location.href = "/dashboard"
-      
-    })
-    .catch(console.log);
+      .then(res => {
+        window.location.href = "/dashboard"
+      })
+      .catch((err) => {
+        console.log(err)
+      });
   }
 
   render() {

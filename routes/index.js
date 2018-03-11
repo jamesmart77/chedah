@@ -10,7 +10,14 @@ const jwtCheck = jwt({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: 'https://chedah.auth0.com/.well-known/jwks.json'
+    jwksUri: 'https://chedah.auth0.com/.well-known/jwks.json',
+    handleSigningKeyError: (err, cb) => {
+      if (err instanceof jwks.SigningKeyNotFoundError) {
+        return cb(new Error('This is a bad sign in!!'));
+      }
+  
+      return cb(err);
+    }
   }),
   audience: 'https://chedah.herokuapp.com',
   issuer: 'https://chedah.auth0.com/',
@@ -18,7 +25,7 @@ const jwtCheck = jwt({
 })
 
 // API Routes
-router.use('/api', apiRoutes)
+router.use('/api', jwtCheck, apiRoutes)
 
 module.exports = router
 
