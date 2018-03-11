@@ -20,7 +20,7 @@ const defaultCategories = [
 
 
 // add goal modal
-class ModalAddGoal extends React.Component {
+class ModalEditGoal extends React.Component {
 
     constructor(props) {
         super(props);
@@ -57,7 +57,7 @@ class ModalAddGoal extends React.Component {
         )
 
         return (
-            <div id="add-goal-modal" className="modal" data-modal="data-modal" style={{height: '70%'}}>
+            <div id="add-goal-modal" className="modal" data-modal="data-modal" style={{minHeight: '60%'}}>
             <div className="modal-content">
                 <div className="modal-title">
                     <h4>Add a Goal</h4>
@@ -94,4 +94,4 @@ class ModalAddGoal extends React.Component {
     }
 }
 
-export default ModalAddGoal;
+export default ModalEditGoal;

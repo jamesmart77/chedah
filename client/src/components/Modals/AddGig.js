@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import API from '../../utils/API';
 //const $ = require('jquery');
 import { Input } from 'react-materialize'
 
 
 // add gig modal
-class ModalAddGig extends Component {
+class ModalAddGig extends React.Component {
 
     constructor(props) {
         super(props);

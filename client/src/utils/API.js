@@ -15,7 +15,21 @@ export default {
   // #############################################
 
   // if there is a token, get current user
-  getUser: (data) => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
+
+  getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
+  
+  // get user categories
+  // data.userId = 
+  getUserCategories: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/categories`, data),
+  
+  // get user categories
+  // data.userId = 
+  
+  getUserAccounts: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/accounts`, data),
+  // get user categories
+  // data.userId = 
+  
+  getUserGigs: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/gigs`, data),
 
 
   /*
@@ -93,9 +107,16 @@ export default {
     return axios.delete(`/api/accounts/${data.accountId}`, data)
   },
 
-  
 
-  
+  // #############################################
+  // Categories
+  // #############################################
+  // data.userId
+  // data.name
+  createCategory: data => {
+    data.userId = decodeToken(getIdToken()).sub
+    return axios.post('/api/categories', data)
+  },
 
   // createItem: plaidObj => {
   //   const data = {};

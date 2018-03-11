@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import API from '../../utils/API';
 
 
 // add account modal
-class ModalEditAccount extends Component {
+class ModalEditAccount extends React.Component {
 
     constructor(props) {
         super(props);
@@ -21,7 +21,7 @@ class ModalEditAccount extends Component {
         return (
                  <div id="edit-account-modal" className="modal" data-modal style={{width: '60%', height: '60%'}}>
                    <div className="modal-content">
-                       
+
                        <div className="modal-title">
                            <h4>Edit Account</h4>
                        </div>
