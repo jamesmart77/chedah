@@ -4,8 +4,8 @@ const gigController = require('../../controllers/gigController')
 // post to '/api/gigs' 
 router.post('/account', gigController.addGigToAccount)
 
-// router.get('/gig/:name?', gigController.findGigByName)
-router.get('/:id', gigController.findGigById)
+// router.get('/gig/:id, gigController.findGigByName)
+router.get('/:id', gigController.findById)
 
 router.post('/:id', gigController.addGoalToGig)
 

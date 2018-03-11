@@ -2,3 +2,6 @@
 .env
 client/build
 .DS_Store
+test.js
+test2.js
+test3.js

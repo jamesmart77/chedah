@@ -32,15 +32,15 @@ module.exports = {
         });
       }
 
-      console.log("USER INFO IN PLAID CONTROLLER")
-      console.log(req.body)
+      // console.log("USER INFO IN PLAID CONTROLLER")
+      // console.log(req.body)
       const item = {
         ACCESS_TOKEN : tokenResponse.access_token,
         ITEM_ID : tokenResponse.item_id
       }
 
-      console.log('Access Token: ' + item.ACCESS_TOKEN);
-      console.log('Item ID: ' + item.ITEM_ID);
+      // console.log('Access Token: ' + item.ACCESS_TOKEN);
+      // console.log('Item ID: ' + item.ITEM_ID);
 
       //pass the user, item and res to addItemToUser controller
       userController.addItemToUser({user: req.body.user, item: item}, res);

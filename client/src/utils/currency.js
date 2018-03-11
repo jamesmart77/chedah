@@ -29,3 +29,4 @@ export function formatChangeValueJSX(val, expense=false) {
         <span className={'gig-dash-' + (isLoss === true ? 'loss' : 'gain')}>{(val < 0) ? '-' : '+'}${valarr[0]}.{valarr[1]}</span>
     );
 };
+

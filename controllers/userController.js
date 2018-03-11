@@ -7,9 +7,8 @@ const axios = require('axios')
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
-const request = require("request");
-
-
+const request = require("request")
+const {isNegative, isPositive, sum, sortObjects} = require('../utils')
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -22,8 +21,9 @@ var client = new plaid.Client(
 module.exports = {
 
   getUser: (req, res) => {
+    
     console.log('getting the user')
-    db.User.findOne({ auth_id: req.params.authId })
+    db.User.findOne({ auth_id: req.params.authId }).lean()
       .populate('accounts')
       .populate('transactions')
       .populate('gigs')
@@ -35,28 +35,23 @@ module.exports = {
           model: 'Goal'
         }
       })
-      .then(dbUser => {
-
-        // This breaks the pointer in memory and copies the object
-        const user = JSON.parse(JSON.stringify(dbUser, null, 2))
-
-        const isNegative = num => num < 0 ? true : false
-        const isPositive = num => num > 0 ? true : false
-        // const isPositive = R.complement(isNegative)
-        const sum = (x, y) => Math.abs(x) + Math.abs(y)
-        const sortObjects = (x, y) => x.total - y.total > 0 ? x : y
-
+      .then(user => {
+        
 
         user.accounts = user.accounts.map(account => {
           account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
+          account.defaultGigName = user.gigs.find(gig => gig._id.toString() === account.defaultGigId.toString()).name
+
           return account
         })
+
+        
 
 
         console.log('map over gigs')
         user.gigs = user.gigs.map(gig => {
           // filter for transactions associated with gig
-          gig.transactions = user.transactions.filter(t => t.gigId === gig._id)
+          gig.transactions = user.transactions.filter(t => t.gigId === gig._id.toString())
 
           // if the gig has transactions...
           if (gig.transactions.length) {
@@ -119,7 +114,7 @@ module.exports = {
           dbPlaidCat.map(plaidCat => {
             userWithoutItems.categories.push({name: plaidCat.name});
           })
-          console.log(userWithoutItems)
+          // console.log(userWithoutItems)
 
           res.json(userWithoutItems);
         })
@@ -176,64 +171,54 @@ module.exports = {
   },
 
   addItemToUser: (data, res) => {
-
-    console.log(data.user)
+    // console.log(data.user)
     db.User
-      .findOneAndUpdate({
-        "auth_id": data.user.sub
-      }, {
-          $push: {
-            "items": {
-              "access_token": data.item.ACCESS_TOKEN,
-              "item_id": data.item.ITEM_ID
-            }
-          }
-        }, {
-          upsert: true
-        })
-      .then(dbUser => {
-        // axios request here
-        axios.post('https://sandbox.plaid.com/accounts/get', {
-          client_id: process.env.PLAID_CLIENT_ID,
-          secret: process.env.PLAID_SECRET,
-          access_token: data.item.ACCESS_TOKEN
-        })
-          .then(res => {
-            const promises = res.data.accounts.map(account => {
-              db.Gig.findOne({
-                name: 'Personal'
-              }).then(dbGig => {
-                account.defaultGigId = dbGig._id
-                db.Account.create(account)
-                  .then(dbAccount => {
-                    console.log('created account')
-                    return db.User.findOneAndUpdate({
-                      _id: dbUser._id
-                    }, {
-                        $push: {
-                          accounts: dbAccount._id
-                        }
-                      }, {
-                        new: true
-                      })
-                  })
-                  .catch(console.log)
-              })
-            }).then(dbUser => {
-              res.json(dbUser)
-              console.log(res.data)
-            })
-              .catch((err) => {
-                console.log("error adding item to user");
-                console.log(err);
-                res.json(err);
-              });
-          }).catch(console.log)
-
+      .findOneAndUpdate({ "auth_id": data.user.sub }, 
+      { $push: { "items": 
+        { "access_token": data.item.ACCESS_TOKEN, "item_id": data.item.ITEM_ID } } 
+      }, 
+      { upsert: true }
+    )
+    .then(dbUser => {
+      // We are going to get the plaid promise and the personal gig promise in parellel here
+      const plaidPromise = axios.post('https://sandbox.plaid.com/accounts/get', {
+        client_id: process.env.PLAID_CLIENT_ID,
+        secret: process.env.PLAID_SECRET,
+        access_token: data.item.ACCESS_TOKEN
       })
 
+      const personalGigPromise =  db.Gig.findOne({ name: 'Personal' }).lean()
 
-    // res.json({userId});
+      return Promise.all([ plaidPromise, personalGigPromise ])
+        .then(data => [...data, dbUser])
+    })
+    // destructure the accounts out of the plaid response and return
+    .then( ( [plaidResponse, personalGigResponse, dbUser ] = data ) =>  {
+      const { data: { accounts } } = plaidResponse
+      return [ accounts, personalGigResponse, dbUser ]
+    })
+    .then( ( [accounts, personalGig, dbUser] = data ) => {
+      // whenever we save an account, we initialize the personal Gig as the default gig
+      // we are going to create 1 to n accounts here, they are not dependent, so let's do it in parellel
+      const createAccountPromises = accounts
+        .map(account => {
+          account.defaultGigId = personalGig._id
+          return account
+        })
+        .map(account => db.Account.create(account))
+      
+      return Promise.all(createAccountPromises)
+        .then(dbAccounts => {
+          const updateUserPromises = dbAccounts.map(dbAccount => db.User.findOneAndUpdate({_id: dbUser._id }, 
+                        { $push: { accounts: dbAccount._id } }, 
+                        { new: true })
+          )
+          return Promise.all(updateUserPromises)
+        })
+      })
+      .then( dbusers => res.status(201).json( { msg: 'sucessfully added accounts to user', user: user } ) )
+      .catch( err => res.status(500).json( { msg: 'Could not sucessfully add accouts to user', err: err } ) )
+      
   },
 
   // all gigs need to be associated with a user
@@ -366,12 +351,22 @@ module.exports = {
         db.PlaidCategory.find().lean()
           .then(plaidCategories => {
             const allCategories = [...categories, ...plaidCategories]
-            console.log(allCategories)
             res.json(allCategories)
           })
       })
   },
-
+  
+  createCategory: (req, res) => {
+    console.log('lets create a user category')
+    db.Category.create({name: req.body.name})
+    .then(dbCategory => {
+      db.User.findOneAndUpdate({ "auth_id": req.params.authId },
+      {$push: {categories: dbCategory._id}})
+      .then(dbUser => res.status(201).json(dbUser))
+      .catch(err => res.status(404).json({msg: "You were not able to create an category", err: err}))
+    })
+  },
+  
   getAccounts: (req, res) => {
     console.log('lets get those user accounts shall we')
     db.User.findOne({ auth_id: req.params.authId }).lean()

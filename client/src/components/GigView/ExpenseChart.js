@@ -67,9 +67,15 @@ class ExpenseChart extends Component {
     // render the component
 	render() {
 
-        const expenseTotal = formatCurrencyValueJSX(this.props.total)
-        console.log(`total -> `, this.props.total);
-		chartOptions.title.text = this.props.gigName + ' Expenses: ' + expenseTotal
+				const expenseTotal = formatCurrencyValueJSX(this.props.total)
+				console.log('expenseTotal')
+				console.log(expenseTotal)
+				console.log('typeof expenseTotal')
+				console.log(typeof expenseTotal)
+				console.log(`total -> `, this.props.total);
+				console.log(`total -> `, typeof this.props.total);
+		// chartOptions.title.text = this.props.gigName + ' Expenses: ' + expenseTotal
+		chartOptions.title.text = this.props.gigName + ' Expenses: ' + this.props.total.toFixed(2)
 		chartData.labels = this.props.expenses.map(e => e.name)
 		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => e.total), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00', '#F5AA9D', '#FA1B5E']}]
 		const details = this.renderDetail();

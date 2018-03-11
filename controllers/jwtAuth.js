@@ -30,7 +30,7 @@ module.exports = function (req, res, next) {
         res.redirect('/login')
     } else {
         //authenticate token
-        // console.log("secret: " + secret.tokenSecret)
+        console.log("secret: " + secret.tokenSecret)
 
         jwt.verify(cookieToken, secret.tokenSecret, function (err, data) {
             if (err) {
