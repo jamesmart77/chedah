@@ -17,15 +17,4 @@ describe("Goal", () => {
     });
   });
 
-  describe("/Goals", () => {
-      it("Should get al lof the user data", done => {
-          chai.request(server.app)
-          .get("/api/goals/goals")
-          .end((err, res) => {
-              res.should.have.status(200);
-              done();
-          })     
-      })
-    })
-
 });
