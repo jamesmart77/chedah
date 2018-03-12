@@ -1,46 +1,60 @@
 import React from 'react';
 import Select from 'react-select';
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
 
+class Multiselect extends React.Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      multi: true,
+      multiValue: [],
+      options: [],
+      value: undefined
+    }
+  }
 
-var Multiselect = createClass({
-	displayName: 'CreatableDemo',
-	propTypes: {
-		hint: PropTypes.string,
-		label: PropTypes.string
-	},
-	getInitialState () {
-		return {
-			multi: true,
-			multiValue: [],
-			options: [
-				{ value: 'R', label: 'Red' },
-				{ value: 'G', label: 'Green' },
-				{ value: 'B', label: 'Blue' }
-			],
-			value: undefined
-		};
-	},
 	handleOnChange (value) {
-		const { multi } = this.state;
+    console.log('this handleOnChange')
+    console.log(this)
+    console.log('this.state')
+    console.log(this.state)
+		const { multi } = this.state.multi;
 		if (multi) {
+      console.log('this.state.multi')
+      console.log(this.state.multi)
 			this.setState({ multiValue: value });
 		} else {
+      console.log('this.state.value')
+      console.log(this.state.value)
 			this.setState({ value });
-		}
-	},
+    }
+    this.state.getCategories(this.state.multiValue)
+  }
+
+  componentWillReceiveProps({categories, getCategories}){
+    console.log('this componentWillReceiveProps')
+    console.log(this)
+    // console.log(getCategories)
+    // getCategories('da fuck')
+    const options = categories.map(oldCat => {
+      const newCat = {}
+      newCat.label = oldCat.name
+      newCat.value = oldCat._id
+      return newCat
+    })
+    this.setState({options: options, getCategories: getCategories})
+  }
+
 	render () {
 		const { multi, multiValue, options, value } = this.state;
 		return (
 			<div className="section">
 				<h3 className="section-heading">{this.props.label} </h3>
 				<Select.Creatable
-					multi={multi}
+					multi={this.state.multi}
 					options={options}
-					onChange={this.handleOnChange}
-					value={multi ? multiValue : value}
+					onChange={this.handleOnChange.bind(this)}
+					value={multiValue}
 				/>
 				<div className="hint">{this.props.hint}</div>
 				<div className="checkbox-list">
@@ -66,34 +80,6 @@ var Multiselect = createClass({
 			</div>
 		);
 	}
-});
+};
 
-
-
-// class Multiselect extends React.Component {
-//     state = {
-//       selectedOption: '',
-//     }
-//     handleChange = (selectedOption) => {
-//       this.setState({ selectedOption });
-//       console.log(`Selected: ${selectedOption.label}`);
-//     }
-//     render() {
-//       const { selectedOption } = this.state;
-//       const value = selectedOption && selectedOption.value;
-  
-//       return (
-//         <Select
-//         //   className= "browser-default"
-//           name="form-field-name"
-//           value={value}
-//           onChange={this.handleChange}
-//           options={[
-//             { value: 'one', label: 'One' },
-//             { value: 'two', label: 'Two' },
-//           ]}
-//         />
-//       );
-//     }
-//   }
-  export default Multiselect;
+export default Multiselect;

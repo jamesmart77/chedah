@@ -55,8 +55,15 @@ class ModalAddGoal extends React.Component {
       console.log(event.target.name)
       console.log(event.target.value)
     //   {name: value} = e.target
-      this.setState({[event.target.name]: event.target.value});
+      this.setState({[event.target.name]: event.target.value})
     }
+
+    // this is for the multi select
+    getCategories = categories => {
+        this.setState({ categories: categories })
+    }
+    
+
 
   handleClick (val) {
     console.log(`selected: `, val)
@@ -100,12 +107,12 @@ class ModalAddGoal extends React.Component {
           </div>
           <div className='row'>
             <div className='col s6'>
-            <Multiselect/>
-              <select className="browser-default" onChange={this.handleChange} name='categories' multiple='multiple'>
-                {this.state.userCategories.map(category => <option value={category._id} key={category._id}>
+            <Multiselect categories= { this.state.userCategories } getCategories={ ()=> this.getCategories.bind(this) }/>
+              {/* <select className="browser-default" onChange={this.handleChange} name='categories' multiple='multiple'> */}
+                {/* {this.state.userCategories.map(category => <option value={category._id} key={category._id}>
                                                          {category.name}
                                                        </option>)}
-              </select>
+              </select> */}
             </div>
             <div className='col s6'></div>
           </div>
