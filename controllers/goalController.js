@@ -21,23 +21,37 @@ module.exports = {
 
       db.Goal.create(goal)
         .then(dbGoal => {
-          dbGoal.categories.push(categories)
-          dbGoal.save();
+          // dbGoal.categories.push(categories)
+          // dbGoal.save();
           console.log('dbGoal._id')
           console.log(dbGoal._id)
           console.log('gigId')
           console.log(req.body.gigId)
-          db.Gig
-          .findOneAndUpdate({_id: req.body.gigId}, 
+          
+          const gigPromise = db.Gig.findOneAndUpdate({_id: req.body.gigId}, 
             {$push : {
               goals: dbGoal._id
-            }}
+            }},
+            {
+              new: true
+            }
           )
-          .then(dbGoal => res.json(dbGoal))
-          .catch(err => res.status(422).json(err));
-        })
 
-        .catch(err => {
+          const goalPromise = db.Goal.findOneAndUpdate({_id: dbGoal._id},
+            {$push: {
+              categories: categories
+            }})
+          
+
+          Promise.all([goalPromise, gigPromise])
+            .then(resultsArray => resultsArray)
+
+          .then(results => res.json(results))
+          .catch(err => {
+            console.log(err)  
+            res.status(422).json(err)});
+        }).catch(err => {
+          console.log(err)
           res.status(422).json(err);
         });
     },

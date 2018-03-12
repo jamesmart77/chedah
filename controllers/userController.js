@@ -273,7 +273,6 @@ module.exports = {
         "auth_id": req.body.sub
       })
       .then((dbUser) => {
-        // console.log(dbUser)
 
         // Pull transactions for the Item for the last 30 days
         const startDate = '2017-01-01'; //moment().subtract(30, 'days').format('YYYY-MM-DD');
@@ -291,9 +290,6 @@ module.exports = {
             offset: 0
           }
         }))
-
-
-        // console.log(transactionPromises)
 
         Promise.all(transactionPromises)
           .then(transactionsResponseArray => {
