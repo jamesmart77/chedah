@@ -32,6 +32,10 @@ class App extends React.Component {
       })
   }
 
+  refresh(){
+    this.getUser()
+  }
+
 
   GigDetailPage = (props) => <GigDetail
       getUser={this.getUser.bind(this)}
@@ -74,7 +78,7 @@ class App extends React.Component {
       {history.location.pathname !== '/' && <ActionButton location={history.location}/> }
       {/* Modals */}
       <ModalEditAccount user={this.state.user}/>
-      {/* <ModalAddGoal user={this.state.user}/> */}
+      <ModalAddGoal user={ this.state.user } location={ history.location } refresh={ this.refresh.bind(this) }/>
       <ModalAddGig user={this.state.user}/>
       <ModalAddCategory user={this.state.user}/>
     </div>

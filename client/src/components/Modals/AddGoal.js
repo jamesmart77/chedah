@@ -24,8 +24,6 @@ class ModalAddGoal extends React.Component {
     API.getUserCategories()
       .then(({data}) => {
         this.setState({userCategories: data})
-        console.log('LOOK HERE categories!')
-        console.log(data)
       }).catch(err => {
       console.log('Error Categories')
       console.log(err)
@@ -33,38 +31,36 @@ class ModalAddGoal extends React.Component {
 
     API.getGigData(this.props.gigId).then(gigData => {
       this.setState(gigData)
-    // console.log(`-> ModalAddGoal: `, gigData)
     }).catch(console.log)
   }
 
   addGoalToGig () {
     const data = {}
 
-    data.gigId = this.props.gigId
-    data.goal = {}
+    data.gigId = this.props.location.pathname.split('/')[2]
+    data.name = this.state.name
+    data.budget = this.state.budget
+    data.categories = this.state.categories
 
     API.addGoalToGig(data).then(res => {
-      this.loadGig()
+      this.props.refresh()
     }).catch(err => {
-      alert('what happened?')
+      console.log("We were unable to add a goal to the gig, here's the returned error message from the server")
+      console.log(err)
     })
   }
 
+
+
   handleChange = event=> {
-    console.log('event.target.name')
-      console.log(event.target.name)
-      console.log(event.target.value)
-    //   {name: value} = e.target
       this.setState({[event.target.name]: event.target.value})
     }
 
-    // this is for the multi select
-    getCategories = categories => {
-        this.setState({ categories: categories })
-    }
+  // this is for the multi select
+  getCategories = categories => {
+      this.setState({ categories: categories })
+  }
     
-
-
   handleClick (val) {
     console.log(`selected: `, val)
   }
@@ -107,12 +103,7 @@ class ModalAddGoal extends React.Component {
           </div>
           <div className='row'>
             <div className='col s6'>
-            <Multiselect categories= { this.state.userCategories } getCategories={ ()=> this.getCategories.bind(this) }/>
-              {/* <select className="browser-default" onChange={this.handleChange} name='categories' multiple='multiple'> */}
-                {/* {this.state.userCategories.map(category => <option value={category._id} key={category._id}>
-                                                         {category.name}
-                                                       </option>)}
-              </select> */}
+              <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) }/>
             </div>
             <div className='col s6'></div>
           </div>
@@ -122,7 +113,7 @@ class ModalAddGoal extends React.Component {
                 Cancel
               </button>
               &nbsp;
-              <button onClick={() => this.addGoalToGig(this.props.gigId)} className='btn waves-effect waves-light modal-action modal-close teal'>
+              <button onClick={ this.addGoalToGig.bind(this) } className='btn waves-effect waves-light modal-action modal-close teal'>
                 Apply
               </button>
             </section>

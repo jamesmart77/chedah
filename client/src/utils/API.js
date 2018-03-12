@@ -13,7 +13,7 @@ export default {
 
   // if there is a token, get current user
 
-  getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`, { headers: { Authorization: `Bearer ${getAccessToken()}` }}) : Promise.reject({err: "There is no user son"}),
+  getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`, { headers: { Authorization: `Bearer ${getAccessToken()}` }}) : Promise.reject({err: "The getUser api request can not be made because a user is not logged in and therefore there is no token"}),
   
   // get user categories
   // data.userId = 
