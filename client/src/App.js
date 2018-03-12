@@ -76,7 +76,7 @@ class App extends React.Component {
       {history.location.pathname !== '/' && <ActionButton location={history.location}/> }
       {/* Modals */}
       <ModalEditAccount user={this.state.user}/>
-      {/* <ModalAddGoal user={this.state.user}/> */}
+      <ModalAddGoal user={this.state.user}/>
       <ModalAddGig user={this.state.user}/>
       <ModalAddCategory user={this.state.user}/>
     </div>
