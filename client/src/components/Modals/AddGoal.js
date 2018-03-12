@@ -1,5 +1,8 @@
 import React from 'react'
 import API from '../../utils/API'
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+import { Multiselect } from '../Multiselect';
 
 // add goal modal
 class ModalAddGoal extends React.Component {
@@ -97,6 +100,7 @@ class ModalAddGoal extends React.Component {
           </div>
           <div className='row'>
             <div className='col s6'>
+            <Multiselect/>
               <select className="browser-default" onChange={this.handleChange} name='categories' multiple='multiple'>
                 {this.state.userCategories.map(category => <option value={category._id} key={category._id}>
                                                          {category.name}

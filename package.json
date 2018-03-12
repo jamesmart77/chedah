@@ -53,6 +53,7 @@
     "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-scripts": "^1.1.1",
+    "react-select": "^1.2.1",
     "redis": "^2.8.0"
   }
 }
