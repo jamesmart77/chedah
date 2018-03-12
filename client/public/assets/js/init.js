@@ -6,6 +6,8 @@
 
 
         console.log(`> initializing Materialize...`);
+        // initialize text fields
+        Materialize.updateTextFields();
 
         //Dropdowns
         $('select').material_select();
@@ -29,9 +31,6 @@
           menuWidth: 300,
           edge: 'right',
         });
-
-        // initialize text fields
-        Materialize.updateTextFields();
 
         $('.slider').slider({
             full_width: true

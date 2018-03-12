@@ -2,7 +2,6 @@
 function expandAll() {
     $(".collapsible-header").addClass("active");
     $(".collapsible").collapsible({accordion: false});
-    console.log(`expanding`);
 }
 
 
@@ -26,9 +25,8 @@ function drawCallback() {
 $(document).ready(function() {
     console.log(`> loading view controller...`);
 
-    // expand collections
-    setTimeout(expandAll, 1000);
-
+    setTimeout(expandAll, 200)
+    // expandAll()
     // scrollY: 300,    // size of the table in pixels
     // paging: false,   // don't do pagination
     dt = $('#data-table-transactions').DataTable({

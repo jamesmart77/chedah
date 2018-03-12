@@ -20,7 +20,7 @@ class Account extends React.Component {
   renderType (accountType) {
     // const gigs = this.renderGigs()
     const balance = formatCurrencyValueJSX(this.props.balances.current)
-    const accountHref = `accounts/${this.props._id}`
+    const accountHref = `accounts/${this.props.account_id}`
     console.log(`gig name: `, this.props.defaultGigId)
     return (
       // This is buggy, fix it then add it back after
