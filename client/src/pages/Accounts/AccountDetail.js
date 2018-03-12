@@ -50,20 +50,18 @@ const defaultHeaders = [
 class AccountDetail extends Component {
     constructor(props) {
         super(props)
+
+        this.warnCount = 0
         this.state = {
             account_id: this.props.match.params.id,
             transactions: []
         }
-
-        console.log(`Account props: `, props);
     }
 
 
     componentDidMount() {
-        console.log(`querying account: `, this.state.account_id);
         API.getAccount({accountId: this.state.account_id})
         .then(acct => {
-            console.log(`-> account data: `, acct.data);
             this.setState(acct.data)
 
         })
@@ -72,14 +70,12 @@ class AccountDetail extends Component {
         })
     }
 
-    //
     gigSelected(gigId, gigName) {
         if (this.state.gigName === gigName) {
             return
         }
 
         this.setState({gigName: gigName})
-        console.log(`-> gig updated: "${gigName}":`, gigId);
         this.updateDefaultGig(this.state.accountId, gigId)
     }
 
@@ -207,6 +203,13 @@ class AccountDetail extends Component {
         const iconName = (this.state.type == 'credit') ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
         const currentBalance = this.state.balances ? this.state.balances.current : 0
         const currentLimit = this.state.balances ? this.state.balances.limit : 0
+
+
+        if (this.state.transactions.length == 0 && this.warnCount == 0) {
+            window.Materialize.toast('No transactions found, please sync your account', 5000)
+            this.warnCount = this.warnCount + 1
+        }
+
         return (
             <div className="row">
                 <div className="col s12">

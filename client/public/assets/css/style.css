@@ -691,20 +691,19 @@ a.account-actions {
     vertical-align: bottom;
 }
 
+.account-view-card a,
+.account-view-card a:active {
+    color: #3d3d3d !important;
+}
+
 a.side-headers {
     color: #3d3d3d !important;
 }
 
-a.side-headers:hover {
-    font-weight: 300;
-    color: #6a1e07 !important;
-    text-shadow: 1px 1px 2px #44444499;
+a.side-headers:hover,
+.account-view-card a:hover {
+    text-decoration: underline;
 }
-
-.account-view-card a:active, a:hover {
-    text-decoration: none;
-}
-
 
 
 .gig-dropdown .dropdown-content li>a,
