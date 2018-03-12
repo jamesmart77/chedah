@@ -2,52 +2,53 @@ import React from 'react';
 import API from '../../utils/API';
 
 
+
 const defaultCategories = [
     {
-        id: '9DF0A0DD19B2',
+        id: '9DF04A0DD19B2',
         name: 'Travel'
     }, {
-        id: 'DCCBD8F37DA3',
+        id: 'DCCB4D8F37DA3',
         name: 'Tolls'
     }, {
-        id: 'D2AA8A93CA76',
+        id: 'D2A4A8A93CA476',
         name: 'Gas'
     }, {
-        id: 'C86EE76D90B4',
+        id: 'C86E4E76D90B4',
         name: 'Gas'
     },{
-        id: '9DF0A0DD19B2',
+        id: '9DF0A40DD19B2',
         name: 'Travel'
     }, {
-        id: 'DCCBD8F37DA3',
+        id: 'DCCBD8F437DA3',
         name: 'Tolls'
     }, {
-        id: 'D2AA8A93CA76',
+        id: 'D24AA8A93CA76',
         name: 'Gas'
     }, {
-        id: 'C86EE76D90B4',
+        id: 'C846EE76D90B4',
         name: 'Gas'
     }, {
-        id: '9DF0A0DD19B2',
+        id: '9DF40A0DD129B2',
         name: 'Travel'
     }, {
-        id: 'DCCBD8F37DA3',
+        id: 'DCCBD48F37DA3',
         name: 'Tolls'
     }, {
-        id: 'D2AA8A93CA76',
+        id: 'D2AA84A93CA76',
         name: 'Gas'
     }, {
-        id: 'C86EE76D90B4',
+        id: 'C86EE76D940B4',
         name: 'Gas'
     },
     {
-        id: '9DF0A0DD19B2',
+        id: '9DF40A0DD19B2',
         name: 'Travel'
     }, {
         id: 'DCCBD8F37DA3',
         name: 'Tolls'
     }, {
-        id: 'D2AA8A93CA76',
+        id: 'D2AA48A93CA476',
         name: 'Gas'
     }
 ]
