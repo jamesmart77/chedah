@@ -10,13 +10,17 @@ class ModalAddGoal extends React.Component {
   }
 
   state = {
-    categories: []
+    userCategories: [],
+    categories: [],
+    name:'',
+    budget:''
+    
   }
 
   componentWillMount () {
     API.getUserCategories()
       .then(({data}) => {
-        this.setState({categories: data})
+        this.setState({userCategories: data})
         console.log('LOOK HERE categories!')
         console.log(data)
       }).catch(err => {
@@ -43,6 +47,14 @@ class ModalAddGoal extends React.Component {
     })
   }
 
+  handleChange = event=> {
+    console.log('event.target.name')
+      console.log(event.target.name)
+      console.log(event.target.value)
+    //   {name: value} = e.target
+      this.setState({[event.target.name]: event.target.value});
+    }
+
   handleClick (val) {
     console.log(`selected: `, val)
   }
@@ -60,20 +72,22 @@ class ModalAddGoal extends React.Component {
           </div>
           <div className='col input-field s12'>
             <input
+              onChange={this.handleChange}
               type='text'
-              name='goalName'
+              name='name'
               id='input_1'
-              defaultValue={this.props.goalName} />
+               />
             <label className='active' htmlFor='input_1'>
               Goal Name
             </label>
           </div>
           <div className='col input-field s12'>
             <input
+              onChange={this.handleChange}
               type='text'
-              name='goalBudget'
+              name='budget'
               id='input_2'
-              defaultValue={this.props.budget} />
+               />
             <label className='active' htmlFor='input_2'>
               Budget
             </label>
@@ -83,8 +97,8 @@ class ModalAddGoal extends React.Component {
           </div>
           <div className='row'>
             <div className='col s6'>
-              <select onClick={this.handleClick} multiple='multiple'>
-                {this.state.categories.map(category => <option value={category._id} key={category._id}>
+              <select className="browser-default" onChange={this.handleChange} name='categories' multiple='multiple'>
+                {this.state.userCategories.map(category => <option value={category._id} key={category._id}>
                                                          {category.name}
                                                        </option>)}
               </select>
