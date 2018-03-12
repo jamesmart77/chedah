@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { setIdToken, setAccessToken, isIdAndAccessSet } from '../utils/AuthService';
+import { setIdToken, setAccessToken } from '../utils/AuthService';
 import API from '../utils/API';
 
 /*
@@ -23,10 +23,11 @@ class Callback extends Component {
 
     API.createUserIfDoesNotExist()
       .then(res => {
+        console.log(res)
         window.location.href = "/dashboard"
       })
       .catch((err) => {
-        console.log(err)
+        console.log("err " + err)
       });
   }
 
