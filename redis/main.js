@@ -5,6 +5,7 @@ const add = (name)=> {
     // Adds the hash of the edit body. We can send it in as an array syntax or an argument list of (vairable, {key:value,key:value};
     client.redisClient.hmset(name, function(err, reply){
         if(err) throw err;
+        console.log(name)
         console.log(reply)
     });
     // This is currently sending the object back

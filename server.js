@@ -7,6 +7,10 @@ const redis = require("redis")
 const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
+const logger = require('morgan')
+
+
+
 
 
 
@@ -34,6 +38,13 @@ mongoose.connect(
     useMongoClient: true
   }
 );
+
+redisClient.on("connect", () => {
+  console.log("Redis Client up");
+})
+
+app.use(logger("short"));
+
 
 
 // debugging logger
