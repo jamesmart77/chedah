@@ -5,9 +5,6 @@ import {
   getAccessToken
 } from './AuthService';
 
-axios.defaults.headers.common['Authorization'] = `Bearer ${getAccessToken()}`;
-axios.defaults.headers.post['Authorization'] = `Bearer ${getAccessToken()}`;
-
 export default {
 
   // #############################################
@@ -16,34 +13,25 @@ export default {
 
   // if there is a token, get current user
 
-  getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`) : Promise.reject({err: "There is no user son"}),
+  getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`, { headers: { Authorization: `Bearer ${getAccessToken()}` }}) : Promise.reject({err: "There is no user son"}),
   
   // get user categories
   // data.userId = 
-  getUserCategories: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/categories`, data),
+  getUserCategories: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/categories`, data,  { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
   
   // get user categories
   // data.userId = 
   
-  getUserAccounts: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/accounts`, data),
+  getUserAccounts: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/accounts`, data, { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
   // get user categories
   // data.userId = 
   
-  getUserGigs: data => axios.post(`/api/user/${decodeToken(getIdToken()).sub}}/gigs`, data),
+  getUserGigs: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data, { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
 
 
-  /*
-    TODO -----
-    This is where the sign in authentication is failing. When the createUserIfDoesNotExist function is called
-    to reach out to api/users there is a server error
-        'jwt malformed'
-    
-  */
   createUserIfDoesNotExist: () => {
       const user = decodeToken(getIdToken());
-      const access_Token = getAccessToken()
-      
-      return axios.post("/api/users", user)
+      return axios.post("/api/users", user, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
   },
 
   // #############################################
@@ -51,13 +39,13 @@ export default {
   // #############################################
 
   // add a goal to the current gig
-  createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data),
+  createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
   // add a gig to an account 
   // This Creates a new gig & attaches it's gig id to the account as 'defaultGigId'
   // data.name
   // data.accountId
-  addGigToAccount: data => axios.post(`/api/gigs/account`, data),
+  addGigToAccount: data => axios.post(`/api/gigs/account`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
   // add a goal to the current gig
   // data.gigId
@@ -65,13 +53,13 @@ export default {
   // data.description
   // data.budget
   // data.categories []  // array of ids
-  addGoalToGig: data => axios.post(`/api/goals`, data),
+  addGoalToGig: data => axios.post(`/api/goals`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
   // #############################################
   // Accounts
   // #############################################
   
-  getAccounts: () => axios.post('/api/accounts/', {userId: decodeToken(getIdToken()).sub}),
+  getAccounts: () => axios.post('/api/accounts/', {userId: decodeToken(getIdToken()).sub}, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
   // data.accountId needs to be passed in
   getAccount: data => {
@@ -79,25 +67,25 @@ export default {
     data.userId = decodeToken(getIdToken()).sub
     console.log(`user id: `, data.userId);
     console.log(`account data: `, data);
-    return axios.post(`/api/accounts/${data.accountId}`, data)
+    return axios.post(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
   },
 
   // data.accountId
   // data.defaultGigId
   updateDefaultGigOnAccount: data => {
-    return axios.put(`/api/accounts/${data.accountId}`, data)
+    return axios.put(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
   },
 
   // data.accountId
   udpateAccount: data => {
     data.userId = decodeToken(getIdToken()).sub
-    return axios.put(`/api/accounts/${data.accountId}`, data)
+    return axios.put(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
   },
 
   // data.accountId
   deleteAccount: data => {
     data.userId = decodeToken(getIdToken()).sub
-    return axios.delete(`/api/accounts/${data.accountId}`, data)
+    return axios.delete(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
   },
 
 
@@ -108,7 +96,7 @@ export default {
   // data.name
   createCategory: data => {
     data.userId = decodeToken(getIdToken()).sub
-    return axios.post('/api/categories', data)
+    return axios.post('/api/categories', data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
   },
 
   // createItem: plaidObj => {
@@ -121,25 +109,14 @@ export default {
     const data = {};
     data.user = decodeToken(getIdToken());
     data.plaidObj = plaidObj;
-    return axios.post('/api/users/items', data);
+    return axios.post('/api/users/items', data, { headers: { Authorization: `Bearer ${getAccessToken()}`}});
   },
 
-  // updateAccount: gigToChange => {
-  //   return axios.post("/accounts/", {
-
-  //   })
-  // },
-
   accountsSync: () => {
-    console.log("Accounts syncing");
-    console.log(decodeToken(getIdToken()))
     const user = decodeToken(getIdToken());
-    axios.post('/api/users/transactions', user)
+    axios.post('/api/users/transactions', user, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    // const user = {};
-    // user.user_jwt ='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImJlbkB0aGlzaXNiYW0uY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImlzcyI6Imh0dHBzOi8vY2hlZGFoLmF1dGgwLmNvbS8iLCJzdWIiOiJmYWNlYm9va3wxMDE1NTQ1NjI1MzAxMjcxMiIsImF1ZCI6Ims0UWZvNXBaVVQ4YnhCYTBWNHZSbVJvYUQyNlkxMjRHIiwiaWF0IjoxNTE5MTc0MjA2LCJleHAiOjE1MTkyMTAyMDYsImF0X2hhc2giOiJCMUNmZjBtNHlrbDgzeEp1elpGSEdBIiwibm9uY2UiOiI0Ymx2LXlGR1hnSzJ5cWltVjBGMURvLXlBSmhxd25wZiJ9.ZuxGKI_YeNGGuvtporvkLT9Jd7f2kSekkrROSb4w2kM';
-    // return axios.post("/api/transactions/", user)
   },
 
   gigData: (gigDetails) => {
@@ -147,7 +124,7 @@ export default {
     //attach decoded user info
     gigDetails.user = user;
 
-    axios.post('/api/gigs/' + gigDetails.gigId, gigDetails)
+    axios.post('/api/gigs/' + gigDetails.gigId, gigDetails, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   },
