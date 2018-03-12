@@ -32,7 +32,8 @@
     "nodemon": "^1.11.0",
     "react-event-observer": "^0.5.11",
     "react-materialize": "^1.1.2",
-    "react-test-renderer": "^16.2.0"
+    "react-test-renderer": "^16.2.0",
+    "supertest": "^3.0.0"
   },
   "dependencies": {
     "axios": "^0.16.2",

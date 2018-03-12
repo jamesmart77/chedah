@@ -25,13 +25,16 @@ describe("Gigs", () => {
   /*
   * Test the /GET route
   */
- it("Should get the homepage", (done) =>{
-   chai.request(server.app)
-     .get("/")
-     .end((err, res) => {
-       expect(res).to.have.status(404);
-       done();
-     });
+
+  it("Should deny the user from the gigs", done => {
+    chai.request(server.app)
+      .get("/api/gigs")
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        done();
+      });
   });
+
+  
  });
 
