@@ -37,8 +37,7 @@ module.exports = {
       })
       .then(user => {
 
-        if(user.accounts){
-          user.accounts = user.accounts.map(account => {
+        if(user.accounts){          user.accounts = user.accounts.map(account => {
             account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
             account.defaultGigName = user.gigs.find(gig => gig._id.toString() === account.defaultGigId.toString()).name
             return account

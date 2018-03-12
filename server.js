@@ -7,11 +7,14 @@ const redis = require("redis")
 const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
+const logger = require('morgan')
 
-module.exports.redisClient = redisClient;
+
+
+
+
 
 const app = express();
-module.exports.app= app;
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
@@ -36,6 +39,13 @@ mongoose.connect(
   }
 );
 
+redisClient.on("connect", () => {
+  console.log("Redis Client up");
+})
+
+app.use(logger("short"));
+
+
 
 // debugging logger
 app.all('*', (req, res, next) => {
@@ -48,3 +58,8 @@ app.all('*', (req, res, next) => {
 app.listen(PORT, function () {
   console.log(`🧀  ==> API Server now listening on PORT ${PORT}!`);
 });
+
+module.exports = {
+  redisClient: redisClient,
+  app: app
+}

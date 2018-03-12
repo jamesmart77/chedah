@@ -7,25 +7,32 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const server = require("../server");
 const should = chai.should();
+const expect = require("chai").expect;
+const request = require("supertest");
+
 chai.use(chaiHttp);
 
-describe("Goal", () => {
-  beforeEach(done => {
-    //Before each test we empty the database
-    Goal.remove({}, err => {
-      done();
-    });
-  });
 
-  describe("/Goals", () => {
-      it("Should get al lof the user data", done => {
-          chai.request(server.app)
-          .get("/api/goals/goals")
-          .end((err, res) => {
-              res.should.have.status(200);
-              done();
-          })     
-      })
+const userCredentials = {
+  email: "sponge@bob.com",
+  password: "garyTheSnail"
+};
+const authUser = request.agent(server.app);
+
+
+
+
+describe("Goal", () => {
+
+
+  it("Should give us all of the goals", (done)=>{
+    chai.request(server.app)
+    .get("/api/goals")
+    .end((err, res)=>{
+      expect(res).to.have.status(401);
+      done();
+
     })
+  })
 
 });
