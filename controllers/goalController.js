@@ -60,7 +60,7 @@ module.exports = {
     updateGoal: (req, res) => {
       db.Goal
         .findOneAndUpdate({
-          _id: req.query.id
+          _id: req.params.id
         }, req.body)
         .then(dbgoal => {
           res.json(dbgoal)
@@ -69,6 +69,9 @@ module.exports = {
           res.status(422).json(err)
         });
     },
+
+
+
 
     // remove a goal
     removeGoal: (req, res) => {

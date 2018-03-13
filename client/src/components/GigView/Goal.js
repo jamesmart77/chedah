@@ -29,6 +29,28 @@ class Goal extends React.Component {
         })
     }
 
+    handleChange = event=> {
+        this.setState({[event.target.name]: event.target.value})
+      }
+
+
+    editGoal () {
+        // console.log("button was pushed")
+        const data = {}
+    
+        data.goalId = this.props.id
+        data.name = this.state.name
+        data.budget = this.state.budget
+        data.categories = this.state.categories
+    
+        API.updateGoal(data).then(res => {
+          this.props.refresh()
+        }).catch(err => {
+          console.log("We were unable to edit the goal, here's the returned error message from the server")
+          console.log(err)
+        })
+      }
+
 render() {
 return (
 <div className="card">
@@ -39,22 +61,23 @@ return (
     </div>
     <div className="col s1">
     <Modal
-        header={this.props.name}
-        trigger={<i className="material-icons iconStyleMed">settings</i>}
+        header="Edit Goal"  
+        trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
             <section>
-              <Button waves='light' flat className="modal-action modal-close deep-orange darken-3 white-text">Cancel</Button> &nbsp;
-              <Button waves='light' className="modal-action modal-close teal" onClick={()=>this.props.editGoal(this.props.id)} >Apply</Button>
+              <Button waves='light' flat className="modal-action modal-close deep-orange darken-3 white-text">Delete Goal</Button> &nbsp;
+              <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
             </section>
           }>
           <br/>
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='name' id='input_1' value={ this.props.name } />
+            <input onChange={this.handleChange} type='text' name='name' id='input_1' defaultValue={ this.props.name } />
             <label className='active' htmlFor='input_1'> Goal Name </label>
           </div>
+          <br />
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='budget' id='input_2' value={ this.props.budget } />
-            <label className='active' htmlFor='input_2'> Budget </label>
+            <input onChange={this.handleChange} type='text' name='budget' id='input_2' defaultValue={ this.props.budget } />
+            <label className='active' htmlFor='input_2'> Goal Budget </label>
           </div>
           <div className='row'>
             <span>Select Expense Categories To Track:</span>
@@ -65,7 +88,7 @@ return (
         <br/>
         <br/>
     </Modal>
-    <ModalAddGoal id={this.props.name.toLowerCase().split(" ").join("")} user={ this.props.user } refresh={ this.props.refresh } />
+    {/* <ModalAddGoal id={this.props.name.toLowerCase().split(" ").join("")} user={ this.props.user } refresh={ this.props.refresh } /> */}
     </div>
 </div>
 <div className="card-content cardBody">

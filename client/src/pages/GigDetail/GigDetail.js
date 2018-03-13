@@ -137,7 +137,7 @@ class GigDetail extends React.Component {
       <Container fluid>
         <div className='row p-0 m-0'>
           <div className='col s6'>
-            <h4 className='dash-title'>{this.state.gigName} Dashboard</h4>
+            <h4 className='dash-title'>{this.state.gig.name} Dashboard</h4>
           </div>
           <div className='col s6'>
           </div>
