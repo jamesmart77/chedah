@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
 const request = require("request")
-const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig } = require('../utils')
+const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig, getToday, getThreeYearsAgoFromToday } = require('../utils')
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -275,8 +275,8 @@ module.exports = {
       .then((dbUser) => {
 
         // Pull transactions for the Item for the last 30 days
-        const startDate = '2017-01-01'; //moment().subtract(30, 'days').format('YYYY-MM-DD');
-        const endDate = '2018-02-01'; //moment().format('YYYY-MM-DD');
+        const startDate = getThreeYearsAgoFromToday() //moment().subtract(30, 'days').format('YYYY-MM-DD');
+        const endDate = getToday() //moment().format('YYYY-MM-DD');
 
         axios.defaults.headers.post['Content-Type'] = 'application/json';
         const transactionPromises = dbUser.items.map(item => axios.post('https://sandbox.plaid.com/transactions/get', {
