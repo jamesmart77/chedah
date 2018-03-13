@@ -18,7 +18,6 @@ class ModalAddGoal extends React.Component {
     categories: [],
     name:'',
     budget:''
-     
   }
 
   componentWillMount () {
