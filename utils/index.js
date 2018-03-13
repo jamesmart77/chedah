@@ -25,7 +25,17 @@ module.exports = {
     // Transactions by Gig
     transactionsGig : gigId => db.Transaction.aggregate([
         { $match: { gigId: gigId.toString() } }
-      ])
+        ]),
+
+           // Transactions by Gig
+    summaryGig : gigId => db.Transaction.aggregate([
+        { $match: { gigId: gigId.toString() } },
+        { $group: {
+            _id: null,
+            total: { $sum: "$amount" },
+            count: { $sum: 1 } 
+        }}
+        ]),
     
 }
 
