@@ -5,6 +5,22 @@ module.exports = {
     isPositive : num => num > 0 ? true : false,
     sum : (x, y) => Math.abs(x) + Math.abs(y),
     sortObjects : (x, y) => x.total - y.total > 0 ? x : y,
+    getToday: () => {
+        const date = new Date()
+        return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    },
+    getThreeYearsAgoFromToday: () => {
+        const date = new Date()
+        return `${date.getFullYear()-3}-${date.getMonth()+1}-${date.getDate()}`
+    },
+    getMonthToDate: () => {
+        const date = new Date()
+        return [ `${date.getFullYear()}-${date.getMonth()+1}-01`, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}` ]
+    },
+    getYearToDate: () => {
+        const date = new Date()
+        return [`${date.getFullYear()}-01-01`, `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}` ]
+    },
 
     // Aggregations that are used in multiple places
     spendingByCategoryGig: gigId => {
