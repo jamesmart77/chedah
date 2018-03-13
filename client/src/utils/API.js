@@ -26,18 +26,18 @@ export default {
   // get user categories
   // data.userId = 
   
-  getUserGigs: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data, { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
-
-
+  getUserGigs: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs/get`, data, { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
+  
+  
   createUserIfDoesNotExist: () => {
-      const user = decodeToken(getIdToken());
-      return axios.post("/api/users", user, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
+    const user = decodeToken(getIdToken());
+    return axios.post("/api/users", user, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
   },
-
+  
   // #############################################
   // Gigs
   // #############################################
-
+  
   // add a goal to the current gig
   createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   

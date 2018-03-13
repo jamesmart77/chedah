@@ -41,6 +41,7 @@ class App extends React.Component {
       getUser={this.getUser.bind(this)}
       user={this.state.user || {}}
       location={history.location}
+      refresh={ this.refresh.bind(this) }
       {...props}
     />
 
@@ -79,7 +80,7 @@ class App extends React.Component {
       {/* We don't want these modals loaded into the DOM unless the user is logged in, the reason for this is because they attempt to query the backend and can crash the progra without a token */}
       {isLoggedIn() && <div>
       <ModalEditAccount user={this.state.user}/>
-      <ModalAddGoal user={ this.state.user } location={ history.location } refresh={ this.refresh.bind(this) }/>
+      <ModalAddGoal user={ this.state.user } location={ history.location } refresh={ this.refresh.bind(this) } mode={ 'add' } id={'add-goal-modal'} />
       <ModalAddGig user={this.state.user}/>
       <ModalAddCategory user={this.state.user}/>
       </div>

@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
 const request = require("request")
-const {isNegative, isPositive, sum, sortObjects} = require('../utils')
+const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig } = require('../utils')
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -396,12 +396,50 @@ module.exports = {
 
   getGigs: (req, res) => {
     console.log('lets get those user gigs shall we')
-    db.User.findOne({ auth_id: req.params.authId }).lean()
-      .populate('gigs')
+    const user = db.User.findOne({ auth_id: req.params.authId }).lean()
+    .populate('gigs')
+    .populate({
+      path: 'gigs',
+      populate: {
+        path: 'goals',
+        model: 'Goal'
+      }
+      })
       .then(user => {
-            const {gigs} = user
-            res.json(gigs)
+
+        const {gigs} = user
+        const spendingByGigCategoryPromises = gigs.map(gig => spendingByCategoryGig(gig._id))
+        const spendingByGigVendorPromises = gigs.map(gig => spendingByVendorGig(gig._id))
+        const transactionsGigPromises = gigs.map(gig => transactionsGig(gig._id))
+        const summaryGigPromises = gigs.map(gig => summaryGig(gig._id))
+
+        let responseGigs =[]
+        Promise.all(spendingByGigCategoryPromises)
+          .then(spendingByCategory => {
+            Promise.all(spendingByGigVendorPromises)
+              .then(spendingByVendor => {
+                Promise.all(transactionsGigPromises)
+                  .then(transactions => {
+                    Promise.all(summaryGigPromises)
+                    .then(summary => {
+                      responseGigs = gigs.map((gig, index) => {
+                        gig.spendingByCategory = spendingByCategory[index]
+                        gig.spendingByVendor = spendingByVendor[index]
+                        gig.transactions = transactions[index]
+                        gig.summary = summary[index]
+                        console.log(spendingByCategory)
+                        console.log(index)
+                        console.log(gig)
+                        return gig
+                      })
+                    res.json(responseGigs)
+                  }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
+                }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
+              }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
+          }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
       }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
+      .catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
   }
   
 }
+
