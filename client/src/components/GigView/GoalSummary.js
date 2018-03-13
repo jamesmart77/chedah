@@ -8,11 +8,14 @@ const GoalSummary = props=> <div>
         <Goal
             key={goal._id}
             editGoal={props.editGoal}
-            id={goal.id}
+            id={goal._id}
             name={goal.name}
             budget={goal.budget}
             spent={goal.expenses}
             net={goal.net}
+            categories={goal.categories}
+            user={props.user}
+            refresh={ props.refresh }
         />
     ))}
 </div>

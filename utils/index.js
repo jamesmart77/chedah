@@ -35,8 +35,7 @@ module.exports = {
             total: { $sum: "$amount" },
             count: { $sum: 1 } 
         }}
-        ]),
-    
+        ])
 }
 
 

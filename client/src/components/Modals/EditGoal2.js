@@ -4,9 +4,10 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { Multiselect } from '../Multiselect';
 import $ from 'jquery'
+import Modal from 'react-materialize'
 
 // add goal modal
-class ModalAddGoal extends React.Component {
+class ModalEditGoal2 extends React.Component {
 
   constructor (props) {
     super(props)
@@ -70,13 +71,8 @@ class ModalAddGoal extends React.Component {
     return (
       <div
         id={this.props.id}
-        className='modal'
-        data-modal='data-modal'
         style={{height: '70%'}}>
         <div className='modal-content'>
-          <div className='modal-title'>
-            <h4>Add a Goal</h4>
-          </div>
           <div className='col input-field s12'>
             <input
               onChange={this.handleChange}
@@ -102,27 +98,12 @@ class ModalAddGoal extends React.Component {
           <div className='row'>
             <span>Select Expense Categories To Track:</span>
           </div>
-          <div className='row'>
-            <div className='col s6'>
-              <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) }/>
-            </div>
-            <div className='col s6'></div>
-          </div>
-          <div className='modal-footer'>
-            <section>
-              <button className='btn waves-effect waves-light btn-flat modal-action modal-close deep-orange darken-3 white-text'>
-                Cancel
-              </button>
-              &nbsp;
-              <button onClick={ this.addGoalToGig.bind(this) } className='btn waves-effect waves-light modal-action modal-close teal'>
-                Apply
-              </button>
-            </section>
-          </div>
-        </div>
-      </div>
+        <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) }/>
+    </div>
+    </div>
+
     )
   }
 }
 
-export default ModalAddGoal
+export default ModalEditGoal2

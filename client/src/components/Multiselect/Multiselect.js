@@ -19,15 +19,17 @@ class Multiselect extends React.Component {
 			})
   }
 
-  componentWillReceiveProps({categories, getCategories}){
-
+  componentWillReceiveProps({categories, goalCategories, getCategories}){
     const options = categories.map(oldCat => {
       const newCat = {}
       newCat.label = oldCat.name
       newCat.value = oldCat._id
       return newCat
     })
-    this.setState({options: options, getCategories: getCategories})
+    const defaultCategories = goalCategories ? goalCategories : []
+    
+    this.setState({ options: options, getCategories: getCategories, goalCategories: goalCategories })
+    defaultCategories.map(value => this.setState({multiValue: value}))
   }
 
 	render () {
@@ -39,11 +41,11 @@ class Multiselect extends React.Component {
 					multi={true}
 					options={options}
 					onChange={this.handleOnChange.bind(this)}
-					value={multiValue}
+          value={multiValue}
 				/>
 			</div>
 		);
 	}
-};
 
+}
 export default Multiselect;
