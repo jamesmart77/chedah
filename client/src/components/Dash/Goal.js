@@ -54,7 +54,7 @@ class Goal extends Component {
 
                 <div className='row pl-1'>
                     <div className='col s12'>
-                        <div className='chip'>No Gig</div>
+                        <div className='chip'>{this.props.gigName}</div>
                     </div>
                 </div>
             </div>

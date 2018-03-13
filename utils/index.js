@@ -28,6 +28,9 @@ module.exports = {
         return [`${date.getFullYear()}-01-01`, `${date.getFullYear()}-${getMonth()}-${getDate()}` ]
     },
 
+    // This will return a promise that is a filtered of a certain gigs transactions filtered by categories supplied in the second arguement, they will be category names, NOT IDS
+    getGigTransactionsByCategories : (gigId, categories) => { console.log('gigId', gigId, 'categories', categories); return db.Transaction.find({ gigId: gigId, category: { $in: categories } })},
+
     // Aggregations that are used in multiple places
     spendingByCategoryGig: gigId => {
         console.log(gigId)

@@ -10,6 +10,7 @@
   "scripts": {
     "server": "node server.js",
     "client": "node scripts/start-client.js",
+    "both": "concurrently \"NODE_ENV=production node server.js\" \"npm run client\"",
     "start": "concurrently \"NODE_ENV=production nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "seed": "node scripts/seedDB.js",

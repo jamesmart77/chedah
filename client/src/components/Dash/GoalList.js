@@ -25,6 +25,7 @@ class GoalList extends Component {
             gig.goals.forEach(goal => {
                 let goalData = goal
                 goalData.gigId = gig._id
+                goalData.gigName = gig.name
                 goals.push(goalData)
             })
         })
