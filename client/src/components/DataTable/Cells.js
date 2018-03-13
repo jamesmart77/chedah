@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
+import {formatCurrencyValueJSX} from '../../utils/currency';
+
 const $ = require('jquery');
 
 
-class RowColumn extends Component {
+class Cell extends Component {
 
     constructor(props) {
         super(props);
-        console.log(`      -> Column: `, props);
+
         this.state = {
             row: props.row,
             column: props.column,
@@ -15,7 +17,7 @@ class RowColumn extends Component {
             editable: props.editable || false,
             isEditing: false,
             align: props.align || 'left',
-            autocomplete: ['Starbucks', 'Autozone', 'Payroll']
+            autocomplete: props.autocomplete || ['Starbucks', 'Autozone', 'Payroll']
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -32,7 +34,9 @@ class RowColumn extends Component {
     // click handler
     handleClick(e) {
         if (this.state.editable) {
-            console.log(`cell: `, e.target.row, e.target.column);
+            const row = e.target.getAttribute('row') || -1;
+            const column = e.target.getAttribute('column') || -1;
+            // console.log(`-> Cell clicked: [ ${row}, ${column} ]`);
             this.setState({isEditing: !this.state.isEditing});
         } else {
             return;
@@ -52,23 +56,47 @@ class RowColumn extends Component {
         }
     }
 
+    // callback to the parent row
     onBlur(role, e) {
-        this.setState({
-            isEditing: false
-        })
-        // call back to table here
-        console.log(e.target.value);
-        console.log(e.target.row);
-        this.props.columnEdited({value: e.target.value, role: this.state.role})
 
+        if (this.state.isEditing === true) {
+
+            let oldValue = this.props.value;
+            let newValue = e.target.value
+
+            if (oldValue === newValue) {
+                this.setState({
+                    isEditing: false
+                })
+                return
+            }
+
+            this.props.columnEdited({
+                value: {
+                    oldValue: oldValue,
+                    newValue: newValue
+                },
+                role: this.state.role,
+                location: {
+                    row: e.target.getAttribute('row'),
+                    column: e.target.getAttribute('column')
+                }
+            })
+
+            this.setState({
+                isEditing: false
+            })
+
+        }
     }
 
       onKeyPress(role, e) {
-        if(e.key === 'Enter') {
-            // console.log(`enter pressed`);
-            this.onBlur(role, e);
-        }
-    }
+          if(e.key === 'Enter' || e.key === 'Escape') {
+              // console.log(`enter pressed`);
+              this.onBlur(role, e);
+          }
+      }
+
 
     render() {
         let alignment = (this.state.role === 'amount') ? 'right-align' : (this.state.role === 'gig') ? 'center-align' : 'left-align';
@@ -82,6 +110,11 @@ class RowColumn extends Component {
         // format the gig column
         if (this.state.role === 'gig' && !this.state.isEditing)  {
             currentVal = <div className='chip'>{currentVal}</div>;
+        };
+
+        // format the gig column
+        if (this.state.role === 'amount')  {
+            currentVal = currentVal.toFixed(2)
         };
 
 
@@ -127,4 +160,4 @@ class RowColumn extends Component {
 };
 
 
-export default RowColumn;
+export default Cell;

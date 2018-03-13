@@ -51,21 +51,28 @@ class AccountDetail extends Component {
     constructor(props) {
         super(props)
 
+        this.hasData = false;
+
         this.warnCount = 0
         this.state = {
             account_id: this.props.match.params.id,
-            transactions: []
+            transactions: [],
+            headers: defaultHeaders
         }
     }
 
+    shouldComponentUpdate() {
+        return (this.hasData == true)
+    }
 
     componentDidMount() {
         API.getAccount({accountId: this.state.account_id})
         .then(acct => {
             this.setState(acct.data)
-
+            this.hasData = true;
         })
         .catch(err => {
+            this.hasData = false
             console.log(`Error: `, err);
         })
     }
@@ -108,7 +115,8 @@ class AccountDetail extends Component {
         let transdata = [];
         this.state.transactions.forEach(t => {
             if (t._id === data.id) {
-                t[data.role] = data.value;
+                const role = (data.role == 'vendor') ? 'transactionName' : data.role
+                t[role] = data.value.newValue;
             }
             transdata.push(t)
         })
@@ -200,14 +208,17 @@ class AccountDetail extends Component {
         } else {
             accountDetails = this.renderCheckingTable()
         }*/
+        console.log(`rendering...`);
         const iconName = (this.state.type == 'credit') ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
         const currentBalance = this.state.balances ? this.state.balances.current : 0
         const currentLimit = this.state.balances ? this.state.balances.limit : 0
+        const accountName = this.state.summary ? this.state.summary.official_name ? this.state.summary.official_name : this.state.summary.name : 'null'
 
-
-        if (this.state.transactions.length == 0 && this.warnCount == 0) {
-            window.Materialize.toast('No transactions found, please sync your account', 5000)
-            this.warnCount = this.warnCount + 1
+        if (this.hasData) {
+            if (this.state.transactions.length == 0 && this.warnCount == 0) {
+                window.Materialize.toast('No transactions found, please sync your account', 5000)
+                this.warnCount = this.warnCount + 1
+            }
         }
 
         return (
@@ -217,7 +228,7 @@ class AccountDetail extends Component {
                    <div className="card-header">
                      <div className="row valign-wrapper">
                        <div className="col s12 m6 left-align text-left">
-                         <span style={{verticalAlign: 'middle'}} className="card-title white-text left-align"><span  className={iconName}></span>  {this.state.name} - <span className="account-num">{this.state.mask}****</span></span>
+                         <span style={{verticalAlign: 'middle'}} className="card-title white-text left-align"><span  className={iconName}></span>  {accountName} - <span className="account-num">{this.state.mask}****</span></span>
                        </div>
                        <div className="col s12 m6 right-align">
                          <span className="account-avail white-text"> Available Balance: <span className="account-balance"><sup>$</sup>{currentBalance}</span></span>
@@ -257,7 +268,10 @@ class AccountDetail extends Component {
                      <div className="row">
                        <div className="col s12">
 
-                           <Table transactionsUpdated={this.transactionsUpdated.bind(this)} {...this.state}/>
+                           <Table
+                               transactionsUpdated={this.transactionsUpdated.bind(this)}
+                               {...this.state}
+                           />
                        </div>
                      </div>
                    </div>
