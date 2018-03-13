@@ -10,9 +10,9 @@ class Goal extends React.Component {
 
     state = {
         userCategories: [],
-        categories: [],
-        name:'',
-        budget:''
+        categories: this.props.categories,
+        name: this.props.name,
+        budget: this.props.budget
       }
 
     getCategories = categories => {
@@ -76,7 +76,7 @@ return (
           </div>
           <br />
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='budget' id='input_2' defaultValue={ this.props.budget } />
+            <input onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
             <label className='active' htmlFor='input_2'> Goal Budget </label>
           </div>
           <div className='row'>

@@ -14,10 +14,13 @@ class Multiselect extends React.Component {
   }
 
 	handleOnChange (value) {
-			this.setState({ multiValue: value }, ()=>{
-				this.state.getCategories(this.state.multiValue)
-			})
+      this.setState({ multiValue: value}, ()=> console.log('this.state: ', this.state)) 
   }
+
+  // componentDidUpdate(){
+  //   console.log('da fuck')
+  //   this.state.getCategories(this.state.multiValue)
+  // }
 
   componentWillReceiveProps({categories, goalCategories, getCategories}){
     const options = categories.map(oldCat => {
@@ -30,6 +33,14 @@ class Multiselect extends React.Component {
     
     this.setState({ options: options, getCategories: getCategories, goalCategories: goalCategories })
     defaultCategories.map(value => this.setState({multiValue: value}))
+    console.log("defaultCategories")
+    console.log(defaultCategories)
+    console.log("this.state.multiValue")
+    console.log(this.state.multiValue)
+    // console.log("this.props.goalcategories")
+    // console.log(this.props.goalCategories)
+    // console.log("this.state.value")
+    // console.log(this.state.value)
   }
 
 	render () {
