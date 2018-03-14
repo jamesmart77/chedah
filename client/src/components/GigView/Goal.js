@@ -88,8 +88,7 @@ return (
         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
             <section className="modalSpace">
-             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
-             <br/>
+             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>&nbsp;
              <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button>
             
             </section>
@@ -117,7 +116,7 @@ return (
 </div>
 <div className="card-content cardBody">
 <div className="row">
-    <div className="col m4">
+    <div className="col m12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Budget</span>
@@ -131,7 +130,7 @@ return (
     </div>
 
   
-    <div className="col m4">
+    <div className="col m12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Expenses</span>
@@ -143,7 +142,7 @@ return (
     </div>
 
     {/* Net */}
-    <div className="col m4">
+    <div className="col m12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Net</span>

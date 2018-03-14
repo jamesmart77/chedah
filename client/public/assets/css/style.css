@@ -1049,15 +1049,16 @@ img.productIMG {
     margin: 10px;
 }
 
+.Select {
+    z-index: 1000;
+}
 
-/* .modalSpace {
-    margin: 10px;
-} */
+.modal-content h4 {
+    padding-bottom: 25px;
+}
 
-
-/* This is a hack for the multiselect dropdown on the edit a goal modal */
-.multiselectStyle {
-    width: 60%;
+.input-field label {
+    padding-top: 15px;
 }
 
 
