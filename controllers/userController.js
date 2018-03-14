@@ -45,6 +45,7 @@ module.exports = {
         }
 
         // console.log(user)
+        const mutliDimensionalArrayOfGoalPromises = []
 
         user.gigs = user.gigs.map(gig => {
           console.log('map over gigs')
@@ -99,24 +100,15 @@ module.exports = {
             gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
               return { name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
-
-
-
-            console.log('gig.name:', gig.name)
-            console.log('gig.moneyIn', gig.moneyIn)
-
         
-            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
-            gig.goals.map(goal => console.log('GOAL: ', goal))
-
-            // console.log('gigTransactionsPromises', gigTransactionsPromises)
+            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
+            mutliDimensionalArrayOfGoalPromises.push(gigTransactionsPromises)
 
             const gigTransByGoal = Promise.all(gigTransactionsPromises)
               .then(response => console.log('response.length: ', response.length))
 
           }
-          console.log('gig.name:', gig.name)
-          console.log('gig.moneyIn', gig.moneyIn)
+
           return gig
         })
 
@@ -126,23 +118,47 @@ module.exports = {
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
 
-        // console.log('user')
-        // console.log(user)
-
         db.PlaidCategory
         .find({})
         .then(dbPlaidCat => {
-
-          // console.log(dbPlaidCat)
-          // userWithoutItems.categories.concat(dbPlaidCat)
 
           dbPlaidCat.map(plaidCat => {
             userWithoutItems.categories.push({name: plaidCat.name});
           })
           
-          // console.log(userWithoutItems)
 
-          res.json(userWithoutItems);
+              const newFlatArray = mutliDimensionalArrayOfGoalPromises.reduce((acc, cv) =>  [...acc, ...cv])
+
+              Promise.all(newFlatArray)
+                .then(allTheResolvedPromisesOfGoalSummaries => {
+                  
+                  // at this point, We have the user in memory an also the gig summaries, but I need to associate those gig summaries into the user object
+                  const goals = userWithoutItems
+                    .gigs.map(gig => gig.goals.map(goal => {
+                          goal.expenses = allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id).total
+                          goal.net = goal.budget - goal.expenses
+                          goal.percent = goal.expenses / goal.budget
+                          return goal
+                      })
+                    )
+
+                    const gigs = userWithoutItems.gigs.map(gig => 
+                      gig.goals.map(gigGoal => {
+                        gigGoal = goals.find(goal => gigGoal._id === goal._id)
+                        return gigGoal
+                      })
+                    )
+
+                    // We're creating a temporary user object to merge back into our main user object here.
+                    const tempUser = {}
+                    tempUser.gigs = gigs
+
+                    const finalUser = R.mergeDeepLeft(userWithoutItems, tempUser)
+                    res.json(finalUser)
+                })
+
+
+          
         }).catch(err => {console.log(err) ; return err})
         .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
         

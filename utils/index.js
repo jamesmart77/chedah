@@ -3,6 +3,7 @@ const db = require('../models')
 // Months from Jan to Sep and days from 1 to 9 are formatted as a single digit, this formats as 2 digits
 const getMonth = () => new Date().getMonth() + 1 < 10 ? `0${new Date().getMonth() + 1}` : new Date().getMonth() + 1
 const getDate = () => new Date().getDate() + 1 < 10 ? `0${new Date().getDate() + 1}` : new Date().getDate() + 1
+const sum = (x, y) => Math.abs(x) + Math.abs(y)
 
 module.exports = {
     isNegative : num => num < 0 ? true : false,
@@ -29,8 +30,17 @@ module.exports = {
     },
 
     // This will return a promise that is a filtered of a certain gigs transactions filtered by categories supplied in the second arguement, they will be category names, NOT IDS
-    getGigTransactionsByCategories : (gigId, categories) => { console.log('gigId', gigId, 'categories', categories); return db.Transaction.find({ gigId: gigId, category: { $in: categories } })},
-
+    getGigTransactionsByCategories : (gigId, goalId, categories) => { 
+        return new Promise((resolve, reject) => {
+            db.Transaction.find({ gigId: gigId, category: { $in: categories } })
+            .then(dbGoalTransactions => {
+                const transactionSummary = {}
+                transactionSummary.total = dbGoalTransactions.length > 0 ? dbGoalTransactions.map(t => t.amount).reduce((acc, cv) => acc + cv) : 0
+                transactionSummary.goalId = goalId
+                resolve(transactionSummary)
+        });
+    })
+    },
     // Aggregations that are used in multiple places
     spendingByCategoryGig: gigId => {
         console.log(gigId)
