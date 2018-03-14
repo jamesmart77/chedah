@@ -37,13 +37,18 @@ class ModalAddCategory extends React.Component {
     handleSubmit() {
         console.log(`adding category: `, this.state);
         API.createCategory(this.state)
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+        .then(data => {
+            console.log(data)
+            this.setState({name: '', description: ''})
+        })
+        .catch(err => {
+            console.log(err)
+        });
     }
 
     render() {
         return (
-                 <div id="add-category-modal" className="modal" data-modal style={{width: '60%', height: '60%'}}>
+                 <div id="add-category-modal" className="modal" data-modal style={{width: '60%', minHeight: 400}}>
                    <div className="modal-content">
                        <div className="modal-title">
                            <h4>Add a Category</h4>

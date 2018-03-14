@@ -39,7 +39,8 @@ class ModalAddGoal extends React.Component {
     data.categories = this.state.categories
 
     API.addGoalToGig(data).then(res => {
-      this.props.refresh() 
+      this.setState({name: '', budget: ''})
+      this.props.refresh()
     }).catch(err => {
       console.log("We were unable to add a goal to the gig, here's the returned error message from the server")
       console.log(err)
@@ -54,7 +55,7 @@ class ModalAddGoal extends React.Component {
   getCategories = categories => {
       this.setState({ categories: categories })
   }
-    
+
   handleClick (val) {
     console.log(`selected: `, val)
   }
@@ -75,6 +76,7 @@ class ModalAddGoal extends React.Component {
               type='text'
               name='name'
               id='input_1'
+              value={this.state.name}
                />
             <label className='active' htmlFor='input_1'>
               Goal Name
@@ -86,6 +88,7 @@ class ModalAddGoal extends React.Component {
               type='number'
               name='budget'
               id='input_2'
+              value={this.state.budget}
                />
             <label className='active' htmlFor='input_2'>
               Budget

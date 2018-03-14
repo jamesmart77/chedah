@@ -91,6 +91,7 @@ class ActionButton extends React.Component {
         let pathname = this.props.location.pathname || '/';
         let paths = pathname.split('/').filter(item => { return (item !== '')})
 
+
         this.state = {
             path: (paths.length) ? paths[0] : 'home',
             commands: actions
@@ -101,13 +102,28 @@ class ActionButton extends React.Component {
 
     // return commands for the current page
     getCommands() {
-        return this.state.commands[this.state.path] || []
+        let pathname = this.props.location.pathname || '/';
+        let paths = pathname.split('/').filter(item => { return (item !== '')})
+
+        let mode = this.state.path || 'dashboard'
+        if (paths.length > 1) {
+            if (this.state.path == 'accounts') {
+                mode = 'accountsDetail'
+            }
+
+            if (this.state.path == 'gigs') {
+                mode = 'gigsDetail'
+            }
+        }
+
+
+        return this.state.commands[mode] || []
     }
 
     handleClick(cmd) {
         console.log(`-> action clicked: `, cmd.target.id);
     }
-    
+
     render() {
         const currentCommands = this.getCommands()
         if (!currentCommands.length) {
