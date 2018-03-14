@@ -45,6 +45,7 @@ module.exports = {
         }
 
         // console.log(user)
+        const mutliDimensionalArrayOfGoalPromises = []
 
         user.gigs = user.gigs.map(gig => {
           console.log('map over gigs')
@@ -102,12 +103,12 @@ module.exports = {
 
 
 
-            console.log('gig.name:', gig.name)
-            console.log('gig.moneyIn', gig.moneyIn)
+            // console.log('gig.name:', gig.name)
+            // console.log('gig.moneyIn', gig.moneyIn)
 
         
-            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
-            gig.goals.map(goal => console.log('GOAL: ', goal))
+            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
+            mutliDimensionalArrayOfGoalPromises.push(gigTransactionsPromises)
 
             // console.log('gigTransactionsPromises', gigTransactionsPromises)
 
@@ -115,8 +116,10 @@ module.exports = {
               .then(response => console.log('response.length: ', response.length))
 
           }
-          console.log('gig.name:', gig.name)
-          console.log('gig.moneyIn', gig.moneyIn)
+
+
+          // console.log('gig.name:', gig.name)
+          // console.log('gig.moneyIn', gig.moneyIn)
           return gig
         })
 
@@ -142,7 +145,40 @@ module.exports = {
           
           // console.log(userWithoutItems)
 
-          res.json(userWithoutItems);
+
+              const newFlatArray = mutliDimensionalArrayOfGoalPromises.reduce((acc, cv) =>  [...acc, ...cv])
+
+              Promise.all(newFlatArray)
+                .then(allTheResolvedPromisesOfGoalSummaries => {
+                  
+                  // console.log('userWithoutItems', userWithoutItems)
+
+                  // at this point, I have the user in memory an also the gig summaries, but I need to associate those gig summaries into the user object
+                  const goals = userWithoutItems
+                    .gigs.map(gig => gig.goals.map(goal => {
+                          goal.expenses = allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id).total
+                          goal.net = goal.budget - goal.expenses
+                          return goal
+                      })
+                    )
+                    // console.log('goals: ', goals)
+
+                    const gigs = userWithoutItems.gigs.map(gig => 
+                      gig.goals.map(gigGoal => {
+                        gigGoal = goals.find(goal => gigGoal._id === goal._id)
+                        return gigGoal
+                      })
+                    )
+
+                    const tempUser = {}
+                    tempUser.gigs = gigs
+
+                    const finalUser = R.mergeDeepLeft(userWithoutItems, tempUser)
+                    res.json(finalUser)
+                })
+
+
+          
         }).catch(err => {console.log(err) ; return err})
         .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
         
