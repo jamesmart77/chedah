@@ -1,0 +1,36 @@
+.account-header {
+    font-family: 'Roboto Slab', serif;
+    text-transform: none;
+    color: #353535;
+}
+
+.account-number {
+    font-family: 'Roboto Slab', serif;
+    text-transform: none;
+    color: #333333;
+}
+
+.account-due {
+    font-family: 'Roboto Slab', serif;
+    text-transform: none;
+    color: #ccc;
+}
+
+.account-balance,
+.account-avail,
+.account-limit {
+    font-family: 'Rubik', sans-serif;
+}
+
+.account-balance {
+    font-size: 1.25rem;
+}
+
+
+td, th {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+}

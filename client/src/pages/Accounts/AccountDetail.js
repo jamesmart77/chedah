@@ -18,6 +18,7 @@ function nextDueDate(day) {
     return dueDate;
 }
 
+// transaction table headers
 const defaultHeaders = [
     {
         name: 'Date',
@@ -57,7 +58,8 @@ class AccountDetail extends Component {
         this.state = {
             account_id: this.props.match.params.id,
             transactions: [],
-            headers: defaultHeaders
+            headers: defaultHeaders,
+            gigs: []
         }
     }
 
@@ -65,9 +67,30 @@ class AccountDetail extends Component {
         return (this.hasData == true)
     }
 
+    componentWillMount() {
+        API.getUserGigs()
+        .then(gigs => {
+            let gigData = []
+            gigs.data.forEach(gig => {
+                gigData.push({name: gig.name, id: gig._id, description: gig.description})
+            })
+            this.setState({gigs: gigData})
+        })
+        .catch(err => {
+            this.hasData = false
+            console.log(`Error: `, err);
+        })
+    }
+
     componentDidMount() {
         API.getAccount({accountId: this.state.account_id})
         .then(acct => {
+
+            let accountSummary = acct.data.summary || {}
+            if (!accountSummary) {
+                console.log(` -> Warning: account data not received: `, acct.data);
+            }
+
             this.setState(acct.data)
             this.hasData = true;
         })
@@ -196,6 +219,10 @@ class AccountDetail extends Component {
         return (<div></div>)
     }
 
+    renderCredit() {
+
+    }
+
     render() {
         /*
         let accountDetails;
@@ -208,7 +235,9 @@ class AccountDetail extends Component {
         } else {
             accountDetails = this.renderCheckingTable()
         }*/
-        console.log(`rendering...`);
+
+        console.log(`-> AccountDetail summary: `, this.state.summary || {});
+
         const iconName = (this.state.type == 'credit') ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
         const currentBalance = this.state.balances ? this.state.balances.current : 0
         const currentLimit = this.state.balances ? this.state.balances.limit : 0

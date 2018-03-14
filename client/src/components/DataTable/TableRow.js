@@ -4,11 +4,6 @@ import Cell from './Cells';
 
 
 class TableRow extends Component {
-
-    constructor(props) {
-        super(props);
-    };
-
     // callback for cells that are edtited
     // data = {value: String, role: String}
     columnEdited(data) {
@@ -23,7 +18,7 @@ class TableRow extends Component {
                 <Cell row={this.props.row} column={0} value={this.props.date} role='date'/>
                 <Cell row={this.props.row} column={1} value={this.props.transactionName} role='vendor' editable='true' columnEdited={this.columnEdited.bind(this)}/>
                 <Cell row={this.props.row} column={2} value={this.props.category} role='category' editable='true' columnEdited={this.columnEdited.bind(this)}/>
-                <Cell row={this.props.row} column={3} value={this.props.gig} role='gig' align='center' editable='true' columnEdited={this.columnEdited.bind(this)}/>
+                <Cell row={this.props.row} column={3} value={this.props.gigId} role='gig' autocomplete={this.props.gigs} align='center' editable='true' columnEdited={this.columnEdited.bind(this)}/>
                 <Cell row={this.props.row} column={4} value={this.props.amount} role='amount' align='right'/>
             </tr>
         );
