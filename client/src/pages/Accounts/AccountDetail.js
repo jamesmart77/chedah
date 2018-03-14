@@ -57,12 +57,28 @@ class AccountDetail extends Component {
         this.state = {
             account_id: this.props.match.params.id,
             transactions: [],
-            headers: defaultHeaders
+            headers: defaultHeaders,
+            gigs: []
         }
     }
 
     shouldComponentUpdate() {
         return (this.hasData == true)
+    }
+
+    componentWillMount() {
+        API.getUserGigs()
+        .then(gigs => {
+            let gigData = []
+            gigs.data.forEach(gig => {
+                gigData.push({name: gig.name, id: gig._id, description: gig.description})
+            })
+            this.setState({gigs: gigData})
+        })
+        .catch(err => {
+            this.hasData = false
+            console.log(`Error: `, err);
+        })
     }
 
     componentDidMount() {
@@ -208,7 +224,6 @@ class AccountDetail extends Component {
         } else {
             accountDetails = this.renderCheckingTable()
         }*/
-        console.log(`rendering...`);
         const iconName = (this.state.type == 'credit') ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
         const currentBalance = this.state.balances ? this.state.balances.current : 0
         const currentLimit = this.state.balances ? this.state.balances.limit : 0

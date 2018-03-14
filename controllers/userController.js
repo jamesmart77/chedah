@@ -135,7 +135,7 @@ module.exports = {
                   // at this point, We have the user in memory an also the gig summaries, but I need to associate those gig summaries into the user object
                   const goals = userWithoutItems
                     .gigs.map(gig => gig.goals.map(goal => {
-                          goal.expenses = allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id).total
+                          goal.expenses = allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id) ? allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id).total : 0.00
                           goal.net = goal.budget - goal.expenses
                           goal.percent = goal.expenses / goal.budget
                           return goal
