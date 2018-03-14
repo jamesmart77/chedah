@@ -81,7 +81,7 @@ class App extends React.Component {
       {isLoggedIn() && <div>
       <ModalEditAccount user={this.state.user}/>
       <ModalAddGoal user={ this.state.user } location={ history.location } refresh={ this.refresh.bind(this) } mode={ 'add' } id={'add-goal-modal'} />
-      <ModalAddGig user={this.state.user}/>
+      <ModalAddGig user={this.state.user} refresh={ this.refresh.bind(this) }/>
       <ModalAddCategory user={this.state.user}/>
       </div>
       }

@@ -47,7 +47,10 @@ class ModalAddGig extends React.Component {
     handleSubmit() {
         console.log(`adding gig: `, this.state);
         API.createGig(this.state)
-        .then(data => console.log(data))
+        .then(data => {
+            console.log(data)
+            this.props.refresh()   
+        })
         .catch(err => console.log(err));
     }
 
