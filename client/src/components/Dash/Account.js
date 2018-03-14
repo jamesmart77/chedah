@@ -1,5 +1,6 @@
 import React from 'react';
 import { formatCurrencyValueJSX } from '../../utils/currency';
+import { GigChip } from '../Material';
 
 
 // materialize account preview widget
@@ -12,6 +13,7 @@ class Account extends React.Component {
     renderChecking() {
         const checkingBalance = formatCurrencyValueJSX(this.props.balances.current);
         const accountHref = `accounts/${this.props.account_id}`;
+        const defaultGig = (this.props.defaultGigName === 'Personal')
         return (
             <div className='row collapsible-body'>
                 <div className='row'>
@@ -25,7 +27,11 @@ class Account extends React.Component {
                 <div className='row pl-1'>
 
                     <div className='col s12'>
-                        <div className='chip'>{this.props.defaultGigName}</div>
+                        <GigChip
+                            gig={this.props.defaultGigName}
+                            gigId={this.props.defaultGigId}
+                            isDefault={defaultGig}
+                        />
                     </div>
 
                 </div>
@@ -38,6 +44,7 @@ class Account extends React.Component {
         const creditTotal = formatCurrencyValueJSX(this.props.balances.limit);
         const creditBalance = formatCurrencyValueJSX(this.props.balances.current);
         const accountHref = `accounts/${this.props.account_id}`;
+        const defaultGig = (this.props.defaultGigName === 'Personal')
         return (
                 <div className='row collapsible-body'>
                 <div className='row'>
@@ -51,7 +58,11 @@ class Account extends React.Component {
                 <div className='row pl-1'>
 
                     <div className='col s8'>
-                        <div className='chip'>{this.props.defaultGigName}</div>
+                        <GigChip
+                            gig={this.props.defaultGigName}
+                            gigId={this.props.defaultGigId}
+                            isDefault={defaultGig}
+                        />
                     </div>
 
                     <div className='col s4 account-total right-align'>

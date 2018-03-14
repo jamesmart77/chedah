@@ -5,13 +5,15 @@ import './Chips.css';
 const $ = require('jquery');
 
 
-class Chip extends React.Component {
+class GigChip extends React.Component {
     constructor (props) {
         super(props);
 
         this.state = {
-            close: true,
-            gig: props.gig || 'null'
+            close: false,
+            gig: props.gig || 'null',
+            gigId: props.gigId || '',
+            isDefault: props.isDefault || false
         }
 
         this._onClick = this._onClick.bind(this);
@@ -27,26 +29,36 @@ class Chip extends React.Component {
     }
 
     render() {
+        const gigHref = this.state.gigId ? `/gigs/${this.state.gigId}` : '#';
+        const cname = this.state.isDefault ? `default chip grow` : 'chip grow'
         return (
-            <div className='chip'>
-                {this.state.gig}
-                {this.state.close ? <i ref={(ref) => (this.closeButton = ref)} className='close material-icons'>close</i> : null}
-            </div>
+
+                <div className={cname}>
+                    <a href={gigHref}>
+                        {this.state.gig}
+                        {this.state.close ? <i ref={(ref) => (this.closeButton = ref)} className='close material-icons'>close</i> : null}
+                    </a>
+                </div>
+
         )
     }
 }
 
 
-Chip.propTypes = {
-  close: PropTypes.bool,
-  gig: PropTypes.string
+GigChip.propTypes = {
+    close: PropTypes.bool,
+    gig: PropTypes.string,
+    gigId: PropTypes.string,
+    isDefault: PropTypes.bool
 }
 
 
-Chip.defaultProps = {
-  close: true,
-  gig: 'null'
+GigChip.defaultProps = {
+    close: false,
+    gig: 'null',
+    gigId: '',
+    isDefault: false
 }
 
 
-export default Chip;
+export default GigChip;

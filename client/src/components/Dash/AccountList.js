@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import Account from './Account';
 import API from '../../utils/API';
 
+
 const $ = require('jquery');
 
 
@@ -44,7 +45,10 @@ class AccountList extends Component {
 
         if (hasAccounts) {
             results = accounts.map(acct =>
-                <Account key={acct._id} {...acct}/>
+                <Account
+                    key={acct._id}
+                    {...acct}
+                />
             )
         }
         return results
@@ -60,7 +64,6 @@ class AccountList extends Component {
                 datacollapsible="expandable">
 
                 <li>
-
                     <div className="collapsible-header listHeader" onClick={this.handleClick.bind(this)}>
                         <h6><i className="material-icons iconStyleSmall">account_balance</i> Accounts</h6>
                         <i className="header-expand-state material-icons">{arrowName}</i>

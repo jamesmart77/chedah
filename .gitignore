@@ -1,4 +1,4 @@
-#client/build
+client/build
 **/node_modules
 .env
 .DS_Store
