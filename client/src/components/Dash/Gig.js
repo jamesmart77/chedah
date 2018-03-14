@@ -17,16 +17,23 @@ import API from '../../utils/API'
 
 */
 class Gig extends React.Component {
-
     constructor(props) {
         super(props);
         console.log(`gig props: `, props);
         this.handleClick = this.handleClick.bind(this);
-    };
+
+        this.state = {
+
+        }
+    }
+
+    deleteGig(gigId) {
+      API.deleteGig(gigId)
+    }
 
     handleClick(freq) {
         this.setState({frequency: freq})
-    };
+    }
 
     render() {
         const gigHref = `/gigs/${this.props._id}`;
@@ -49,8 +56,7 @@ class Gig extends React.Component {
                         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
                         actions={
                             <section className="modalSpace">
-                            <Button waves='light' className="modal-action modal-close teal" >Update Gig</Button> <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" >Delete Gig</Button> 
-                            
+                            <Button waves='light' className="modal-action modal-close teal" >Update Gig</Button> <Button onClick={ () => this.deleteGig(this.props._id) } waves='light' className="modal-action modal-close deep-orange darken-3 white-text" >Delete Gig</Button> 
                             </section>
                           }>
                           
@@ -64,6 +70,7 @@ class Gig extends React.Component {
                             <label className='active' htmlFor='input_2'> Gig Description </label>
                           </div>
 
+                          {/* Might pull this out of MVP, it's the account association */}
                           {/* <div className='col input-field s12'>
                             <input className='input-field' onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
                             <label className='active' htmlFor='input_2'> Account Association </label>
