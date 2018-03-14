@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="theme-color" content="#000000">
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
+        <title>Chedah</title>
+        <!-- Materialize CSS-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- App CSS-->
+        <link href="../assets/css/material-helpers.css" type="text/css" rel="stylesheet">
+        <link href="../assets/css/style.css" type="text/css" rel="stylesheet">
+        <link href="categories.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="root">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <ul id="task-card" class="collection with-header">
+                            <li class="collection-header gradient-45deg-light-blue-cyan">
+                                <h4 class="task-card-title">My Categories</h4>
+                                <p class="task-card-date">March 18, 2018</p>
+                            </li>
+                            <a href="#task-modal" class="task-add modal-trigger btn-floating waves-effect waves-light gradient-45deg-red-pink gradient-shadow"> <i class="material-icons">add</i> </a>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task5" />
+                                <label for="task5">Travel</label>
+                                <span class="task-cat task-cat red accent-2">Work</span>
+                            </li>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task6" />
+                                <label for="task6">Install Materialize Admin Theme.
+</label>
+                                <span class="task-cat teal accent-4">Webapp</span>
+                            </li>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task7" />
+                                <label for="task7">Review and rate Materialize Admin Theme.
+</label>
+                                <span class="task-cat cyan">Web API</span>
+                            </li>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task1" />
+                                <label for="task1">Create Mobile App UI.
+</label>
+                                <span class="task-cat deep-orange accent-2">Mobile App</span>
+                            </li>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task2" />
+                                <label for="task2">Check the new API standerds.
+</label>
+                                <span class="task-cat cyan">Web API</span>
+                            </li>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task3" checked="checked" />
+                                <label for="task3">Check the new Mockup of ABC.
+</label>
+                                <span class="task-cat deep-orange accent-2">Mockup</span>
+                            </li>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task4" checked="checked" disabled="disabled" />
+                                <label for="task4">I did it !</label>
+                                <span class="task-cat red accent-2">Mobile App</span>
+                            </li>
+                            <li class="collection-item dismissable">
+                                <input type="checkbox" id="task8" checked="checked" disabled="disabled" />
+                                <label for="task8">I did this too !</label>
+                                <span class="task-cat red accent-2">Mobile App</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  Scripts -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+        <script src="../assets/vendor/js/jquery.nestable.js"></script>
+        <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <!-- Materialize Init -->
+        <script src="../assets/js/init.js"></script>
+        <!-- Custom JS -->
+        <script src="../assets/js/view.js"></script>
+    </body>
+</html>

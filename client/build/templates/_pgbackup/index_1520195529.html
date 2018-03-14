@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="theme-color" content="#000000">
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+        <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.png">
+        <title>Chedah</title>
+        <!-- Materialize CSS-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- App CSS-->
+        <link href="../assets/css/material-helpers.css" type="text/css" rel="stylesheet">
+        <link href="../assets/css/style.css" type="text/css" rel="stylesheet">
+        <!--  -->
+        <link href="account.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="root">
+            <div class="container fluid">
+                <div class="card-panel account-detail">
+                    <div class="row valign-wrapper s12">
+                        <div class="col l7">
+                            <h4><i class="material-icons">credit_card</i><span class="account-header"> Chase MasterCard</span></h4>
+                            <h5 class="account-number">624831******001</h5>
+                            <h6 class="account-due">Due: March 27, 2018</h6>
+                        </div>
+                        <div class="col l5">
+                            <table class="account-balances">
+                                <tbody>
+                                    <tr class="account-balance">
+                                        <td class="description">Balance:</td>
+                                        <td>$478.41</td>
+                                        <td class="stats"><span class="new badge" data-badge-caption="APR">4%</span></td>
+                                    </tr>
+                                    <tr class="account-avail">
+                                        <td class="description">Available:</td>
+                                        <td>$15521.59</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="account-limit">
+                                        <td class="description">Limit:</td>
+                                        <td>$16000.00</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="account-fees">
+                                        <td class="description">Fees:</td>
+                                        <td>$84.00</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row account-transations">
+                        <table class="striped">
+                            <thead>
+                                <tr>
+                                    <th data-field="id">Date</th>
+                                    <th data-field="name">Vendor</th>
+                                    <th data-field="price">Category</th>
+                                    <th data-field="price">Gig</th>
+                                    <th data-field="price">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="date">Alvin</td>
+                                    <td class="vendor">Starbucks</td>
+                                    <td>Food</td>
+                                    <td>Uber</td>
+                                    <td>$12.85</td>
+                                </tr>
+                                <tr>
+                                    <td class="date">Alan</td>
+                                    <td class="vendor">Autozone</td>
+                                    <td>Maintainance</td>
+                                    <td>Uber</td>
+                                    <td>$217.08</td>
+                                </tr>
+                                <tr>
+                                    <td class="date">Jonathan</td>
+                                    <td class="vendor">Nike</td>
+                                    <td>Clothing</td>
+                                    <td>Uber</td>
+                                    <td>$67.88</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  Scripts -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+        <script src="../assets/vendor/js/jquery.nestable.js"></script>
+        <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <!-- Materialize Init -->
+        <script src="../assets/js/init.js"></script>
+        <!-- Custom JS -->
+        <script src="../assets/js/view.js"></script>
+    </body>
+</html>

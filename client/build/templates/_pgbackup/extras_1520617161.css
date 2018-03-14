@@ -1,0 +1,12 @@
+.card-header {
+    background-color: #51656f;
+    padding: 24px;
+}
+
+.account-num {
+    color: #ffffff70;
+}
+
+.account-avail {
+    font-size: 1.5rem;
+}
