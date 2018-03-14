@@ -85,22 +85,23 @@ return (
     </div>
     <div className="col s1">
     <Modal
-        header="Edit Goal"  
+        header="Edit Goal"
         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
-            <section>
-              <Button waves='light' flat className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)}>Delete Goal</Button> &nbsp;
-              <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
+            <section className="modalSpace">
+             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
+             <br/>
+             <a href="!#" text-teal onClick={this.deleteGoal.bind(this)}>[Delete Goal]</a>
             </section>
           }>
           
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='name' id='input_1' defaultValue={ this.props.name } />
+            <input className='input-field' onChange={this.handleChange} type='text' name='name' id='input_1' defaultValue={ this.props.name } />
             <label className='active' htmlFor='input_1'> Goal Name </label>
           </div>
          
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
+            <input className='input-field' onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
             <label className='active' htmlFor='input_2'> Goal Budget </label>
           </div>
           <div className='row'>

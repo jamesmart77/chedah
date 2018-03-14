@@ -30,20 +30,13 @@ class Multiselect extends React.Component {
     
     this.setState({ options: options, getCategories: getCategories, goalCategories: goalCategories })
     defaultCategories.map(value => this.setState({multiValue: value}))
-    console.log("defaultCategories")
-    console.log(defaultCategories)
-    console.log("this.state.multiValue")
-    console.log(this.state.multiValue)
-    // console.log("this.props.goalcategories")
-    // console.log(this.props.goalCategories)
-    // console.log("this.state.value")
-    // console.log(this.state.value)
+
   }
 
 	render () {
 		const { multiValue, options, value } = this.state;
 		return (
-			<div className="section">
+			<div className="section multiselectStyle">
 				<h3 className="section-heading">{this.props.label} </h3>
 				<Select.Creatable
 					multi={true}

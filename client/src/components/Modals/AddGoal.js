@@ -91,7 +91,7 @@ class ModalAddGoal extends React.Component {
           <div className='col input-field s12'>
             <input
               onChange={this.handleChange}
-              type='text'
+              type='number'
               name='budget'
               id='input_2'
                />

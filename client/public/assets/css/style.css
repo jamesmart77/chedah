@@ -1019,6 +1019,15 @@ img.productIMG {
     margin: 10px;
 }
 
+
+/* .modalSpace {
+    margin: 10px;
+} */
+
+.multiselectStyle {
+    width: 60%;
+}
+
 /*----------------------------------------
     Modal Fixes
 ------------------------------------------*/
@@ -1080,8 +1089,8 @@ img.productIMG {
 }
 
 
-/*
-.modal .gig-dropdown .dropdown-content li>a,
+
+/* .modal .gig-dropdown .dropdown-content li>a,
 .modal .dropdown-content li>span {
     font-size: 1rem;
 }
@@ -1090,5 +1099,5 @@ img.productIMG {
     position: absolute;
     top: -26px;
     font-size: 0.9rem;
-}
-*/
+} */
+
