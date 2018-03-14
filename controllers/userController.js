@@ -36,6 +36,8 @@ module.exports = {
       })
       .then(user => {
 
+        console.log('user.categories: ', user.categories)
+
         if(user.accounts){          
             user.accounts = user.accounts.map(account => {
             account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
@@ -113,7 +115,7 @@ module.exports = {
         })
 
 
-        user.categories = []
+        // user.categories = []
 
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
@@ -123,7 +125,7 @@ module.exports = {
         .then(dbPlaidCat => {
 
           dbPlaidCat.map(plaidCat => {
-            userWithoutItems.categories.push({name: plaidCat.name});
+            userWithoutItems.categories.push({name: plaidCat.name})
           })
           
 
