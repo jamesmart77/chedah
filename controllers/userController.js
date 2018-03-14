@@ -100,7 +100,7 @@ module.exports = {
               )
 
             gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
-              return { name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)) }
+              return { name: catTransArray[0].name, total: R.sum(catTransArray.filter(t => isPositive(t.amount)).map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
             .filter(category => category.total > 0)
         

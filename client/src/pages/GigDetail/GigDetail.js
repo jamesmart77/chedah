@@ -151,7 +151,7 @@ class GigDetail extends React.Component {
           </div>
           <div className='col s12 m7 l8'>
             {/* if theres a goal, show the GoalSummary component */}
-            {this.state.gig.goals && <GoalSummary user={this.props.user} goals={this.state.gig.goals}  refresh={ this.props.refresh } />}
+            {this.state.gig.goals && this.state.gig.goals.length ? <GoalSummary user={this.props.user} goals={this.state.gig.goals}  refresh={ this.props.refresh } /> : <div><h3>Please add a goal</h3></div> }
             {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
             {/* <ModalAddGoal gigId={'5a91b813513541155c819fa4'}/> */}
           </div>
