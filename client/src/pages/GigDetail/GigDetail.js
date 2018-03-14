@@ -145,13 +145,13 @@ class GigDetail extends React.Component {
         <div className='row'>
           <div className='col s12 m5 l4'>
             <GigSummary gigSummary={this.state.gig} addGoalToGig={this.addGoalToGig.bind(this)} />
-            {this.state.gig.spendingByCategory && <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name} />}
+            {this.state.gig.spendingByCategory && <ExpenseSummary total={this.state.gig.moneyOut} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name} />}
             {/* {this.state.gig.spendingByCategory  && <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/>} */}
             {/* {this.state.gig.spendingByCategory  ? <ExpenseSummary total={this.state.gig.net} expenses={this.state.gig.spendingByCategory} gigName={this.state.gig.name}/> : <h1>WTF IS GOIN ON</h1>} */}
           </div>
           <div className='col s12 m7 l8'>
             {/* if theres a goal, show the GoalSummary component */}
-            {this.state.gig.goals && <GoalSummary user={this.props.user} goals={this.state.gig.goals}  refresh={ this.props.refresh } />}
+            {this.state.gig.goals && this.state.gig.goals.length ? <GoalSummary user={this.props.user} goals={this.state.gig.goals}  refresh={ this.props.refresh } /> : <div><h3>Please add a goal</h3></div> }
             {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
             {/* <ModalAddGoal gigId={'5a91b813513541155c819fa4'}/> */}
           </div>
