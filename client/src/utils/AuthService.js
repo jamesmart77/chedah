@@ -7,7 +7,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'k4Qfo5pZUT8bxBa0V4vRmRoaD26Y124G';
 const CLIENT_DOMAIN = 'chedah.auth0.com';
-const REDIRECT = window.location.hostname + '/callback';
+const REDIRECT = window.location.hostname === 'chedah.herokuapp.com' ? 'https://'+ window.location.hostname + '/callback' : 'localhost:3000/callback'
 const SCOPE = 'openid email openid profile allAPI';
 const AUDIENCE = 'https://chedah.herokuapp.com'; // react is complaining on this not being used, commenting out for now, might deprecate
 
