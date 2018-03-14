@@ -119,6 +119,15 @@ export default {
 
 
   // #############################################
+  // Transactions
+  // #############################################
+  
+  // data.transactionId 
+  // data.gigId
+  updateTransactionsGig: data => axios.put(`/api/transactions/${data.transactionId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
+
+  // #############################################
   // Categories
   // #############################################
   // data.userId
