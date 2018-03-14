@@ -51,6 +51,30 @@ class Goal extends React.Component {
         })
       }
 
+      deleteGoal () {
+        // console.log("button was pushed")
+        const data = {}
+    
+        data.goalId = this.props.id
+       
+        API.deleteGoal(data).then(res => {
+             console.log("button was pushed")
+          this.props.refresh()
+        }).catch(err => {
+          console.log("unable to delete the goal")
+          console.log(err)
+        })
+      }
+
+
+    //   deleteGoal = id => {
+    //     API.deleteGoal(id)
+    //       .then(res => this.props.refresh())
+    //       .catch(err => console.log(err))
+    //   }
+
+
+
 render() {
 return (
 <div className="card">
@@ -65,8 +89,7 @@ return (
         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
             <section>
-               
-              <Button waves='light' flat className="modal-action modal-close deep-orange darken-3 white-text">Delete Goal</Button> &nbsp;
+              <Button waves='light' flat className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)}>Delete Goal</Button> &nbsp;
               <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
             </section>
           }>

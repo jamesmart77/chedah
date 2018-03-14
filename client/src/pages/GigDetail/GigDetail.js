@@ -87,7 +87,7 @@ class GigDetail extends React.Component {
 
   deleteGoal = id => {
     API.deleteGoal(id)
-      .then(res => this.loadGig())
+      .then(res => this.props.refresh())
       .catch(err => console.log(err))
   }
 
@@ -151,7 +151,7 @@ class GigDetail extends React.Component {
           </div>
           <div className='col s12 m7 l8'>
             {/* if theres a goal, show the GoalSummary component */}
-            {this.state.gig.goals && <GoalSummary user={this.props.user} goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)} refresh={ this.props.refresh } />}
+            {this.state.gig.goals && <GoalSummary user={this.props.user} goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)} editGoal={this.deleteGoal.bind(this)}  refresh={ this.props.refresh } />}
             {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
             {/* <ModalAddGoal gigId={'5a91b813513541155c819fa4'}/> */}
           </div>
