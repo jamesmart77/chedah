@@ -56,6 +56,32 @@ export default {
   addGoalToGig: data => axios.post(`/api/goals`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
   // #############################################
+  // Goals
+  // #############################################
+
+ // update current goal
+  // data.goalId
+  // data.name // this is the goal name
+  // data.description
+  // data.budget
+  // data.categories []  // array of ids
+  updateGoal: data => {
+    // console.log("is this happening");
+    // console.log(`goal id: `, data.goalId);
+    // console.log(`account data: `, data);
+    data.userId = decodeToken(getIdToken()).sub
+  return axios.put(`/api/goals/${data.goalId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
+  },
+
+  // delete current goal
+  // data.goalId
+  deleteGoal: data => {
+    data.userId = decodeToken(getIdToken()).sub
+  return axios.delete(`/api/goals/${data.goalId}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
+  },
+
+
+  // #############################################
   // Accounts
   // #############################################
   
@@ -129,12 +155,6 @@ export default {
       .catch((err) => console.log(err));
   },
 
-editGoal: plaidObj => {
-  // const data = {};
-  // data.user = decodeToken(getIdToken());
-  // data.plaidObj = plaidObj;
-  // return axios.post('/api/users/items', data);
-},
 
 editTransaction: plaidObj => {
   // const data = {};

@@ -81,15 +81,15 @@ class GigDetail extends React.Component {
       })
   }
 
-  editGoal (id) {
-    alert(id)
-  }
+  // editGoal (id) {
+  //   alert(id)
+  // }
 
-  deleteGoal = id => {
-    API.deleteGoal(id)
-      .then(res => this.loadGig())
-      .catch(err => console.log(err))
-  }
+  // deleteGoal = id => {
+  //   API.deleteGoal(id)
+  //     .then(res => this.props.refresh())
+  //     .catch(err => console.log(err))
+  // }
 
   editTransaction () {
     // edit vendor name, category?, gig
@@ -137,7 +137,7 @@ class GigDetail extends React.Component {
       <Container fluid>
         <div className='row p-0 m-0'>
           <div className='col s6'>
-            <h4 className='dash-title'>{this.state.gigName} Dashboard</h4>
+            <h4 className='dash-title'>{this.state.gig.name} Dashboard</h4>
           </div>
           <div className='col s6'>
           </div>
@@ -151,11 +151,7 @@ class GigDetail extends React.Component {
           </div>
           <div className='col s12 m7 l8'>
             {/* if theres a goal, show the GoalSummary component */}
-
-
-            {this.state.gig.goals && <GoalSummary user={this.props.user} goals={this.state.gig.goals} editGoal={this.editGoal.bind(this)} refresh={ this.props.refresh } />}
-            
-            
+            {this.state.gig.goals && <GoalSummary user={this.props.user} goals={this.state.gig.goals}  refresh={ this.props.refresh } />}
             {/* <TransactionSummary columns={this.state.grid.columns} data={this.state.transactions} handleGridRowsUpdated={this.handleGridRowsUpdated}/> */}
             {/* <ModalAddGoal gigId={'5a91b813513541155c819fa4'}/> */}
           </div>
