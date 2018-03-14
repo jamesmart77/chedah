@@ -87,7 +87,7 @@ module.exports = {
               )
 
             gig.vendors = R.uniq(transactionsByVendor.map(vendorTransArray => {
-              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)) }
+              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.filter(t => isPositive(t.amount)).map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
 
 
