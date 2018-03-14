@@ -21,20 +21,11 @@ var client = new plaid.Client(
 module.exports = {
 
   getUser: (req, res) => {
+
     
+    // If the user is in cache, send that shit.
     console.log('getting the user')
-    db.User.findOne({ auth_id: req.params.authId }).lean()
-      .populate('accounts')
-      .populate('transactions')
-      .populate('gigs')
-      .populate('categories')
-      .populate({
-        path: 'gigs',
-        populate: {
-          path: 'goals',
-          model: 'Goal'
-        }
-      })
+    
       .then(user => {
 
         if(user.accounts){          user.accounts = user.accounts.map(account => {
@@ -46,9 +37,6 @@ module.exports = {
 
         console.log('testing 1')
         // console.log(user)
-
-
-
 
         console.log('map over gigs')
         user.gigs = user.gigs.map(gig => {
@@ -131,6 +119,7 @@ module.exports = {
           })
           console.log(userWithoutItems)
 
+          // WWrite this shit to Redis
           res.json(userWithoutItems);
         }).catch(err => {console.log(err) ; return err})
         .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))

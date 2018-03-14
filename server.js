@@ -7,11 +7,16 @@ const redis = require("redis")
 const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
-const logger = require('morgan')
+
+exports.exposeConnection = function() {
+  return redis;
+}; 
 
 
 
-
+redisClient.on("connect", ()=>{
+  console.log("Redis client is working")
+});
 
 
 const app = express();
@@ -32,20 +37,9 @@ app.use(routes);
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/chedah",
-  {
-    useMongoClient: true
-  }
-);
-
-redisClient.on("connect", () => {
-  console.log("Redis Client up");
-})
-
-app.use(logger("short"));
-
-
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/chedah", {
+  useMongoClient: true
+});
 
 // debugging logger
 app.all('*', (req, res, next) => {
@@ -59,7 +53,4 @@ app.listen(PORT, function () {
   console.log(`🧀  ==> API Server now listening on PORT ${PORT}!`);
 });
 
-module.exports = {
-  redisClient: redisClient,
-  app: app
-}
+

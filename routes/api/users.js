@@ -1,6 +1,13 @@
 const router = require('express').Router()
 const userControllers = require('../../controllers/userController')
 const plaidControllers = require('../../controllers/plaidController')
+// const client = require("../../redis/main.js");
+const client = require("../../server");
+
+
+console.log(client);
+
+
 
 // Matches with "/api/plaid/get_access_token"
 router.route('/')
@@ -30,4 +37,4 @@ router.route('/:authId/gigs')
 router.route('/:authId/gigs/get')
   .post(userControllers.getGigs)
 
-module.exports = router
+module.exports = router;
