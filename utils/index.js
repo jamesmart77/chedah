@@ -1,10 +1,35 @@
 const db = require('../models')
 
+// Months from Jan to Sep and days from 1 to 9 are formatted as a single digit, this formats as 2 digits
+const getMonth = () => new Date().getMonth() + 1 < 10 ? `0${new Date().getMonth() + 1}` : new Date().getMonth() + 1
+const getDate = () => new Date().getDate() + 1 < 10 ? `0${new Date().getDate() + 1}` : new Date().getDate() + 1
+
 module.exports = {
     isNegative : num => num < 0 ? true : false,
     isPositive : num => num > 0 ? true : false,
     sum : (x, y) => Math.abs(x) + Math.abs(y),
     sortObjects : (x, y) => x.total - y.total > 0 ? x : y,
+
+    // Date helper functions return dates formatted as yyyy-mm-dd
+    getToday: () => {
+        const date = new Date()
+        return `${date.getFullYear()}-${getMonth()}-${getDate()}`
+    },
+    getThreeYearsAgoFromToday: () => {
+        const date = new Date()
+        return `${date.getFullYear()-3}-${getMonth()}-${getDate()}`
+    },
+    getMonthToDate: () => {
+        const date = new Date()
+        return [ `${date.getFullYear()}-${getMonth()}-01`, `${date.getFullYear()}-${getMonth()}-${getDate()}` ]
+    },
+    getYearToDate: () => {
+        const date = new Date()
+        return [`${date.getFullYear()}-01-01`, `${date.getFullYear()}-${getMonth()}-${getDate()}` ]
+    },
+
+    // This will return a promise that is a filtered of a certain gigs transactions filtered by categories supplied in the second arguement, they will be category names, NOT IDS
+    getGigTransactionsByCategories : (gigId, categories) => { console.log('gigId', gigId, 'categories', categories); return db.Transaction.find({ gigId: gigId, category: { $in: categories } })},
 
     // Aggregations that are used in multiple places
     spendingByCategoryGig: gigId => {
