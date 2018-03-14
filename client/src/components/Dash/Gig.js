@@ -28,7 +28,9 @@ class Gig extends React.Component {
     }
 
     deleteGig(gigId) {
-      API.deleteGig(gigId)
+      API.deleteGig(gigId) 
+        .then(res => this.refresh())
+        .catch(err => console.log('err', err))
     }
 
     handleClick(freq) {

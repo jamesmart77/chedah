@@ -15,6 +15,9 @@ router.get('/', gigController.findAll)
 // post to '/api/gigs' 
 router.post('/', gigController.addGig)
 
+// delete to '/api/gigs' 
+router.delete('/:id', gigController.delete)
+
 
 // router.route('/:id').get(gigController.findGigById).put(gigController.updateGig).delete(gigController.removeGig)
 

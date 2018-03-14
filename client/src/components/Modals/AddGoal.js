@@ -109,7 +109,7 @@ class ModalAddGoal extends React.Component {
           </div>
           <div>
           {/* <div className='modal-footer'> */}
-            <section class="right">
+            <section className="right">
               <button className='btn waves-effect waves-light btn-flat modal-action modal-close deep-orange darken-3 white-text'>
                 Cancel
               </button>
