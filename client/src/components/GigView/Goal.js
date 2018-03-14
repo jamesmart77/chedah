@@ -91,7 +91,8 @@ return (
             <section className="modalSpace">
              <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
              <br/>
-             <a href="!#" text-teal onClick={this.deleteGoal.bind(this)}>[Delete Goal]</a>
+             <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button>
+            
             </section>
           }>
           
