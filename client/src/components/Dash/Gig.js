@@ -1,6 +1,8 @@
 import React from "react";
 import { formatCurrencyValueJSX, formatChangeValueJSX } from '../../utils/currency';
-// import { ModalAddGoal } from '../Modals';
+import {Modal, Button, Row, Input} from 'react-materialize';
+import { Multiselect } from '../Multiselect'
+import API from '../../utils/API'
 
 
 // materialize gig preview
@@ -35,10 +37,43 @@ class Gig extends React.Component {
                   <div className="col s11">
                     <span className="card-title">
                       <a className="side-headers" href={gigHref}>
-                        <span className="primaryHeaderText">Gig:  </span>
+                        <span className="primaryHeaderText">{this.props.name.toLowerCase() !== 'personal'  && ' Gig:' }  </span>
                         <span className="secondaryHeaderText">{this.props.name}</span>
                       </a>
                     </span>
+                  </div>
+                  <div className ='col s1'>
+                  { this.props.name.toLowerCase() !== 'personal' &&
+                    <Modal
+                        header="Edit Gig"
+                        trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
+                        actions={
+                            <section className="modalSpace">
+                            <Button waves='light' className="modal-action modal-close teal" >Update Gig</Button> <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" >Delete Gig</Button> 
+                            
+                            </section>
+                          }>
+                          
+                          <div className='col input-field s12'>
+                            <input className='input-field' onChange={this.handleChange} type='text' name='name' id='input_1' defaultValue={ this.props.name } />
+                            <label className='active' htmlFor='input_1'> Gig Name </label>
+                          </div>
+                        
+                          <div className='col input-field s12'>
+                            <input className='input-field' onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
+                            <label className='active' htmlFor='input_2'> Gig Description </label>
+                          </div>
+
+                          {/* <div className='col input-field s12'>
+                            <input className='input-field' onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
+                            <label className='active' htmlFor='input_2'> Account Association </label>
+                          </div> */}
+
+                        <br/>
+                        <br/>
+                        <br/>
+                      
+                        </Modal> }
                   </div>
                 </div>
 

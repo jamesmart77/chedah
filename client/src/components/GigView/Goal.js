@@ -1,8 +1,8 @@
 import React from "react";
 import "./GigView.css";
 import {formatCurrencyValueJSX} from '../../utils/currency';
-import {Modal, Button, Row, Input} from 'react-materialize';
 import { ModalAddGoal, ModalEditGoal2 } from '../../components/Modals'
+import {Modal, Button, Row, Input} from 'react-materialize';
 import { Multiselect } from '../Multiselect'
 import API from '../../utils/API'
 
