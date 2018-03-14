@@ -6,7 +6,7 @@ import { ModalAddGoal, ModalEditGoal2 } from '../../components/Modals'
 import { Multiselect } from '../Multiselect'
 import API from '../../utils/API'
 
-class Goal extends React.Component { 
+class Goal extends React.Component {
 
     state = {
         userCategories: [],
@@ -49,11 +49,11 @@ return (
           }>
           <br/>
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='name' id='input_1' value={ this.props.name } />
+            <input onChange={this.handleChange} type='text' name='name' id='input_1' defaultValue={ this.props.name } />
             <label className='active' htmlFor='input_1'> Goal Name </label>
           </div>
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='budget' id='input_2' value={ this.props.budget } />
+            <input onChange={this.handleChange} type='text' name='budget' id='input_2' defaultValue={ this.props.budget } />
             <label className='active' htmlFor='input_2'> Budget </label>
           </div>
           <div className='row'>
@@ -83,7 +83,7 @@ return (
         </div>
     </div>
 
-  
+
     <div className="col m4">
         <div className="row">
             <div className="col">

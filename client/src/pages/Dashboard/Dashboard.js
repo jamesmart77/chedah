@@ -6,10 +6,6 @@ import GigList from '../../components/Dash/GigList';
 
 class Dashboard extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     componentWillReceiveProps(nextProps) {
         // this.setState({user: nextProps.user})
     }
@@ -27,7 +23,11 @@ class Dashboard extends React.Component {
 
                         {/* Accounts & Goals Lists */}
                         <div className='col s12 m5 l4'>
-                            <AccountList updateStateData={this.updateStateData} user={this.props.user}/>
+                            <AccountList
+                                updateStateData={this.updateStateData}
+                                user={this.props.user}
+                            />
+                            
                             <GoalList user={this.props.user}/>
                         </div>
 

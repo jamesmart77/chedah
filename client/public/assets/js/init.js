@@ -5,10 +5,6 @@
     $(function() {
 
 
-        console.log(`> initializing Materialize...`);
-        // initialize text fields
-        Materialize.updateTextFields();
-
         //Dropdowns
         $('select').material_select();
 
@@ -82,7 +78,7 @@
         $('.materialboxed').materialbox();
 
 
-        $('.chips').material_chip();
+        $('.chips').material_chip({delete: false});
         $('.chips-initial').material_chip({
             data: [{
                 tag: 'uber',
@@ -106,11 +102,15 @@
                     'landlording': null
                 },
                 limit: Infinity,
-                minLength: 1
+                minLength: 1,
+                delete: false
             }
         });
 
         $('.collapsible').collapsible();
+
+        // initialize text fields
+        Materialize.updateTextFields();
 
     }); // end of document ready
 })(jQuery); // end of jQuery namepace

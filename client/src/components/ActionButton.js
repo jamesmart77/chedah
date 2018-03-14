@@ -5,14 +5,12 @@ const actions = {
     dashboard: [
         {
             title: 'Add Gig',
-            icon: 'account_circle',
+            icon: 'icon-gig-icon',
             id: 'action-add-gig',
-            color: 'teal lighten-1',
             modal: 'add-gig-modal'
-        },
-        {
+        }, {
             title: 'Add Category',
-            icon: 'insert_comment',
+            icon: 'icon-tag',
             id: 'action-add-category',
             color: 'teal darken-4',
             modal: 'add-category-modal'
@@ -20,53 +18,72 @@ const actions = {
     ],
     accounts: [
         {
+            title: 'Add Gig',
+            icon: 'icon-gig-icon',
+            id: 'action-add-gig',
+            modal: 'add-gig-modal'
+        }, {
+            title: 'Add Category',
+            icon: 'icon-tag',
+            id: 'action-add-category',
+            modal: 'add-category-modal'
+        }
+    ],
+    accountsDetail: [
+        {
             title: 'Edit Account',
-            icon: 'account_balance',
+            icon: 'icon-university',
             id: 'action-edit-account',
-            color: 'teal lighten-1',
             modal: 'edit-account-modal'
         }, {
             title: 'Add Gig',
-            icon: 'account_circle',
+            icon: 'icon-gig-icon',
             id: 'action-add-gig',
             color: 'teal darken-3',
             modal: 'add-gig-modal'
-        },
-        {
+        }, {
             title: 'Add Category',
-            icon: 'insert_comment',
+            icon: 'icon-tag',
             id: 'action-add-category',
-            color: 'teal darken-4',
             modal: 'add-category-modal'
         }
     ],
     gigs: [
         {
+            title: 'Add Gig',
+            icon: 'icon-gig-icon',
+            id: 'action-add-gig',
+            modal: 'add-gig-modal'
+
+        }, {
+            title: 'Add Category',
+            icon: 'icon-tag',
+            id: 'action-add-category',
+            modal: 'add-category-modal'
+        }
+    ],
+    gigsDetail: [
+        {
+            title: 'Edit Gig',
+            icon: 'icon-gig-icon',
+            id: 'action-edit-gig',
+            modal: 'edit-gig-modal'
+        }, {
             title: 'Add Goal',
-            icon: 'work',
+            icon: 'icon-flag-checkered',
             id: 'action-add-goal',
-            color: 'teal lighten-1',
             modal: 'add-goal-modal'
         }, {
-            title: 'Edit Gig',
-            icon: 'account_circle',
-            id: 'action-edit-gig',
-            color: 'teal darken-3',
-            modal: 'edit-gig-modal'
-        },
-        {
             title: 'Add Category',
-            icon: 'insert_comment',
+            icon: 'icon-tag',
             id: 'action-add-category',
-            color: 'teal darken-4',
             modal: 'add-category-modal'
         }
     ]
 }
 
-
 // materialize floating action button
-class ActionButton extends Component {
+class ActionButton extends React.Component {
 
     constructor(props) {
         super(props);
@@ -90,35 +107,33 @@ class ActionButton extends Component {
     handleClick(cmd) {
         console.log(`-> action clicked: `, cmd.target.id);
     }
-
+    
     render() {
         const currentCommands = this.getCommands()
         if (!currentCommands.length) {
-            return (
-                <div className="fixed-action-btn" style={{bottom: '24px', right: '24px'}}>
-                    <a className="btn-floating btn-large dashboard-action-btn disabled">
-                        <i className="large material-icons">add</i>
-                    </a>
-                </div>
-            )
+            return (<div></div>)
         }
+        const colors = ['teal lighten-1', 'teal darken-3', 'teal darken-4', 'teal darken-5']
 
-        const listItems = currentCommands.map((command, i) =>
-            <li key={i}>
-                <a data-target={command.modal} onClick={this.handleClick} id={command.id} className={"btn-floating modal-trigger " + command.color}>
-                    <i id={command.id} className="material-icons">{command.icon}</i>
-                </a>
-                <a data-target={command.modal} onClick={this.handleClick} id={command.id} className="btn-floating modal-trigger mobile-fab-tip">{command.title}</a>
-            </li>)
+        // create list items
+        const listItems = currentCommands.map((command, i) => <li key={i}>
+            <a data-target={command.modal} onClick={this.handleClick} id={command.id} className={"btn-floating modal-trigger " + colors[i]}>
+                <span className={command.icon}></span>
+            </a>
+            <a data-target={command.modal} onClick={this.handleClick} id={command.id} className="btn-floating modal-trigger mobile-fab-tip">{command.title}</a>
+        </li>)
 
         return (
-            <div className="fixed-action-btn" style={{bottom: '24px', right: '24px'}}>
-                <a className="btn-floating btn-large dashboard-action-btn">
-                    <i className="large material-icons">add</i>
-                </a>
-                <ul className="main-actions">
-                    {listItems}
-                </ul>
+            <div className="fixed-action-btn" style={{
+                bottom: '24px',
+                right: '24px'
+            }}>
+            <a className="btn-floating btn-large dashboard-action-btn">
+                <i className="large material-icons">add</i>
+            </a>
+            <ul className="main-actions">
+                {listItems}
+            </ul>
             </div>
         )
     };

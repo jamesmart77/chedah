@@ -3,6 +3,9 @@ import React, {Component} from "react";
 import Account from './Account';
 import API from '../../utils/API';
 
+const $ = require('jquery');
+
+
 // materialize account list
 class AccountList extends Component {
 
@@ -19,6 +22,23 @@ class AccountList extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({user: nextProps})
+    }
+
+    componentDidMount() {
+        window.$('.collapsible-header').addClass('active')
+        window.$('.collapsible').collapsible({accordian: false})
+    }
+
+    componentDidUpdate() {
+        console.log(`updating...`);
+        // if (this.state.collapsed == true) {
+        //     window.$('.collapsible-header').addClass('active')
+        // } else {
+        //     window.$('.collapsible-header').removeClass('active')
+        // }
+
+        window.$('.collapsible').collapsible({accordian: false})
+        // $(this.accountList).collapsible({accordion: false});
     }
 
     renderListItems() {
@@ -42,7 +62,11 @@ class AccountList extends Component {
         const arrowName = (this.state.collapsed === false) ? 'arrow_drop_down' : 'arrow_drop_up';
 
         return (
-            <ul className="account-summary collapsible collection with-header" datacollapsible="expandable">
+            <ul
+                ref={(node) => {this.accountList = node}}
+                className="account-summary collapsible collection with-header"
+                datacollapsible="expandable">
+
                 <li>
 
                     <div className="collapsible-header listHeader" onClick={this.handleClick.bind(this)}>

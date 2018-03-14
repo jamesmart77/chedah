@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
 const request = require("request")
-const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig } = require('../utils')
+const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig, getToday, getThreeYearsAgoFromToday, getGigTransactionsByCategories } = require('../utils')
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -21,8 +21,7 @@ var client = new plaid.Client(
 module.exports = {
 
   getUser: (req, res) => {
-    
-    console.log('getting the user')
+    console.log("\n USER CONTROLLER: => getUser")
     db.User.findOne({ auth_id: req.params.authId }).lean()
       .populate('accounts')
       .populate('transactions')
@@ -37,21 +36,18 @@ module.exports = {
       })
       .then(user => {
 
-        if(user.accounts){          user.accounts = user.accounts.map(account => {
+        if(user.accounts){          
+            user.accounts = user.accounts.map(account => {
             account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
             account.defaultGigName = user.gigs.find(gig => gig._id.toString() === account.defaultGigId.toString()).name
             return account
           })
         }
 
-        console.log('testing 1')
         // console.log(user)
 
-
-
-
-        console.log('map over gigs')
         user.gigs = user.gigs.map(gig => {
+          console.log('map over gigs')
           // filter for transactions associated with gig
           gig.transactions = user.transactions.filter(t => t.gigId === gig._id.toString())
           
@@ -67,7 +63,7 @@ module.exports = {
             gig.moneyIn = gig.moneyInCache.length > 0 ? gig.moneyInCache.reduce(sum) : 0.0
             
 
-            console.log(gig)
+            // console.log(gig)
 
             
             // Sum the money going out
@@ -104,9 +100,23 @@ module.exports = {
               return { name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
 
+
+
+            console.log('gig.name:', gig.name)
+            console.log('gig.moneyIn', gig.moneyIn)
+
+        
+            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
+            gig.goals.map(goal => console.log('GOAL: ', goal))
+
+            // console.log('gigTransactionsPromises', gigTransactionsPromises)
+
+            const gigTransByGoal = Promise.all(gigTransactionsPromises)
+              .then(response => console.log('response.length: ', response.length))
+
           }
-          console.log(gig.name)
-          console.log(gig.moneyIn)
+          console.log('gig.name:', gig.name)
+          console.log('gig.moneyIn', gig.moneyIn)
           return gig
         })
 
@@ -116,8 +126,8 @@ module.exports = {
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
 
-        console.log('user')
-        console.log(user)
+        // console.log('user')
+        // console.log(user)
 
         db.PlaidCategory
         .find({})
@@ -129,17 +139,19 @@ module.exports = {
           dbPlaidCat.map(plaidCat => {
             userWithoutItems.categories.push({name: plaidCat.name});
           })
-          console.log(userWithoutItems)
+          
+          // console.log(userWithoutItems)
 
           res.json(userWithoutItems);
         }).catch(err => {console.log(err) ; return err})
         .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
-        .catch(err => {console.log(err) ; return err})
-      }).catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
+        
+      }).catch(err => {console.log(err) ; return err})
+      .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
   },
 
   createUserIfDoesNotExist: (req, res) => {
-    console.log("HITTING IT")
+    console.log("\n USER CONTROLLER: => createUserIfDoesNotExist")
     const user = {
       firstName: req.body.given_name || null,
       lastName: req.body.family_name || null,
@@ -175,7 +187,7 @@ module.exports = {
       })
       .catch(err => {
         console.log("error")
-        console.log(err)
+        err.code === 11000 ? console.log("ERROR: That's already a user in our database, send back a login response") : console.log(err)
         err.code === 11000 ? res.json({
           userExist: true
         }) : res.status(404).json({
@@ -274,23 +286,21 @@ module.exports = {
       })
       .then((dbUser) => {
 
-        // Pull transactions for the Item for the last 30 days
-        const startDate = '2017-01-01'; //moment().subtract(30, 'days').format('YYYY-MM-DD');
-        const endDate = '2018-02-01'; //moment().format('YYYY-MM-DD');
-
+        // pull transactions for the last 3 years from today, essentially, 'all transasctions'
         axios.defaults.headers.post['Content-Type'] = 'application/json';
         const transactionPromises = dbUser.items.map(item => axios.post('https://sandbox.plaid.com/transactions/get', {
           client_id: process.env.PLAID_CLIENT_ID,
           secret: process.env.PLAID_SECRET,
           access_token: item.access_token,
-          start_date: startDate,
-          end_date: endDate,
+          start_date: getThreeYearsAgoFromToday(), //moment().subtract(30, 'days').format('YYYY-MM-DD');
+          end_date:  getToday(), //moment().format('YYYY-MM-DD');,
           options: {
             count: 250,
             offset: 0
           }
         }))
 
+        // This returns an array of arrays
         Promise.all(transactionPromises)
           .then(transactionsResponseArray => {
             const transactions = transactionsResponseArray
@@ -298,7 +308,13 @@ module.exports = {
               .reduce((acc, cv) => acc.concat(cv))
               .filter(transaction => !transaction.pending)
 
-            console.log('pulled ' + transactions.length + ' transactions');
+            const accounts = transactionsResponseArray
+              .map(accountsResponses => accountsResponses.data.accounts)
+              .reduce((acc, cv) => acc.concat(cv))
+              
+              // let's cache these promises for now so we don't get a race condition.
+              const accountBalanceUpdatePromises = accounts.map( account => db.Account.findOneAndUpdate({account_id: account.account_id}, {balances: account.balances}) )
+              console.log('pulled ' + transactions.length + ' transactions');
 
             db.Account.find()
               .then(dbAccounts => {
@@ -331,7 +347,7 @@ module.exports = {
                           { "$addToSet": { "transactions": dbTrans._id } }
                         )
                         .catch((err) => console.log(err))
-                    })
+                    }).then(dbUser => {})
                     .catch((err) => {
                       // console.log("transaction insert failed");
                       // console.log(err);
@@ -342,22 +358,25 @@ module.exports = {
                   //iterate through all transactions in while loop
                   i++
                 }
-              })
-              .catch(console.log)
-            res.json({ msg: "transactions loaded successfully" });
-          });
+              }).catch(console.log)
+            // Let's update the account balances since we got them for free during the transactions api call.
+            Promise.all(accountBalanceUpdatePromises)
+            .then(dbAccounts => {
+              res.json({ msg: "transactions loaded successfully" })
+            }).catch(err => { console.log(err); return err })
+          }).catch(err => { console.log(err); return err })
 
 
-      })
-
-      .catch(err => {
+      }).catch(err => {
         console.log("error in getting plaid transactions");
-        console.log(error);
+        console.log(err);
         res.json({
           error: err
         })
       })
   },
+
+
 
   getCategories: (req, res) => {
     console.log('lets get those user categories shall we')
