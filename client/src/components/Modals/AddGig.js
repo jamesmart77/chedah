@@ -2,6 +2,7 @@ import React from 'react';
 import API from '../../utils/API';
 //const $ = require('jquery');
 import { Input } from 'react-materialize'
+const $ = require('jquery');
 
 
 // add gig modal
@@ -13,8 +14,10 @@ class ModalAddGig extends React.Component {
             name: '',
             description: '',
             account_id: '',
+            modal_id: 'add-gig-modal'
         }
 
+        console.log(`add gig:  `, props);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,24 +35,13 @@ class ModalAddGig extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    componentDidUpdate() {
-        // console.log(this.state);
-    }
-
-    componentDidMount() {
-        console.log(`modal mounted`);
-    }
-
-    componentWillUnmount() {
-        console.log(`modal dismounting`);
-    }
-
     handleSubmit() {
         console.log(`adding gig: `, this.state);
         API.createGig(this.state)
         .then(data => {
             console.log(data)
-            this.props.refresh()   
+            this.props.refresh()
+            this.setState({name: '', description: ''})
         })
         .catch(err => console.log(err));
     }
@@ -59,7 +51,7 @@ class ModalAddGig extends React.Component {
         const accounts = this.props.user.accounts || []
         const accountItems = this.getAccountList(accounts)
         return (
-                 <div id="add-gig-modal" className="modal" data-modal style={{width: '60%', height: '60%'}}>
+                 <div id={this.state.modal_id} className="modal" data-modal style={{width: '60%', minHeight: 700}}>
                    <div className="modal-content">
                        <div className="modal-title">
                            <h4>Add a Gig</h4>

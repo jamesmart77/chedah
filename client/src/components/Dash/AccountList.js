@@ -30,15 +30,7 @@ class AccountList extends Component {
     }
 
     componentDidUpdate() {
-        console.log(`updating...`);
-        // if (this.state.collapsed == true) {
-        //     window.$('.collapsible-header').addClass('active')
-        // } else {
-        //     window.$('.collapsible-header').removeClass('active')
-        // }
-
         window.$('.collapsible').collapsible({accordian: false})
-        // $(this.accountList).collapsible({accordion: false});
     }
 
     renderListItems() {
