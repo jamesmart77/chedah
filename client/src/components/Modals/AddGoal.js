@@ -90,7 +90,7 @@ class ModalAddGoal extends React.Component {
           <div className='col input-field s12'>
             <input
               onChange={this.handleChange}
-              type='text'
+              type='number'
               name='budget'
               id='input_2'
                />
@@ -107,8 +107,9 @@ class ModalAddGoal extends React.Component {
             </div>
             <div className='col s6'></div>
           </div>
-          <div className='modal-footer'>
-            <section>
+          <div>
+          {/* <div className='modal-footer'> */}
+            <section class="right">
               <button className='btn waves-effect waves-light btn-flat modal-action modal-close deep-orange darken-3 white-text'>
                 Cancel
               </button>
