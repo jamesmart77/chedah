@@ -1,7 +1,6 @@
 import React from "react";
 import "./GigView.css";
 import {formatCurrencyValueJSX} from '../../utils/currency';
-import { ModalAddGoal, ModalEditGoal2 } from '../../components/Modals'
 import {Modal, Button, Row, Input} from 'react-materialize';
 import { Multiselect } from '../Multiselect'
 import API from '../../utils/API'
@@ -114,7 +113,6 @@ return (
         <br/>
        
     </Modal>
-    {/* <ModalAddGoal id={this.props.name.toLowerCase().split(" ").join("")} user={ this.props.user } refresh={ this.props.refresh } /> */}
     </div>
 </div>
 <div className="card-content cardBody">

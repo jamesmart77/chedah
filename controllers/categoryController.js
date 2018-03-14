@@ -10,7 +10,7 @@ module.exports = {
     db.Category
       .create({name: req.body.name})
       .then(dbcat => {
-        db.User.findOneAndUpdate({auth_id: req.body.authId})
+        db.User.findOneAndUpdate({auth_id: req.body.userId})
           .then(dbUser => res.json(dbUser)
         )
       }).catch(err => res.status(422).json(err))
