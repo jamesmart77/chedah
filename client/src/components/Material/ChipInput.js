@@ -60,7 +60,7 @@ ChipInput.propTypes = {
 }
 
 
-Chip.defaultProps = {
+ChipInput.defaultProps = {
   id: 'chips-input',
   initial: [],
   autocomplete: []

@@ -269,6 +269,14 @@ textarea.materialize-textarea {
 }
 */
 
+.grow {
+    transition: all .1s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.15);
+}
+
 .select-wrapper input.select-dropdown {
     background-color: transparent;
     border: 1px solid #eee;
@@ -621,15 +629,33 @@ span.badge.new {
     background-color: #598694;
 }
 
+.goal-summary .default.chip {
+    background-color: #598694;
+}
+
 .account-summary .chip {
     background-color: #da825f;
 }
 
-.dashboard .chip {
-    background-color: #558EB0;
-
-    /*#56BE89;*/
+.account-summary .default.chip {
+    background-color: #da825fd6;
 }
+
+
+
+.dashboard .chip {
+    background-color: #558EB0d6;
+}
+
+.chip a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.chip a:hover {
+    color: #ffffff4f;
+}
+
 
 .dashboard .collections-title {
 }

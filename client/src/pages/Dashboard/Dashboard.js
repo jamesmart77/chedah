@@ -6,11 +6,16 @@ import GigList from '../../components/Dash/GigList';
 
 class Dashboard extends React.Component {
 
-    componentWillReceiveProps(nextProps) {
-        // this.setState({user: nextProps.user})
+    constructor (props) {
+      super(props)
+
+
     }
 
     render() {
+        const user = this.props.user
+        console.log(`Dashboard user: `, user);
+
         return (
             <main className='m8'>
                 <div className='container-fluid padding-1'>
@@ -27,13 +32,18 @@ class Dashboard extends React.Component {
                                 updateStateData={this.updateStateData}
                                 user={this.props.user}
                             />
-                            
-                            <GoalList user={this.props.user}/>
+
+                            <GoalList
+                                user={this.props.user}
+                            />
                         </div>
 
                         {/* Gigs List */}
                         <div className='col s12 m7 l8'>
-                            <GigList refresh={ this.props.refresh } {...this.props.user}/>
+                            <GigList
+                                refresh={ this.props.refresh }
+                                {...this.props.user}
+                            />
                         </div>
                     </div>
                 </div>

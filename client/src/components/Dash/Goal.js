@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { GigChip } from '../Material';
 
 // materialize goal preview
 /*
@@ -17,13 +17,13 @@ class Goal extends Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+
+        console.log(`Goal props: `, props);
     };
 
     handleClick(e) {
         console.log(`clicked: ${e.target.value}`);
     }
-
-
 
     renderGigs() {
         return (this.state.gigs.map((gig, i) =>
@@ -47,14 +47,16 @@ class Goal extends Component {
 
                     <div className='col s6 m5 valign-wrapper'>
                         <span className="goal-total">{percent}%</span>
-                        {/* <span dataBadgeCaption="ass">{this.props.net}</span> */}
                         <span className={cname} data-badge-caption="">{netString}</span>
                     </div>
                 </div>
 
                 <div className='row pl-1'>
                     <div className='col s12'>
-                        <div className='chip'>{this.props.gigName}</div>
+                        <GigChip
+                            gig={this.props.gigName}
+                            gigId={this.props.gigId}
+                        />
                     </div>
                 </div>
             </div>
