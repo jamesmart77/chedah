@@ -18,6 +18,7 @@ function nextDueDate(day) {
     return dueDate;
 }
 
+// transaction table headers
 const defaultHeaders = [
     {
         name: 'Date',
@@ -84,6 +85,12 @@ class AccountDetail extends Component {
     componentDidMount() {
         API.getAccount({accountId: this.state.account_id})
         .then(acct => {
+
+            let accountSummary = acct.data.summary || {}
+            if (!accountSummary) {
+                console.log(` -> Warning: account data not received: `, acct.data);
+            }
+
             this.setState(acct.data)
             this.hasData = true;
         })
@@ -212,6 +219,10 @@ class AccountDetail extends Component {
         return (<div></div>)
     }
 
+    renderCredit() {
+
+    }
+
     render() {
         /*
         let accountDetails;
@@ -224,6 +235,9 @@ class AccountDetail extends Component {
         } else {
             accountDetails = this.renderCheckingTable()
         }*/
+
+        console.log(`-> AccountDetail summary: `, this.state.summary || {});
+
         const iconName = (this.state.type == 'credit') ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
         const currentBalance = this.state.balances ? this.state.balances.current : 0
         const currentLimit = this.state.balances ? this.state.balances.limit : 0
