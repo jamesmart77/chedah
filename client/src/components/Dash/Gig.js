@@ -29,7 +29,7 @@ class Gig extends React.Component {
 
     deleteGig(gigId) {
       API.deleteGig(gigId) 
-        .then(res => this.refresh())
+        .then(res => this.props.refresh())
         .catch(err => console.log('err', err))
     }
 
