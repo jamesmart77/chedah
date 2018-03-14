@@ -40,6 +40,9 @@ export default {
   
   // add a goal to the current gig
   createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
+  // data will contain a gigId
+  deleteGig: data => axios.delete(`/api/gigs/${data}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
   // add a gig to an account 
   // This Creates a new gig & attaches it's gig id to the account as 'defaultGigId'

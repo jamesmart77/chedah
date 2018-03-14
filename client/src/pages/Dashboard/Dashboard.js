@@ -33,7 +33,7 @@ class Dashboard extends React.Component {
 
                         {/* Gigs List */}
                         <div className='col s12 m7 l8'>
-                            <GigList {...this.props.user}/>
+                            <GigList refresh={ this.props.refresh } {...this.props.user}/>
                         </div>
                     </div>
                 </div>

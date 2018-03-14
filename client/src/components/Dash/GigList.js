@@ -13,7 +13,7 @@ class GigList extends React.Component {
         return (
             <div id="giglist-root">
                 {gigs.map((gig, i) => (
-                    <Gig key={gig._id} {...gig}/>
+                    <Gig refresh={ this.props.refresh } key={gig._id} {...gig}/>
                 ))}
             </div>
 

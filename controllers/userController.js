@@ -127,7 +127,7 @@ module.exports = {
           })
           
 
-              const newFlatArray = mutliDimensionalArrayOfGoalPromises.reduce((acc, cv) =>  [...acc, ...cv])
+              const newFlatArray = mutliDimensionalArrayOfGoalPromises.length ? mutliDimensionalArrayOfGoalPromises.reduce((acc, cv) =>  [...acc, ...cv]) : []
 
               Promise.all(newFlatArray)
                 .then(allTheResolvedPromisesOfGoalSummaries => {
@@ -264,7 +264,7 @@ module.exports = {
           return Promise.all(updateUserPromises)
         })
       })
-      .then( dbusers => res.status(201).json( { msg: 'sucessfully added accounts to user', user: user } ) )
+      .then( dbusers => res.status(201).json( { msg: 'sucessfully added accounts to user' } ) )
       .catch( err => { console.log(err); return err} )
       .catch( err => res.status(500).json( { msg: 'Could not sucessfully add accouts to user', err: err } ) )
       

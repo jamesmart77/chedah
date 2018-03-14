@@ -62,7 +62,7 @@ class App extends React.Component {
           if (isLoggedIn()) {
               return (
                   <Switch>
-                      <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
+                      <Route exact path="/dashboard" component={() => <Dashboard refresh={ this.refresh.bind(this) } user={this.state.user || {} }/>}/>
                       <Route exact path="/gigs/:id" component={this.GigDetailPage} />
                       <Route exact path="/login" component={Login} />
                       <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
@@ -81,7 +81,7 @@ class App extends React.Component {
       {isLoggedIn() && <div>
       <ModalEditAccount user={this.state.user}/>
       <ModalAddGoal user={ this.state.user } location={ history.location } refresh={ this.refresh.bind(this) } mode={ 'add' } id={'add-goal-modal'} />
-      <ModalAddGig user={this.state.user}/>
+      <ModalAddGig user={this.state.user} refresh={ this.refresh.bind(this) }/>
       <ModalAddCategory user={this.state.user}/>
       </div>
       }

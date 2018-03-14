@@ -128,5 +128,21 @@ module.exports = {
           res.json(dbAccount)
         }).catch(err => res.status(500).json({msg: 'Did not create a gig and add it to an account', err: err}))
       }).catch(err => res.status(500).json({msg: 'Did not create a gig and add it to an account', err: err}))
+  },
+
+  delete: (req, res) => {
+    console.log('GIG CONTROLLER: Delete gig and disassociate account')
+    db.Gig.findByIdAndRemove({_id: req.params.id})
+      .then(dbGig => {
+        db.Gig.findOne({name: 'Personal'})
+          .then(dbGig => {
+            console.log('dbGig: ', req.params.id)
+            console.log('dbPersonalGig: ', dbGig)
+            console.log('dbPersonalGig._id: ', dbGig._id)
+            db.Account.findOneAndUpdate({defaultGigId: req.params.id}, {defaultGigId: dbGig._id})
+            .then(dbAccount => res.status(200).json({msg: "Succcessfully deleted the gig, and updated the association in accounts"}))
+      }).catch(err => res.status(500).json({msg: "Could not delete the gig", err: err}))
+    }).catch(err => res.status(500).json({msg: "Could not delete the gig", err: err}))
   }
+
 }
