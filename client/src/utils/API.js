@@ -58,6 +58,12 @@ export default {
   // data.categories []  // array of ids
   addGoalToGig: data => axios.post(`/api/goals`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
+
+  // edit gig
+  // data.gigId
+  // data.name
+  editGig: data => axios.put(`/api/gigs/${data.gigId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
   // #############################################
   // Goals
   // #############################################
@@ -154,7 +160,7 @@ export default {
   accountsSync: () => {
     const user = decodeToken(getIdToken());
     axios.post('/api/users/transactions', user, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-      .then((res) => console.log(res))
+      .then((res) => window.location.reload())
       .catch((err) => console.log(err));
   },
 

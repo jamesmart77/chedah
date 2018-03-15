@@ -9,6 +9,8 @@ router.get('/:id', gigController.findById)
 
 router.post('/:id', gigController.addGoalToGig)
 
+router.put('/:id', gigController.edit)
+
 // query '/api/gigs'
 router.get('/', gigController.findAll)
 
@@ -17,8 +19,5 @@ router.post('/', gigController.addGig)
 
 // delete to '/api/gigs' 
 router.delete('/:id', gigController.delete)
-
-
-// router.route('/:id').get(gigController.findGigById).put(gigController.updateGig).delete(gigController.removeGig)
 
 module.exports = router
