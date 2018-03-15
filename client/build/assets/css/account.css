@@ -123,7 +123,11 @@ table.account-balances {
 
 
 .account-detail .chip {
+<<<<<<< HEAD
+    background-color: #fff;
+=======
     /*background-color: #fff;*/
+>>>>>>> da04606010acf3d1aae0158dc91fb97c1246a8a3
     border-bottom: 3px solid #0a0a0a33;
     font-family: 'Source Sans Pro', sans-serif;
 }
