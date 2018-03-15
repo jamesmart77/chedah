@@ -58,6 +58,15 @@ export default {
   // data.categories []  // array of ids
   addGoalToGig: data => axios.post(`/api/goals`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
+
+  // edit gig
+  // data.gigId
+  // data.name
+  editGig: data => {
+    data.userId = decodeToken(getIdToken()).sub
+  return axios.put(`/api/gigs/${data.gigId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
+  },
+
   // #############################################
   // Goals
   // #############################################
