@@ -1162,6 +1162,8 @@ input.editable-cell {
     font-size: 0.9rem;
 } */
 
+
+
 /* This fixes the sticky footer overlapping the bottom elements on the page */
 .card:last-child {
     margin-bottom: 100px;
