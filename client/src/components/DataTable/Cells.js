@@ -11,13 +11,14 @@ class Cell extends Component {
         super(props);
 
         this.state = {
+            id: props.id || null,
             row: props.row,
             column: props.column,
             role: props.role,
             editable: props.editable || false,
             isEditing: false,
             align: props.align || 'left',
-            autocomplete: props.autocomplete || ['Starbucks', 'Autozone', 'Payroll']
+            autocomplete: props.autocomplete || []
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -91,10 +92,24 @@ class Cell extends Component {
     }
 
       onKeyPress(role, e) {
-          if(e.key === 'Enter' || e.key === 'Escape') {
+          if(e.key === 'Enter') {
               // console.log(`enter pressed`);
               this.onBlur(role, e);
           }
+      }
+
+      renderGigCell() {
+          const isEditing = this.state.isEditing;
+          let gigId = this.props.value;
+          let gigName = 'no gig'
+          return (
+              <div
+                  className='chip'
+                  onClick={this.onClick}
+                  >
+                  {gigName}
+              </div>
+          )
       }
 
 
@@ -109,7 +124,13 @@ class Cell extends Component {
 
         // format the gig column
         if (this.state.role === 'gig' && !this.state.isEditing)  {
-            currentVal = <div className='chip'>{currentVal}</div>;
+            let gigName;
+            this.props.autocomplete.forEach(gig => {
+                if (gig.id == currentVal) {
+                    gigName = gig.name;
+                }
+            })
+            currentVal = <div className='chip'>{gigName}</div>;
         };
 
         // format the gig column
@@ -127,11 +148,13 @@ class Cell extends Component {
                     role={this.role}
                     data-value={this.state.value}
                     >
+
+                    <div className="chips chips-autocomplete">
                     <input
                         row={this.props.row}
                         column={this.props.column}
                         role={this.role}
-                        className='editable-cell autocomplete'
+                        className='custom-class editable-cell autocomplete'
                         hidden={false}
                         type={this.role}
                         ref='textInput'
@@ -141,6 +164,7 @@ class Cell extends Component {
                         onFocus={this.handleFocus}
                         onClick={this.handleClick}
                     />
+                    </div>
                 </td>
             );
         };

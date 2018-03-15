@@ -7,9 +7,11 @@
     "type": "git",
     "url": "https://github.com/jamesmart77/chedah.git"
   },
+  "homepage" : "https://chedah.herokuapp.com/",
   "scripts": {
     "server": "node server.js",
     "client": "node scripts/start-client.js",
+    "both": "concurrently \"NODE_ENV=production node server.js\" \"npm run client\"",
     "start": "concurrently \"NODE_ENV=production nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "seed": "node scripts/seedDB.js",
@@ -46,6 +48,7 @@
     "jest-cli": "^22.4.2",
     "json-stringify-safe": "^5.0.1",
     "jwks-rsa": "^1.2.1",
+    "morgan": "^1.9.0",
     "mongoose": "^4.11.7",
     "plaid": "^2.3.0",
     "ramda": "^0.25.0",

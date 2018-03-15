@@ -16,7 +16,5 @@ function collapseAll() {
 
 // document load
 $(document).ready(function() {
-    console.log(`> loading view controller...`);
-
-    setTimeout(expandAll, 200)
+    // setTimeout(expandAll, 200)
 });

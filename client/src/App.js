@@ -25,7 +25,9 @@ class App extends React.Component {
 
   getUser(){
     API.getUser()
-      .then(user => this.setState({user: user.data}))
+      .then(user => {
+        this.setState({user: user.data})
+      })
       .catch(err => {
         console.log('error getting the user in the app.js file')
         console.log(err)
@@ -62,7 +64,7 @@ class App extends React.Component {
           if (isLoggedIn()) {
               return (
                   <Switch>
-                      <Route exact path="/dashboard" component={() => <Dashboard user={this.state.user || {} }/>}/>
+                      <Route exact path="/dashboard" component={() => <Dashboard refresh={ this.refresh.bind(this) } user={this.state.user || {} }/>}/>
                       <Route exact path="/gigs/:id" component={this.GigDetailPage} />
                       <Route exact path="/login" component={Login} />
                       <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
@@ -80,8 +82,8 @@ class App extends React.Component {
       {/* We don't want these modals loaded into the DOM unless the user is logged in, the reason for this is because they attempt to query the backend and can crash the progra without a token */}
       {isLoggedIn() && <div>
       <ModalEditAccount user={this.state.user}/>
-      <ModalAddGoal user={ this.state.user } location={ history.location } refresh={ this.refresh.bind(this) } mode={ 'add' } id={'add-goal-modal'} />
-      <ModalAddGig user={this.state.user}/>
+      <ModalAddGoal user={ this.state.user } location={ history.location } refresh={ this.refresh.bind(this) } />
+      <ModalAddGig user={this.state.user} refresh={ this.refresh.bind(this) }/>
       <ModalAddCategory user={this.state.user}/>
       </div>
       }

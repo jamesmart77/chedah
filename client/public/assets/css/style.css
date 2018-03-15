@@ -126,6 +126,10 @@ footer {
     filter: drop-shadow( 1px 1px 3px #00000029 );
 }
 
+.no-caps {
+    text-transform: none !important;
+}
+
 /*---------------------------------
     Material Icons
 -----------------------------------*/
@@ -264,6 +268,14 @@ textarea.materialize-textarea {
     left: 1.5rem;
 }
 */
+
+.grow {
+    transition: all .1s ease-in-out;
+}
+
+.grow:hover {
+    transform: scale(1.15);
+}
 
 .select-wrapper input.select-dropdown {
     background-color: transparent;
@@ -617,15 +629,33 @@ span.badge.new {
     background-color: #598694;
 }
 
+.goal-summary .default.chip {
+    background-color: #598694;
+}
+
 .account-summary .chip {
     background-color: #da825f;
 }
 
-.dashboard .chip {
-    background-color: #558EB0;
-
-    /*#56BE89;*/
+.account-summary .default.chip {
+    background-color: #da825fd6;
 }
+
+
+
+.dashboard .chip {
+    background-color: #558EB0d6;
+}
+
+.chip a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.chip a:hover {
+    color: #ffffff4f;
+}
+
 
 .dashboard .collections-title {
 }
@@ -1019,6 +1049,18 @@ img.productIMG {
     margin: 10px;
 }
 
+
+/* .modalSpace {
+    margin: 10px;
+} */
+
+
+/* This is a hack for the multiselect dropdown on the edit a goal modal */
+.multiselectStyle {
+    width: 60%;
+}
+
+
 /*----------------------------------------
     Modal Fixes
 ------------------------------------------*/
@@ -1074,14 +1116,14 @@ img.productIMG {
 
 
 .modal-title {
-    background-color: ##3c5678 !important;
-    color: ##fff !important;
-    padding-bottom: 2rem;
+    /* background-color: #3c5678 !important; */
+    /* color: #fff !important; */
+     padding-bottom: 2rem;
 }
 
 
-/*
-.modal .gig-dropdown .dropdown-content li>a,
+
+/* .modal .gig-dropdown .dropdown-content li>a,
 .modal .dropdown-content li>span {
     font-size: 1rem;
 }
@@ -1090,5 +1132,4 @@ img.productIMG {
     position: absolute;
     top: -26px;
     font-size: 0.9rem;
-}
-*/
+} */

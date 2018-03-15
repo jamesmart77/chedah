@@ -40,6 +40,9 @@ export default {
   
   // add a goal to the current gig
   createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
+  // data will contain a gigId
+  deleteGig: data => axios.delete(`/api/gigs/${data}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
   // add a gig to an account 
   // This Creates a new gig & attaches it's gig id to the account as 'defaultGigId'
@@ -55,6 +58,32 @@ export default {
   // data.categories []  // array of ids
   addGoalToGig: data => axios.post(`/api/goals`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
   
+  // #############################################
+  // Goals
+  // #############################################
+
+ // update current goal
+  // data.goalId
+  // data.name // this is the goal name
+  // data.description
+  // data.budget
+  // data.categories []  // array of ids
+  updateGoal: data => {
+    // console.log("is this happening");
+    // console.log(`goal id: `, data.goalId);
+    // console.log(`account data: `, data);
+    data.userId = decodeToken(getIdToken()).sub
+  return axios.put(`/api/goals/${data.goalId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
+  },
+
+  // delete current goal
+  // data.goalId
+  deleteGoal: data => {
+    data.userId = decodeToken(getIdToken()).sub
+  return axios.delete(`/api/goals/${data.goalId}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
+  },
+
+
   // #############################################
   // Accounts
   // #############################################
@@ -87,6 +116,15 @@ export default {
     data.userId = decodeToken(getIdToken()).sub
     return axios.delete(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
   },
+
+
+  // #############################################
+  // Transactions
+  // #############################################
+  
+  // data.transactionId 
+  // data.gigId
+  updateTransactionsGig: data => axios.put(`/api/transactions/${data.transactionId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
 
   // #############################################
@@ -129,12 +167,6 @@ export default {
       .catch((err) => console.log(err));
   },
 
-editGoal: plaidObj => {
-  // const data = {};
-  // data.user = decodeToken(getIdToken());
-  // data.plaidObj = plaidObj;
-  // return axios.post('/api/users/items', data);
-},
 
 editTransaction: plaidObj => {
   // const data = {};

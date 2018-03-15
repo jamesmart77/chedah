@@ -2,7 +2,6 @@ import React from "react";
 import "./GigView.css";
 import {formatCurrencyValueJSX} from '../../utils/currency';
 import {Modal, Button, Row, Input} from 'react-materialize';
-import { ModalAddGoal, ModalEditGoal2 } from '../../components/Modals'
 import { Multiselect } from '../Multiselect'
 import API from '../../utils/API'
 
@@ -10,9 +9,9 @@ class Goal extends React.Component {
 
     state = {
         userCategories: [],
-        categories: [],
-        name:'',
-        budget:''
+        categories: this.props.categories,
+        name: this.props.name,
+        budget: this.props.budget
       }
 
     getCategories = categories => {
@@ -29,6 +28,52 @@ class Goal extends React.Component {
         })
     }
 
+    handleChange = event=> {
+        this.setState({[event.target.name]: event.target.value})
+      }
+
+
+    editGoal () {
+        // console.log("button was pushed")
+        const data = {}
+    
+        data.goalId = this.props.id
+        data.name = this.state.name
+        data.budget = this.state.budget
+        data.categories = this.state.categories
+    
+        API.updateGoal(data).then(res => {
+          this.props.refresh()
+        }).catch(err => {
+          console.log("We were unable to edit the goal, here's the returned error message from the server")
+          console.log(err)
+        })
+      }
+
+      deleteGoal () {
+        // console.log("button was pushed")
+        const data = {}
+    
+        data.goalId = this.props.id
+       
+        API.deleteGoal(data).then(res => {
+             console.log("button was pushed")
+          this.props.refresh()
+        }).catch(err => {
+          console.log("unable to delete the goal")
+          console.log(err)
+        })
+      }
+
+
+    //   deleteGoal = id => {
+    //     API.deleteGoal(id)
+    //       .then(res => this.props.refresh())
+    //       .catch(err => console.log(err))
+    //   }
+
+
+
 render() {
 return (
 <div className="card">
@@ -39,22 +84,25 @@ return (
     </div>
     <div className="col s1">
     <Modal
-        header={this.props.name}
-        trigger={<i className="material-icons iconStyleMed">settings</i>}
+        header="Edit Goal"
+        trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
-            <section>
-              <Button waves='light' flat className="modal-action modal-close deep-orange darken-3 white-text">Cancel</Button> &nbsp;
-              <Button waves='light' className="modal-action modal-close teal" onClick={()=>this.props.editGoal(this.props.id)} >Apply</Button>
+            <section className="modalSpace">
+             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
+             <br/>
+             <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button>
+            
             </section>
           }>
-          <br/>
+          
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='name' id='input_1' value={ this.props.name } />
+            <input className='input-field' onChange={this.handleChange} type='text' name='name' id='input_1' defaultValue={ this.props.name } />
             <label className='active' htmlFor='input_1'> Goal Name </label>
           </div>
+         
           <div className='col input-field s12'>
-            <input onChange={this.handleChange} type='text' name='budget' id='input_2' value={ this.props.budget } />
-            <label className='active' htmlFor='input_2'> Budget </label>
+            <input className='input-field' onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
+            <label className='active' htmlFor='input_2'> Goal Budget </label>
           </div>
           <div className='row'>
             <span>Select Expense Categories To Track:</span>
@@ -63,9 +111,8 @@ return (
         <br/>
         <br/>
         <br/>
-        <br/>
+       
     </Modal>
-    <ModalAddGoal id={this.props.name.toLowerCase().split(" ").join("")} user={ this.props.user } refresh={ this.props.refresh } />
     </div>
 </div>
 <div className="card-content cardBody">

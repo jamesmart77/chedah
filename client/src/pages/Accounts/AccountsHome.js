@@ -36,7 +36,12 @@ class AccountsHome extends Component {
                     <div className='row'>
                         <div className='col s12'>
                             {accounts.map(acc =>
-                                <AccountOverview key={acc._id} account={acc} user={this.props.user}/>
+
+                                <AccountOverview
+                                    key={acc.account_id}
+                                    account={acc}
+                                    user={this.props.user}
+                                />
                             )}
                         </div>
 

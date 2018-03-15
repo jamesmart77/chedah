@@ -1,15 +1,14 @@
 import React from 'react';
 
-
+// dropdown menu for account overview
 class HeaderMenu extends React.Component {
 
     constructor(props) {
         super(props)
 
-
         this.state = {
-            id: props.id || 'dropdown-menu',
-            key: props.key || '1',
+            id: props.id,
+            uid: 'dropdown-menu',
             items: props.items || []
         }
     }
@@ -19,14 +18,15 @@ class HeaderMenu extends React.Component {
     }
 
     render() {
-        const trigger = (this.state.id + '-' + this.state.key);
-        const listItems = this.state.items.map((item, i) =>
-            <li key={i}><a href="#!" onClick={this.handleClick.bind(this, item)}>{item}</a></li>
+        const trigger = (this.state.uid + '-' + this.state.id);
+        console.log(`trigger: `, trigger);
+        const listItems = this.state.items.map(item  =>
+            <li key={item.id}><a href="#!" onClick={this.handleClick.bind(this, item.name)}>{item.name}</a></li>
         )
 
         return (
             <div className="col right">
-                <a className="dropdown-button account-actions" href="#!" data-activates={trigger}><i className="material-icons">arrow_drop_down</i></a>
+                <a className="dropdown-button account-actions" href="" data-activates={trigger}><i className="material-icons">arrow_drop_down</i></a>
                     <ul id={trigger} className="dropdown-content">
                         {listItems}
                     </ul>

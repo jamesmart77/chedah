@@ -8,7 +8,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const R = require('ramda')
 require('dotenv').config();
 const request = require("request")
-const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig, getToday, getThreeYearsAgoFromToday } = require('../utils')
+const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig, getToday, getThreeYearsAgoFromToday, getGigTransactionsByCategories } = require('../utils')
 
 var client = new plaid.Client(
   process.env.PLAID_CLIENT_ID, // these values need to be updated and stored in a .env
@@ -21,25 +21,48 @@ var client = new plaid.Client(
 module.exports = {
 
   getUser: (req, res) => {
+<<<<<<< HEAD
 
     
     // If the user is in cache, send that shit.
     console.log('getting the user')
     
+=======
+    console.log("\n USER CONTROLLER: => getUser")
+    db.User.findOne({ auth_id: req.params.authId }).lean()
+      .populate('accounts')
+      .populate('transactions')
+      .populate('gigs')
+      .populate('categories')
+      .populate({
+        path: 'gigs',
+        populate: {
+          path: 'goals',
+          model: 'Goal'
+        }
+      })
+>>>>>>> 6721cf954e1ee77a1933fce91ffe65db2fe3e2b5
       .then(user => {
 
-        if(user.accounts){          user.accounts = user.accounts.map(account => {
+        console.log('user.categories: ', user.categories)
+
+        if(user.accounts){          
+            user.accounts = user.accounts.map(account => {
             account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
             account.defaultGigName = user.gigs.find(gig => gig._id.toString() === account.defaultGigId.toString()).name
             return account
           })
         }
 
-        console.log('testing 1')
         // console.log(user)
+        const mutliDimensionalArrayOfGoalPromises = []
 
+<<<<<<< HEAD
         console.log('map over gigs')
+=======
+>>>>>>> 6721cf954e1ee77a1933fce91ffe65db2fe3e2b5
         user.gigs = user.gigs.map(gig => {
+          console.log('map over gigs')
           // filter for transactions associated with gig
           gig.transactions = user.transactions.filter(t => t.gigId === gig._id.toString())
           
@@ -55,7 +78,7 @@ module.exports = {
             gig.moneyIn = gig.moneyInCache.length > 0 ? gig.moneyInCache.reduce(sum) : 0.0
             
 
-            console.log(gig)
+            // console.log(gig)
 
             
             // Sum the money going out
@@ -76,7 +99,7 @@ module.exports = {
               )
 
             gig.vendors = R.uniq(transactionsByVendor.map(vendorTransArray => {
-              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)) }
+              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.filter(t => isPositive(t.amount)).map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
 
 
@@ -89,46 +112,82 @@ module.exports = {
               )
 
             gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
-              return { name: catTransArray[0].name, total: R.sum(catTransArray.map(t => t.amount)) }
+              return { name: catTransArray[0].name, total: R.sum(catTransArray.filter(t => isPositive(t.amount)).map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
+            .filter(category => category.total > 0)
+        
+            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
+            mutliDimensionalArrayOfGoalPromises.push(gigTransactionsPromises)
+
+            const gigTransByGoal = Promise.all(gigTransactionsPromises)
+              .then(response => console.log('response.length: ', response.length))
 
           }
-          console.log(gig.name)
-          console.log(gig.moneyIn)
+
           return gig
         })
 
 
-        user.categories = []
+        // user.categories = []
 
         // We pull the items out of the user object before returning to the client, because the access tokens are in it.
         const {items, transactions, ...userWithoutItems} = user
-
-        console.log('user')
-        console.log(user)
 
         db.PlaidCategory
         .find({})
         .then(dbPlaidCat => {
 
-          // console.log(dbPlaidCat)
-          // userWithoutItems.categories.concat(dbPlaidCat)
-
           dbPlaidCat.map(plaidCat => {
-            userWithoutItems.categories.push({name: plaidCat.name});
+            userWithoutItems.categories.push({name: plaidCat.name})
           })
-          console.log(userWithoutItems)
+          
 
+              const newFlatArray = mutliDimensionalArrayOfGoalPromises.length ? mutliDimensionalArrayOfGoalPromises.reduce((acc, cv) =>  [...acc, ...cv]) : []
+
+              Promise.all(newFlatArray)
+                .then(allTheResolvedPromisesOfGoalSummaries => {
+                  
+                  // at this point, We have the user in memory an also the gig summaries, but I need to associate those gig summaries into the user object
+                  const goals = userWithoutItems
+                    .gigs.map(gig => gig.goals.map(goal => {
+                          goal.expenses = allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id) ? allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id).total : 0.00
+                          goal.net = goal.budget - goal.expenses
+                          goal.percent = goal.expenses / goal.budget
+                          return goal
+                      })
+                    )
+
+                    const gigs = userWithoutItems.gigs.map(gig => 
+                      gig.goals.map(gigGoal => {
+                        gigGoal = goals.find(goal => gigGoal._id === goal._id)
+                        return gigGoal
+                      })
+                    )
+
+<<<<<<< HEAD
           // WWrite this shit to Redis
           res.json(userWithoutItems);
+=======
+                    // We're creating a temporary user object to merge back into our main user object here.
+                    const tempUser = {}
+                    tempUser.gigs = gigs
+
+                    const finalUser = R.mergeDeepLeft(userWithoutItems, tempUser)
+                    res.json(finalUser)
+                })
+
+
+          
+>>>>>>> 6721cf954e1ee77a1933fce91ffe65db2fe3e2b5
         }).catch(err => {console.log(err) ; return err})
         .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
-        .catch(err => {console.log(err) ; return err})
-      }).catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
+        
+      }).catch(err => {console.log(err) ; return err})
+      .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
   },
 
   createUserIfDoesNotExist: (req, res) => {
-    console.log("HITTING IT")
+    console.log("\n USER CONTROLLER: => createUserIfDoesNotExist")
     const user = {
       firstName: req.body.given_name || null,
       lastName: req.body.family_name || null,
@@ -164,7 +223,7 @@ module.exports = {
       })
       .catch(err => {
         console.log("error")
-        console.log(err)
+        err.code === 11000 ? console.log("ERROR: That's already a user in our database, send back a login response") : console.log(err)
         err.code === 11000 ? res.json({
           userExist: true
         }) : res.status(404).json({
@@ -225,7 +284,7 @@ module.exports = {
           return Promise.all(updateUserPromises)
         })
       })
-      .then( dbusers => res.status(201).json( { msg: 'sucessfully added accounts to user', user: user } ) )
+      .then( dbusers => res.status(201).json( { msg: 'sucessfully added accounts to user' } ) )
       .catch( err => { console.log(err); return err} )
       .catch( err => res.status(500).json( { msg: 'Could not sucessfully add accouts to user', err: err } ) )
       
@@ -263,23 +322,21 @@ module.exports = {
       })
       .then((dbUser) => {
 
-        // Pull transactions for the Item for the last 30 days
-        const startDate = getThreeYearsAgoFromToday() //moment().subtract(30, 'days').format('YYYY-MM-DD');
-        const endDate = getToday() //moment().format('YYYY-MM-DD');
-
+        // pull transactions for the last 3 years from today, essentially, 'all transasctions'
         axios.defaults.headers.post['Content-Type'] = 'application/json';
         const transactionPromises = dbUser.items.map(item => axios.post('https://sandbox.plaid.com/transactions/get', {
           client_id: process.env.PLAID_CLIENT_ID,
           secret: process.env.PLAID_SECRET,
           access_token: item.access_token,
-          start_date: startDate,
-          end_date: endDate,
+          start_date: getThreeYearsAgoFromToday(), //moment().subtract(30, 'days').format('YYYY-MM-DD');
+          end_date:  getToday(), //moment().format('YYYY-MM-DD');,
           options: {
             count: 250,
             offset: 0
           }
         }))
 
+        // This returns an array of arrays
         Promise.all(transactionPromises)
           .then(transactionsResponseArray => {
             const transactions = transactionsResponseArray
@@ -287,7 +344,13 @@ module.exports = {
               .reduce((acc, cv) => acc.concat(cv))
               .filter(transaction => !transaction.pending)
 
-            console.log('pulled ' + transactions.length + ' transactions');
+            const accounts = transactionsResponseArray
+              .map(accountsResponses => accountsResponses.data.accounts)
+              .reduce((acc, cv) => acc.concat(cv))
+              
+              // let's cache these promises for now so we don't get a race condition.
+              const accountBalanceUpdatePromises = accounts.map( account => db.Account.findOneAndUpdate({account_id: account.account_id}, {balances: account.balances}) )
+              console.log('pulled ' + transactions.length + ' transactions');
 
             db.Account.find()
               .then(dbAccounts => {
@@ -320,7 +383,7 @@ module.exports = {
                           { "$addToSet": { "transactions": dbTrans._id } }
                         )
                         .catch((err) => console.log(err))
-                    })
+                    }).then(dbUser => {})
                     .catch((err) => {
                       // console.log("transaction insert failed");
                       // console.log(err);
@@ -331,22 +394,25 @@ module.exports = {
                   //iterate through all transactions in while loop
                   i++
                 }
-              })
-              .catch(console.log)
-            res.json({ msg: "transactions loaded successfully" });
-          });
+              }).catch(console.log)
+            // Let's update the account balances since we got them for free during the transactions api call.
+            Promise.all(accountBalanceUpdatePromises)
+            .then(dbAccounts => {
+              res.json({ msg: "transactions loaded successfully" })
+            }).catch(err => { console.log(err); return err })
+          }).catch(err => { console.log(err); return err })
 
 
-      })
-
-      .catch(err => {
+      }).catch(err => {
         console.log("error in getting plaid transactions");
-        console.log(error);
+        console.log(err);
         res.json({
           error: err
         })
       })
   },
+
+
 
   getCategories: (req, res) => {
     console.log('lets get those user categories shall we')

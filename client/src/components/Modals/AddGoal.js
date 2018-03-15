@@ -3,7 +3,6 @@ import API from '../../utils/API'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import { Multiselect } from '../Multiselect';
-import $ from 'jquery'
 
 // add goal modal
 class ModalAddGoal extends React.Component {
@@ -18,7 +17,6 @@ class ModalAddGoal extends React.Component {
     categories: [],
     name:'',
     budget:''
-     
   }
 
   componentWillMount () {
@@ -29,11 +27,8 @@ class ModalAddGoal extends React.Component {
       console.log('Error Categories')
       console.log(err)
     })
-
-    API.getGigData(this.props.gigId).then(gigData => {
-      this.setState(gigData)
-    }).catch(console.log)
   }
+
 
   addGoalToGig () {
     const data = {}
@@ -44,14 +39,13 @@ class ModalAddGoal extends React.Component {
     data.categories = this.state.categories
 
     API.addGoalToGig(data).then(res => {
+      this.setState({name: '', budget: ''})
       this.props.refresh()
     }).catch(err => {
       console.log("We were unable to add a goal to the gig, here's the returned error message from the server")
       console.log(err)
     })
   }
-
-
 
   handleChange = event=> {
       this.setState({[event.target.name]: event.target.value})
@@ -61,7 +55,7 @@ class ModalAddGoal extends React.Component {
   getCategories = categories => {
       this.setState({ categories: categories })
   }
-    
+
   handleClick (val) {
     console.log(`selected: `, val)
   }
@@ -69,9 +63,8 @@ class ModalAddGoal extends React.Component {
   render () {
     return (
       <div
-        id={this.props.id}
+        id='add-goal-modal'
         className='modal'
-        data-modal='data-modal'
         style={{height: '70%'}}>
         <div className='modal-content'>
           <div className='modal-title'>
@@ -83,6 +76,7 @@ class ModalAddGoal extends React.Component {
               type='text'
               name='name'
               id='input_1'
+              value={this.state.name}
                />
             <label className='active' htmlFor='input_1'>
               Goal Name
@@ -91,9 +85,10 @@ class ModalAddGoal extends React.Component {
           <div className='col input-field s12'>
             <input
               onChange={this.handleChange}
-              type='text'
+              type='number'
               name='budget'
               id='input_2'
+              value={this.state.budget}
                />
             <label className='active' htmlFor='input_2'>
               Budget
@@ -108,8 +103,9 @@ class ModalAddGoal extends React.Component {
             </div>
             <div className='col s6'></div>
           </div>
-          <div className='modal-footer'>
-            <section>
+          <div>
+          {/* <div className='modal-footer'> */}
+            <section className="right">
               <button className='btn waves-effect waves-light btn-flat modal-action modal-close deep-orange darken-3 white-text'>
                 Cancel
               </button>

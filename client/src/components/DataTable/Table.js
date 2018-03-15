@@ -5,7 +5,7 @@ import './DataTable.css';
 
 const $ = require('jquery');
 $.fn.DataTable = require('datatables.net');
-// window.jQuery = $;
+$.fn.dataTable.ext.errMode = 'throw';
 
 function buildTable(named, transactions) {
     let table = $(named).DataTable({select: true, data: transactions});
@@ -42,15 +42,20 @@ class Table extends Component {
 
     render() {
         const tableRows = this.props.transactions.map((t, i) =>
-                        <TableRow row={i} rowEdited={this.rowEdited.bind(this)} key={t._id} {...t}/>)
+                        <TableRow
+                            row={i}
+                            rowEdited={this.rowEdited.bind(this)}
+                            key={t._id}
+                            gigs={this.props.gigs || []}
+                            {...t}
+                        />)
 
 
         if (this.props.transactions.length > 0) {
             return (<table id={this.state.tableId}
                 // ref={(table) => { this.dataTable = $(table).DataTable()}}
-                ref={(node) => {
-                    this.datatable = node;
-                }} className='display highlight datatable' cellSpacing='0' role='grid'>
+                ref={(node) => {this.datatable = node}}
+                className='display highlight datatable' cellSpacing='0' role='grid'>
 
                 <TableHeader headers={this.props.headers}/>
 

@@ -3,6 +3,10 @@ import React, {Component} from "react";
 import Account from './Account';
 import API from '../../utils/API';
 
+
+const $ = require('jquery');
+
+
 // materialize account list
 class AccountList extends Component {
 
@@ -21,6 +25,15 @@ class AccountList extends Component {
         this.setState({user: nextProps})
     }
 
+    componentDidMount() {
+        window.$('.collapsible-header').addClass('active')
+        window.$('.collapsible').collapsible({accordian: false})
+    }
+
+    componentDidUpdate() {
+        window.$('.collapsible').collapsible({accordian: false})
+    }
+
     renderListItems() {
         const accounts = this.props.user.accounts || []
         const hasAccounts = (accounts.length > 0)
@@ -32,7 +45,10 @@ class AccountList extends Component {
 
         if (hasAccounts) {
             results = accounts.map(acct =>
-                <Account key={acct._id} {...acct}/>
+                <Account
+                    key={acct._id}
+                    {...acct}
+                />
             )
         }
         return results
@@ -42,9 +58,12 @@ class AccountList extends Component {
         const arrowName = (this.state.collapsed === false) ? 'arrow_drop_down' : 'arrow_drop_up';
 
         return (
-            <ul className="account-summary collapsible collection with-header" datacollapsible="expandable">
-                <li>
+            <ul
+                ref={(node) => {this.accountList = node}}
+                className="account-summary collapsible collection with-header"
+                datacollapsible="expandable">
 
+                <li>
                     <div className="collapsible-header listHeader" onClick={this.handleClick.bind(this)}>
                         <h6><i className="material-icons iconStyleSmall">account_balance</i> Accounts</h6>
                         <i className="header-expand-state material-icons">{arrowName}</i>

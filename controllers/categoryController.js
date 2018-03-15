@@ -7,13 +7,19 @@ module.exports = {
 
   // add a new category and set default to false
   create: (req, res) => {
+    console.log('creating a category')
     db.Category
       .create({name: req.body.name})
-      .then(dbcat => {
-        db.User.findOneAndUpdate({auth_id: req.body.authId})
-          .then(dbUser => res.json(dbUser)
-        )
-      }).catch(err => res.status(422).json(err))
-      .catch(err => res.status(422).json(err))
+      .then(dbCat => {
+        db.User.findOneAndUpdate({auth_id: req.body.userId}, 
+           {
+            $push: {
+              categories: dbCat._id
+            }
+          }, {
+            new: true
+          }).then(dbUser => res.json(dbUser))
+            .catch(err => {console.log(err); res.status(422).json(err)})
+      }).catch(err => {console.log(err); res.status(422).json(err)})
   }
 }

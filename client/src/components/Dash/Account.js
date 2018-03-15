@@ -1,62 +1,90 @@
-import React from 'react'
-import { formatCurrencyValueJSX } from '../../utils/currency'
+import React from 'react';
+import { formatCurrencyValueJSX } from '../../utils/currency';
+import { GigChip } from '../Material';
+
 
 // materialize account preview widget
 class Account extends React.Component {
 
-  renderGigs () {
-    const gigList = (this.props.gigs) || []
-    return (gigList.map((gig, i) => <div key={i} className='chip'>
-                                      {gig}
-                                    </div>))
-  // console.log('this.props.user.gigs')
-  // console.log(this.props.user.gigs)
-  }
+    componentWillReceiveProps(nextProps) {
+        this.setState({...nextProps})
+    }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({...nextProps})
-  }
+    renderChecking() {
+        const checkingBalance = formatCurrencyValueJSX(this.props.balances.current);
+        const accountHref = `accounts/${this.props.account_id}`;
+        const defaultGig = (this.props.defaultGigName === 'Personal')
+        return (
+            <div className='row collapsible-body'>
+                <div className='row'>
+                <div className='col s8 tooltipped' dataposition="top" datadelay="50" datatooltip={this.props.official_name}>
+                        <i className='material-icons inflex'>attach_money</i>
+                        <a className="side-headers" href={accountHref}> {this.props.name}</a>
+                    </div>
+                    <div className='col s4 account-total'>{checkingBalance}</div>
+                </div>
 
-  renderType (accountType) {
-    // const gigs = this.renderGigs()
-    const balance = formatCurrencyValueJSX(this.props.balances.current)
-    const accountHref = `accounts/${this.props.account_id}`
-    console.log(`gig name: `, this.props.defaultGigId)
-    return (
-      // This is buggy, fix it then add it back after
-      // <div className='row collapsible-body'>
-      <div className='row'>
-        <div className='row'>
-          <div className='col s8'>
-            <i className='material-icons inflex'>{accountType}</i>
-            <a className='side-headers' href={accountHref}>
-              {this.props.name}
-            </a>
-          </div>
-          <div className='col s4 account-total'>
-            {balance}
-          </div>
-        </div>
-        <div className='row pl-1'>
-          <div className='col s8'>
-            <div className='chip'>
-              {this.props.defaultGigName}
+                <div className='row pl-1'>
+
+                    <div className='col s12'>
+                        <GigChip
+                            gig={this.props.defaultGigName}
+                            gigId={this.props.defaultGigId}
+                            isDefault={defaultGig}
+                        />
+                    </div>
+
+                </div>
             </div>
-          </div>
-          {accountType === 'credit_card' && (<div className='col s4 account-total right-align'>
-                                               {formatCurrencyValueJSX(this.props.balances.limit)}
-                                             </div>)}
-        </div>
-      </div>
-    )
-  }
+        );
+    };
 
-  render () {
-    return (<div>
-              {this.props.type === 'credit' && this.renderType('credit_card')}
-              {this.props.type !== 'credit' && this.renderType('attach_money')}
-            </div>)
-  }
+    renderCredit() {
+        // available, current, limit
+        const creditTotal = formatCurrencyValueJSX(this.props.balances.limit);
+        const creditBalance = formatCurrencyValueJSX(this.props.balances.current);
+        const accountHref = `accounts/${this.props.account_id}`;
+        const defaultGig = (this.props.defaultGigName === 'Personal')
+        return (
+                <div className='row collapsible-body'>
+                <div className='row'>
+                    <div className='col s8'>
+                        <i className='material-icons inflex'>credit_card</i>
+                        <a className="side-headers" href={accountHref}> {this.props.name}</a>
+                    </div>
+                    <div className='col s4 account-total'>{creditBalance}</div>
+                </div>
+
+                <div className='row pl-1'>
+
+                    <div className='col s8'>
+                        <GigChip
+                            gig={this.props.defaultGigName}
+                            gigId={this.props.defaultGigId}
+                            isDefault={defaultGig}
+                        />
+                    </div>
+
+                    <div className='col s4 account-total right-align'>
+                        <div>{creditTotal}</div>
+                    </div>
+
+                </div>
+            </div>
+
+        )
+    };
+
+    render() {
+        let result;
+        if (this.props.type === 'credit') {
+            result = this.renderCredit();
+        } else {
+            result = this.renderChecking();
+        }
+
+        return (result);
+    }
 }
 
-export default Account
+export default Account;

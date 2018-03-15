@@ -1,7 +1,9 @@
+#client/build
 **/node_modules
 .env
-client/build
 .DS_Store
 test.js
 test2.js
 test3.js
+test4.js
+test5.js
