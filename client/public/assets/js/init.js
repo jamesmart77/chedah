@@ -48,6 +48,14 @@
             constrainWidth: false
         });
 
+        // gigmenu
+        $('.account-gig-menu').dropdown({
+            hover: false,
+            belowOrigin: true,
+            alignment: 'left',
+            constrainWidth: false
+        });
+
         $('.gig-frequency').dropdown({
             hover: false,
             // gutter:100,         // push menu to the left

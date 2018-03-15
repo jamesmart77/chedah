@@ -5,6 +5,7 @@ import { Table } from '../../components/DataTable';
 import {formatCurrencyValueJSX} from '../../utils/currency';
 import {formatDate} from '../../utils/date';
 import axios from 'axios';
+import GigMenu  from '../../components/GigMenu'
 
 
 // calculates the next due date of a credit card
@@ -51,7 +52,8 @@ class AccountDetail extends React.Component {
             account_id: this.props.match.params.id,
             transactions: [],
             headers: defaultHeaders,
-            gigs: []
+            gigs: [],
+            summary: {}
         }
     }
 
@@ -64,7 +66,7 @@ class AccountDetail extends React.Component {
         .then(gigs => {
             let gigData = []
             gigs.data.forEach(gig => {
-                gigData.push({name: gig.name, id: gig._id, description: gig.description})
+                gigData.push({name: gig.name, _id: gig._id, description: gig.description})
             })
             this.setState({gigs: gigData})
         })
@@ -130,7 +132,7 @@ class AccountDetail extends React.Component {
     transactionsUpdated(data) {
         let transdata = [];
         this.state.transactions.forEach(t => {
-            if (t._id === data.id) {
+            if (t._id === data._id) {
                 const role = (data.role == 'vendor') ? 'transactionName' : data.role
                 t[role] = data.value.newValue;
             }
@@ -151,6 +153,14 @@ class AccountDetail extends React.Component {
 
         if (role == 'gig') {
             updatedData['gigId'] = data.value.newValue
+        }
+
+        if (role == 'category') {
+            updatedData['category'] = data.value.newValue
+        }
+
+        if (role == 'vendor') {
+            updatedData['transactionName'] = data.value.newValue
         }
 
 
@@ -192,6 +202,8 @@ class AccountDetail extends React.Component {
 
     // render the header for sabings & checking accounts
     renderCheckingHeader(iconName, accountName, availableBalance, currentBalance) {
+        let currentGigId = this.state.summary.defaultGigId || ''
+
         return (
             <div className="account-detail-header">
                <div className="row valign-wrapper">
@@ -202,12 +214,20 @@ class AccountDetail extends React.Component {
                    <span className="account-avail white-text"> Available Balance: <span className="account-balance">{formatCurrencyValueJSX(availableBalance)}</span></span>
                  </div>
                </div>
+               <div className="row valign-wrapper pl-2">
+                   <GigMenu
+                       account_id={this.state.account_id}
+                       gigId={currentGigId}
+                       gigs={this.state.gigs}
+                   />
+               </div>
             </div>
         )
     }
 
     // render the header for credit accounts
     renderCreditHeader(iconName, accountName, availableBalance, currentBalance, currentLimit, dueDate, apr, fees) {
+        let currentGigId = this.state.summary.defaultGigId || ''
         return (
             <div className="account-detail-header">
                <div className="row valign-wrapper">
@@ -239,7 +259,11 @@ class AccountDetail extends React.Component {
 
                <div className="row valign-wrapper pl-2">
                  <div className="col s12 m6">
-                   <div className="chips chips-autocomplete" />
+                     <GigMenu
+                         account_id={this.state.account_id}
+                         gigId={currentGigId}
+                         gigs={this.state.gigs}
+                     />
                  </div>
                  <div className="col s12 m6 right-align">
                    <span className="card-subtitle white-text"> Fees: <span className="account-fees">{formatCurrencyValueJSX(fees)}</span><span className="new badge" data-badge-caption="% APR">{apr}</span></span>

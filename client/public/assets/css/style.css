@@ -323,12 +323,15 @@ textarea.materialize-textarea {
 
 .btn-floating {
     border-radius: 50%;
+
+}
+
+.refresh-btn .btn-floating {
     -webkit-box-shadow: none;
     box-shadow: none;
     width: 2rem;
     height: 2rem;
 }
-
 
 .btn-floating i {
    width: inherit;

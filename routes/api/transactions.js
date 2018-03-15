@@ -6,7 +6,8 @@ const transactionsController = require('../../controllers/transactionsController
 router.route('/')
   .post(plaidController.getTransactions)
 
-router.route('/:id')
-  .put(transactionsController.updateTransactionGig)
+  router.route('/:id')
+    .put(transactionsController.updateTransaction)   // updateTransactionGig
+
 
 module.exports = router

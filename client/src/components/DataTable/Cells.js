@@ -14,7 +14,8 @@ class Cell extends React.Component {
         super(props);
 
         this.state = {
-            id: props.id,   // transaction id
+            id: props.id,                           // transaction id
+            newValue: {id: null, name: null},       // updated value
             row: props.row,
             column: props.column,
             role: props.role,
@@ -135,6 +136,7 @@ class Cell extends React.Component {
             // compare the values
             let oldValue = this.props.value;
             let newValue = e.target.value
+
             console.log(`edited: `, newValue);
             // if the old value doesn't match the new one...
             if (oldValue === newValue || !newValue) {
@@ -145,13 +147,18 @@ class Cell extends React.Component {
                 return
             }
 
+            var newValueName = null;
+            var newValueId = null;
+
             if (role == 'gig') {
                 let gigs = this.props.autocomplete || []
                 gigs.forEach(gig => {
                     if (gig.name == newValue) {
                         // TODO: check because category is using `_id`
-                        newValue = gig.id
-                        console.log(`matched: `, newValue);
+                        newValue = gig._id
+                        // set the component state
+                        newValueName = gig.name
+                        newValueId = gig._id
                     }
                 })
 
@@ -170,7 +177,8 @@ class Cell extends React.Component {
             })
 
             this.setState({
-                isEditing: false
+                isEditing: false,
+                newValue: {id: newValueId, name: newValueName}
             })
         }
     }
@@ -195,8 +203,11 @@ class Cell extends React.Component {
         let triggerId = `${this.props.id}-${this.props.row}-${this.props.column}`
 
         // default cell value
-        let currentVal = this.props.value;
+        let currentVal = this.state.newValue.name || this.props.value;
+        let currentId = this.state.newValue.id || this.props.id;
 
+
+        // console.log(`transaction: `, currentId, ' -> ', currentVal);
         if (this.state.isUpdated) {
             currentVal = (<span className='updated'>{currentVal}</span>)
         }
@@ -214,33 +225,45 @@ class Cell extends React.Component {
         // are we currently in editing state?
         const isEditing = this.state.isEditing;
 
+        // IMPORTANT: the current gig name
+        let currentGigName;
 
-        // format the gig column
+        // if this is a gig, the current value is actually the gig id
         if (this.state.role === 'gig' && !isEditing)  {
             let gigName;
             let autocomplete = this.props.autocomplete || []
             autocomplete.forEach(gig => {
-                if (gig.id == currentVal) {
-                    gigName = gig.name;
+                if (gig._id == currentId) {
+                    // console.log(`new value? `, gig.name);
+                    currentGigName = gig.name
+                }
+
+                if (gig._id == currentVal) {
+                    currentGigName = gig.name;
                 }
             })
 
             // construct a fake chip because of a fucking materialize chip select bug:
             // https://github.com/Dogfalo/materialize/issues/5618
-            currentVal = (<div className='fake-chip'><a className='dropdown-trigger' data-target={triggerId} href='#!'>{gigName}</a></div>);
+            currentVal = (<div className='fake-chip'>
+                            <a className='dropdown-trigger' data-target={triggerId} href='#!'>{currentGigName}</a>
+                        </div>
+                        );
         };
 
+        // console.log(`gig name: `, currentGigName);
 
         // editable input for gigs
         if (isEditing) {
+            var valueToFillInput = currentVal;
             if (this.state.role === 'gig') {
-                // return this.gigEditor()
+                valueToFillInput = currentGigName;
             }
 
-
-
-            let editor = this.textEditor(currentVal);
+            console.log(`passing value to editor: `, valueToFillInput);
+            let editor = this.textEditor(valueToFillInput);
             let autoComplete = this.getAutocomplete()
+            console.log(`autocomplete: `, autoComplete);
             setTimeout(() => window.$(`input.autocomplete`).autocomplete({data: autoComplete}), 100)
             // return a regular editor
             return editor

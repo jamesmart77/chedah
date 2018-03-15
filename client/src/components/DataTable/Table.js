@@ -18,7 +18,8 @@ class Table extends Component {
         this.state = {
             tableId: 'data-table-transactions',
             categories: [],
-            gigs: []
+            gigs: [],
+            options: props.options || {lengthChange: false}
         };
     };
 
@@ -34,7 +35,7 @@ class Table extends Component {
     componentDidUpdate() {
         // initialize the table
         if (!this.hasTable) {
-            let table = $(this.datatable).DataTable({lengthChange: false});  //{lengthChange: false}
+            let table = $(this.datatable).DataTable(this.state.options);  //{lengthChange: false}
             this.hasTable = true
         // else invalidate and redraw the rows to reflect changes
         } else {
