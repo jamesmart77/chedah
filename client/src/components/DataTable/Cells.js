@@ -7,6 +7,7 @@ import './Cell.css';
 const $ = require('jquery');
 
 
+
 class Cell extends React.Component {
 
     constructor(props) {
@@ -28,10 +29,14 @@ class Cell extends React.Component {
         this.handleFocus = this.handleFocus.bind(this);
     };
 
-    componentDidMount() {
-        let data = this.state.autocomplete.map(item => {
-            return {[item.name]: null}
+    // get a dictionary of autocomplete values
+    getAutocomplete() {
+        let autoComplete = {}
+        let acdata = this.props.autocomplete || []
+        acdata.forEach(item => {
+            autoComplete[String(item.name)] = null
         })
+        return autoComplete
     }
 
     ///  EVENT HANDLERS  ///
@@ -46,17 +51,7 @@ class Cell extends React.Component {
         if (this.state.editable) {
             const row = e.target.getAttribute('row') || -1;
             const column = e.target.getAttribute('column') || -1;
-            // console.log(`-> Cell clicked: [ ${row}, ${column} ]`);
-            let autoComplete = {}
-            this.state.autocomplete.forEach(item => {
-                autoComplete[item.name] = null
-            })
             this.setState({isEditing: !this.state.isEditing});
-            console.log(`completion: `, autoComplete);
-            window.$(this.refs.textInput).autocomplete({ data: autoComplete});
-            window.$(`.autocomplete`).autocomplete({
-              data: autoComplete
-            });
         } else {
             return;
         }
@@ -93,10 +88,11 @@ class Cell extends React.Component {
         )
     }
 
-    textEditor(value) {
+    textEditor(value, databaseId) {
         const alignment = this.getAlignment();
         const triggerId = this.getId()
         const autoComplete = (this.state.autocomplete.length > 0) ? 'custom-class editable-cell autocomplete' : 'custom-class editable-cell autocomplete'
+
         return (
             <td
                 row={this.props.row}
@@ -112,6 +108,7 @@ class Cell extends React.Component {
                     role={this.role}
                     className={autoComplete}
                     hidden={false}
+                    data-value={databaseId}
                     type='text'
                     ref='textInput'
                     defaultValue={value}
@@ -134,18 +131,30 @@ class Cell extends React.Component {
 
     // callback to the parent row
     onBlur(role, e) {
-
         if (this.state.isEditing === true) {
-
+            // compare the values
             let oldValue = this.props.value;
             let newValue = e.target.value
-
-            if (oldValue === newValue) {
+            console.log(`edited: `, newValue);
+            // if the old value doesn't match the new one...
+            if (oldValue === newValue || !newValue) {
                 this.setState({
                     isEditing: false,
                     isUpdated: true
                 })
                 return
+            }
+
+            if (role == 'gig') {
+                let gigs = this.props.autocomplete || []
+                gigs.forEach(gig => {
+                    if (gig.name == newValue) {
+                        // TODO: check because category is using `_id`
+                        newValue = gig.id
+                        console.log(`matched: `, newValue);
+                    }
+                })
+
             }
 
             this.props.columnEdited({
@@ -163,7 +172,6 @@ class Cell extends React.Component {
             this.setState({
                 isEditing: false
             })
-
         }
     }
 
@@ -178,6 +186,7 @@ class Cell extends React.Component {
         console.log(`menu changed: `, value);
     }
 
+
     render() {
         // cell alignment
         let alignment = this.getAlignment()
@@ -187,6 +196,10 @@ class Cell extends React.Component {
 
         // default cell value
         let currentVal = this.props.value;
+
+        if (this.state.isUpdated) {
+            currentVal = (<span className='updated'>{currentVal}</span>)
+        }
 
         // format the date column
         if (this.state.role === 'date') {
@@ -205,7 +218,8 @@ class Cell extends React.Component {
         // format the gig column
         if (this.state.role === 'gig' && !isEditing)  {
             let gigName;
-            this.props.autocomplete.forEach(gig => {
+            let autocomplete = this.props.autocomplete || []
+            autocomplete.forEach(gig => {
                 if (gig.id == currentVal) {
                     gigName = gig.name;
                 }
@@ -220,10 +234,16 @@ class Cell extends React.Component {
         // editable input for gigs
         if (isEditing) {
             if (this.state.role === 'gig') {
-                return this.gigEditor()
+                // return this.gigEditor()
             }
 
-            return this.gigEditor(currentVal)
+
+
+            let editor = this.textEditor(currentVal);
+            let autoComplete = this.getAutocomplete()
+            setTimeout(() => window.$(`input.autocomplete`).autocomplete({data: autoComplete}), 100)
+            // return a regular editor
+            return editor
         };
 
         // plain column

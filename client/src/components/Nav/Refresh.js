@@ -1,6 +1,7 @@
 import React from 'react';
 import API from '../../utils/API';
 
+
 // navbar refresh button
 class RefreshButton extends React.Component {
 
@@ -9,7 +10,6 @@ class RefreshButton extends React.Component {
 
         this.state = {
             updated: false,
-            showTooltip: true,
             isBusy: false
         }
 
@@ -18,11 +18,15 @@ class RefreshButton extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({isBusy: false})
+
+        if (!this.state.updated) {
+            // window.Materialize.toast(`Synced ${tcount} transactions`, 2000)
+        }
     }
 
     updateUser() {
         API.accountsSync()
-        this.setState({updated: true, showTooltip: false, isBusy: true})
+        this.setState({updated: true, isBusy: true})
     }
 
     getTransactions() {
@@ -31,13 +35,20 @@ class RefreshButton extends React.Component {
 
     render() {
         const accounts = this.getTransactions()
+        // update the look of the button based on whether we've fetched transactions
         let tcount = 0
         accounts.forEach(acct => {
             tcount += acct.transactions.length
         })
 
+        if (tcount > 0) {
+            if (!this.state.updated) {
+
+            }
+        }
+
         const pulseValue = (tcount == 0) ? 'pulse' : ''
-        const tooltipState = (this.state.showTooltip) ? ' tooltipped' : ''
+        const tooltipState = (tcount == 0) ? ' tooltipped' : ''
         const spinState = (this.state.isBusy) ? ' spin' : ''
         return (
             <li className='refresh-btn'>

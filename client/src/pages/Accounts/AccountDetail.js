@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-// import {Account, GigMenu} from '../../components/Accounts';
+import React from 'react';
 import Moment from 'react-moment';
 import API from '../../utils/API';
 import { Table } from '../../components/DataTable';
@@ -41,7 +40,7 @@ const defaultHeaders = [
     }
 ]
 
-class AccountDetail extends Component {
+class AccountDetail extends React.Component {
     constructor(props) {
         super(props)
 
@@ -67,7 +66,7 @@ class AccountDetail extends Component {
             gigs.data.forEach(gig => {
                 gigData.push({name: gig.name, id: gig._id, description: gig.description})
             })
-            alert(JSON.stringify(gigData, null, 2))
+            // alert(JSON.stringify(gigData, null, 2))
             this.setState({gigs: gigData})
         })
         .catch(err => {
@@ -107,7 +106,8 @@ class AccountDetail extends Component {
     updateDefaultGig(itemId, gigId) {
         axios.post('/accounts', itemId).then((gigData) => {
             console.log(gigData)
-        }).catch((err) => {
+        })
+        .catch((err) => {
             console.log(err)
         });
     }
@@ -137,6 +137,32 @@ class AccountDetail extends Component {
             }
             transdata.push(t)
         })
+
+        // {id: }
+        console.log(`⚠️ AccountDetail: updated transaction: `, data);
+        let role = data.role;
+        let updatedData = {transactionId: data.id}
+        if (data.category) {
+            updatedData['category'] = data.catagory
+        }
+
+        if (data.transactionName) {
+            updatedData['transactionName'] = data.transactionName
+        }
+
+        if (role == 'gig') {
+            updatedData['gigId'] = data.value.newValue
+        }
+
+
+        // this will push transaction data down to the children
+        API.updateTransactionsGig(updatedData)
+        .then(updatedTransaction => {
+            console.log(`updated transaction: `, updatedTransaction);
+        })
+        .catch((err) => {
+            console.log(err)
+        });
 
         this.setState({transactions: transdata})
     }
@@ -225,8 +251,6 @@ class AccountDetail extends Component {
     }
 
     render() {
-        console.log(`-> AccountDetail summary: `, this.state.summary || {});
-
         let accountSummary = this.state.summary || {}
         let hasBalances = (Object.keys(accountSummary).length > 0)
 
@@ -285,6 +309,17 @@ class AccountDetail extends Component {
                        </div>
                    <div className="card-content">
 
+                       <div className="row">
+                           <div className="col s4">
+                         <div className="input-field col s12">
+                           <i className="material-icons prefix">textsms</i>
+                           <input type="text" id="autocomplete-input" className="autocomplete" />
+                           <label htmlFor="autocomplete-input">Test</label>
+                         </div>
+                       </div>
+                       </div>
+                       <div className="col s8"></div>
+
                      <div className="row">
                        <div className="col s12">
 
@@ -292,6 +327,7 @@ class AccountDetail extends Component {
                                transactionsUpdated={this.transactionsUpdated.bind(this)}
                                {...this.state}
                            />
+
                        </div>
                      </div>
                    </div>

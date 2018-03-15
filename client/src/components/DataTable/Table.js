@@ -8,9 +8,6 @@ const $ = require('jquery');
 $.fn.DataTable = require('datatables.net');
 $.fn.dataTable.ext.errMode = 'throw';
 
-function buildTable(named, transactions) {
-    let table = $(named).DataTable({select: true, data: transactions});
-}
 
 // data table component
 class Table extends Component {
