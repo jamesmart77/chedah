@@ -21,13 +21,6 @@ var client = new plaid.Client(
 module.exports = {
 
   getUser: (req, res) => {
-<<<<<<< HEAD
-
-    
-    // If the user is in cache, send that shit.
-    console.log('getting the user')
-    
-=======
     console.log("\n USER CONTROLLER: => getUser")
     db.User.findOne({ auth_id: req.params.authId }).lean()
       .populate('accounts')
@@ -41,7 +34,6 @@ module.exports = {
           model: 'Goal'
         }
       })
->>>>>>> 6721cf954e1ee77a1933fce91ffe65db2fe3e2b5
       .then(user => {
 
         console.log('user.categories: ', user.categories)
@@ -57,10 +49,6 @@ module.exports = {
         // console.log(user)
         const mutliDimensionalArrayOfGoalPromises = []
 
-<<<<<<< HEAD
-        console.log('map over gigs')
-=======
->>>>>>> 6721cf954e1ee77a1933fce91ffe65db2fe3e2b5
         user.gigs = user.gigs.map(gig => {
           console.log('map over gigs')
           // filter for transactions associated with gig
@@ -164,10 +152,6 @@ module.exports = {
                       })
                     )
 
-<<<<<<< HEAD
-          // WWrite this shit to Redis
-          res.json(userWithoutItems);
-=======
                     // We're creating a temporary user object to merge back into our main user object here.
                     const tempUser = {}
                     tempUser.gigs = gigs
@@ -178,7 +162,6 @@ module.exports = {
 
 
           
->>>>>>> 6721cf954e1ee77a1933fce91ffe65db2fe3e2b5
         }).catch(err => {console.log(err) ; return err})
         .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
         
