@@ -86,16 +86,11 @@ class AccountOverview extends React.Component {
                             {/* Gigs */}
                      <div className="row">
                        <div className="input-field col s6">
-                         <Input s={12} type='select' id="input-gig-account" label={"Current Gig: " + this.props.account.defaultGigName} defaultValue='None' onChange={this.handleChange} name="gigId">
+                         <Input s={12} type='select' id="input-gig-account" label={"Current Gig: " + this.props.account.defaultGigName} defaultValue="None" onChange={this.handleChange} name="gigId">
                            {gigItems}
                          </Input>
                        </div>
                      </div>
-
-                          {/* <div className='col input-field s12'>
-                            <input className='input-field' onChange={this.handleChange} type='text' name='description' id='input_2' defaultValue={ this.props.description } />
-                            <label className='active' htmlFor='input_2'> Account Description </label>
-                          </div> */}
 
                             <br/>
                             <br/>
