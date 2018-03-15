@@ -118,10 +118,8 @@ export default {
   },
 
   // data.accountId
-  deleteAccount: data => {
-    data.userId = decodeToken(getIdToken()).sub
-    return axios.delete(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-  },
+  deleteAccount: data => axios.delete(`/api/accounts/${data}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
 
 
   // #############################################

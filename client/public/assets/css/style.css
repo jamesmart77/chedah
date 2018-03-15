@@ -995,6 +995,10 @@ input.editable-cell {
     padding: 20px;
 }
 
+.productIMG {
+    max-height: 275px;
+}
+
 .productTitle {
     font-family: 'Roboto Slab', serif;
     text-transform: uppercase;
