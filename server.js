@@ -3,8 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const cors = require('cors');
-const redis = require("redis")
-const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
+module.exports.redisClient = require("redis").createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
 const logger = require('morgan')
@@ -24,23 +23,15 @@ app.use(cors());
 // Add routes, both API and view
 app.use(routes);
 
+module.exports.app = app;
+
+
 // Set up promises with mongoose
 mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/chedah",
-  {
-    useMongoClient: true
-  }
-);
-
-redisClient.on("connect", () => {
-  console.log("Redis Client up");
-})
-
-app.use(logger("short"));
-
-
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/chedah", {
+  useMongoClient: true
+});
 
 // debugging logger
 app.all('*', (req, res, next) => {
@@ -54,7 +45,4 @@ app.listen(PORT, function () {
   console.log(`🧀  ==> API Server now listening on PORT ${PORT}!`);
 });
 
-module.exports = {
-  redisClient: redisClient,
-  app: app
-}
+
