@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const userControllers = require('../../controllers/userController')
 const plaidControllers = require('../../controllers/plaidController')
-client = require("redis").createClient(process.env.REDISCLOUD_URL, "", {
+const client = require("redis").createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
 
@@ -12,10 +12,8 @@ client.on("connect", () =>{
 const cacheCheck = (req,res, next) => {
   console.log("Cache checked")
   const userFetch = req.params.authId;
-  console.log(`This is the ${userFetch}`)
   client.get(userFetch, (err, data)=>{
     if(err) throw err;
-
     if(data != null){
       res.json(data)
     }else{
@@ -23,6 +21,7 @@ const cacheCheck = (req,res, next) => {
     }
   })
 }
+
 
 
 
