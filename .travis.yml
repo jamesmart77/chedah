@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - "9"
+services:
+  - mongodb
+  - redis-server
 install:
 - npm install
-- npm test
+- npm tes
