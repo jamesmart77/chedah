@@ -37,7 +37,7 @@ class Table extends Component {
     componentDidUpdate() {
         // initialize the table
         if (!this.hasTable) {
-            let table = $(this.datatable).DataTable({lengthChange: false});
+            let table = $(this.datatable).DataTable({lengthChange: false});  //{lengthChange: false}
             this.hasTable = true
         // else invalidate and redraw the rows to reflect changes
         } else {

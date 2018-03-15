@@ -2,6 +2,7 @@ import React from 'react';
 import Moment from 'react-moment';
 import {formatCurrencyValueJSX} from '../../utils/currency';
 import { GigMenu } from '../../components/Menus'
+import './Cell.css';
 
 const $ = require('jquery');
 
@@ -61,11 +62,66 @@ class Cell extends React.Component {
         }
     };
 
-    // return an editor for the component (not currently used)
-    get editor() {
-        if (this.state.role === 'gig')  {
-            return <GigMenu gigs={this.props.gigs}/>
-        }
+    // return the cell html id
+    getId() {
+        return `${this.props.id}-${this.props.row}-${this.props.column}`
+    }
+
+    // return the cell alignment
+    getAlignment() {
+        return (this.state.role === 'amount') ? 'right-align' : (this.state.role === 'gig') ? 'center-align' : 'left-align';
+    }
+
+    // return an editor for the gig cell
+    gigEditor() {
+        const triggerId = this.getId()
+        const autoComplete = (this.state.autocomplete.length > 0) ? 'custom-class editable-cell autocomplete' : 'custom-class editable-cell autocomplete'
+        return(
+            <td
+                id={triggerId}
+                row={this.props.row}
+                column={this.props.column}
+                role={this.role}
+                data-value={this.state.value}>
+
+                <GigMenu
+                    menuId={triggerId}
+                    gigs={this.props.autocomplete}
+                    // menuChanged={this.menuChanged.bind(this)}
+                />
+            </td>
+        )
+    }
+
+    textEditor(value) {
+        const alignment = this.getAlignment();
+        const triggerId = this.getId()
+        const autoComplete = (this.state.autocomplete.length > 0) ? 'custom-class editable-cell autocomplete' : 'custom-class editable-cell autocomplete'
+        return (
+            <td
+                row={this.props.row}
+                column={this.props.column}
+                className={alignment}
+                role={this.role}
+                onClick={this.handleClick}>
+
+                <input
+                    id={triggerId}
+                    row={this.props.row}
+                    column={this.props.column}
+                    role={this.role}
+                    className={autoComplete}
+                    hidden={false}
+                    type='text'
+                    ref='textInput'
+                    defaultValue={value}
+                    onBlur={this.onBlur.bind(this, this.state.role)}
+                    onKeyPress={this.onKeyPress.bind(this, this.state.role)}
+                    onFocus={this.handleFocus}
+                    onClick={this.handleClick}
+                />
+            </td>
+        )
     }
 
     componentDidUpdate() {
@@ -111,86 +167,63 @@ class Cell extends React.Component {
         }
     }
 
-      onKeyPress(role, e) {
-          if(e.key === 'Enter') {
-              // console.log(`enter pressed`);
-              this.onBlur(role, e);
-          }
-      }
+    onKeyPress(role, e) {
+        if(e.key === 'Enter') {
+            // console.log(`enter pressed`);
+            this.onBlur(role, e);
+        }
+    }
 
-      renderGigCell() {
-          const isEditing = this.state.isEditing;
-          let gigId = this.props.value;
-          let gigName = 'no gig'
-          return (
-              <div
-                  className='chip'
-                  onClick={this.onClick}
-                  >
-                  {gigName}
-              </div>
-          )
-      }
-
+    menuChanged(value) {
+        console.log(`menu changed: `, value);
+    }
 
     render() {
-        let alignment = (this.state.role === 'amount') ? 'right-align' : (this.state.role === 'gig') ? 'center-align' : 'left-align';
-        const isEditing = this.state.isEditing;
+        // cell alignment
+        let alignment = this.getAlignment()
+
+        // menu trigger id
+        let triggerId = `${this.props.id}-${this.props.row}-${this.props.column}`
+
+        // default cell value
         let currentVal = this.props.value;
-        // format the date
+
+        // format the date column
         if (this.state.role === 'date') {
             currentVal =  <Moment format='lll'>{this.props.value}</Moment>
         };
 
+        // format the amount column
+        if (this.state.role === 'amount')  {
+            currentVal = currentVal.toFixed(2)
+        };
+
+        // are we currently in editing state?
+        const isEditing = this.state.isEditing;
+
+
         // format the gig column
-        if (this.state.role === 'gig' && !this.state.isEditing)  {
+        if (this.state.role === 'gig' && !isEditing)  {
             let gigName;
             this.props.autocomplete.forEach(gig => {
                 if (gig.id == currentVal) {
                     gigName = gig.name;
                 }
             })
-            currentVal = <div className='chip'>{gigName}</div>;
+
+            // construct a fake chip because of a fucking materialize chip select bug:
+            // https://github.com/Dogfalo/materialize/issues/5618
+            currentVal = (<div className='fake-chip'><a className='dropdown-trigger' data-target={triggerId} href='#!'>{gigName}</a></div>);
         };
 
-        // format the gig column
-        if (this.state.role === 'amount')  {
-            currentVal = currentVal.toFixed(2)
-        };
 
+        // editable input for gigs
+        if (isEditing) {
+            if (this.state.role === 'gig') {
+                return this.gigEditor()
+            }
 
-        // editable input
-        if (this.state.isEditing) {
-            let cellId = `${this.props.id}-${this.props.row}-${this.props.column}`
-            const autoComplete = (this.state.autocomplete.length > 0) ? 'custom-class editable-cell autocomplete' : 'custom-class editable-cell autocomplete'
-            return(
-                <td
-                    id={cellId}
-                    row={this.props.row}
-                    column={this.props.column}
-                    role={this.role}
-                    data-value={this.state.value}
-                    >
-                    {/* <input type="text" id="autocomplete-input" class="autocomplete"> */}
-                    {/* <div className="chips chips-autocomplete"> </div>*/}
-                    <input
-                        id={cellId}
-                        row={this.props.row}
-                        column={this.props.column}
-                        role={this.role}
-                        className={autoComplete}
-                        hidden={false}
-                        type='text'
-                        ref='textInput'
-                        defaultValue={currentVal}
-                        onBlur={this.onBlur.bind(this, this.state.role)}
-                        onKeyPress={this.onKeyPress.bind(this, this.state.role)}
-                        onFocus={this.handleFocus}
-                        onClick={this.handleClick}
-                    />
-
-                </td>
-            );
+            return this.gigEditor(currentVal)
         };
 
         // plain column

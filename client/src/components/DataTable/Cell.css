@@ -17,3 +17,11 @@
 .datatable .dropdown-content li {
     font-size: 1rem;
 }
+
+.fake-chip a {
+    color: #fff;
+}
+
+a.dropdown-trigger:active, a.dropdown-trigger:hover {
+    color: #fff;
+}

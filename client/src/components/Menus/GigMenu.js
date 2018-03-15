@@ -10,6 +10,7 @@ class GigMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            menuId: this.props.menuId,
             currentId: '',
             selectedId: props.id || null,
             gigs: props.gigs || []
@@ -22,10 +23,20 @@ class GigMenu extends React.Component {
         console.log(`selected: `, event.target.getAttribute('datavalue'));
         window.$('select').material_select();
         this.setState({selectedId: event.target.getAttribute('datavalue')})
+        this.props.menuChanged(event.target.getAttribute('datavalue'))
+    }
+
+    // menu click event
+    menuClicked(event) {
+        console.log(`selected: `, event.target.getAttribute('datavalue'));
+        window.$('select').material_select();
+        this.setState({selectedId: event.target.getAttribute('datavalue')})
+        this.props.menuChanged(event.target.getAttribute('datavalue'))
     }
 
     componentDidMount() {
         window.$('select').material_select();
+        window.$('.dropdown-trigger').dropdown();
     }
 
     componentDidUpdate() {
@@ -35,11 +46,11 @@ class GigMenu extends React.Component {
     // render gig menu items
     renderListItems() {
         const gigs = this.state.gigs || []
-        console.log(`gigs: `, gigs);
+        console.log(`GigMenu: gigs -> `, gigs);
         let listItems = gigs.map((gig, i) =>
-            <option key={i} value={gig._id}>{gig.name}</option>
+            <li key={i} value={gig._id}><a href='#1' onClick={this.menuClicked.bind(this)}>{gig.name}</a></li>
         )
-        listItems.unshift(<option className='disabled' key={gigs.length} value="">None</option>)
+        listItems.unshift(<li className='disabled' key={gigs.length} value="">None</li>)
         return listItems
     }
 
@@ -50,20 +61,11 @@ class GigMenu extends React.Component {
         const buttonColor = isSelected ? 'teal' : 'red'
         const icon = isSelected ? 'done' : 'clear'
         return (
-            <div className="row listitems valign-wrapper">
-                <div className="col">
-                    <select onChange={this.handleChange}>
-                        {/* <option className="disabled">None</option> */}
-                        {this.renderListItems()}
-                    </select>
-                </div>
+                <ul id={this.props.menuId} className='dropdown-content'>
+                    {/* <option className="disabled">None</option> */}
+                    {this.renderListItems()}
+                </ul>
 
-                <div className="col">
-                    <a className={`btn-floating waves-effect waves-light ${buttonColor}`}>
-                        <i className="material-icons">{icon}</i>
-                    </a>
-                </div>
-            </div>
         );
     }
 }
