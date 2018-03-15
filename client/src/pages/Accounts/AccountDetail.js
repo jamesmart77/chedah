@@ -4,10 +4,12 @@ import Moment from 'react-moment';
 import API from '../../utils/API';
 import { Table } from '../../components/DataTable';
 import {formatCurrencyValueJSX} from '../../utils/currency';
+import {formatDate} from '../../utils/date';
 import axios from 'axios';
 
 
 // calculates the next due date of a credit card
+//  - returns date object
 function nextDueDate(day) {
     const dueDate = new Date();
     const diff = day - dueDate.getDate();
@@ -17,6 +19,7 @@ function nextDueDate(day) {
     dueDate.setDate(day);
     return dueDate;
 }
+
 
 // transaction table headers
 const defaultHeaders = [
@@ -38,23 +41,13 @@ const defaultHeaders = [
     }
 ]
 
-// Account detail page
-//  account_id:"wZJ3ag1rRos6QKpVdnPMIrL4v6EBNnCkkKl5n8"
-//  balances:{available: 100, current: 110, limit: null}
-//  defaultGigId:"5aa20e3b83461770c7dff9fb"
-//  mask:"0000"
-//  name:"Plaid Checking"
-//  official_name:"Plaid Gold Standard 0% Interest Checking"
-//  subtype:"checking"
-//  transactions:[]
-
 class AccountDetail extends Component {
     constructor(props) {
         super(props)
 
         this.hasData = false;
-
         this.warnCount = 0
+
         this.state = {
             account_id: this.props.match.params.id,
             transactions: [],
@@ -147,101 +140,124 @@ class AccountDetail extends Component {
         this.setState({transactions: transdata})
     }
 
-    renderCreditTable() {
-        const avail = (this.state.balances.limit - this.state.balances.current);
+    // default page
+    renderLoading() {
         return (
-            <table className="account-balances">
-                <tbody>
-                    <tr className="account-balance">
-                        <td className="description">Balance:</td>
-                        <td>{formatCurrencyValueJSX(this.state.balances.current)}</td>
-                        <td className="stats">
-                            <span className="new badge" data-badge-caption="% APR">{this.state.apr}</span>
-                        </td>
-                    </tr>
-
-                    <tr className="account-avail">
-                        <td className="description">Available:</td>
-                        <td>{formatCurrencyValueJSX(avail)}</td>
-                        <td></td>
-                    </tr>
-
-                    <tr className="account-limit">
-                        <td className="description">Limit:</td>
-                        <td>{formatCurrencyValueJSX(this.state.balances.limit)}</td>
-                        <td></td>
-                    </tr>
-
-                    {
-                        this.state.fees != null
-                            ? <tr className="account-fees">
-                                    <td className="description">Fees:</td>
-                                    <td>{formatCurrencyValueJSX(this.state.fees)}</td>
-                                    <td></td>
-                                </tr>
-                            : <tr></tr>
-                    }
-                </tbody>
-            </table>
+            <div className="row">
+                <div className="col s12">
+                    <div className="card account-detail">
+                   <div className="card-header">
+                       <div className="account-detail-header">
+                          <div className="row valign-wrapper">
+                            <div className="col s12 m6 left-align text-left">
+                              <span style={{verticalAlign: 'middle'}} className="card-title white-text left-align">Loading...</span>
+                            </div>
+                            <div className="col s12 m6 right-align">
+                              <span className="account-avail white-text"></span>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         )
     }
 
-    renderCheckingTable() {
-
-        const currentBalance = this.state.balances ? this.state.balances.current : 0
-        return (<table className="account-balances">
-            <tbody>
-                <tr className="account-balance">
-                    <td className="description">Balance:</td>
-                    <td>{formatCurrencyValueJSX(currentBalance)}</td>
-                </tr>
-            </tbody>
-        </table>)
+    // render the header for sabings & checking accounts
+    renderCheckingHeader(iconName, accountName, availableBalance, currentBalance) {
+        return (
+            <div className="account-detail-header">
+               <div className="row valign-wrapper">
+                 <div className="col s12 m6 left-align text-left">
+                   <span style={{verticalAlign: 'middle'}} className="card-title white-text left-align"><span  className={iconName}></span>  {accountName} - <span className="account-num">{this.state.mask}****</span></span>
+                 </div>
+                 <div className="col s12 m6 right-align">
+                   <span className="account-avail white-text"> Available Balance: <span className="account-balance">{formatCurrencyValueJSX(availableBalance)}</span></span>
+                 </div>
+               </div>
+            </div>
+        )
     }
 
-    renderGigDropdown() {
-        if (this.state.user) {
-            let buttonLabel = (this.state.gigName)
-                ? this.state.gigName
-                : 'Gig: ';
-            return (<div>
-                <a href="#!" className='acct-gig-menu-trigger btn' data-activates='acct-gig-menu'>{buttonLabel}</a>
+    // render the header for credit accounts
+    renderCreditHeader(iconName, accountName, availableBalance, currentBalance, currentLimit, dueDate, apr, fees) {
+        return (
+            <div className="account-detail-header">
+               <div className="row valign-wrapper">
+                 <div className="col s12 m6 left-align text-left">
+                   <span style={{verticalAlign: 'middle'}} className="card-title white-text left-align"><span  className={iconName}></span>  {accountName} - <span className="account-num">{this.state.mask}****</span></span>
+                 </div>
+                 <div className="col s12 m6 right-align">
+                   <span className="account-avail white-text"> Available Balance: <span className="account-balance">{formatCurrencyValueJSX(availableBalance)}</span></span>
+                 </div>
+               </div>
 
-                <ul id='acct-gig-menu' className='dropdown-content'>
-                    {
-                        this.state.user.gigs.map(gig => <li key={gig._id} data-value={gig._id}>
-                            <a onClick={this.gigSelected.bind(this, gig._id, gig.name)} href="#!">{gig.name}</a>
-                        </li>)
-                    }
-                </ul>
-            </div>)
-        }
-        return (<div></div>)
-    }
+               <div className="row valign-wrapper pl-2">
+                 <div className="col s12 m6">
+                   <span className="card-subtitle white-text"> Due on: <span className="account-num">{dueDate}</span></span>
+                 </div>
+                 <div className="col s12 m6 right-align">
+                   <span className="card-subtitle white-text"> Current: <span className="account-limit">{formatCurrencyValueJSX(currentBalance)}</span></span>
+                 </div>
+               </div>
 
-    renderCredit() {
+               <div className="row valign-wrapper pl-2">
+                 <div className="col s12 m6">
+                 </div>
+                 <div className="col s12 m6 right-align">
+                   <span className="card-subtitle white-text"> Limit: <span className="account-limit">{formatCurrencyValueJSX(currentLimit)}</span></span>
+                 </div>
+               </div>
 
+
+               <div className="row valign-wrapper pl-2">
+                 <div className="col s12 m6">
+                   <div className="chips chips-autocomplete" />
+                 </div>
+                 <div className="col s12 m6 right-align">
+                   <span className="card-subtitle white-text"> Fees: <span className="account-fees">{formatCurrencyValueJSX(fees)}</span><span className="new badge" data-badge-caption="% APR">{apr}</span></span>
+                 </div>
+               </div>
+            </div>
+        )
     }
 
     render() {
-        /*
-        let accountDetails;
-        let dueDate;
-        if (this.state.accountType === 'credit') {
-            accountDetails = this.renderCreditTable()
-            dueDate = <h6 className="account-due">
-                <span className='date-due'>Due: {<Moment format="MMMM DD, YYYY">{nextDueDate(this.state.dueDate).toDateString()}</Moment>}</span>
-            </h6>
-        } else {
-            accountDetails = this.renderCheckingTable()
-        }*/
-
         console.log(`-> AccountDetail summary: `, this.state.summary || {});
 
-        const iconName = (this.state.type == 'credit') ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
-        const currentBalance = this.state.balances ? this.state.balances.current : 0
-        const currentLimit = this.state.balances ? this.state.balances.limit : 0
-        const accountName = this.state.summary ? this.state.summary.official_name ? this.state.summary.official_name : this.state.summary.name : 'null'
+        let accountSummary = this.state.summary || {}
+        let hasBalances = (Object.keys(accountSummary).length > 0)
+
+        if (!hasBalances) {
+            return (
+                this.renderLoading()
+            )
+        }
+
+        // account type
+        const isCreditAccount = (this.state.summary.type == 'credit')
+        const iconName = (isCreditAccount) ? 'icon-credit-card-1' : 'icon-banknote' // 'icon-bank-notes'
+
+        // account name
+        const accountName = accountSummary ? this.state.summary.official_name ? this.state.summary.official_name : this.state.summary.name : 'null'
+
+        // HARD-CODED DATA
+        const dueDate = formatDate(nextDueDate(21))
+        const apr = 7
+
+        // balances
+        let availableBalance = accountSummary.balances ? accountSummary.balances.available : 0
+        let fees = 0;
+
+        if (isCreditAccount) {
+            availableBalance = (accountSummary.balances.limit - accountSummary.balances.current);
+            fees = (apr / 100) * accountSummary.balances.current
+        }
+
+        const currentBalance = accountSummary.balances ? accountSummary.balances.current : 0
+        const currentLimit = accountSummary.balances ? accountSummary.balances.limit : 0
+
 
         if (this.hasData) {
             if (this.state.transactions.length == 0 && this.warnCount == 0) {
@@ -250,50 +266,24 @@ class AccountDetail extends Component {
             }
         }
 
+        let headerContent;
+        if (isCreditAccount) {
+            headerContent = this.renderCreditHeader(iconName, accountName, availableBalance, currentBalance, currentLimit, dueDate, apr, fees)
+        } else {
+            headerContent = this.renderCheckingHeader(iconName, accountName, availableBalance, currentBalance)
+        }
+
         return (
             <div className="row">
                 <div className="col s12">
                     <div className="card account-detail">
-                   <div className="card-header">
-                     <div className="row valign-wrapper">
-                       <div className="col s12 m6 left-align text-left">
-                         <span style={{verticalAlign: 'middle'}} className="card-title white-text left-align"><span  className={iconName}></span>  {accountName} - <span className="account-num">{this.state.mask}****</span></span>
+                       <div className="card-header">
+
+                           {headerContent}
+
                        </div>
-                       <div className="col s12 m6 right-align">
-                         <span className="account-avail white-text"> Available Balance: <span className="account-balance"><sup>$</sup>{currentBalance}</span></span>
-                       </div>
-                     </div>
-                     <div className="row valign-wrapper pl-2">
-                       <div className="col s12 m6">
-                         <span className="card-subtitle white-text"> Due on: <span className="account-num">March 27, 2018</span></span>
-                       </div>
-                       <div className="col s12 m6 right-align">
-                         <span className="card-subtitle white-text"> Limit: <span className="account-limit"><sup>$</sup>{currentLimit}</span></span>
-                       </div>
-                     </div>
-                     <div className="row valign-wrapper pl-2">
-                       <div className="col s12 m6">
-                         <div className="chips chips-autocomplete" />
-                       </div>
-                       <div className="col s12 m6 right-align">
-                         <span className="card-subtitle white-text"> Fees: <span className="account-fees"><sup>$</sup>212.87</span></span>
-                       </div>
-                     </div>
-                   </div>
                    <div className="card-content">
-                     <div className="row">
-                       <div className="col s12 right-align">
-                         <span className="new badge" data-badge-caption="% APR">4</span>
-                         <div className="switch">
-                           <label>
-                             monthly
-                             <input type="checkbox" />
-                             <span className="lever" />
-                             yearly
-                           </label>
-                         </div>
-                       </div>
-                     </div>
+
                      <div className="row">
                        <div className="col s12">
 

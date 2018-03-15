@@ -1,37 +1,37 @@
 [{
-    "_id": "5a9b16b841480c455fec8d0a",
-    "userId": null,
-    "name": "Checking",
-    "accountNum": "4117*****",
-    "accountType": "checking",
-    "limit": null,
-    "balance": 14120.21,
-    "apr": null,
-    "dueDate": null,
-    "gigId": "5a91b813513541155c819fa4"
-  },
-  {
-    "_id": "5a9b15a041480c455fec8c6b",
-    "userId": null,
-    "name": "Chase MasterCard",
-    "accountNum": "624831******001",
-    "accountType": "credit",
-    "limit": 60000,
-    "balance": 1325.81,
-    "apr": 4,
-    "dueDate": 27,
-    "gigId": "5a91b813513541155c819fa4"
-  },
-  {
-    "_id": "5a9b2497169fc87df959e4cb",
-    "userId": null,
-    "name": "Citi Visa",
-    "accountNum": "224831*****007",
-    "accountType": "credit",
-    "limit": 20000,
-    "balance": 270,
-    "apr": 5,
-    "dueDate": 14,
-    "gigId": "5a9b2447aab76d7dc5360297z"
-  }
+        "_id": {
+            "$oid": "5aa977fc42f1c460521bd702"
+        },
+        "account_id": "1Xz7r5xQDwid9D8p1MWrim9E6aJRvjFDXwDDZ",
+        "mask": "800100***",
+        "name": "Bank of America Checking",
+        "official_name": "Bank of America Checking",
+        "subtype": "checking",
+        "type": "depository",
+        "defaultGigId": "5aa987980ce1c76683795f30",
+        "balances": {
+            "limit": null,
+            "current": 17080,
+            "available": 17080
+        },
+        "__v": 0
+    },
+    {
+        "_id": {
+            "$oid": "5aa977fc42f1c460521bd705"
+        },
+        "account_id": "kZnzXPavrmcR8KAJjkn9hw6k375g6EfaRPkEn",
+        "mask": "42176748****",
+        "name": "Citibank Credit Card",
+        "official_name": "Citibank Diamond 7% APR Interest Credit Card",
+        "subtype": "credit card",
+        "type": "credit",
+        "defaultGigId": "5aa977df42f1c460521bd700",
+        "balances": {
+            "limit": 20000,
+            "current": 870,
+            "available": 19130
+        },
+        "__v": 0
+    }
 ]

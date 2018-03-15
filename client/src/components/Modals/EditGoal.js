@@ -1,5 +1,6 @@
 import React from 'react';
 import API from '../../utils/API';
+const $ = require('jquery');
 
 
 const defaultCategories = [
@@ -57,7 +58,7 @@ class ModalEditGoal extends React.Component {
         )
 
         return (
-            <div id="add-goal-modal" className="modal" data-modal="data-modal" style={{minHeight: '60%'}}>
+            <div id="edit-goal-modal" className="modal" data-modal="data-modal" style={{minHeight: '60%'}}>
             <div className="modal-content">
                 <div className="modal-title">
                     <h4>Add a Goal</h4>

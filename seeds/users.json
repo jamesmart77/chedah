@@ -1,0 +1,36 @@
+[{
+    "_id": {
+        "$oid": "5aa9e45adfe76f95d2fa1a2f"
+    },
+    "firstName": "Michael",
+    "lastName": "Fessenden",
+    "auth_id": "google-oauth2|108015821923920564690",
+    "email": "michael.fessenden@gmail.com",
+    "gigs": [{
+            "$oid": "5aa9e45adfe76f95d2fa1a30"
+        },
+        {
+            "$oid": "5aa98d3a0ce1c76683795f34"
+        },
+        {
+            "$oid": "5aa989d40ce1c76683795f31"
+        }
+    ],
+    "transactions": [],
+    "categories": [],
+    "accounts": [{
+            "$oid": "5aa977fc42f1c460521bd702"
+        },
+        {
+            "$oid": "5aa977fc42f1c460521bd705"
+        }
+    ],
+    "items": [{
+        "item_id": "BbdqqxGJQ5FKBNk1eKzkHlKpqVm73XID4qrW6",
+        "access_token": "access-sandbox-9e5fb1f0-d86b-4c5c-aa88-c30a4cba9b15",
+        "_id": {
+            "$oid": "5aa9dfacf05a6d93c2289f66"
+        }
+    }],
+    "__v": 0
+}]
