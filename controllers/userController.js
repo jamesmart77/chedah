@@ -243,12 +243,6 @@ module.exports = {
       return [ accounts, personalGigResponse, dbUser ]
     })
     .then( ( [accounts, personalGig, dbUser] = data ) => {
-      console.log('dbUser')
-      console.log(dbUser)
-      console.log('accounts')
-      console.log(accounts)
-      console.log('personalGig')
-      console.log(personalGig)
       // whenever we save an account, we initialize the personal Gig as the default gig
       // we are going to create 1 to n accounts here, they are not dependent, so let's do it in parellel
       const createAccountPromises = accounts
@@ -368,10 +362,6 @@ module.exports = {
                         .catch((err) => console.log(err))
                     }).then(dbUser => {})
                     .catch((err) => {
-                      // console.log("transaction insert failed");
-                      // console.log(err);
-                      // console.log("\nTransaction object");
-                      // console.log(transactionObj);
                     })
 
                   //iterate through all transactions in while loop

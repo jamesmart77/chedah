@@ -17,6 +17,22 @@ class Gig extends React.Component {
         .catch(err => console.log('err', err))
     }
 
+    editGig () {
+      const data = {}
+  
+      data.gigId = this.props._id
+      data.name = this.state.name
+      data.description = this.state.description
+  
+      API.editGig(data).then(res => {
+        this.props.refresh()
+      }).catch(err => {
+        console.log("Gig edit failed")
+        console.log(err)
+      })
+    }
+
+
     handleClick(freq) {
         this.setState({frequency: freq})
     }
@@ -43,8 +59,7 @@ class Gig extends React.Component {
                         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
                         actions={
                             <section className="modalSpace">
-                                <Button waves='light' className="modal-action modal-close teal" >Update Gig</Button>
-                                <Button onClick={ () => this.deleteGig(this.props._id) } waves='light' className="modal-action modal-close deep-orange darken-3 white-text" >Delete Gig</Button>
+                            <Button onClick={ () => this.deleteGig(this.props._id) } waves='light' className="modal-action modal-close deep-orange darken-3 white-text" >Delete Gig</Button> <Button onClick={this.editGig.bind(this)} waves='light' className="modal-action modal-close teal" >Update Gig</Button> 
                             </section>
                           }>
 

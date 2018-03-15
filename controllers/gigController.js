@@ -65,15 +65,13 @@ module.exports = {
       res.status(422).json(err)})
   },
 
-  //  update an existing gig
-  update: (req, res) => {
-    console.log(`-> Updating a gig...`)
-    db.Gig
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbgig => {
-        res.json(dbgig)})
-      .catch(err => {
-        res.status(422).json(err)})
+  edit: (req, res) => {
+    console.log(`-> editing a gig...`)
+    const {gigId, ...gig} = req.body
+    console.log('gig:', gig)
+    db.Gig.findByIdAndUpdate({_id: req.params.id}, gig)
+      .then(dbGig => res.status(200).json({msg: "Great Job!!!, goal edited"}))
+      .catch(err => {console.log(err); res.status(422).json(err)})
   },
 
   // remove a gig
