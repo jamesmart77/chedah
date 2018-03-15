@@ -25,6 +25,10 @@ class Gig extends React.Component {
         this.state = {
 
         }
+    } 
+
+    handleChange = event => {
+      this.setState({[event.target.name]: event.target.value})
     }
 
     deleteGig(gigId) {
@@ -37,7 +41,8 @@ class Gig extends React.Component {
       const data = {}
   
       data.gigId = this.props._id
-      data.name = this.props.name
+      data.name = this.state.name
+      data.description = this.state.description
   
       API.editGig(data).then(res => {
         this.props.refresh()
@@ -83,15 +88,9 @@ class Gig extends React.Component {
                           </div>
                         
                           <div className='col input-field s12'>
-                            <input className='input-field' onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
+                            <input className='input-field' onChange={this.handleChange} type='text' name='description' id='input_2' defaultValue={ this.props.description } />
                             <label className='active' htmlFor='input_2'> Gig Description </label>
                           </div>
-
-                          {/* Might pull this out of MVP, it's the account association */}
-                          {/* <div className='col input-field s12'>
-                            <input className='input-field' onChange={this.handleChange} type='number' name='budget' id='input_2' defaultValue={ this.props.budget } />
-                            <label className='active' htmlFor='input_2'> Account Association </label>
-                          </div> */}
 
                         <br/>
                         <br/>

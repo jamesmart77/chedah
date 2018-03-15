@@ -62,10 +62,7 @@ export default {
   // edit gig
   // data.gigId
   // data.name
-  editGig: data => {
-    data.userId = decodeToken(getIdToken()).sub
-  return axios.put(`/api/gigs/${data.gigId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-  },
+  editGig: data => axios.put(`/api/gigs/${data.gigId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
   // #############################################
   // Goals
