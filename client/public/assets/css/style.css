@@ -991,6 +991,10 @@ input.editable-cell {
     text-transform: uppercase;
 }
 
+.productIMG {
+    max-height: 275px;
+}
+
 .row .landingImg {
     padding: 20px;
 }

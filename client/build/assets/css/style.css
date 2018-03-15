@@ -991,6 +991,10 @@ input.editable-cell {
     text-transform: uppercase;
 }
 
+.productIMG {
+    max-height: 275px;
+}
+
 .row .landingImg {
     padding: 20px;
 }
@@ -1161,6 +1165,8 @@ input.editable-cell {
     top: -26px;
     font-size: 0.9rem;
 } */
+
+
 
 /* This fixes the sticky footer overlapping the bottom elements on the page */
 .card:last-child {
