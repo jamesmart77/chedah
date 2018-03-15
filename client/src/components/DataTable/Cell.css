@@ -1,0 +1,19 @@
+.datatable .select-dropdown {
+    font-size: 1rem;
+}
+
+
+.select-wrapper input.select-dropdown {
+    background-color: transparent;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    height: 1rem;
+    padding: 4px 4px 4px 4px;
+    text-indent: 1rem;
+    font-size: 1rem;
+}
+
+
+.datatable .dropdown-content li {
+    font-size: 1rem;
+}

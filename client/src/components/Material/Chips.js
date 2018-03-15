@@ -33,7 +33,7 @@ class GigChip extends React.Component {
         const cname = this.state.isDefault ? `default chip grow` : 'chip grow'
         return (
 
-                <div className={cname}>
+                <div className={cname + ' z-depth-0'}>
                     <a href={gigHref}>
                         {this.state.gig}
                         {this.state.close ? <i ref={(ref) => (this.closeButton = ref)} className='close material-icons'>close</i> : null}

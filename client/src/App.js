@@ -6,7 +6,6 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import { Nav, Breadcrumbs } from "./components/Nav";
 import Footer from "./components/Footer/Footer";
-import Sidebar from "./components/Sidebar/Sidebar";
 import Callback from './components/Callback';
 import { requireAuth, isLoggedIn } from './utils/AuthService';
 import history from './utils/history';
@@ -75,7 +74,6 @@ class App extends React.Component {
         })()}
       </Switch>
       <Footer />
-      <Sidebar />
       {/* <ActionButton location={history.location}/> */}
       {history.location.pathname !== '/' && <ActionButton location={history.location}/> }
       {/* Modals */}

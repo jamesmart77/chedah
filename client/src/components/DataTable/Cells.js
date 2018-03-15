@@ -1,22 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Moment from 'react-moment';
 import {formatCurrencyValueJSX} from '../../utils/currency';
+import { GigMenu } from '../../components/Menus'
 
 const $ = require('jquery');
 
 
-class Cell extends Component {
+class Cell extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            id: props.id || null,
+            id: props.id,   // transaction id
             row: props.row,
             column: props.column,
             role: props.role,
             editable: props.editable || false,
             isEditing: false,
+            isUpdated: false,
             align: props.align || 'left',
             autocomplete: props.autocomplete || []
         };
@@ -24,6 +26,12 @@ class Cell extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
     };
+
+    componentDidMount() {
+        let data = this.state.autocomplete.map(item => {
+            return {[item.name]: null}
+        })
+    }
 
     ///  EVENT HANDLERS  ///
 
@@ -38,7 +46,16 @@ class Cell extends Component {
             const row = e.target.getAttribute('row') || -1;
             const column = e.target.getAttribute('column') || -1;
             // console.log(`-> Cell clicked: [ ${row}, ${column} ]`);
+            let autoComplete = {}
+            this.state.autocomplete.forEach(item => {
+                autoComplete[item.name] = null
+            })
             this.setState({isEditing: !this.state.isEditing});
+            console.log(`completion: `, autoComplete);
+            window.$(this.refs.textInput).autocomplete({ data: autoComplete});
+            window.$(`.autocomplete`).autocomplete({
+              data: autoComplete
+            });
         } else {
             return;
         }
@@ -46,7 +63,9 @@ class Cell extends Component {
 
     // return an editor for the component (not currently used)
     get editor() {
-        return <input defaultValue={this.props.value}/>
+        if (this.state.role === 'gig')  {
+            return <GigMenu gigs={this.props.gigs}/>
+        }
     }
 
     componentDidUpdate() {
@@ -67,7 +86,8 @@ class Cell extends Component {
 
             if (oldValue === newValue) {
                 this.setState({
-                    isEditing: false
+                    isEditing: false,
+                    isUpdated: true
                 })
                 return
             }
@@ -141,22 +161,26 @@ class Cell extends Component {
 
         // editable input
         if (this.state.isEditing) {
+            let cellId = `${this.props.id}-${this.props.row}-${this.props.column}`
+            const autoComplete = (this.state.autocomplete.length > 0) ? 'custom-class editable-cell autocomplete' : 'custom-class editable-cell autocomplete'
             return(
                 <td
+                    id={cellId}
                     row={this.props.row}
                     column={this.props.column}
                     role={this.role}
                     data-value={this.state.value}
                     >
-
-                    <div className="chips chips-autocomplete">
+                    {/* <input type="text" id="autocomplete-input" class="autocomplete"> */}
+                    {/* <div className="chips chips-autocomplete"> </div>*/}
                     <input
+                        id={cellId}
                         row={this.props.row}
                         column={this.props.column}
                         role={this.role}
-                        className='custom-class editable-cell autocomplete'
+                        className={autoComplete}
                         hidden={false}
-                        type={this.role}
+                        type='text'
                         ref='textInput'
                         defaultValue={currentVal}
                         onBlur={this.onBlur.bind(this, this.state.role)}
@@ -164,7 +188,7 @@ class Cell extends Component {
                         onFocus={this.handleFocus}
                         onClick={this.handleClick}
                     />
-                    </div>
+
                 </td>
             );
         };

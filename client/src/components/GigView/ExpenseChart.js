@@ -72,7 +72,7 @@ class ExpenseChart extends Component {
         // console.log(`total -> `, this.props.total);
 		chartOptions.title.text = this.props.gigName + ' Expenses: $' + this.props.total.toFixed(2)
 		chartData.labels = this.props.expenses.map(e => e.name)
-		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => e.total), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00', '#F5AA9D', '#FA1B5E']}]
+		chartData.datasets = [{label: 'Expense Breakdown', data: this.props.expenses.map(e => Math.round(e.total)), backgroundColor: ['#ff6f00', '#ffa040', '#c43e00', '#F5AA9D', '#FA1B5E']}]
 		const details = this.renderDetail();
 		return (
 			<div className='expense-summary card'>
