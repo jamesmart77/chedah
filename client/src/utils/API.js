@@ -112,16 +112,11 @@ export default {
   },
 
   // data.accountId
-  udpateAccount: data => {
-    data.userId = decodeToken(getIdToken()).sub
-    return axios.put(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-  },
+  updateAccount: data => axios.put(`/api/accounts/${data._id}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
   // data.accountId
-  deleteAccount: data => {
-    data.userId = decodeToken(getIdToken()).sub
-    return axios.delete(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-  },
+  deleteAccount: data => axios.delete(`/api/accounts/${data}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
 
 
   // #############################################
