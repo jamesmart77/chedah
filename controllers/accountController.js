@@ -45,8 +45,8 @@ module.exports = {
 
   update: (req, res) => {
     console.log(`-> updating an account...`)
-    const udpates = {}
-    db.Account.findOneAndUpdate({_id: req.params.id}, updates)
+    console.log('req.body: ', req.body)
+    db.Account.findOneAndUpdate({_id: req.params.id}, req.body)
       .then(dbAccount => res.json(dbAccount))
       .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
   },
