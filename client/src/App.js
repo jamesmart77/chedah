@@ -54,7 +54,7 @@ class App extends React.Component {
   render() { return <Router history={history}>
     <div>
       { this.state.error && <h1 className='error'>{ this.state.error }</h1> }
-      <Nav user={this.state.user} />
+      <Nav user={this.state.user} refresh={ this.refresh.bind(this) } />
       {/* <Breadcrumbs location={history.location}/> */}
       {history.location.pathname !== '/' && <Breadcrumbs location={history.location}/> }
       <Switch>

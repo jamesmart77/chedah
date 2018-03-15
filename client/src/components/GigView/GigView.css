@@ -39,3 +39,7 @@
 .card-title .secondaryHeaderText {
     color: #ffffff;
 }
+
+.Select {
+    z-index: 1000;
+}

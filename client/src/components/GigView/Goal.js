@@ -4,6 +4,7 @@ import {formatCurrencyValueJSX} from '../../utils/currency';
 import {Modal, Button, Row, Input} from 'react-materialize';
 import { Multiselect } from '../Multiselect'
 import API from '../../utils/API'
+import Select from 'react-select'
 
 class Goal extends React.Component { 
 
@@ -11,7 +12,13 @@ class Goal extends React.Component {
         userCategories: [],
         categories: this.props.categories,
         name: this.props.name,
-        budget: this.props.budget
+        budget: this.props.budget,
+
+
+        multi: true,
+        multiValue: [],
+        options: [],
+        value: undefined
       }
 
     getCategories = categories => {
@@ -21,7 +28,7 @@ class Goal extends React.Component {
     componentWillMount () {
         API.getUserCategories()
           .then(({data}) => {
-            this.setState({userCategories: data})
+            this.setState({userCategories: data, categories: this.props.categories, multiValue: this.props.categories})
           }).catch(err => {
           console.log('Error Categories')
           console.log(err)
@@ -31,6 +38,14 @@ class Goal extends React.Component {
     handleChange = event=> {
         this.setState({[event.target.name]: event.target.value})
       }
+
+    // this bad larry is for the multiselect
+    handleOnChange (value) {
+        console.log('value: ', value)
+        value ? this.setState({ multiValue: value }, ()=>{
+          this.getCategories(this.state.multiValue)
+        }) : null
+    }
 
 
     editGoal () {
@@ -88,9 +103,7 @@ return (
         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
             <section className="modalSpace">
-             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
-             <br/>
-             <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button>
+             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button> <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button>
             
             </section>
           }>
@@ -107,7 +120,29 @@ return (
           <div className='row'>
             <span>Select Expense Categories To Track:</span>
           </div>
-          <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) } goalCategories = { this.props.categories } />
+          { console.log('this.props.categories: ', this.props.categories)}
+
+          	<Select.Creatable
+					multi={true}
+					options={ this.state.userCategories.map(c => {
+                        const newCat = {}
+                        newCat.label = c.name
+                        newCat.value = c._id
+                        return newCat
+                    }) || [] } // These are the options, the user can select from, these are supplied by us.
+					onChange={this.handleOnChange.bind(this)}
+                    value={this.state.multiValue} // This is the value we are trying update
+				/>
+
+          {/* <Multiselect 
+            categories= { this.state.userCategories.map(c => {
+                const newCat = {}
+                newCat.label = c.name
+                newCat.value = c._id
+                return newCat
+            }) } // These are the categories we are tracking for edit
+            goalCategories = { this.props.categories } // These are the categories that the user can select from
+            getCategories={ this.getCategories.bind(this) } /> */}
         <br/>
         <br/>
         <br/>

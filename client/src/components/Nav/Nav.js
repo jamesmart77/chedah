@@ -22,7 +22,7 @@ class Nav extends Component {
                         <a href="/dashboard" className="brand-logo header-logo"><img src="/assets/img/icon-24x24.svg" alt='chedah'/> chedah</a>
                         {/* <!-- Hamburger Menu Icon --> */}
                         <a href="#!" data-activates="mobile-main-menu" className="button-collapse"><i className="material-icons">menu</i></a>
-                        <MainMenu user={this.props.user}/>
+                        <MainMenu refresh={ this.props.refresh } user={this.props.user}/>
                         {(isLoggedIn()) ?
                             <ul className="right topnav-menu">
                                 <li><a className="dropdown-button hide-on-med-and-down" href="#!" data-activates="desktop-main-menu">Menu<i className="material-icons right">arrow_drop_down</i></a></li>

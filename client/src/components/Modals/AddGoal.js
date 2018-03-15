@@ -99,6 +99,7 @@ class ModalAddGoal extends React.Component {
           </div>
           <div className='row'>
             <div className='col s6'>
+            
               <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) }/>
             </div>
             <div className='col s6'></div>
