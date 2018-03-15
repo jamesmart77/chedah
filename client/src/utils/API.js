@@ -160,7 +160,7 @@ export default {
   accountsSync: () => {
     const user = decodeToken(getIdToken());
     axios.post('/api/users/transactions', user, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-      .then((res) => console.log(res))
+      .then((res) => window.location.reload())
       .catch((err) => console.log(err));
   },
 

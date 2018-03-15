@@ -74,6 +74,7 @@ class AccountDetail extends Component {
             gigs.data.forEach(gig => {
                 gigData.push({name: gig.name, id: gig._id, description: gig.description})
             })
+            alert(JSON.stringify(gigData, null, 2))
             this.setState({gigs: gigData})
         })
         .catch(err => {
