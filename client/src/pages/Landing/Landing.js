@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Container } from "../../components/Grid";
 import { login, isLoggedIn } from '../../utils/AuthService';
 import { Button } from 'react-materialize';
 

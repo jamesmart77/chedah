@@ -70,32 +70,6 @@ module.exports = {
         });
     },
 
-    // //  delete an existing goal
-    // deleteGoal: (req, res) => {
-    //   console.log(`delete goal`)
-    //   db.Goal.findOneAndRemove({_id: req.params.id})
-    //     .then(dbgoal => res.json(dbgoal))
-    //     .catch(err => res.status(404).json({err: err, msg: 'oh no!'}))
-    // },
-
-     //  delete an existing goal
-    // deleteGoal: (req, res) => {
-    //   console.log(`delete goal`)
-    //   db.Goal.findByIdAndRemove(req.params.id)
-    //     .then(dbgoal => res.json(dbgoal))
-    //     .catch(err => res.status(404).json({err: err, msg: 'oh no!'}))
-    // },
-
-    // deleteGoal: (req, res) => {
-    //   db.Goal
-    //     .findById({ _id: req.params.id })
-    //     .then(dbgoal => dbgoal.deleteGoal())
-    //     .then(dbgoal => res.json(dbgoal))
-    //     .catch(err => res.status(422).json({err: err, msg: 'oh no!'}));
-    // },
-
-
-
 
     // remove a goal
     deleteGoal: (req, res) => {

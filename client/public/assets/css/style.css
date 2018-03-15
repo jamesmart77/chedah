@@ -910,9 +910,9 @@ input.editable-cell {
 }
 
 .vignette {
-        -webkit-box-shadow: inset 0px 0px 185px rgba(0,0,0,0.4);
-        -moz-box-shadow:    inset 0px 0px 185px rgba(0,0,0,0.4);
-        box-shadow:         inset 0px 0px 185px rgba(0,0,0,0.4);
+    -webkit-box-shadow: inset 0px 0px 185px rgba(0,0,0,0.4);
+    -moz-box-shadow:    inset 0px 0px 185px rgba(0,0,0,0.4);
+    box-shadow:         inset 0px 0px 185px rgba(0,0,0,0.4);
   }
 
 .header2 {
