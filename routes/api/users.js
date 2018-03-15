@@ -1,11 +1,27 @@
 const router = require('express').Router()
 const userControllers = require('../../controllers/userController')
 const plaidControllers = require('../../controllers/plaidController')
-// const client = require("../../redis/main.js");
-const client = require("../../server");
+client = require("redis").createClient(process.env.REDISCLOUD_URL, "", {
+  no_ready_check: true
+});
 
+client.on("connect", () =>{
+  console.log("Redis Connection made")
+});
 
-console.log(client);
+const cacheCheck = (req,res, next) => {
+  console.log("Cache checked")
+  const userFetch = req.params.authID;
+  client.hmget(userFetch, (err, data)=>{
+    if(err) throw err;
+
+    if(data != null){
+      res.json(data)
+    }else{
+      next();
+    }
+  })
+}
 
 
 
@@ -17,7 +33,7 @@ router.route('/items')
   .post(plaidControllers.getPrivateKey)
 
 router.route('/:authId')
-  .get(userControllers.getUser)
+  .get(cacheCheck, userControllers.getUser)
 
 router.route('/transactions')
   .post(userControllers.getTransactions)

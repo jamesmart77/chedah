@@ -3,20 +3,10 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const cors = require('cors');
-const redis = require("redis")
-const redisClient = redis.createClient(process.env.REDISCLOUD_URL, "", {
+module.exports.redisClient = require("redis").createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
 
-exports.exposeConnection = function() {
-  return redis;
-}; 
-
-
-
-redisClient.on("connect", ()=>{
-  console.log("Redis client is working")
-});
 
 
 const app = express();
