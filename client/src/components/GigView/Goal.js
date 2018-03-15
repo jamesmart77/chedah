@@ -1,7 +1,7 @@
 import React from "react";
 import "./GigView.css";
 import {formatCurrencyValueJSX} from '../../utils/currency';
-import {Modal, Button, Row, Input} from 'react-materialize';
+import {Modal, Button } from 'react-materialize';
 import { Multiselect } from '../Multiselect'
 import API from '../../utils/API'
 import Select from 'react-select'
@@ -49,7 +49,6 @@ class Goal extends React.Component {
 
 
     editGoal () {
-        // console.log("button was pushed")
         const data = {}
     
         data.goalId = this.props.id
@@ -66,7 +65,6 @@ class Goal extends React.Component {
       }
 
       deleteGoal () {
-        // console.log("button was pushed")
         const data = {}
     
         data.goalId = this.props.id
@@ -80,31 +78,21 @@ class Goal extends React.Component {
         })
       }
 
-
-    //   deleteGoal = id => {
-    //     API.deleteGoal(id)
-    //       .then(res => this.props.refresh())
-    //       .catch(err => console.log(err))
-    //   }
-
-
-
 render() {
 return (
 <div className="card">
 <div className="card-content cardHeader">
 <div className="row">
-    <div className="col s11">
+    <div className="col s10 l11">
         <span className="card-title"><span className="primaryHeaderText">Goal:</span> <span className="secondaryHeaderText">{this.props.name}</span></span>
     </div>
-    <div className="col s1">
+    <div className="col s2 l1">
     <Modal
-        header="Edit Goal"
+        header= {<div className="modalTitle">Edit Goal</div>}
         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
             <section className="modalSpace">
-             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button> <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button>
-            
+              <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button> <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
             </section>
           }>
           
@@ -133,16 +121,6 @@ return (
 					onChange={this.handleOnChange.bind(this)}
                     value={this.state.multiValue} // This is the value we are trying update
 				/>
-
-          {/* <Multiselect 
-            categories= { this.state.userCategories.map(c => {
-                const newCat = {}
-                newCat.label = c.name
-                newCat.value = c._id
-                return newCat
-            }) } // These are the categories we are tracking for edit
-            goalCategories = { this.props.categories } // These are the categories that the user can select from
-            getCategories={ this.getCategories.bind(this) } /> */}
         <br/>
         <br/>
         <br/>
@@ -152,7 +130,7 @@ return (
 </div>
 <div className="card-content cardBody">
 <div className="row">
-    <div className="col m4">
+    <div className="col s12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Budget</span>
@@ -166,7 +144,7 @@ return (
     </div>
 
   
-    <div className="col m4">
+    <div className="col s12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Expenses</span>
@@ -177,8 +155,8 @@ return (
         </div>
     </div>
 
-    {/* Net */}
-    <div className="col m4">
+
+    <div className="col s12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Net</span>

@@ -47,6 +47,14 @@ class ModalAddGoal extends React.Component {
     })
   }
 
+      // this bad larry is for the multiselect
+      handleOnChange (value) {
+        console.log('value: ', value)
+        value ? this.setState({ multiValue: value }, ()=>{
+          this.getCategories(this.state.multiValue)
+        }) : null
+    }
+
   handleChange = event=> {
       this.setState({[event.target.name]: event.target.value})
     }
@@ -65,7 +73,8 @@ class ModalAddGoal extends React.Component {
       <div
         id='add-goal-modal'
         className='modal'
-        style={{height: '70%'}}>
+        // style={{height: '70%'}} 
+        >
         <div className='modal-content'>
           <div className='modal-title'>
             <h4>Add a Goal</h4>
@@ -98,23 +107,39 @@ class ModalAddGoal extends React.Component {
             <span>Select Expense Categories To Track:</span>
           </div>
           <div className='row'>
-            <div className='col s6'>
+            <div className='col s12'>
             
-              <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) }/>
+              {/* <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) }/> */}
+
+              <Select.Creatable
+                multi={true}
+                options={ this.state.userCategories.map(c => {
+                              const newCat = {}
+                              newCat.label = c.name
+                              newCat.value = c._id
+                              return newCat
+                          }) || [] } // These are the options, the user can select from, these are supplied by us.
+                onChange={this.handleOnChange.bind(this)}
+                          value={this.state.multiValue} // This is the value we are trying update
+              />
             </div>
             <div className='col s6'></div>
           </div>
           <div>
           {/* <div className='modal-footer'> */}
+          <br/>
+          <br/>
             <section className="right">
               <button className='btn waves-effect waves-light btn-flat modal-action modal-close deep-orange darken-3 white-text'>
                 Cancel
               </button>
               &nbsp;
               <button onClick={ this.addGoalToGig.bind(this) } className='btn waves-effect waves-light modal-action modal-close teal'>
-                Apply
+                Add A Goal
               </button>
             </section>
+          <br/>
+          <br/>
           </div>
         </div>
       </div>
