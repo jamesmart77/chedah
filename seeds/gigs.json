@@ -1,18 +1,28 @@
 [{
-        "_id": "5a91b813513541155c819fa4",
-        "name": "uber",
-        "default": false,
-        "goals": []
+        "_id": {
+            "$oid": "5aa9e45adfe76f95d2fa1a30"
+        },
+        "name": "Personal",
+        "goals": [],
+        "__v": 0
     },
     {
-        "_id": "5a91b813513541155c819fa5",
-        "name": "programming",
-        "default": false,
-        "goals": []
+        "_id": {
+            "$oid": "5aa987980ce1c76683795f30"
+        },
+        "name": "Visual Effects",
+        "description": "CGI Animation Freelance",
+        "goals": [{
+            "$oid": "5aa9e56a2a52a696f8f2ce2c"
+        }],
+        "__v": 0
     }, {
-        "_id": "5a91dd105c357a324b3e9725",
-        "name": "Horse Husbandry",
-        "default": false,
-        "goals": []
+        "_id": {
+            "$oid": "5aa989d40ce1c76683795f31"
+        },
+        "name": "Woodworking",
+        "description": "Making stuff look good and shit",
+        "goals": [],
+        "__v": 0
     }
 ]

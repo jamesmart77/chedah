@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { logout } from '../../utils/AuthService';
 import API from '../../utils/API';
 import PlaidAccountLink from '../PlaidAccountLink';
 
 
 // materialize navbar
-class MainMenu extends Component {
+class MainMenu extends React.Component {
 
     constructor(props) {
         super(props)

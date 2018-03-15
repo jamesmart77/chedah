@@ -1,35 +1,11 @@
 [{
-        "_id": "5aa038111db9e407e0da50e2",
-        "name": "travel",
-        "description": ""
+        "_id": {"$oid":"5aa98b530ce1c76683795f33"},
+        "name": "Software",
+        "__v": 0
     },
     {
-        "_id": "5aa038111db9e407e0da50e3",
-        "name": "maintainance",
-        "description": "repairs"
-    }, {
-        "_id": "5aa038111db9e407e0da50e4",
-        "name": "research",
-        "description": "research"
-    }, {
-        "_id": "5aa03911fe3bb9087c00394b",
-        "name": "r&d",
-        "description": "Research and development"
-    },
-    {
-        "_id": "5aa03911fe3bb9087c00394c",
-        "name": "repairs"
-    },
-    {
-        "_id": "5aa039b47623ef08e3dfde5b",
-        "name": "food"
-    },
-    {
-        "_id": "5aa039b47623ef08e3dfde5c",
-        "name": "rent"
-    },
-    {
-        "_id": "5aa039b47623ef08e3dfde5d",
-        "name": "gas"
+        "_id": {"$oid":"5aa97bf242f1c460521bd706"},
+        "name": "Research",
+        "__v": 0
     }
 ]

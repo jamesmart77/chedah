@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import TableRow from './TableRow';
 import TableHeader from './TableHeader';
+import API from '../../utils/API';
 import './DataTable.css';
 
 const $ = require('jquery');
@@ -18,14 +19,25 @@ class Table extends Component {
         super(props);
         this.hasTable = false
         this.state = {
-            tableId: 'data-table-transactions'
+            tableId: 'data-table-transactions',
+            categories: [],
+            gigs: []
         };
     };
+
+    componentDidMount() {
+        API.getUserCategories().then(categories => {
+            this.setState({categories: categories.data})
+        })
+        .catch(err => {
+            console.log(`Error getting categories: ${err}`);
+        })
+    }
 
     componentDidUpdate() {
         // initialize the table
         if (!this.hasTable) {
-            let table = $(this.datatable).DataTable({lengthChange: false});
+            let table = $(this.datatable).DataTable({lengthChange: false});  //{lengthChange: false}
             this.hasTable = true
         // else invalidate and redraw the rows to reflect changes
         } else {
@@ -47,6 +59,7 @@ class Table extends Component {
                             rowEdited={this.rowEdited.bind(this)}
                             key={t._id}
                             gigs={this.props.gigs || []}
+                            categories={this.state.categories}
                             {...t}
                         />)
 
