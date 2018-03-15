@@ -51,7 +51,7 @@ class ModalAddGig extends React.Component {
         const accounts = this.props.user.accounts || []
         const accountItems = this.getAccountList(accounts)
         return (
-                 <div id={this.state.modal_id} className="modal" data-modal style={{width: '60%', minHeight: 700}}>
+                 <div id={this.state.modal_id} className="modal" data-modal style={{width: '60%', minHeight: 500}}>
                    <div className="modal-content">
                        <div className="modal-title">
                            <h4>Add a Gig</h4>

@@ -104,7 +104,7 @@ module.exports = {
             })).sort((a, b) => b.total - a.total)
             .filter(category => category.total > 0)
         
-            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
+            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(cat => cat.label)))
             mutliDimensionalArrayOfGoalPromises.push(gigTransactionsPromises)
 
             const gigTransByGoal = Promise.all(gigTransactionsPromises)

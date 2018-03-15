@@ -6,8 +6,7 @@ const cors = require('cors');
 module.exports.redisClient = require("redis").createClient(process.env.REDISCLOUD_URL, "", {
   no_ready_check: true
 });
-
-
+const logger = require('morgan')
 
 const app = express();
 const PORT = process.env.PORT || 3001;

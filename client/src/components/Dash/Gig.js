@@ -43,7 +43,7 @@ class Gig extends React.Component {
             <div datavalue={this.props._id} className="card">
               <div className="card-content cardHeader">
                 <div className="row">
-                  <div className="col s11">
+                  <div className="col s10 l11">
                     <span className="card-title">
                       <a className="side-headers" href={gigHref}>
                         <span className="primaryHeaderText">{this.props.name.toLowerCase() !== 'personal'  && ' Gig:' }  </span>
@@ -51,7 +51,7 @@ class Gig extends React.Component {
                       </a>
                     </span>
                   </div>
-                  <div className ='col s1'>
+                  <div className ='col s2 l1'>
                   { this.props.name.toLowerCase() !== 'personal' &&
                     <Modal
                         header="Edit Gig"
