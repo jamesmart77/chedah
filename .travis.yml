@@ -2,7 +2,6 @@ language: node_js
 node_js:
   - "8"
 install:
-- yarn install
-- yarn start
-- yarn add mocha 
-- yarn add chai
+- npm install
+- npm use 9
+- npm test
