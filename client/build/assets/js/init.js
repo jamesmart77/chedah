@@ -3,6 +3,8 @@
 // document start
 (function ($) {
   $(function () {
+
+
     // Dropdowns
     $('select').material_select()
 
@@ -40,11 +42,19 @@
 
     // gigmenu
     $('.acct-gig-menu-trigger').dropdown({
+            hover: false,
+            belowOrigin: true,
+            alignment: 'left',
+            constrainWidth: false
+        });
+
+        // gigmenu
+        $('.account-gig-menu').dropdown({
       hover: false,
       belowOrigin: true,
       alignment: 'left',
       constrainWidth: false
-    })
+        });
 
     $('.gig-frequency').dropdown({
       hover: false,
