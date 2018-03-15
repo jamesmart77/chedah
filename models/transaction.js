@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-
 // schema for a transaction object
 const transactionSchema = new Schema({
   amount: {
@@ -34,8 +33,6 @@ const transactionSchema = new Schema({
     required: true
   }
 })
-
-
 
 const Transaction = mongoose.model('Transaction', transactionSchema)
 module.exports = Transaction

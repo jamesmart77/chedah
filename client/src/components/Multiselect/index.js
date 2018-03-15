@@ -1,1 +1,1 @@
-export { default as Multiselect } from './Multiselect';
+export { default as Multiselect } from './Multiselect'

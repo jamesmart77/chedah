@@ -1,5 +1,5 @@
-const router = require('express').Router();
-const categoryController = require('../../controllers/categoryController');
+const router = require('express').Router()
+const categoryController = require('../../controllers/categoryController')
 
 // query '/api/categories'
 // router.get('/', categoryController.findAll)
@@ -9,6 +9,5 @@ router.post('/', categoryController.create)
 
 // router.get('/category/:name?', categoryController.findGoalByName)
 // router.get('/:id', categoryController.findCategoryById)
-
 
 module.exports = router

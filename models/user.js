@@ -49,15 +49,15 @@ const userSchema = new Schema({
     }
   }],
   accounts: [{
-      type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Account'
   }],
   categories: [{
     type: Schema.Types.ObjectId,
-  ref: 'Category'
+    ref: 'Category'
   }],
   transactions: [{
-      type: Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Transaction'
   }],
   gigs: [{

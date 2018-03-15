@@ -18,29 +18,29 @@ module.exports = {
 
     const aggregateAccountCategories = db.Transaction.aggregate([
       { $match: { account_id: req.params.id } },
-      { $group: { _id: "$category", total: { $sum: "$amount" } } },
+      { $group: { _id: '$category', total: { $sum: '$amount' } } },
       { $sort: {total: -1} }
     ])
-    
+
     const aggregateAccountVendors = db.Transaction.aggregate([
       { $match: { account_id: req.params.id } },
-      { $group: { _id: "$transactionName", total: { $sum: "$amount" } } },
+      { $group: { _id: '$transactionName', total: { $sum: '$amount' } } },
       { $sort: {total: -1} }
     ])
 
-    const transactions =  db.Transaction.find({account_id: req.params.id}).lean()
+    const transactions = db.Transaction.find({account_id: req.params.id}).lean()
 
     Promise.all([account, aggregateAccountCategories, aggregateAccountVendors, transactions])
-    .then(data => {
-      const [account, spendingByCategory, spendingByVendor, transactions] = data
-      const response = {}
-      response.summary = account
-      response.spendingByCategory = spendingByCategory
-      response.spendingByVendor = spendingByVendor
-      response.transactions = transactions
-      res.json(response)
-    })
-    .catch( err => res.status(404).json({ err: err, msg: 'Not able to find an account by id' }) )
+      .then(data => {
+        const [account, spendingByCategory, spendingByVendor, transactions] = data
+        const response = {}
+        response.summary = account
+        response.spendingByCategory = spendingByCategory
+        response.spendingByVendor = spendingByVendor
+        response.transactions = transactions
+        res.json(response)
+      })
+      .catch(err => res.status(404).json({ err: err, msg: 'Not able to find an account by id' }))
   },
 
   update: (req, res) => {
@@ -57,6 +57,5 @@ module.exports = {
       .then(dbAccount => res.json(dbAccount))
       .catch(err => res.status(404).json({err: err, msg: 'never gonna get it'}))
   }
-
 
 }

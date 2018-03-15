@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
 export const Container = ({ fluid, children }) =>
-  <div className={`container${fluid ? "-fluid" : ""}`}>
+  <div className={`container${fluid ? '-fluid' : ''}`}>
     {children}
-  </div>;
+  </div>

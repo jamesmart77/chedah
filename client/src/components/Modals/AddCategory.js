@@ -1,78 +1,76 @@
-import React from 'react';
-import API from '../../utils/API';
+import React from 'react'
+import API from '../../utils/API'
 import { Input } from 'react-materialize'
-
 
 // add category modal
 class ModalAddCategory extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            description: ''
-        }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+  constructor (props) {
+    super(props)
+    this.state = {
+      name: '',
+      description: ''
     }
 
-    handleChange(event) {
-        event.preventDefault();
-        this.setState({[event.target.name]: event.target.value});
-    }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
-    componentDidUpdate() {
-        // console.log(this.state);
-    }
+  handleChange (event) {
+    event.preventDefault()
+    this.setState({[event.target.name]: event.target.value})
+  }
 
-    componentDidMount() {
-        // console.log(`modal mounted`);
-    }
+  componentDidUpdate () {
+    // console.log(this.state);
+  }
 
-    componentWillUnmount() {
-        // console.log(`modal dismounting`);
-    }
+  componentDidMount () {
+    // console.log(`modal mounted`);
+  }
 
-    handleSubmit() {
-        console.log(`adding category: `, this.state);
-        API.createCategory(this.state)
-        .then(data => {
-            console.log(data)
-            this.setState({name: '', description: ''})
-        })
-        .catch(err => {
-            console.log(err)
-        });
-    }
+  componentWillUnmount () {
+    // console.log(`modal dismounting`);
+  }
 
-    render() {
-        return (
-                 <div id="add-category-modal" className="modal" data-modal style={{width: '60%', minHeight: 400}}>
-                   <div className="modal-content">
-                       <div className="modal-title">
-                           <h4>Add a Category</h4>
-                       </div>
-                     <div className="col input-field s12">
-                       <input value={this.state.name} onChange={this.handleChange} type="text" name="name" id="input-category-name" />
-                       <label className="active" htmlFor="input-category-name">Category Name</label>
-                     </div>
-                     <div className="col input-field s12">
-                       <input value={this.state.description} onChange={this.handleChange} type="text" name="description" id="input-category-description"/>
-                       <label className="active" htmlFor="input-category-description">Description</label>
-                     </div>
+  handleSubmit () {
+    console.log(`adding category: `, this.state)
+    API.createCategory(this.state)
+      .then(data => {
+        console.log(data)
+        this.setState({name: '', description: ''})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
-                   </div>
-                   <div className="modal-footer">
-                     <section>
-                       <button className="btn waves-effect waves-light btn-flat modal-action modal-close deep-orange darken-3 white-text">Cancel</button>
+  render () {
+    return (
+      <div id='add-category-modal' className='modal' data-modal style={{width: '60%', minHeight: 400}}>
+        <div className='modal-content'>
+          <div className='modal-title'>
+            <h4>Add a Category</h4>
+          </div>
+          <div className='col input-field s12'>
+            <input value={this.state.name} onChange={this.handleChange} type='text' name='name' id='input-category-name' />
+            <label className='active' htmlFor='input-category-name'>Category Name</label>
+          </div>
+          <div className='col input-field s12'>
+            <input value={this.state.description} onChange={this.handleChange} type='text' name='description' id='input-category-description' />
+            <label className='active' htmlFor='input-category-description'>Description</label>
+          </div>
+
+        </div>
+        <div className='modal-footer'>
+          <section>
+            <button className='btn waves-effect waves-light btn-flat modal-action modal-close deep-orange darken-3 white-text'>Cancel</button>
                        &nbsp;
-                       <button onClick={this.handleSubmit} className="btn waves-effect waves-light modal-action modal-close teal">Apply</button>
-                     </section>
-                   </div>
-                 </div>
-        );
-    }
+            <button onClick={this.handleSubmit} className='btn waves-effect waves-light modal-action modal-close teal'>Apply</button>
+          </section>
+        </div>
+      </div>
+    )
+  }
 }
 
-export default ModalAddCategory;
+export default ModalAddCategory

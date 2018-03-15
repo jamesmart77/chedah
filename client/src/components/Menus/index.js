@@ -1,1 +1,1 @@
-export { default as GigMenu } from './GigMenu';
+export { default as GigMenu } from './GigMenu'

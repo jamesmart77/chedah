@@ -1,13 +1,13 @@
 // import { CastError } from "mongoose";
-const db = require("../models");
-const plaid = require('plaid');
-const gigController = require('./gigController');
+const db = require('../models')
+const plaid = require('plaid')
+const gigController = require('./gigController')
 const util = require('util')
 const axios = require('axios')
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 const R = require('ramda')
-require('dotenv').config();
-const request = require("request")
+require('dotenv').config()
+const request = require('request')
 const { isNegative, isPositive, sum, sortObjects, spendingByCategoryGig, spendingByVendorGig, transactionsGig, summaryGig, getToday, getThreeYearsAgoFromToday, getGigTransactionsByCategories } = require('../utils')
 
 var client = new plaid.Client(
@@ -15,13 +15,13 @@ var client = new plaid.Client(
   process.env.PLAID_SECRET, // these values need to be updated and stored in a .env
   process.env.PLAID_PUBLIC_KEY, // these values need to be updated and stored in a .env
   plaid.environments.sandbox
-);
+)
 
 // Defining methods for the USER controller
 module.exports = {
 
   getUser: (req, res) => {
-    console.log("\n USER CONTROLLER: => getUser")
+    console.log('\n USER CONTROLLER: => getUser')
     db.User.findOne({ auth_id: req.params.authId }).lean()
       .populate('accounts')
       .populate('transactions')
@@ -35,11 +35,11 @@ module.exports = {
         }
       })
       .then(user => {
+        // console.log('user.categories: ', user.categories)
+        console.log(user.accounts)
 
-        console.log('user.categories: ', user.categories)
-
-        if(user.accounts){          
-            user.accounts = user.accounts.map(account => {
+        if (user.accounts) {
+          user.accounts = user.accounts.map(account => {
             account.transactions = user.transactions.filter(t => t.account_id === account.account_id)
             account.defaultGigName = user.gigs.find(gig => gig._id.toString() === account.defaultGigId.toString()).name
             return account
@@ -53,22 +53,20 @@ module.exports = {
           console.log('map over gigs')
           // filter for transactions associated with gig
           gig.transactions = user.transactions.filter(t => t.gigId === gig._id.toString())
-          
+
           // if the gig has transactions...
           if (gig.transactions.length) {
             // // Sum the money coming in
             console.log(`${gig.name} has ${gig.transactions.length} transactions`)
 
             gig.moneyInCache = gig.transactions
-            .map(t => t.amount)
-            .filter(isNegative)
+              .map(t => t.amount)
+              .filter(isNegative)
 
             gig.moneyIn = gig.moneyInCache.length > 0 ? gig.moneyInCache.reduce(sum) : 0.0
-            
 
             // console.log(gig)
 
-            
             // Sum the money going out
             gig.moneyOut = gig.transactions
               .map(t => t.amount)
@@ -90,7 +88,6 @@ module.exports = {
               return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.filter(t => isPositive(t.amount)).map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
 
-
             // Spending By Category
             const transactionsByCategory = R.uniq(gig.transactions
               .map(t => t.category))
@@ -102,19 +99,17 @@ module.exports = {
             gig.spendingByCategory = R.uniq(transactionsByCategory.map(catTransArray => {
               return { name: catTransArray[0].name, total: R.sum(catTransArray.filter(t => isPositive(t.amount)).map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
-            .filter(category => category.total > 0)
-        
+              .filter(category => category.total > 0)
+
             const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(cat => cat.label)))
             mutliDimensionalArrayOfGoalPromises.push(gigTransactionsPromises)
 
             const gigTransByGoal = Promise.all(gigTransactionsPromises)
               .then(response => console.log('response.length: ', response.length))
-
           }
 
           return gig
         })
-
 
         // user.categories = []
 
@@ -122,55 +117,48 @@ module.exports = {
         const {items, transactions, ...userWithoutItems} = user
 
         db.PlaidCategory
-        .find({})
-        .then(dbPlaidCat => {
+          .find({})
+          .then(dbPlaidCat => {
+            dbPlaidCat.map(plaidCat => {
+              userWithoutItems.categories.push({name: plaidCat.name})
+            })
 
-          dbPlaidCat.map(plaidCat => {
-            userWithoutItems.categories.push({name: plaidCat.name})
-          })
-          
+            const newFlatArray = mutliDimensionalArrayOfGoalPromises.length ? mutliDimensionalArrayOfGoalPromises.reduce((acc, cv) => [...acc, ...cv]) : []
 
-              const newFlatArray = mutliDimensionalArrayOfGoalPromises.length ? mutliDimensionalArrayOfGoalPromises.reduce((acc, cv) =>  [...acc, ...cv]) : []
+            Promise.all(newFlatArray)
+              .then(allTheResolvedPromisesOfGoalSummaries => {
+                // at this point, We have the user in memory an also the gig summaries, but I need to associate those gig summaries into the user object
+                const goals = userWithoutItems
+                  .gigs.map(gig => gig.goals.map(goal => {
+                    goal.expenses = allTheResolvedPromisesOfGoalSummaries.find(gs => gs.goalId === goal._id) ? allTheResolvedPromisesOfGoalSummaries.find(gs => gs.goalId === goal._id).total : 0.00
+                    goal.net = goal.budget - goal.expenses
+                    goal.percent = goal.expenses / goal.budget
+                    return goal
+                  })
+                  )
 
-              Promise.all(newFlatArray)
-                .then(allTheResolvedPromisesOfGoalSummaries => {
-                  
-                  // at this point, We have the user in memory an also the gig summaries, but I need to associate those gig summaries into the user object
-                  const goals = userWithoutItems
-                    .gigs.map(gig => gig.goals.map(goal => {
-                          goal.expenses = allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id) ? allTheResolvedPromisesOfGoalSummaries.find( gs => gs.goalId === goal._id).total : 0.00
-                          goal.net = goal.budget - goal.expenses
-                          goal.percent = goal.expenses / goal.budget
-                          return goal
-                      })
-                    )
+                const gigs = userWithoutItems.gigs.map(gig =>
+                  gig.goals.map(gigGoal => {
+                    gigGoal = goals.find(goal => gigGoal._id === goal._id)
+                    return gigGoal
+                  })
+                )
 
-                    const gigs = userWithoutItems.gigs.map(gig => 
-                      gig.goals.map(gigGoal => {
-                        gigGoal = goals.find(goal => gigGoal._id === goal._id)
-                        return gigGoal
-                      })
-                    )
+                // We're creating a temporary user object to merge back into our main user object here.
+                const tempUser = {}
+                tempUser.gigs = gigs
 
-                    // We're creating a temporary user object to merge back into our main user object here.
-                    const tempUser = {}
-                    tempUser.gigs = gigs
-
-                    const finalUser = R.mergeDeepLeft(userWithoutItems, tempUser)
-                    res.json(finalUser)
-                })
-
-
-          
-        }).catch(err => {console.log(err) ; return err})
-        .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
-        
-      }).catch(err => {console.log(err) ; return err})
-      .catch(err => res.status(404).json({ msg: "We could not find your user", err: err }))
+                const finalUser = R.mergeDeepLeft(userWithoutItems, tempUser)
+                res.json(finalUser)
+              })
+          }).catch(err => { console.log(err); return err })
+          .catch(err => res.status(404).json({ msg: 'We could not find your user', err: err }))
+      }).catch(err => { console.log(err); return err })
+      .catch(err => res.status(404).json({ msg: 'We could not find your user', err: err }))
   },
 
   createUserIfDoesNotExist: (req, res) => {
-    console.log("\n USER CONTROLLER: => createUserIfDoesNotExist")
+    console.log('\n USER CONTROLLER: => createUserIfDoesNotExist')
     const user = {
       firstName: req.body.given_name || null,
       lastName: req.body.family_name || null,
@@ -180,20 +168,20 @@ module.exports = {
     db.User
       .create(user)
       .then(dbModel => {
-        //create personal gig as default because user was just created
+        // create personal gig as default because user was just created
         gigController.createGig({
-          "name": "Personal"
+          'name': 'Personal'
         })
-          //assoc new gig to user model
+          // assoc new gig to user model
           .then(gigModel => db.User.findOneAndUpdate({
             _id: dbModel._id
           }, {
-              $push: {
-                gigs: gigModel._id
-              }
-            }, {
-              new: true
-            })
+            $push: {
+              gigs: gigModel._id
+            }
+          }, {
+            new: true
+          })
           )
           .then(dbUser => res.json(dbUser))
           .catch(err => {
@@ -201,112 +189,109 @@ module.exports = {
             console.log(err)
             res.status(404).json({
               err: err
-            });
-          });
+            })
+          })
       })
       .catch(err => {
-        console.log("error")
+        console.log('error')
         err.code === 11000 ? console.log("ERROR: That's already a user in our database, send back a login response") : console.log(err)
         err.code === 11000 ? res.json({
           userExist: true
         }) : res.status(404).json({
           err: err
         })
-      });
+      })
   },
 
   addItemToUser: (data, res) => {
     console.log('adding items and accounts to the user')
     db.User
-      .findOneAndUpdate({ "auth_id": data.user.sub }, 
-      { $push: { "items": 
-        { "access_token": data.item.ACCESS_TOKEN, "item_id": data.item.ITEM_ID } } 
-      }, 
-      { upsert: true }
-    )
-    .then(dbUser => {
+      .findOneAndUpdate({ 'auth_id': data.user.sub },
+        { $push: { 'items':
+        { 'access_token': data.item.ACCESS_TOKEN, 'item_id': data.item.ITEM_ID } }
+        },
+        { upsert: true }
+      )
+      .then(dbUser => {
       // We are going to get the plaid promise and the personal gig promise in parellel here
-      const plaidPromise = axios.post('https://sandbox.plaid.com/accounts/get', {
-        client_id: process.env.PLAID_CLIENT_ID,
-        secret: process.env.PLAID_SECRET,
-        access_token: data.item.ACCESS_TOKEN
+        const plaidPromise = axios.post('https://sandbox.plaid.com/accounts/get', {
+          client_id: process.env.PLAID_CLIENT_ID,
+          secret: process.env.PLAID_SECRET,
+          access_token: data.item.ACCESS_TOKEN
+        })
+
+        const personalGigPromise = db.Gig.findOne({ name: 'Personal' }).lean()
+
+        return Promise.all([ plaidPromise, personalGigPromise ])
+          .then(data => [...data, dbUser])
       })
-
-      const personalGigPromise =  db.Gig.findOne({ name: 'Personal' }).lean()
-
-      return Promise.all([ plaidPromise, personalGigPromise ])
-        .then(data => [...data, dbUser])
-    })
     // destructure the accounts out of the plaid response and return
-    .then( ( [plaidResponse, personalGigResponse, dbUser ] = data ) =>  {
-      const { data: { accounts } } = plaidResponse
-      return [ accounts, personalGigResponse, dbUser ]
-    })
-    .then( ( [accounts, personalGig, dbUser] = data ) => {
+      .then(([plaidResponse, personalGigResponse, dbUser ] = data) => {
+        const { data: { accounts } } = plaidResponse
+        return [ accounts, personalGigResponse, dbUser ]
+      })
+      .then(([accounts, personalGig, dbUser] = data) => {
       // whenever we save an account, we initialize the personal Gig as the default gig
       // we are going to create 1 to n accounts here, they are not dependent, so let's do it in parellel
-      const createAccountPromises = accounts
-        .map(account => {
-          account.defaultGigId = personalGig._id
-          return account
-        })
-        .map(account => db.Account.create(account))
-      
-      return Promise.all(createAccountPromises)
-        .then(dbAccounts => {
-          const updateUserPromises = dbAccounts.map(dbAccount => db.User.findOneAndUpdate({_id: dbUser._id }, 
-                        { $push: { accounts: dbAccount._id } }, 
-                        { new: true })
-          )
-          return Promise.all(updateUserPromises)
-        })
+        const createAccountPromises = accounts
+          .map(account => {
+            account.defaultGigId = personalGig._id
+            return account
+          })
+          .map(account => db.Account.create(account))
+
+        return Promise.all(createAccountPromises)
+          .then(dbAccounts => {
+            const updateUserPromises = dbAccounts.map(dbAccount => db.User.findOneAndUpdate({_id: dbUser._id },
+              { $push: { accounts: dbAccount._id } },
+              { new: true })
+            )
+            return Promise.all(updateUserPromises)
+          })
       })
-      .then( dbusers => res.status(201).json( { msg: 'sucessfully added accounts to user' } ) )
-      .catch( err => { console.log(err); return err} )
-      .catch( err => res.status(500).json( { msg: 'Could not sucessfully add accouts to user', err: err } ) )
-      
+      .then(dbusers => res.status(201).json({ msg: 'sucessfully added accounts to user' }))
+      .catch(err => { console.log(err); return err })
+      .catch(err => res.status(500).json({ msg: 'Could not sucessfully add accouts to user', err: err }))
   },
 
   // all gigs need to be associated with a user
   addGigToUser: (req, res) => {
-    console.log("add a gig to current user")
+    console.log('add a gig to current user')
     db.Gig.create(req.body)
       .then(dbGig => {
-        db.User.findOneAndUpdate({ "auth_id": req.params.authId }, 
-        { $push: { gigs: dbGig._id } }, 
+        db.User.findOneAndUpdate({ 'auth_id': req.params.authId },
+          { $push: { gigs: dbGig._id } },
           { new: true })
-        .then(dbUser => dbGig)
+          .then(dbUser => dbGig)
         return dbGig
       })
       .then(dbGig => {
         // We allow users to create gigs regardless if they associate them with an account
-        if(req.body.account_id){
-          db.Account.findOneAndUpdate({ "_id": req.body.account_id }, 
-          { defaultGigId: dbGig._id })
-          .then(dbAccount => dbAccount)
+        if (req.body.account_id) {
+          db.Account.findOneAndUpdate({ '_id': req.body.account_id },
+            { defaultGigId: dbGig._id })
+            .then(dbAccount => dbAccount)
         }
         return dbGig
-        })   
-        .then(dbGig => res.json({msg: "Created a gig great job homey"}))
-        .catch(err => res.status(500).json({ msg: "We were unable to create a gig", err: err } ) )
+      })
+      .then(dbGig => res.json({msg: 'Created a gig great job homey'}))
+      .catch(err => res.status(500).json({ msg: 'We were unable to create a gig', err: err }))
   },
 
   getTransactions: (req, res) => {
-
     db.User
       .findOne({
-        "auth_id": req.body.sub
+        'auth_id': req.body.sub
       })
       .then((dbUser) => {
-
         // pull transactions for the last 3 years from today, essentially, 'all transasctions'
-        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        axios.defaults.headers.post['Content-Type'] = 'application/json'
         const transactionPromises = dbUser.items.map(item => axios.post('https://sandbox.plaid.com/transactions/get', {
           client_id: process.env.PLAID_CLIENT_ID,
           secret: process.env.PLAID_SECRET,
           access_token: item.access_token,
-          start_date: getThreeYearsAgoFromToday(), //moment().subtract(30, 'days').format('YYYY-MM-DD');
-          end_date:  getToday(), //moment().format('YYYY-MM-DD');,
+          start_date: getThreeYearsAgoFromToday(), // moment().subtract(30, 'days').format('YYYY-MM-DD');
+          end_date: getToday(), // moment().format('YYYY-MM-DD');,
           options: {
             count: 250,
             offset: 0
@@ -324,19 +309,19 @@ module.exports = {
             const accounts = transactionsResponseArray
               .map(accountsResponses => accountsResponses.data.accounts)
               .reduce((acc, cv) => acc.concat(cv))
-              
+
               // let's cache these promises for now so we don't get a race condition.
-              const accountBalanceUpdatePromises = accounts.map( account => db.Account.findOneAndUpdate({account_id: account.account_id}, {balances: account.balances}) )
-              console.log('pulled ' + transactions.length + ' transactions');
+            const accountBalanceUpdatePromises = accounts.map(account => db.Account.findOneAndUpdate({account_id: account.account_id}, {balances: account.balances}))
+            console.log('pulled ' + transactions.length + ' transactions')
 
             db.Account.find()
               .then(dbAccounts => {
-                var i = 0;
+                var i = 0
                 while (i < transactions.length) {
-                  const accountThatMatchesTransactionId = dbAccounts.find(account => transactions[i].account_id === account.account_id);
+                  const accountThatMatchesTransactionId = dbAccounts.find(account => transactions[i].account_id === account.account_id)
                   // console.log(transactions[i].account_id === dbAccounts.account_id)
 
-                  //create transaction object to insert into DB
+                  // create transaction object to insert into DB
                   let transactionObj = {
                     amount: transactions[i].amount,
                     category: transactions[i].category !== null ? transactions[i].category[0] : 'Other',
@@ -347,45 +332,41 @@ module.exports = {
                     gigId: accountThatMatchesTransactionId.defaultGigId
                   }
 
-                  //add transaction to transaction collection
-                  //if transactionID is already in collection, transaction will not be added
+                  // add transaction to transaction collection
+                  // if transactionID is already in collection, transaction will not be added
                   db.Transaction
                     .create(transactionObj)
                     .then((dbTrans) => {
-                      //add new transactionID to user.items.transactions array
+                      // add new transactionID to user.items.transactions array
                       db.User
                         .update(
-                          { "auth_id": req.body.sub },
-                          //addToSet pushes to array if item does not already exist
-                          { "$addToSet": { "transactions": dbTrans._id } }
+                          { 'auth_id': req.body.sub },
+                          // addToSet pushes to array if item does not already exist
+                          { '$addToSet': { 'transactions': dbTrans._id } }
                         )
                         .catch((err) => console.log(err))
                     }).then(dbUser => {})
                     .catch((err) => {
                     })
 
-                  //iterate through all transactions in while loop
+                  // iterate through all transactions in while loop
                   i++
                 }
               }).catch(console.log)
             // Let's update the account balances since we got them for free during the transactions api call.
             Promise.all(accountBalanceUpdatePromises)
-            .then(dbAccounts => {
-              res.json({ msg: "transactions loaded successfully" })
-            }).catch(err => { console.log(err); return err })
+              .then(dbAccounts => {
+                res.json({ msg: 'transactions loaded successfully' })
+              }).catch(err => { console.log(err); return err })
           }).catch(err => { console.log(err); return err })
-
-
       }).catch(err => {
-        console.log("error in getting plaid transactions");
-        console.log(err);
+        console.log('error in getting plaid transactions')
+        console.log(err)
         res.json({
           error: err
         })
       })
   },
-
-
 
   getCategories: (req, res) => {
     console.log('lets get those user categories shall we')
@@ -400,48 +381,47 @@ module.exports = {
           })
       })
   },
-  
+
   createCategory: (req, res) => {
     console.log('lets create a user category')
     db.Category.create({name: req.body.name})
-    .then(dbCategory => {
-      db.User.findOneAndUpdate({ "auth_id": req.params.authId },
-      {$push: {categories: dbCategory._id}})
-      .then(dbUser => res.status(201).json(dbUser))
-      .catch(err => res.status(404).json({msg: "You were not able to create an category", err: err}))
-    })
+      .then(dbCategory => {
+        db.User.findOneAndUpdate({ 'auth_id': req.params.authId },
+          {$push: {categories: dbCategory._id}})
+          .then(dbUser => res.status(201).json(dbUser))
+          .catch(err => res.status(404).json({msg: 'You were not able to create an category', err: err}))
+      })
   },
-  
+
   getAccounts: (req, res) => {
     console.log('lets get those user accounts shall we')
     db.User.findOne({ auth_id: req.params.authId }).lean()
       .populate('accounts')
       .then(user => {
-            const {accounts} = user
-            res.json(accounts)
-      }).catch(err => res.status(404).json({msg: "Did not get accounts, sorry atari!", err: err}))
+        const {accounts} = user
+        res.json(accounts)
+      }).catch(err => res.status(404).json({msg: 'Did not get accounts, sorry atari!', err: err}))
   },
 
   getGigs: (req, res) => {
     console.log('lets get those user gigs shall we')
     const user = db.User.findOne({ auth_id: req.params.authId }).lean()
-    .populate('gigs')
-    .populate({
-      path: 'gigs',
-      populate: {
-        path: 'goals',
-        model: 'Goal'
-      }
+      .populate('gigs')
+      .populate({
+        path: 'gigs',
+        populate: {
+          path: 'goals',
+          model: 'Goal'
+        }
       })
       .then(user => {
-
         const {gigs} = user
         const spendingByGigCategoryPromises = gigs.map(gig => spendingByCategoryGig(gig._id))
         const spendingByGigVendorPromises = gigs.map(gig => spendingByVendorGig(gig._id))
         const transactionsGigPromises = gigs.map(gig => transactionsGig(gig._id))
         const summaryGigPromises = gigs.map(gig => summaryGig(gig._id))
 
-        let responseGigs =[]
+        let responseGigs = []
         Promise.all(spendingByGigCategoryPromises)
           .then(spendingByCategory => {
             Promise.all(spendingByGigVendorPromises)
@@ -449,25 +429,24 @@ module.exports = {
                 Promise.all(transactionsGigPromises)
                   .then(transactions => {
                     Promise.all(summaryGigPromises)
-                    .then(summary => {
-                      responseGigs = gigs.map((gig, index) => {
-                        gig.spendingByCategory = spendingByCategory[index]
-                        gig.spendingByVendor = spendingByVendor[index]
-                        gig.transactions = transactions[index]
-                        gig.summary = summary[index]
-                        console.log(spendingByCategory)
-                        console.log(index)
-                        console.log(gig)
-                        return gig
-                      })
-                    res.json(responseGigs)
-                  }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
-                }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
-              }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
-          }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
-      }).catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
-      .catch(err => res.status(404).json({msg: "Did not get gigs, sorry atari!", err: err}))
+                      .then(summary => {
+                        responseGigs = gigs.map((gig, index) => {
+                          gig.spendingByCategory = spendingByCategory[index]
+                          gig.spendingByVendor = spendingByVendor[index]
+                          gig.transactions = transactions[index]
+                          gig.summary = summary[index]
+                          console.log(spendingByCategory)
+                          console.log(index)
+                          console.log(gig)
+                          return gig
+                        })
+                        res.json(responseGigs)
+                      }).catch(err => res.status(404).json({msg: 'Did not get gigs, sorry atari!', err: err}))
+                  }).catch(err => res.status(404).json({msg: 'Did not get gigs, sorry atari!', err: err}))
+              }).catch(err => res.status(404).json({msg: 'Did not get gigs, sorry atari!', err: err}))
+          }).catch(err => res.status(404).json({msg: 'Did not get gigs, sorry atari!', err: err}))
+      }).catch(err => res.status(404).json({msg: 'Did not get gigs, sorry atari!', err: err}))
+      .catch(err => res.status(404).json({msg: 'Did not get gigs, sorry atari!', err: err}))
   }
-  
-}
 
+}

@@ -6,94 +6,90 @@ const getDate = () => new Date().getDate() + 1 < 10 ? `0${new Date().getDate() +
 const sum = (x, y) => Math.abs(x) + Math.abs(y)
 
 module.exports = {
-    isNegative : num => num < 0 ? true : false,
-    isPositive : num => num > 0 ? true : false,
-    sum : (x, y) => Math.abs(x) + Math.abs(y),
-    sortObjects : (x, y) => x.total - y.total > 0 ? x : y,
+  isNegative: num => num < 0,
+  isPositive: num => num > 0,
+  sum: (x, y) => Math.abs(x) + Math.abs(y),
+  sortObjects: (x, y) => x.total - y.total > 0 ? x : y,
 
-    // Date helper functions return dates formatted as yyyy-mm-dd
-    getToday: () => {
-        const date = new Date()
-        return `${date.getFullYear()}-${getMonth()}-${getDate()}`
-    },
-    getThreeYearsAgoFromToday: () => {
-        const date = new Date()
-        return `${date.getFullYear()-3}-${getMonth()}-${getDate()}`
-    },
-    getMonthToDate: () => {
-        const date = new Date()
-        return [ `${date.getFullYear()}-${getMonth()}-01`, `${date.getFullYear()}-${getMonth()}-${getDate()}` ]
-    },
-    getYearToDate: () => {
-        const date = new Date()
-        return [`${date.getFullYear()}-01-01`, `${date.getFullYear()}-${getMonth()}-${getDate()}` ]
-    },
+  // Date helper functions return dates formatted as yyyy-mm-dd
+  getToday: () => {
+    const date = new Date()
+    return `${date.getFullYear()}-${getMonth()}-${getDate()}`
+  },
+  getThreeYearsAgoFromToday: () => {
+    const date = new Date()
+    return `${date.getFullYear() - 3}-${getMonth()}-${getDate()}`
+  },
+  getMonthToDate: () => {
+    const date = new Date()
+    return [ `${date.getFullYear()}-${getMonth()}-01`, `${date.getFullYear()}-${getMonth()}-${getDate()}` ]
+  },
+  getYearToDate: () => {
+    const date = new Date()
+    return [`${date.getFullYear()}-01-01`, `${date.getFullYear()}-${getMonth()}-${getDate()}` ]
+  },
 
-    // This will return a promise that is a filtered of a certain gigs transactions filtered by categories supplied in the second arguement, they will be category names, NOT IDS
-    getGigTransactionsByCategories : (gigId, goalId, categories) => { 
-        return new Promise((resolve, reject) => {
-            db.Transaction.find({ gigId: gigId, category: { $in: categories } })
-            .then(dbGoalTransactions => {
-                const transactionSummary = {}
-                transactionSummary.total = dbGoalTransactions.length > 0 ? dbGoalTransactions.map(t => t.amount).reduce((acc, cv) => acc + cv) : 0
-                transactionSummary.goalId = goalId
-                resolve(transactionSummary)
-        });
+  // This will return a promise that is a filtered of a certain gigs transactions filtered by categories supplied in the second arguement, they will be category names, NOT IDS
+  getGigTransactionsByCategories: (gigId, goalId, categories) => {
+    return new Promise((resolve, reject) => {
+      db.Transaction.find({ gigId: gigId, category: { $in: categories } })
+        .then(dbGoalTransactions => {
+          const transactionSummary = {}
+          transactionSummary.total = dbGoalTransactions.length > 0 ? dbGoalTransactions.map(t => t.amount).reduce((acc, cv) => acc + cv) : 0
+          transactionSummary.goalId = goalId
+          resolve(transactionSummary)
+        })
     })
-    },
-    // Aggregations that are used in multiple places
-    spendingByCategoryGig: gigId => {
-        console.log(gigId)
-        return db.Transaction.aggregate([
-            { $match: { gigId: gigId.toString() } },
-            { $group: { _id: "$category", total: { $sum: "$amount" } } },
-            { $sort: {total: -1} }
-          ])},
+  },
+  // Aggregations that are used in multiple places
+  spendingByCategoryGig: gigId => {
+    console.log(gigId)
+    return db.Transaction.aggregate([
+      { $match: { gigId: gigId.toString() } },
+      { $group: { _id: '$category', total: { $sum: '$amount' } } },
+      { $sort: {total: -1} }
+    ])
+  },
 
-          // this one needs to be tweaked
-    spendingByVendorGig : gigId => db.Transaction.aggregate([
-            { $match: { gigId: gigId.toString() } },
-            { $group: { _id: "$transactionName", total: { $sum: "$amount" } } },
-            { $sort: {total: -1} }
-          ]),
+  // this one needs to be tweaked
+  spendingByVendorGig: gigId => db.Transaction.aggregate([
+    { $match: { gigId: gigId.toString() } },
+    { $group: { _id: '$transactionName', total: { $sum: '$amount' } } },
+    { $sort: {total: -1} }
+  ]),
 
-    // Transactions by Gig
-    transactionsGig : gigId => db.Transaction.aggregate([
-        { $match: { gigId: gigId.toString() } }
-        ]),
+  // Transactions by Gig
+  transactionsGig: gigId => db.Transaction.aggregate([
+    { $match: { gigId: gigId.toString() } }
+  ]),
 
-           // Transactions by Gig
-    summaryGig : gigId => db.Transaction.aggregate([
-        { $match: { gigId: gigId.toString() } },
-        { $group: {
-            _id: null,
-            total: { $sum: "$amount" },
-            count: { $sum: 1 } 
-        }}
-        ])
+  // Transactions by Gig
+  summaryGig: gigId => db.Transaction.aggregate([
+    { $match: { gigId: gigId.toString() } },
+    { $group: {
+      _id: null,
+      total: { $sum: '$amount' },
+      count: { $sum: 1 }
+    }}
+  ])
 }
-
-
-
-
-
 
 // findById: (req, res) => {
 //   console.log(`-> looking for a account...`)
 
 //   const account = db.Account.findOne({ account_id: req.params.id }).lean()
 
-  // const aggregateAccountCategories = db.Transaction.aggregate([
-  //   { $match: { account_id: req.params.id } },
-  //   { $group: { _id: "$category", total: { $sum: "$amount" } } },
-  //   { $sort: {total: -1} }
-  // ])
-  
-  // const aggregateAccountVendors = db.Transaction.aggregate([
-  //   { $match: { account_id: req.params.id } },
-  //   { $group: { _id: "$transactionName", total: { $sum: "$amount" } } },
-  //   { $sort: {total: -1} }
-  // ])
+// const aggregateAccountCategories = db.Transaction.aggregate([
+//   { $match: { account_id: req.params.id } },
+//   { $group: { _id: "$category", total: { $sum: "$amount" } } },
+//   { $sort: {total: -1} }
+// ])
+
+// const aggregateAccountVendors = db.Transaction.aggregate([
+//   { $match: { account_id: req.params.id } },
+//   { $group: { _id: "$transactionName", total: { $sum: "$amount" } } },
+//   { $sort: {total: -1} }
+// ])
 
 //   const transactions =  db.Transaction.find({account_id: req.params.id}).lean()
 

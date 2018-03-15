@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 /*
 const footerStyle = {
@@ -9,21 +9,19 @@ const footerStyle = {
 };
 */
 
-
 // materialize footer
 const Footer = () =>
 
-    <footer className="page-footer footer-fixed deep-orange darken-2 center-on-medium-and-down">
-        <div className="footer-copyright">
-            <div className="container">
-                <div>
+  <footer className='page-footer footer-fixed deep-orange darken-2 center-on-medium-and-down'>
+    <div className='footer-copyright'>
+      <div className='container'>
+        <div>
                     &copy;
-                    <span id="copyright">2018, </span>
-                    <span><a className="footer-yellow">chedah</a>. All rights reserved.</span>
-                </div>
-            </div>
+          <span id='copyright'>2018, </span>
+          <span><a className='footer-yellow'>chedah</a>. All rights reserved.</span>
         </div>
-    </footer>
+      </div>
+    </div>
+  </footer>
 
-
-export default Footer;
+export default Footer

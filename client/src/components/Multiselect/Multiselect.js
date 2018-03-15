@@ -1,9 +1,8 @@
-import React from 'react';
-import Select from 'react-select';
+import React from 'react'
+import Select from 'react-select'
 
 class Multiselect extends React.Component {
-
-  constructor(props){
+  constructor (props) {
     super(props)
     this.state = {
       multi: true,
@@ -15,18 +14,17 @@ class Multiselect extends React.Component {
     this.handleOnChange = this.handleOnChange.bind(this)
   }
 
-	handleOnChange (value) {
+  handleOnChange (value) {
     alert(value)
     console.log('value: ', value)
-    value ? this.setState({ multiValue: value }, ()=>{
+    value ? this.setState({ multiValue: value }, () => {
       this.state.getCategories(this.state.multiValue)
     }) : null
-}
+  }
 
-  componentWillReceiveProps({categories, goalCategories, getCategories}){
+  componentWillReceiveProps ({categories, goalCategories, getCategories}) {
     // The options are passed down from 'categories', those are just
-  
-    
+
     // this.setState({ options: options, getCategories: getCategories, goalCategories: goalCategories })
     // defaultCategories.map(value => this.setState({multiValue: value}))
     // defaultCategories
@@ -38,27 +36,26 @@ class Multiselect extends React.Component {
     // goalCategories ? goalCategories.map(this.handleOnChange) : null
   }
 
-  componentDidMount(){
+  componentDidMount () {
     // (this.props.categories.length && alert(JSON.stringify(this.props.categories)))
-    {this.props.categories.length && console.log('this.props.categories: ', this.props.categories)}
-    {this.props.categories.length && this.props.categories.map(value => this.setState({multiValue: value}))}
+    { this.props.categories.length && console.log('this.props.categories: ', this.props.categories) }
+    { this.props.categories.length && this.props.categories.map(value => this.setState({multiValue: value})) }
     // {console.log('this.props.categories: ', this.props.categories)}
   }
 
-	render () {
-		const { multiValue, options, value } = this.state;
-		return (
-			<div className="section multiselectStyle">
-				<h3 className="section-heading">{this.props.label} </h3>
-				<Select.Creatable
-					multi={true}
-					options={this.props.categories || []} // These are the options, the user can select from, these are supplied by us.
-					onChange={this.handleOnChange.bind(this)}
+  render () {
+    const { multiValue, options, value } = this.state
+    return (
+      <div className='section multiselectStyle'>
+        <h3 className='section-heading'>{this.props.label} </h3>
+        <Select.Creatable
+          multi
+          options={this.props.categories || []} // These are the options, the user can select from, these are supplied by us.
+          onChange={this.handleOnChange.bind(this)}
           value={multiValue} // This is the value we are trying update
-				/>
-			</div>
-		);
-	}
-
+        />
+      </div>
+    )
+  }
 }
-export default Multiselect;
+export default Multiselect
