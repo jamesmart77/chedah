@@ -25,7 +25,7 @@ class MainMenu extends React.Component {
                     <li className="divider"></li>
                     <li><a href="#!" onClick={() => API.accountsSync()}><i className="large material-icons">sync</i>Sync Accounts</a></li>
                     <li className="divider"></li>
-                    <PlaidAccountLink><i className="large material-icons">insert_link</i>Link Account</PlaidAccountLink>
+                    <PlaidAccountLink refresh={ this.props.refresh }><i className="large material-icons">insert_link</i>Link Account</PlaidAccountLink>
                     <li className="divider"></li>
                     <li><a href="#!" onClick={() => logout()}><i className="large material-icons">keyboard_tab</i>Log Out</a></li>
                     <li className="divider"></li>
@@ -37,7 +37,7 @@ class MainMenu extends React.Component {
                     <li><div className="divider"></div></li>
                     <li><a href="#!" onClick={() => API.accountsSync()}><i className="large material-icons">sync</i>Sync Accounts</a></li>
                     <li><div className="divider"></div></li>
-                    <PlaidAccountLink><i className="large material-icons">insert_link</i>Link Account</PlaidAccountLink>
+                    <PlaidAccountLink refresh={ this.props.refresh }><i className="large material-icons">insert_link</i>Link Account</PlaidAccountLink>
                     <li className="divider"></li>
                     <li><a href="#!" onClick={() => logout()}><i className="large material-icons">keyboard_tab</i>Log Out</a></li>
                 </ul>

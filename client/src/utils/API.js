@@ -14,37 +14,37 @@ export default {
   // if there is a token, get current user
 
   getUser: data => getIdToken() ? axios.get(`/api/users/${decodeToken(getIdToken()).sub}`, { headers: { Authorization: `Bearer ${getAccessToken()}` }}) : Promise.reject({err: "The getUser api request can not be made because a user is not logged in and therefore there is no token"}),
-  
+
   // get user categories
-  // data.userId = 
+  // data.userId =
   getUserCategories: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/categories`, data,  { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
-  
+
   // get user categories
-  // data.userId = 
-  
+  // data.userId =
+
   getUserAccounts: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/accounts`, data, { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
   // get user categories
-  // data.userId = 
-  
+  // data.userId =
+
   getUserGigs: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs/get`, data, { headers: { Authorization: `Bearer ${getAccessToken()}` }}),
-  
-  
+
+
   createUserIfDoesNotExist: () => {
     const user = decodeToken(getIdToken());
     return axios.post("/api/users", user, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
   },
-  
+
   // #############################################
   // Gigs
   // #############################################
-  
+
   // add a goal to the current gig
   createGig: data => axios.post(`/api/users/${decodeToken(getIdToken()).sub}/gigs`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
   // data will contain a gigId
   deleteGig: data => axios.delete(`/api/gigs/${data}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
-  
-  // add a gig to an account 
+
+  // add a gig to an account
   // This Creates a new gig & attaches it's gig id to the account as 'defaultGigId'
   // data.name
   // data.accountId
@@ -57,7 +57,13 @@ export default {
   // data.budget
   // data.categories []  // array of ids
   addGoalToGig: data => axios.post(`/api/goals`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
-  
+
+
+  // edit gig
+  // data.gigId
+  // data.name
+  editGig: data => axios.put(`/api/gigs/${data.gigId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
   // #############################################
   // Goals
   // #############################################
@@ -87,7 +93,7 @@ export default {
   // #############################################
   // Accounts
   // #############################################
-  
+
   getAccounts: () => axios.post('/api/accounts/', {userId: decodeToken(getIdToken()).sub}, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
   // data.accountId needs to be passed in
@@ -106,16 +112,20 @@ export default {
   },
 
   // data.accountId
-  udpateAccount: data => {
-    data.userId = decodeToken(getIdToken()).sub
-    return axios.put(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-  },
+  updateAccount: data => axios.put(`/api/accounts/${data._id}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
   // data.accountId
-  deleteAccount: data => {
-    data.userId = decodeToken(getIdToken()).sub
-    return axios.delete(`/api/accounts/${data.accountId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-  },
+  deleteAccount: data => axios.delete(`/api/accounts/${data}`, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
+
+
+
+  // #############################################
+  // Transactions
+  // #############################################
+
+  // data.transactionId
+  // data.gigId
+  updateTransactionsGig: data => axios.put(`/api/transactions/${data.transactionId}`, data, { headers: { Authorization: `Bearer ${getAccessToken()}`}}),
 
 
   // #############################################
@@ -125,6 +135,7 @@ export default {
   // data.name
   createCategory: data => {
     data.userId = decodeToken(getIdToken()).sub
+    console.log(`⚠️  updating transaction: `, data);
     return axios.post('/api/categories', data, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
   },
 
@@ -135,6 +146,7 @@ export default {
   //   return axios.post('/api/users/items', data);
   // },
   getAccessToken: plaidObj => {
+    console.log('attempting to get access token')
     const data = {};
     data.user = decodeToken(getIdToken());
     data.plaidObj = plaidObj;
@@ -144,7 +156,7 @@ export default {
   accountsSync: () => {
     const user = decodeToken(getIdToken());
     axios.post('/api/users/transactions', user, { headers: { Authorization: `Bearer ${getAccessToken()}`}})
-      .then((res) => console.log(res))
+      .then((res) => window.location.reload())
       .catch((err) => console.log(err));
   },
 

@@ -15,18 +15,37 @@ class Dashboard extends React.Component {
         window.$(`#${id}`).modal('open')
     }
 
+    // return the user name
+    getUsername() {
+        const user = this.props.user || {};
+        const firstName = user.firstName || null;
+        const lastName = user.lastName || null;
+
+        var result = null;
+        if (firstName) {
+            result = firstName;
+            if (lastName) {
+                result = `${firstName} ${lastName}`
+            }
+        }
+        return result;
+    }
+
     render() {
-        const user = this.props.user
-        console.log(`Dashboard user: `, user);
-        const userName = `${user.firstName} ${user.lastName}`
+        const username = this.getUsername();
+        let dashHeader = 'Loading...';
+        if (username) {
+            dashHeader = `Welcome, ${username}`
+        }
+
         return (
             <main className='m8'>
                 <div className='container-fluid padding-1'>
                     <div className='row'>
-                        <div className='col s6'>
-                            <h5 className='dash-title no-caps'>{'Welcome, ' + userName}</h5>
+                        <div className='col s12 m6'>
+                            <h5 className='dash-title no-caps'>{dashHeader}</h5>
                         </div>
-                        <div className='col s6'>
+                        <div className='col s12 m6'>
 
                         </div>
                     </div>

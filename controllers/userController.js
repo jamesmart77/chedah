@@ -87,7 +87,7 @@ module.exports = {
               )
 
             gig.vendors = R.uniq(transactionsByVendor.map(vendorTransArray => {
-              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.map(t => t.amount)) }
+              return { name: vendorTransArray[0].name, total: R.sum(vendorTransArray.filter(t => isPositive(t.amount)).map(t => t.amount)) }
             })).sort((a, b) => b.total - a.total)
 
 
@@ -104,7 +104,7 @@ module.exports = {
             })).sort((a, b) => b.total - a.total)
             .filter(category => category.total > 0)
         
-            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(categoryArray => categoryArray.map(cat => cat.label)[0])))
+            const gigTransactionsPromises = gig.goals.map(goal => getGigTransactionsByCategories(gig._id, goal._id, goal.categories.map(cat => cat.label)))
             mutliDimensionalArrayOfGoalPromises.push(gigTransactionsPromises)
 
             const gigTransByGoal = Promise.all(gigTransactionsPromises)
@@ -243,12 +243,6 @@ module.exports = {
       return [ accounts, personalGigResponse, dbUser ]
     })
     .then( ( [accounts, personalGig, dbUser] = data ) => {
-      console.log('dbUser')
-      console.log(dbUser)
-      console.log('accounts')
-      console.log(accounts)
-      console.log('personalGig')
-      console.log(personalGig)
       // whenever we save an account, we initialize the personal Gig as the default gig
       // we are going to create 1 to n accounts here, they are not dependent, so let's do it in parellel
       const createAccountPromises = accounts
@@ -368,10 +362,6 @@ module.exports = {
                         .catch((err) => console.log(err))
                     }).then(dbUser => {})
                     .catch((err) => {
-                      // console.log("transaction insert failed");
-                      // console.log(err);
-                      // console.log("\nTransaction object");
-                      // console.log(transactionObj);
                     })
 
                   //iterate through all transactions in while loop

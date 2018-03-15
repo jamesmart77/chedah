@@ -14,10 +14,10 @@ class Nav extends React.Component {
 
                     {/* <!-- Navigation Bar --> */}
                     <div className="nav-wrapper">
-                        <a href="/dashboard" className="brand-logo header-logo"><img src="/assets/img/icon-24x24.svg" alt='chedah'/> chedah</a>
+                        <a href={isLoggedIn() ? "/dashboard" : "/"} className="brand-logo header-logo"><img src="/assets/img/icon-24x24.svg" alt='chedah'/> chedah</a>
                         {/* <!-- Hamburger Menu Icon --> */}
                         <a href="#!" data-activates="mobile-main-menu" className="button-collapse"><i className="material-icons">menu</i></a>
-                        <MainMenu user={this.props.user}/>
+                        <MainMenu refresh={ this.props.refresh } user={this.props.user}/>
 
                         {(isLoggedIn()) ?
                             <ul className="right topnav-menu">
