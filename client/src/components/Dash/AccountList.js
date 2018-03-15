@@ -39,7 +39,7 @@ class AccountList extends Component {
         const hasAccounts = (accounts.length > 0)
         let results = [
             <div key={0} className="row pl-2 valign-wrapper">
-            <span><i className="material-icons inflex">warning</i> Please Link an Account</span>
+                <span><i className="material-icons inflex">warning</i> Please Link an Account</span>
             </div>
         ]
 
@@ -70,7 +70,6 @@ class AccountList extends Component {
                     </div>
 
                     {this.renderListItems()}
-
                 </li>
             </ul>
         );

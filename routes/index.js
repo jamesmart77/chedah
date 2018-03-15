@@ -3,6 +3,7 @@ const router = require('express').Router();
 const apiRoutes = require('./api');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
+const redisClient = require("../server");
 
 // authentication
 const jwtCheck = jwt({

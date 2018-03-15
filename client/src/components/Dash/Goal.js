@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { GigChip } from '../Material';
+import { ModalEditGoal } from '../../components/Modals';
+const $ = require('jquery');
 
 // materialize goal preview
 /*
@@ -16,9 +18,9 @@ class Goal extends Component {
 
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
 
-        console.log(`Goal props: `, props);
+        this.handleClick = this.handleClick.bind(this);
+        // this.showModal = this.showModal.bind(this);
     };
 
     handleClick(e) {
@@ -31,6 +33,10 @@ class Goal extends Component {
         ));
     };
 
+    showModal() {
+        window.$('#edit-goal-modal').modal('open');
+    }
+
     render() {
         const cname = (this.props.net >= 0) ? 'new badge teal' : 'new badge negative red';
         let budget = this.props.budget
@@ -42,7 +48,7 @@ class Goal extends Component {
                 <div className='row valign-wrapper'>
 
                     <div className='col s6 m7'>
-                        <a className="side-headers" href={`goals/${this.props._id}`}> {this.props.name}</a>
+                        <a className="side-headers modal-trigger" data-target='edit-goal-modal'> {this.props.name}</a>
                     </div>
 
                     <div className='col s6 m5 valign-wrapper'>
@@ -59,6 +65,7 @@ class Goal extends Component {
                         />
                     </div>
                 </div>
+
             </div>
 
         );
