@@ -42,10 +42,10 @@ class Dashboard extends React.Component {
             <main className='m8'>
                 <div className='container-fluid padding-1'>
                     <div className='row'>
-                        <div className='col s6'>
+                        <div className='col s12 m6'>
                             <h5 className='dash-title no-caps'>{dashHeader}</h5>
                         </div>
-                        <div className='col s6'>
+                        <div className='col s12 m6'>
 
                         </div>
                     </div>

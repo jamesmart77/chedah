@@ -8,7 +8,8 @@ class RefreshButton extends React.Component {
         super(props)
 
         this.state = {
-            updated: false
+            updated: false,
+            showTooltip: true
         }
 
         this.updateUser = this.updateUser.bind(this)
@@ -16,11 +17,7 @@ class RefreshButton extends React.Component {
 
     updateUser() {
         API.accountsSync()
-        setTimeout(this.setState({updated: true}), 300)
-    }
-
-    componentWillReceiveProps(nextProps) {
-
+        setTimeout(this.setState({updated: true, showTooltip: false}), 300)
     }
 
     getTransactions() {
@@ -35,9 +32,10 @@ class RefreshButton extends React.Component {
         })
 
         const pulseValue = (tcount == 0) ? 'pulse' : ''
+        const ttip = (this.state.showTooltip) ? ' tooltipped' : ''
         return (
             <li className='refresh-btn'>
-                <a onClick={this.updateUser} className={'waves-effect waves-light btn-floating z-depth-2 ' + pulseValue}>
+                <a onClick={this.updateUser} data-position="bottom" data-delay="50" data-tooltip="sync account & transaction" className={'waves-effect waves-light btn-floating z-depth-2 ' + pulseValue + ttip}>
                     <i className="material-icons right">autorenew</i>
                 </a>
             </li>
