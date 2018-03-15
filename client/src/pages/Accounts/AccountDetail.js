@@ -66,7 +66,6 @@ class AccountDetail extends React.Component {
             gigs.data.forEach(gig => {
                 gigData.push({name: gig.name, id: gig._id, description: gig.description})
             })
-            // alert(JSON.stringify(gigData, null, 2))
             this.setState({gigs: gigData})
         })
         .catch(err => {
@@ -291,6 +290,7 @@ class AccountDetail extends React.Component {
             }
         }
 
+        // render headers depenending on account type
         let headerContent;
         if (isCreditAccount) {
             headerContent = this.renderCreditHeader(iconName, accountName, availableBalance, currentBalance, currentLimit, dueDate, apr, fees)
@@ -309,16 +309,6 @@ class AccountDetail extends React.Component {
                        </div>
                    <div className="card-content">
 
-                       <div className="row">
-                           <div className="col s4">
-                         <div className="input-field col s12">
-                           <i className="material-icons prefix">textsms</i>
-                           <input type="text" id="autocomplete-input" className="autocomplete" />
-                           <label htmlFor="autocomplete-input">Test</label>
-                         </div>
-                       </div>
-                       </div>
-                       <div className="col s8"></div>
 
                      <div className="row">
                        <div className="col s12">

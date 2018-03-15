@@ -66,7 +66,7 @@ class App extends React.Component {
                       <Route exact path="/dashboard" component={() => <Dashboard refresh={ this.refresh.bind(this) } user={this.state.user || {} }/>}/>
                       <Route exact path="/gigs/:id" component={this.GigDetailPage} />
                       <Route exact path="/login" component={Login} />
-                      <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} }/>} />
+                      <Route exact path="/accounts" component={() => <AccountsHome user={this.state.user || {} } refresh={ this.refresh.bind(this)}/>} />
                       <Route exact path="/accounts/:id" component={AccountDetail} />
                   </Switch>
               )
