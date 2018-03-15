@@ -896,49 +896,29 @@ input.editable-cell {
 .header {
     background-color: #263238;
     height: 450px;
-    /* background: url(../img/headerbkg.png);  */
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    /* opacity: .8; */
-    /* height:450px; */
 }
 
 .pullquoteblock {
     background-color: #263238;
     height: 250px;
-    /* background: url(../img/headerbkg.png);  */
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    /* opacity: .8; */
-    /* height:450px; */
 }
 
-
-    .vignette {
-        -webkit-box-shadow: inset 0px 0px 185px rgba(0,0,0,0.4);
-        -moz-box-shadow:    inset 0px 0px 185px rgba(0,0,0,0.4);
-        box-shadow:         inset 0px 0px 185px rgba(0,0,0,0.4);
+.vignette {
+    -webkit-box-shadow: inset 0px 0px 185px rgba(0,0,0,0.4);
+    -moz-box-shadow:    inset 0px 0px 185px rgba(0,0,0,0.4);
+    box-shadow:         inset 0px 0px 185px rgba(0,0,0,0.4);
   }
 
 .header2 {
-    /* background-color: blue; */
-    /* height: 350px; */
     text-align: center;
-    /* background-color: #d0d0d0; */
     margin: 10px 0px 10px 0;
     padding: 80px 0px 80px 0px;
-}
-
-.header1 {
-    /* background-color: blue; */
-    /* height: 350px; */
-    text-align: center;
-    margin: 10px 0px 10px 0;
-    display:flex;
-    flex-wrap: wrap;
-    /* padding: 50px 0px 50px 0px; */
 }
 
 .headerTitle {
@@ -954,56 +934,29 @@ input.editable-cell {
     text-transform: uppercase;
 }
 
-img.productIMG {
-    width: 100%;
-    height: auto;
-}
-
-/*
-.landingList {
-    text-align: left;
-} */
-
-.row .landingImg1 {
-    /* margin: 25px 0 0 0; */
-    background-color: #009688;
-    padding: 50px 50px 50px 50px;
-}
-
-.row .landingImg2 {
-    /* margin: 25px 0 0 0; */
-    background-color: #263238;
-    padding: 50px 50px 50px 50px;
-}
-
-.row .landingImg3 {
-    /* margin: 25px 0 0 0; */
-    background-color: #e64a19;
-    padding: 50px 50px 50px 50px;
+.row .landingImg {
+    padding: 20px;
 }
 
 .productTitle {
     font-family: 'Roboto Slab', serif;
-    /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 2rem;
     line-height: 110%;
-    color: white;
+    color: #263238;
     text-align: center;
 }
 
 .productText {
     font-family: 'Rubik', sans-serif;
-    /* text-transform: uppercase; */
     font-size: 1rem;
     line-height: 110%;
-    color: white;
+    color: #009688;
     text-align: center;
 }
 
 .titleHead {
     font-family: 'Roboto Slab', serif;
-    /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 3.28rem;
     line-height: 110%;
@@ -1014,7 +967,6 @@ img.productIMG {
 
 .pullquote {
     font-family: 'Roboto Slab', serif;
-    /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 2.28rem;
     line-height: 110%;
@@ -1022,18 +974,14 @@ img.productIMG {
     letter-spacing: 5px;
     text-align: center;
      opacity: .3;
-    /* padding: 100px 0 0 0; */
 }
 
 .landingListTitle {
     font-family: 'Roboto Slab', serif;
-    /* font-weight: 400; */
     text-transform: uppercase;
     font-size: 2rem;
     line-height: 150%;
     color: #263238;
-    /* opacity: .5; */
-    /* text-align: left; */
     padding-bottom: 15px;
 }
 
@@ -1050,14 +998,17 @@ img.productIMG {
 }
 
 
-/* .modalSpace {
-    margin: 10px;
-} */
+/* Fixes for inline modals > edit gig / edit goal */
+.Select {
+    z-index: 1000;
+}
 
+.modal-content h4 {
+    padding-bottom: 25px;
+}
 
-/* This is a hack for the multiselect dropdown on the edit a goal modal */
-.multiselectStyle {
-    width: 60%;
+.input-field label {
+    padding-top: 15px;
 }
 
 

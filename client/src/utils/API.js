@@ -144,6 +144,7 @@ export default {
   //   return axios.post('/api/users/items', data);
   // },
   getAccessToken: plaidObj => {
+    console.log('attempting to get access token')
     const data = {};
     data.user = decodeToken(getIdToken());
     data.plaidObj = plaidObj;

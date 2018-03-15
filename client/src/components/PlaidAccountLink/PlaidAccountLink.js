@@ -17,7 +17,12 @@ class PlaidAccountLink extends React.Component {
         }
 
         API.getAccessToken(plaidObj)
-            .then(console.log)
+            .then(plaidObj =>{
+                window.location.reload()  // This should really be an api refresh, but for some reason, can't get that to work.
+                console.log('plaidObj: ', plaidObj)
+                this.props.refresh()
+            }
+            )
             .catch((err) => console.log);
 
         // API.createItem(plaidObj)

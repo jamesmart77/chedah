@@ -1,9 +1,10 @@
 import React from "react";
 import "./GigView.css";
 import {formatCurrencyValueJSX} from '../../utils/currency';
-import {Modal, Button, Row, Input} from 'react-materialize';
+import {Modal, Button } from 'react-materialize';
 import { Multiselect } from '../Multiselect'
 import API from '../../utils/API'
+import Select from 'react-select'
 
 class Goal extends React.Component { 
 
@@ -11,7 +12,13 @@ class Goal extends React.Component {
         userCategories: [],
         categories: this.props.categories,
         name: this.props.name,
-        budget: this.props.budget
+        budget: this.props.budget,
+
+
+        multi: true,
+        multiValue: [],
+        options: [],
+        value: undefined
       }
 
     getCategories = categories => {
@@ -21,7 +28,7 @@ class Goal extends React.Component {
     componentWillMount () {
         API.getUserCategories()
           .then(({data}) => {
-            this.setState({userCategories: data})
+            this.setState({userCategories: data, categories: this.props.categories, multiValue: this.props.categories})
           }).catch(err => {
           console.log('Error Categories')
           console.log(err)
@@ -32,9 +39,16 @@ class Goal extends React.Component {
         this.setState({[event.target.name]: event.target.value})
       }
 
+    // this bad larry is for the multiselect
+    handleOnChange (value) {
+        console.log('value: ', value)
+        value ? this.setState({ multiValue: value }, ()=>{
+          this.getCategories(this.state.multiValue)
+        }) : null
+    }
+
 
     editGoal () {
-        // console.log("button was pushed")
         const data = {}
     
         data.goalId = this.props.id
@@ -51,7 +65,6 @@ class Goal extends React.Component {
       }
 
       deleteGoal () {
-        // console.log("button was pushed")
         const data = {}
     
         data.goalId = this.props.id
@@ -65,33 +78,21 @@ class Goal extends React.Component {
         })
       }
 
-
-    //   deleteGoal = id => {
-    //     API.deleteGoal(id)
-    //       .then(res => this.props.refresh())
-    //       .catch(err => console.log(err))
-    //   }
-
-
-
 render() {
 return (
 <div className="card">
 <div className="card-content cardHeader">
 <div className="row">
-    <div className="col s11">
+    <div className="col s10 l11">
         <span className="card-title"><span className="primaryHeaderText">Goal:</span> <span className="secondaryHeaderText">{this.props.name}</span></span>
     </div>
-    <div className="col s1">
+    <div className="col s2 l1">
     <Modal
-        header="Edit Goal"
+        header= {<div className="modalTitle">Edit Goal</div>}
         trigger={<a href="!#"><i className="material-icons iconStyleMed">settings</i></a>}
         actions={
             <section className="modalSpace">
-             <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
-             <br/>
-             <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button>
-            
+              <Button waves='light' className="modal-action modal-close deep-orange darken-3 white-text" onClick={this.deleteGoal.bind(this)} >Delete Goal</Button> <Button waves='light' className="modal-action modal-close teal" onClick={this.editGoal.bind(this)} >Update Goal</Button>
             </section>
           }>
           
@@ -107,7 +108,19 @@ return (
           <div className='row'>
             <span>Select Expense Categories To Track:</span>
           </div>
-          <Multiselect categories= { this.state.userCategories } getCategories={ this.getCategories.bind(this) } goalCategories = { this.props.categories } />
+          { console.log('this.props.categories: ', this.props.categories)}
+
+          	<Select.Creatable
+					multi={true}
+					options={ this.state.userCategories.map(c => {
+                        const newCat = {}
+                        newCat.label = c.name
+                        newCat.value = c._id
+                        return newCat
+                    }) || [] } // These are the options, the user can select from, these are supplied by us.
+					onChange={this.handleOnChange.bind(this)}
+                    value={this.state.multiValue} // This is the value we are trying update
+				/>
         <br/>
         <br/>
         <br/>
@@ -117,7 +130,7 @@ return (
 </div>
 <div className="card-content cardBody">
 <div className="row">
-    <div className="col m4">
+    <div className="col s12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Budget</span>
@@ -131,7 +144,7 @@ return (
     </div>
 
   
-    <div className="col m4">
+    <div className="col s12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Expenses</span>
@@ -142,8 +155,8 @@ return (
         </div>
     </div>
 
-    {/* Net */}
-    <div className="col m4">
+
+    <div className="col s12 l4">
         <div className="row">
             <div className="col">
                 <span className="gig-dash-subtitle">Net</span>
