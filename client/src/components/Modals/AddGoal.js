@@ -39,7 +39,7 @@ class ModalAddGoal extends React.Component {
     data.categories = this.state.categories
 
     API.addGoalToGig(data).then(res => {
-      this.setState({name: '', budget: ''})
+      this.setState({name: '', budget: '', multiValue: []})
       this.props.refresh()
     }).catch(err => {
       console.log("We were unable to add a goal to the gig, here's the returned error message from the server")

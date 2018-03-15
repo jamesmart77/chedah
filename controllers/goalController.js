@@ -38,7 +38,7 @@ module.exports = {
           )
 
           const goalPromise = db.Goal.findOneAndUpdate({_id: dbGoal._id},
-            {$push: {
+            {$set: {
               categories: categories
             }})
           
