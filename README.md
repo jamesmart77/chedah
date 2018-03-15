@@ -1,5 +1,7 @@
 # Chedah
 
+[![Build Status](https://travis-ci.org/jamesmart77/chedah.svg?branch=master)](https://travis-ci.org/jamesmart77/chedah)
+
 Is the fear of having to overlook your expenses and budgets preventing you from starting a side hustle? Does the word budgeting make you uncomfortable? If there was a way you could just overlook your finances vs. spending time on tracking them, would you go out and start a side gig?
 
 ## Lucky for you, there is Chedah!
