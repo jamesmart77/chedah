@@ -1,116 +1,112 @@
 // materialize initialization module
 
 // document start
-(function($) {
-    $(function() {
+(function ($) {
+  $(function () {
+    // Dropdowns
+    $('select').material_select()
 
+    // Modal Dialog for profile page
+    // the 'href' attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal()
 
-        //Dropdowns
-        $('select').material_select();
+    // Modal Dialog Date Picker
+    $('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 100,
+      today: 'Today',
+      clear: 'Clear',
+      close: 'Ok',
+      closeOnSelect: false // Close upon selecting a date,
+    })
 
-        //Modal Dialog for profile page
-        // the 'href' attribute of the modal trigger must specify the modal ID that wants to be triggered
-        $('.modal').modal();
+    // user slide out menu
+    $('.user-side-collapse').sideNav({
+      menuWidth: 300,
+      edge: 'right'
+    })
 
-        //Modal Dialog Date Picker
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 100,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false // Close upon selecting a date,
-        });
+    $('.slider').slider({
+      full_width: true
+    })
 
-        // user slide out menu
-        $('.user-side-collapse').sideNav({
-          menuWidth: 300,
-          edge: 'right',
-        });
+    // dropdown menu positioning
+    $('.dropdown-button').dropdown({
+      hover: true,
+      belowOrigin: true,
+      alignment: 'right',
+      constrainWidth: false // don't force a fixed width
+    })
 
-        $('.slider').slider({
-            full_width: true
-        });
+    // gigmenu
+    $('.acct-gig-menu-trigger').dropdown({
+      hover: false,
+      belowOrigin: true,
+      alignment: 'left',
+      constrainWidth: false
+    })
 
-        // dropdown menu positioning
-        $('.dropdown-button').dropdown({
-            hover: true,
-            belowOrigin: true,
-            alignment: 'right',
-            constrainWidth: false // don't force a fixed width
-        });
+    $('.gig-frequency').dropdown({
+      hover: false,
+      // gutter:100,         // push menu to the left
+      belowOrigin: true,
+      alignment: 'right',
+      constrainWidth: false // don't force a fixed width
+    })
 
-        // gigmenu
-        $('.acct-gig-menu-trigger').dropdown({
-            hover: false,
-            belowOrigin: true,
-            alignment: 'left',
-            constrainWidth: false
-        });
+    $('.account-actions').dropdown({
+      hover: false,
+      // gutter:100,         // push menu to the left
+      belowOrigin: true,
+      alignment: 'right',
+      constrainWidth: false // don't force a fixed width
+    })
 
-        $('.gig-frequency').dropdown({
-            hover: false,
-            // gutter:100,         // push menu to the left
-            belowOrigin: true,
-            alignment: 'right',
-            constrainWidth: false // don't force a fixed width
-        });
+    // dropdown items color
+    $('.dropdown-content>li>a').css('color', '#666')
 
-        $('.account-actions').dropdown({
-            hover: false,
-            // gutter:100,         // push menu to the left
-            belowOrigin: true,
-            alignment: 'right',
-            constrainWidth: false // don't force a fixed width
-        });
+    // mobile side main menu
+    $('.button-collapse').sideNav('hide')
+    $('.button-collapse').sideNav({
+      menuWidth: 300,
+      edge: 'left'
+    })
 
-        // dropdown items color
-        $('.dropdown-content>li>a').css('color', '#666');
+    $('ul.tabs').tabs()
+    $('.materialboxed').materialbox()
 
-        // mobile side main menu
-        $('.button-collapse').sideNav('hide');
-        $('.button-collapse').sideNav({
-            menuWidth: 300,
-            edge: 'left',
-        });
+    $('.chips').material_chip({delete: false})
+    $('.chips-initial').material_chip({
+      data: [{
+        tag: 'uber'
+      }, {
+        tag: 'programming'
+      }, {
+        tag: 'landlording'
+      }]
+    })
 
-        $('ul.tabs').tabs();
-        $('.materialboxed').materialbox();
+    $('.chips-placeholder').material_chip({
+      placeholder: 'Enter a tag',
+      secondaryPlaceholder: '+Tag'
+    })
 
+    $('.chips-autocomplete').material_chip({
+      autocompleteOptions: {
+        data: {
+          'uber': null,
+          'programming': null,
+          'landlording': null
+        },
+        limit: Infinity,
+        minLength: 1,
+        delete: false
+      }
+    })
 
-        $('.chips').material_chip({delete: false});
-        $('.chips-initial').material_chip({
-            data: [{
-                tag: 'uber',
-            }, {
-                tag: 'programming',
-            }, {
-                tag: 'landlording',
-            }],
-        });
+    $('.collapsible').collapsible()
 
-        $('.chips-placeholder').material_chip({
-            placeholder: 'Enter a tag',
-            secondaryPlaceholder: '+Tag',
-        });
-
-        $('.chips-autocomplete').material_chip({
-            autocompleteOptions: {
-                data: {
-                    'uber': null,
-                    'programming': null,
-                    'landlording': null
-                },
-                limit: Infinity,
-                minLength: 1,
-                delete: false
-            }
-        });
-
-        $('.collapsible').collapsible();
-
-        // initialize text fields
-        Materialize.updateTextFields();
-
-    }); // end of document ready
-})(jQuery); // end of jQuery namepace
+    // initialize text fields
+    Materialize.updateTextFields()
+  }) // end of document ready
+})(jQuery) // end of jQuery namepace

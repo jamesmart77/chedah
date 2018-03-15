@@ -44,7 +44,8 @@ module.exports = {
               .then(dbGig => res.json(dbGig))
               .catch(err => {
                 console.log(err)
-                res.json(err)})
+                res.json(err)
+              })
           })
       })
   },
@@ -58,11 +59,14 @@ module.exports = {
         db.User.findOneAndUpdate({'auth_id': req.body.userId},
           {$push: { gigs: dbGig._id }})
           .then(dbUser => {
-            res.json(dbUser)})
+            res.json(dbUser)
+          })
           .catch(err => {
-            res.status(422).json(err)})
+            res.status(422).json(err)
+          })
       }).catch(err => {
-      res.status(422).json(err)})
+        res.status(422).json(err)
+      })
   },
 
   edit: (req, res) => {
@@ -70,8 +74,8 @@ module.exports = {
     const {gigId, ...gig} = req.body
     console.log('gig:', gig)
     db.Gig.findByIdAndUpdate({_id: req.params.id}, gig)
-      .then(dbGig => res.status(200).json({msg: "Great Job!!!, goal edited"}))
-      .catch(err => {console.log(err); res.status(422).json(err)})
+      .then(dbGig => res.status(200).json({msg: 'Great Job!!!, goal edited'}))
+      .catch(err => { console.log(err); res.status(422).json(err) })
   },
 
   // remove a gig
@@ -79,11 +83,14 @@ module.exports = {
     console.log(`-> looking for a gig...`)
     db.Gig.findById({ _id: req.query.id })
       .then(dbgig => {
-        dbgig.remove()})
+        dbgig.remove()
+      })
       .then(dbgig => {
-        res.json(dbgig)})
+        res.json(dbgig)
+      })
       .catch(err => {
-        res.status(422).json(err)})
+        res.status(422).json(err)
+      })
   },
 
   findById: (req, res) => {
@@ -138,9 +145,9 @@ module.exports = {
             console.log('dbPersonalGig: ', dbGig)
             console.log('dbPersonalGig._id: ', dbGig._id)
             db.Account.findOneAndUpdate({defaultGigId: req.params.id}, {defaultGigId: dbGig._id})
-            .then(dbAccount => res.status(200).json({msg: "Succcessfully deleted the gig, and updated the association in accounts"}))
-      }).catch(err => res.status(500).json({msg: "Could not delete the gig", err: err}))
-    }).catch(err => res.status(500).json({msg: "Could not delete the gig", err: err}))
+              .then(dbAccount => res.status(200).json({msg: 'Succcessfully deleted the gig, and updated the association in accounts'}))
+          }).catch(err => res.status(500).json({msg: 'Could not delete the gig', err: err}))
+      }).catch(err => res.status(500).json({msg: 'Could not delete the gig', err: err}))
   }
 
 }

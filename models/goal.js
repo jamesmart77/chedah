@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-
 // schema for a goal object
 const goalSchema = new Schema({
   name: {
@@ -17,8 +16,6 @@ const goalSchema = new Schema({
   },
   categories: []
 })
-
-
 
 const Goal = mongoose.model('Goal', goalSchema)
 module.exports = Goal

@@ -1,9 +1,9 @@
-const path = require('path');
-const router = require('express').Router();
-const apiRoutes = require('./api');
-const jwt = require('express-jwt');
-const jwks = require('jwks-rsa');
-const redisClient = require("../server");
+const path = require('path')
+const router = require('express').Router()
+const apiRoutes = require('./api')
+const jwt = require('express-jwt')
+const jwks = require('jwks-rsa')
+const redisClient = require('../server')
 
 // authentication
 const jwtCheck = jwt({
@@ -26,6 +26,4 @@ router.use(function (req, res) {
   res.sendFile(path.join(__dirname, '../client/build/index.html'))
 })
 
-
 module.exports = router
-

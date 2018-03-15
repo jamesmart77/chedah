@@ -1,1 +1,1 @@
-export { default } from "./PlaidAccountLink";
+export { default } from './PlaidAccountLink'
