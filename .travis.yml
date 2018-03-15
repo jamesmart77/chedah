@@ -5,5 +5,5 @@ services:
 - mongodb
 - redis-server
 install:
-- npm install
+- yarn install
 - npm test

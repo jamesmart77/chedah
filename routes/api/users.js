@@ -11,8 +11,9 @@ client.on("connect", () =>{
 
 const cacheCheck = (req,res, next) => {
   console.log("Cache checked")
-  const userFetch = req.params.authID;
-  client.hmget(userFetch, (err, data)=>{
+  const userFetch = req.params.authId;
+  console.log(`This is the ${userFetch}`)
+  client.get(userFetch, (err, data)=>{
     if(err) throw err;
 
     if(data != null){
